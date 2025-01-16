@@ -46,7 +46,7 @@ public class GroupMember {
         GroupMemberDTO memberDTO = new GroupMemberDTO();
         memberDTO.setId(this.id);
         memberDTO.setUsername(this.user.getUsername());
-        memberDTO.setRole(this.role);
+        memberDTO.setRole(String.valueOf(this.role));
         memberDTO.setJoinDate(this.joinDate);
         return memberDTO;
     }
