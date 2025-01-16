@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,12 +19,11 @@ public class Group {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "group_name")
     private String name;
 
-    @OneToMany(mappedBy = "group")
-    private List<Season> seasons;
-
-    private Long activeSeasonId;
+    @Column(name = "created_at")
+    private LocalDate createdAt;
 
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<GroupMember> members;

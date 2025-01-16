@@ -5,14 +5,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class SeasonDTO {
-
+public class RaceLocationDTO {
     private Long id;
-    private int year;
+    private String locationName;
 }

@@ -28,6 +28,7 @@ public class GroupMember {
     @Enumerated(EnumType.STRING)
     private GroupRole role;
 
+    @Column(name = "joined_at")
     private LocalDate joinDate;
 
     public GroupMember(Group group, User user, GroupRole role, LocalDate joinDate) {

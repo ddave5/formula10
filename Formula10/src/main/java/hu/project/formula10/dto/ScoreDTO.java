@@ -5,14 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class SeasonDTO {
-
+public class ScoreDTO {
     private Long id;
-    private int year;
+    private Long tipId;
+    private int point;
 }

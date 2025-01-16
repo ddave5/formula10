@@ -1,6 +1,5 @@
 package hu.project.formula10.model;
 
-import hu.project.formula10.dto.GroupDTO;
 import hu.project.formula10.dto.SeasonDTO;
 import hu.project.formula10.enums.SeasonStatus;
 import jakarta.persistence.*;
@@ -8,8 +7,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.stream.Collectors;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "season")
@@ -21,21 +20,18 @@ public class Season {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "group_id", nullable = false)
-    private Group group;
+    @Column(name = "year")
+    private int year;
 
-    private LocalDate startDate;
-    private LocalDate endDate;
-
-    @Enumerated(EnumType.STRING)
-    private SeasonStatus status;
+    @ManyToMany
+    @JoinTable(
+            name = "season_driver", // Join table name
+            joinColumns = @JoinColumn(name = "seasonId"), // Foreign key for season
+            inverseJoinColumns = @JoinColumn(name = "driverId") // Foreign key for driver
+    )
+    private Set<Driver> drivers = new HashSet<>();
 
     public SeasonDTO toDTO() {
-        SeasonDTO seasonDTO = new SeasonDTO();
-        seasonDTO.setId(this.id);
-        seasonDTO.setStartDate(this.startDate);
-        seasonDTO.setEndDate(this.endDate);
-        return seasonDTO;
+        return new SeasonDTO(this.getId(), this.getYear());
     }
 }
