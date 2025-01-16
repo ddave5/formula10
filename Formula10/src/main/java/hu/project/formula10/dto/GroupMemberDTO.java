@@ -12,6 +12,6 @@ public class GroupMemberDTO {
 
     private Long id;
     private String username;
-    private GroupRole role;
+    private String role;
     private LocalDate joinDate;
 }

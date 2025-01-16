@@ -20,13 +20,6 @@ public class SeasonService {
         return seasonRepository.save(season);
     }
 
-    public Season archiveSeason(Long seasonId) {
-        Season season = seasonRepository.findById(seasonId)
-                .orElseThrow(() -> new RuntimeException("Season not found"));
-        season.setStatus(SeasonStatus.ARCHIVED);
-        return seasonRepository.save(season);
-    }
-
     public List<Season> getSeasonsByGroupId(Long groupId) {
         return seasonRepository.findByGroupId(groupId);
     }

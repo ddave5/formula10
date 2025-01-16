@@ -40,13 +40,7 @@ public class User {
     public User() { }
 
     public UserDTO toDTO() {
-        UserDTO userDTO = new UserDTO();
-        userDTO.setId(this.id);
-        userDTO.setUsername(this.username);
-        userDTO.setEmail(this.email);
-        userDTO.setCreatedAt(this.getCreatedAt());
-        userDTO.setIsVerified(this.getIsVerified());
-        return userDTO;
+        return new UserDTO(this.getId(), this.getUsername(), this.getEmail(), this.getIsVerified(), this.getCreatedAt());
     }
 
 }

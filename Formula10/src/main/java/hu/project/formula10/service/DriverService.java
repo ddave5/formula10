@@ -39,7 +39,6 @@ public class DriverService {
     public DriverDTO createDriver(DriverDTO driverDTO) {
         Driver driver = new Driver();
         driver.setName(driverDTO.getName());
-        driver.setActive(driverDTO.isActive());
         driverRepository.save(driver);
         return driver.toDTO();
     }

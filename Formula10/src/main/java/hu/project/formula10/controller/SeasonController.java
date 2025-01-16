@@ -21,11 +21,6 @@ public class SeasonController {
         return seasonService.createSeason(season);
     }
 
-    @PostMapping("/{id}/archive")
-    public Season archiveSeason(@PathVariable Long id) {
-        return seasonService.archiveSeason(id);
-    }
-
     @GetMapping("/group/{groupId}")
     public List<Season> getSeasonsByGroupId(@PathVariable Long groupId) {
         return seasonService.getSeasonsByGroupId(groupId);
