@@ -1,11 +1,8 @@
 package hu.project.formula10.service;
 
-import hu.project.formula10.enums.SeasonStatus;
 import hu.project.formula10.model.Season;
 import hu.project.formula10.repository.SeasonRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class SeasonService {
@@ -18,9 +15,5 @@ public class SeasonService {
 
     public Season createSeason(Season season) {
         return seasonRepository.save(season);
-    }
-
-    public List<Season> getSeasonsByGroupId(Long groupId) {
-        return seasonRepository.findByGroupId(groupId);
     }
 }

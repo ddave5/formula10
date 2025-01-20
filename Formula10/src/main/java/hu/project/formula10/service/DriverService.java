@@ -3,13 +3,9 @@ package hu.project.formula10.service;
 import hu.project.formula10.dto.DriverDTO;
 import hu.project.formula10.model.Driver;
 import hu.project.formula10.repository.DriverRepository;
-import hu.project.formula10.repository.TipRepository;
-import hu.project.formula10.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class DriverService {
@@ -23,13 +19,6 @@ public class DriverService {
     public List<DriverDTO> getAllDrivers() {
         return driverRepository.findAll().stream()
                 .map(Driver::toDTO).toList();
-    }
-
-    public List<DriverDTO> getAllActiveDrivers() {
-        return driverRepository.findByIsActiveTrue()
-                .stream()
-                .map(Driver::toDTO)
-                .collect(Collectors.toList());
     }
 
     public DriverDTO getDriverById(Long id) {

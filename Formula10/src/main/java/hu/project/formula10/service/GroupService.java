@@ -11,6 +11,7 @@ import hu.project.formula10.repository.GroupRepository;
 import hu.project.formula10.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -30,6 +31,7 @@ public class GroupService {
 
         Group group = new Group();
         group.setName(groupDTO.getName());
+        group.setCreatedAt(LocalDate.now());
 
         return groupRepository.save(group);
     }
@@ -42,9 +44,6 @@ public class GroupService {
         return groupRepository.findAll();
     }
 
-    public void deleteGroupById(Long id) {
-        groupRepository.deleteById(id);
-    }
 
     public GroupMemberDTO addMemberToGroup(Long groupId, GroupMemberDTO groupMemberDTO) {
         // Tag felvétel logika
