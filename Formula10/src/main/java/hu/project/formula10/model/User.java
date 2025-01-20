@@ -6,7 +6,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -37,6 +40,12 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<GroupMember> groups;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
+
     public User() { }
 
     public User(String username, String email, String passwordHash) {
@@ -48,7 +57,7 @@ public class User {
     }
 
     public UserDTO toDTO() {
-        return new UserDTO(this.getId(), this.getUsername(), this.getEmail(), this.getIsVerified(), this.getCreatedAt());
+        return new UserDTO(this.getId(), this.getUsername(), this.getEmail(), this.getIsVerified(), this.getCreatedAt(), new ArrayList<>(this.roles));
     }
 
 }

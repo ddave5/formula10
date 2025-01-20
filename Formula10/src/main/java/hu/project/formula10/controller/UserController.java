@@ -1,6 +1,8 @@
 package hu.project.formula10.controller;
 
+import hu.project.formula10.config.jwt.JwtAuthenticationResponse;
 import hu.project.formula10.dto.CreateUserDTO;
+import hu.project.formula10.dto.LoginRequestDTO;
 import hu.project.formula10.dto.UserDTO;
 import hu.project.formula10.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -30,5 +32,11 @@ public class UserController {
         Optional<UserDTO> user = userService.getUserByUsername(username);
         return user.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> authenticateUser(@RequestBody LoginRequestDTO loginRequest) {
+        String token = userService.authenticateUser(loginRequest.getUsername(), loginRequest.getPassword());
+        return ResponseEntity.ok(new JwtAuthenticationResponse(token));
     }
 }
