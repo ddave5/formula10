@@ -1,3 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+
+:root {
+    --color-font: #e4e4e4;
+    --color-black: #1b1b1b;
+    --color-primary: #B90E0A;
+    --color-primary-variant: #d5d5d5;
+  
+    --transition: all 400ms ease;
+  
+    --container-width-lg: 80%;
+    --container-width-md: 86%;
+    --container-width-sm: 90%;
+  }
+
+.title-font {
+    font-family: "Bangers", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.bg-primary {
+
+}
