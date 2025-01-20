@@ -39,6 +39,14 @@ public class User {
 
     public User() { }
 
+    public User(String username, String email, String passwordHash) {
+        this.username = username;
+        this.email = email;
+        this.password = passwordHash;
+        this.isVerified = false;
+        this.createdAt = LocalDateTime.now();
+    }
+
     public UserDTO toDTO() {
         return new UserDTO(this.getId(), this.getUsername(), this.getEmail(), this.getIsVerified(), this.getCreatedAt());
     }
