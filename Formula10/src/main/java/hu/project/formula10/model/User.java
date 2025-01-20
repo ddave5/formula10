@@ -25,10 +25,10 @@ public class User {
     @Column(nullable = false, unique = true, length = 100, name = "email")
     private String email;
 
-    @Column(nullable = false, length = 255, name = "passwordHash")
+    @Column(nullable = false, name = "password_hash")
     private String password;
 
-    @Column(nullable = false, name = "isVerified")
+    @Column(nullable = false, name = "is_verified")
     private Boolean isVerified = false;
 
     @Column(nullable = false, updatable = false, name = "created_at")
