@@ -17,15 +17,15 @@ public class TipController {
         this.tipService = tipService;
     }
 
-    @PostMapping("/user/{userId}/race/{raceId}/driver/{driverId}")
-    public ResponseEntity<TipDTO> createTip(@PathVariable Long userId, @PathVariable Long raceId, @PathVariable Long driverId, @RequestBody TipDTO tipDTO) {
-        TipDTO createdTip = tipService.createTip(tipDTO, userId, raceId, driverId);
+    @PostMapping("/add")
+    public ResponseEntity<TipDTO> addTip(@RequestBody TipDTO tipDTO) {
+        TipDTO createdTip = tipService.createTip(tipDTO);
         return ResponseEntity.ok(createdTip);
     }
 
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<TipDTO>> getTipsByUser(@PathVariable Long userId) {
-        List<TipDTO> tips = tipService.getTipsByUserId(userId);
+    @GetMapping("/user/{userId}/race/{raceId}")
+    public ResponseEntity<List<TipDTO>> getTipsForUserAndRace(@PathVariable Long userId, @PathVariable Long raceId) {
+        List<TipDTO> tips = tipService.getTipsForUserAndRace(userId, raceId);
         return ResponseEntity.ok(tips);
     }
 }

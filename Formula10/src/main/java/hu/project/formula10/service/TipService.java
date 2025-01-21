@@ -1,15 +1,11 @@
 package hu.project.formula10.service;
 
 import hu.project.formula10.dto.TipDTO;
-import hu.project.formula10.model.Driver;
-import hu.project.formula10.model.Race;
-import hu.project.formula10.model.Tip;
-import hu.project.formula10.model.User;
-import hu.project.formula10.repository.DriverRepository;
-import hu.project.formula10.repository.TipRepository;
-import hu.project.formula10.repository.UserRepository;
+import hu.project.formula10.model.*;
+import hu.project.formula10.repository.*;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,29 +15,52 @@ public class TipService {
     private final TipRepository tipRepository;
     private final UserRepository userRepository;
     private final DriverRepository driverRepository;
+    private final RaceRepository raceRepository;
+    private final GroupRepository groupRepository;
+    private final SeasonRepository seasonRepository;
 
-    public TipService(TipRepository tipRepository, UserRepository userRepository, DriverRepository driverRepository) {
+    public TipService(
+            TipRepository tipRepository,
+            UserRepository userRepository,
+            DriverRepository driverRepository,
+            RaceRepository raceRepository,
+            GroupRepository groupRepository, SeasonRepository seasonRepository) {
         this.tipRepository = tipRepository;
         this.userRepository = userRepository;
         this.driverRepository = driverRepository;
+        this.raceRepository = raceRepository;
+        this.groupRepository = groupRepository;
+        this.seasonRepository = seasonRepository;
     }
 
-    public TipDTO createTip(TipDTO tipDTO, Long userId, Long raceId, Long driverId) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-        Driver driver = driverRepository.findById(driverId).orElseThrow(() -> new RuntimeException("Driver not found"));
+    public TipDTO createTip(TipDTO tipDTO) {
+        User user = userRepository.findById(tipDTO.getUserId()).orElseThrow(() -> new RuntimeException("User not found"));
+        Group group = groupRepository.findById(tipDTO.getGroupId()).orElseThrow(() -> new RuntimeException("Group not found"));
+        Season season = seasonRepository.findById(tipDTO.getSeasonId()).orElseThrow(() -> new RuntimeException("Season not found"));
+        Race race = raceRepository.findById(tipDTO.getRaceId()).orElseThrow(() -> new RuntimeException("Race not found"));
+        Driver driver = driverRepository.findById(tipDTO.getDriverId()).orElseThrow(() -> new RuntimeException("Driver not found"));
+
         Tip tip = new Tip();
         tip.setUser(user);
-        tip.setRace(new Race());  //TODO: válaszd ki azt a versenyt, amely a következő.
+        tip.setGroup(group);
+        tip.setSeason(season);
+        tip.setRace(race);
         tip.setPredictedTenthPlaceDriver(driver);
+        tip.setCreatedAt(LocalDateTime.now());
 
         tipRepository.save(tip);
-        return tip.toDTO();
+
+        return new TipDTO(tip.getId(), user.getId(), group.getId(), season.getId(), race.getId(), driver.getId());
     }
 
-    public List<TipDTO> getTipsByUserId(Long userId) {
-        return tipRepository.findByUserId(userId)
-                .stream()
-                .map(Tip::toDTO)
+    public List<TipDTO> getTipsForUserAndRace(Long userId, Long raceId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        Race race = raceRepository.findById(raceId).orElseThrow(() -> new RuntimeException("Race not found"));
+        List<Tip> tips = tipRepository.findByUserAndRace(user, race);
+
+        return tips.stream().map(tip -> new TipDTO(
+                        tip.getId(), tip.getUser().getId(), tip.getGroup().getId(),
+                        tip.getSeason().getId(), tip.getRace().getId(), tip.getPredictedTenthPlaceDriver().getId()))
                 .collect(Collectors.toList());
     }
 }

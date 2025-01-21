@@ -2,16 +2,23 @@ package hu.project.formula10.model;
 
 import hu.project.formula10.dto.TipDTO;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "tip")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Tip {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "tip_seq", sequenceName = "tip_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tip_seq")
     private Long id;
 
     @ManyToOne
@@ -34,10 +41,17 @@ public class Tip {
     @JoinColumn(name = "seasonid", referencedColumnName = "id")
     private Season season;
 
+    @Column(name = "tipdate")
+    private LocalDateTime createdAt;
+
     public TipDTO toDTO() {
-        TipDTO tipDTO = new TipDTO();
-        tipDTO.setId(this.id);
-        tipDTO.setPredictedTenthPlaceDriverId(this.predictedTenthPlaceDriver.getId()); // Pilóta neve
-        return tipDTO;
+        return  new TipDTO(
+                this.getId(),
+                this.getUser().getId(),
+                this.group.getId(),
+                this.season.getId(),
+                this.race.getId(),
+                this.predictedTenthPlaceDriver.getId()
+        );
     }
 }

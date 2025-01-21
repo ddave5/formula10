@@ -12,7 +12,9 @@ import lombok.Setter;
 public class TipDTO {
 
     private Long id;
-    private Long raceId;
     private Long userId;
-    private Long predictedTenthPlaceDriverId;
+    private Long groupId;
+    private Long seasonId;
+    private Long raceId;
+    private Long driverId;
 }
