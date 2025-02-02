@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class GroupService {
@@ -27,21 +28,21 @@ public class GroupService {
         this.userRepository = userRepository;
     }
 
-    public Group createGroup(GroupDTO groupDTO) {
-
+    public GroupDTO createGroup(GroupDTO groupDTO) {
+        User owner = userRepository.findById(groupDTO.getOwnerId()).orElseThrow(() -> new RuntimeException("Owner not found"));
         Group group = new Group();
         group.setName(groupDTO.getName());
-        group.setCreatedAt(LocalDate.now());
-
-        return groupRepository.save(group);
+        group.setOwner(owner);
+        Group savedGroup = groupRepository.save(group);
+        return savedGroup.toDTO();
     }
 
-    public Group getGroupById(Long id) {
-        return groupRepository.findById(id).orElseThrow(() -> new RuntimeException("Group not found"));
+    public GroupDTO getGroupById(Long id) {
+        return groupRepository.findById(id).orElseThrow(() -> new RuntimeException("Group not found")).toDTO();
     }
 
-    public List<Group> getAllGroups() {
-        return groupRepository.findAll();
+    public List<GroupDTO> getAllGroups() {
+        return groupRepository.findAll().stream().map(Group::toDTO).toList();
     }
 
 
@@ -57,5 +58,11 @@ public class GroupService {
         member.setGroup(group);
         groupMemberRepository.save(member);
         return groupMemberDTO;
+    }
+
+    public List<GroupMemberDTO> getGroupMembers(Long groupId) {
+        Group group = groupRepository.findById(groupId).orElseThrow();
+        List<GroupMember> members = groupMemberRepository.findByGroup(group);
+        return members.stream().map(GroupMember::toDTO).collect(Collectors.toList());
     }
 }

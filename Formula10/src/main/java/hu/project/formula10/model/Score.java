@@ -13,13 +13,14 @@ public class Score {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "points_seq", sequenceName = "points_sequence", allocationSize = 1)
     private Long id;
 
     @ManyToOne
     @JoinColumn(name = "tip_id", referencedColumnName = "id")
     private Tip tip;
 
-    @Column(name = "point")
+    @Column(name = "point", nullable = false)
     private int point;
 
     public ScoreDTO toDTO() {

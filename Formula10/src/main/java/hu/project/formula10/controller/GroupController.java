@@ -20,18 +20,21 @@ public class GroupController {
     }
 
     @PostMapping
-    public Group createGroup(@RequestBody GroupDTO groupDTO) {
-        return groupService.createGroup(groupDTO);
+    public ResponseEntity<GroupDTO> createGroup(@RequestBody GroupDTO groupDTO) {
+        GroupDTO createdGroup = groupService.createGroup(groupDTO);
+        return ResponseEntity.ok(createdGroup);
     }
 
     @GetMapping("/{id}")
-    public Group getGroupById(@PathVariable Long id) {
-        return groupService.getGroupById(id);
+    public ResponseEntity<GroupDTO> getGroupById(@PathVariable Long id) {
+        GroupDTO group = groupService.getGroupById(id);
+        return ResponseEntity.ok(group);
     }
 
     @GetMapping
-    public List<Group> getAllGroups() {
-        return groupService.getAllGroups();
+    public ResponseEntity<List<GroupDTO>> getAllGroups() {
+        List<GroupDTO> groupDTOList = groupService.getAllGroups();
+        return ResponseEntity.ok(groupDTOList);
     }
 
     @PostMapping("/{groupId}/members")
@@ -40,5 +43,11 @@ public class GroupController {
             @RequestBody GroupMemberDTO groupMemberDTO) {
         GroupMemberDTO addedMember = groupService.addMemberToGroup(groupId, groupMemberDTO);
         return ResponseEntity.ok(addedMember);
+    }
+
+    @GetMapping("/{groupId}/members")
+    public ResponseEntity<List<GroupMemberDTO>> getGroupMembers(@PathVariable Long groupId) {
+        List<GroupMemberDTO> members = groupService.getGroupMembers(groupId);
+        return ResponseEntity.ok(members);
     }
 }

@@ -34,5 +34,5 @@ public class Standing implements Serializable {
     private User user;
 
     @Column(name = "total_points", nullable = false)
-    private Long totalPoints;
+    private int totalPoints;
 }

@@ -1,0 +1,15 @@
+{
+  "home": {
+    "welcome": "Welcome!"
+  },
+  "navbar": {
+    "login": "Login",
+    "logout": "Logout",
+    "rules": "Rules",
+    "groups": "Groups",
+    "profile": "Profile",
+    "language": "Language",
+    "hu": "Hungarian",
+    "en": "English"
+  }
+}

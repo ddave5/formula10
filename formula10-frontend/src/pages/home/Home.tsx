@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { Suspense, useEffect } from 'react';
 import Navbar from '../../layout/navbar/Navbar';
+
 
 const Home: React.FC = () => {
 
     return (
-        <div>
-            <Navbar />
-        </div>
+        <>
+            <div>
+                <Navbar />
+            </div>
+        </>
     );
 };
 

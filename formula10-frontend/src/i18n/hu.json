@@ -1,0 +1,15 @@
+{
+  "home": {
+    "welcome": "Üdvözlünk!"
+  },
+  "navbar": {
+    "login": "Belépés",
+    "logout": "Kijelentkezés",
+    "rules": "Szabályok",
+    "groups": "Csoportok",
+    "profile": "Profil",
+    "language": "Nyelv",
+    "hu": "Magyar",
+    "en": "Angol"
+  }
+}

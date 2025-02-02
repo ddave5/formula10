@@ -1,35 +1,51 @@
-import { useWindowWidth } from '@react-hook/window-size'
-import React from 'react'
-import NavbarPC from './navbarPC/NavbarPC';
-import NavbarTablet from './navbarTablet/NavbarTablet';
-import NavbarMobile from './navbarMobile/NavbarMobile';
-import RedLogo from '../../assets/logo/f10_red.png'
+import { Suspense } from 'react';
+import ThemeToggle from './Theme/ThemeToggle';
+import { useTranslation } from 'react-i18next';
+import LanguageSelector from './Language/LanguageSelector';
+import Login from './Login/Login';
+import { useWindowWidth } from '@react-hook/window-size';
+import { Link } from 'react-router-dom';
+import { RxHamburgerMenu } from "react-icons/rx";
 
 const Navbar = () => {
 
-    const initialWidth = useWindowWidth();
+    const { t } = useTranslation();
+    const width = useWindowWidth();
 
     return (
-        <>
-            <nav className="bg-white border-gray-200 dark:bg-gray-900">
+        <Suspense fallback="loading">
+            <nav className="bg-[--color-primary] text-[--color-font] border-gray-200 dark:bg-[--color-gray]">
                 <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
-                    <a href="https://flowbite.com" className="flex items-center space-x-3 rtl:space-x-reverse">
-                        <img src={RedLogo} className="h-8" alt="F10 Logo" />
+                    <a href="#" className="flex items-center space-x-3 rtl:space-x-reverse">
                         <span className="self-center text-2xl title-font whitespace-nowrap dark:text-white">Formula 10</span>
                     </a>
                     <div className="flex items-center space-x-6 rtl:space-x-reverse">
-                        <a href="#" className="text-sm  text-blue-600 dark:text-blue-500 hover:underline">Login</a>
+                        <LanguageSelector />
+                        <ThemeToggle />
+                        <Login />
                     </div>
                 </div>
             </nav>
-            { initialWidth > 1280 ? (
-                <NavbarPC />
-            ) : ( initialWidth > 768 ? (
-                <NavbarTablet />
-            ) : (
-                <NavbarMobile />
-            ))}
-        </>
+            <nav className="bg-[--color-gray] dark:bg-gray-700">
+                <div className="max-w-screen-xl px-4 py-3 mx-auto">
+                    <div className="flex items-center ">
+                        <ul className="flex flex-row font-medium mt-0 space-x-8 rtl:space-x-reverse text-sm">
+                            <li>
+                                <a href="#" className="text-[--color-font] dark:text-white"> { t('navbar.rules') }</a>
+                            </li>
+                            <li>
+                                <a href="#" className="text-[--color-font] dark:text-white"> { t('navbar.groups') }</a>
+                            </li>
+                        </ul>
+                        {width < 768 && <div className="flex-grow">
+                            <Link to="/menu" className="flex items-center justify-end text-[--color-font] dark:text-white">
+                                <RxHamburgerMenu />
+                            </Link>
+                            </div>}
+                    </div>
+                </div>
+            </nav>
+        </Suspense>
     )
 }
 

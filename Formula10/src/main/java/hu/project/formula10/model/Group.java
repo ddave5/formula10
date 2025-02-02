@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,8 +26,15 @@ public class Group {
     @Column(name = "created_at")
     private LocalDate createdAt;
 
-    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<GroupMember> members;
+    @ManyToOne
+    @JoinColumn(name = "owner_id", nullable = false)
+    private User owner;
+
+    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<GroupMember> members = new ArrayList<>();
+
+    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
+    private List<Season> seasons = new ArrayList<>();
 
     public GroupDTO toDTO() {
         GroupDTO groupDTO = new GroupDTO();
@@ -35,6 +43,7 @@ public class Group {
         groupDTO.setMembers(this.members.stream()
                 .map(GroupMember::toDTO)
                 .collect(Collectors.toList()));
+        groupDTO.setOwnerId(this.owner.getId());
         return groupDTO;
     }
 }

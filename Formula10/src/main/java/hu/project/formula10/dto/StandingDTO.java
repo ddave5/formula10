@@ -14,5 +14,5 @@ public class StandingDTO {
     private Long groupId;
     private Long seasonId;
     private Long userId;
-    private Long totalPoints;
+    private int totalPoints;
 }

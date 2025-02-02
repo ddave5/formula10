@@ -2,12 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 @import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+@custom-variant dark (&:where(.dark, .dark *));
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+  scroll-behavior: smooth;
+}
 
 :root {
     --color-font: #e4e4e4;
     --color-black: #1b1b1b;
+    --color-black-dark: #0f0f0f;
     --color-primary: #B90E0A;
-    --color-primary-variant: #d5d5d5;
+    --color-primary-light: #BC544B;
+    --color-primary-dark: #b90e0a;
+
+    --color-gray: #15151e;
+
+    --color-yellow: #ffc000;
+    --color-yellow-light: #ffdf22;
   
     --transition: all 400ms ease;
   
@@ -22,6 +41,29 @@
     font-style: normal;
 }
 
-.bg-primary {
+a {
+  color: var(--color-font);
+  position: relative;
+}
 
+a:hover {
+  color: var(--color-font);
+}
+
+a::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--color-font);
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+a:hover::before {
+  transform: scaleX(1);
+  transform-origin: bottom left;
 }
