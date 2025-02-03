@@ -1,7 +1,6 @@
 package hu.project.formula10.controller;
 
 import hu.project.formula10.dto.ScoreDTO;
-import hu.project.formula10.dto.StandingDTO;
 import hu.project.formula10.service.ScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,10 +25,4 @@ public class ScoreController {
         return ResponseEntity.ok(points);
     }
 
-    // Ranglista lekérdezése egy adott csoportban és szezonban
-    @GetMapping("/leaderboard/{groupId}/{seasonId}")
-    public ResponseEntity<List<StandingDTO>> getLeaderboard(@PathVariable Long groupId, @PathVariable Long seasonId) {
-        List<StandingDTO> leaderboard = scoreService.getLeaderboard(groupId, seasonId);
-        return ResponseEntity.ok(leaderboard);
-    }
 }

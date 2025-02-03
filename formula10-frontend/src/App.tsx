@@ -3,6 +3,7 @@ import Home from './pages/home/Home';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import i18n from 'i18next';
 import Menu from './layout/navbar/Menu/Menu';
+import Navbar from './layout/navbar/Navbar';
 
 function App() {
 
@@ -12,12 +13,15 @@ function App() {
   }, [])
 
   return (
-    <Router>
-        <Routes>
-            <Route path="/" Component={Home} />
-            <Route path='/menu' Component={Menu} />
-        </Routes>
-    </Router>
+    <>
+      <Navbar />
+      <Router>
+          <Routes>
+              <Route path="/" Component={Home} />
+              <Route path='/menu' Component={Menu} />
+          </Routes>
+      </Router>
+    </>
   );
 }
 

@@ -28,15 +28,19 @@ public class News {
     @Column(nullable = false)
     private LocalDateTime publishedAt;
 
-    public News(String title, String sourceUrl, String imageUrl, LocalDateTime publishedAt) {
+    @Column(name = "details")
+    private String details;
+
+    public News(String title, String sourceUrl, String imageUrl, LocalDateTime publishedAt, String details) {
         this.title = title;
         this.sourceUrl = sourceUrl;
         this.imageUrl = imageUrl;
         this.publishedAt = publishedAt;
+        this.details = details;
     }
 
     public NewsDTO toDTO() {
-        return new NewsDTO(this.getNewsId(), this.getTitle(), this.getSourceUrl(), this.getImageUrl(), this.getPublishedAt());
+        return new NewsDTO(this.getNewsId(), this.getTitle(), this.getSourceUrl(), this.getImageUrl(), this.getPublishedAt(), this.getDetails());
     }
 
     public News() { }

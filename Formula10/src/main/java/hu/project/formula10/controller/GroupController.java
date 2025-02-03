@@ -2,7 +2,6 @@ package hu.project.formula10.controller;
 
 import hu.project.formula10.dto.GroupDTO;
 import hu.project.formula10.dto.GroupMemberDTO;
-import hu.project.formula10.model.Group;
 import hu.project.formula10.service.GroupService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

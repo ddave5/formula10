@@ -1,48 +1,33 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { NewsDTO } from '../../dto/news.dto';
-import { getAllNews } from '../../services/newsService';
+import { Position } from './NewsPosition.enum';
+import { Months } from './Months.enum';
+import { FaArrowRightLong } from "react-icons/fa6";
 
-const News: React.FC = () => {
-    
-    const [news, setNews] = useState<NewsDTO[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<string | null>(null);
+const News = ({news, position } : 
+    {
+        news: NewsDTO,
+        position: Position 
+    }) => {
 
-    useEffect(() => {
-        const fetchNews = async () => {
-            try {
-                const data = await getAllNews();
-                setNews(data);
-            } catch (err) {
-                setError('Failed to fetch news');
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchNews();
-    }, []);
-
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-
-    if (error) {
-        return <div>{error}</div>;
-    }
-
+    let date = new Date(news.publishedAt).getFullYear().toString() + ". " 
+    + (Months[new Date(news.publishedAt).getMonth() + 1]).toString() + ". "
+    + new Date(news.publishedAt).getDate().toString() + ". "
+    + new Date(news.publishedAt).getHours().toString() + ":"
+    + new Date(news.publishedAt).getMinutes().toString();
     
     return (
-        <div>
-            <h1>Latest Formula 1 News</h1>
-            <div className="news-list">
-                {news.map((article) => (
-                    <div key={article.newsId} className="news-item">
-                        <h2>{article.title}</h2>
-                        <img src={article.imageUrl} alt={article.title} style={{ width: '300px', height: '200px' }} />
-                        <a href={article.sourceUrl} target="_blank" rel="noopener noreferrer">Read more</a>
-                    </div>
-                ))}
+        <div key={news.newsId} className="h-[400px] flex items-center relative">
+            <div className='h-[300px] w-2/3 rounded-lg p-8 border-2 border-gray-200 dark:border-gray-700 border-solid flex flex-col justify-between '>
+                <h2 className='mb-2 font-semibold text-lg text-center'>{news.title}</h2>
+                <p className='mb-2'>{news.details}</p>
+                <div>
+                    <span>{date}</span>
+                    <a href={news.sourceUrl} target="_blank" rel="noreferrer">Read more <FaArrowRightLong /></a>    
+                </div>
+            </div>
+            <div className='h-[200px] w-1/2'>
+                <img src={news.imageUrl} alt={news.title} className='rounded-lg'/>
             </div>
         </div>
     );

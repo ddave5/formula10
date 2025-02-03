@@ -4,4 +4,5 @@ export interface NewsDTO {
     sourceUrl: string;
     imageUrl: string;
     publishedAt: string;
+    details: string;
 }

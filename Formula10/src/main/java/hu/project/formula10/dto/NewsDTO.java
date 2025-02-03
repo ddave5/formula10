@@ -17,13 +17,15 @@ public class NewsDTO {
     private String sourceUrl;
     private String imageUrl;
     private LocalDateTime publishedAt;
+    private String details;
 
 
-    public NewsDTO(Long newsId, String title, String sourceUrl, String imageUrl, LocalDateTime publishedAt) {
+    public NewsDTO(Long newsId, String title, String sourceUrl, String imageUrl, LocalDateTime publishedAt, String details) {
         this.newsId = newsId;
         this.title = title;
         this.sourceUrl = sourceUrl;
         this.imageUrl = imageUrl;
         this.publishedAt = publishedAt;
+        this.details = details;
     }
 }

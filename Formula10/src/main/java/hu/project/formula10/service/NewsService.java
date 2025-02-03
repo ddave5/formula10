@@ -33,6 +33,7 @@ public class NewsService {
         news.setImageUrl(newsDTO.getImageUrl());
         news.setSourceUrl(newsDTO.getSourceUrl());
         news.setPublishedAt(LocalDateTime.now());
+        news.setDetails(newsDTO.getDetails());
 
         return newsRepository.save(news).toDTO();
     }

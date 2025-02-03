@@ -1,7 +1,6 @@
 package hu.project.formula10.service;
 
 import hu.project.formula10.dto.ScoreDTO;
-import hu.project.formula10.dto.StandingDTO;
 import hu.project.formula10.model.*;
 import hu.project.formula10.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,27 +56,5 @@ public class ScoreService {
         scoreRepository.save(pointEntry);
 
         return new ScoreDTO(pointEntry.getId(), pointEntry.getTip().getId(), pointEntry.getPoint());
-    }
-
-    // Ranglista lekérdezése egy adott csoportban és szezonban
-    public List<StandingDTO> getLeaderboard(Long groupId, Long seasonId) {
-        List<StandingDTO> leaderboard = new ArrayList<>();
-
-        Group group = groupRepository.findById(groupId).orElseThrow(() -> new RuntimeException("Group not found"));
-        Season season = seasonRepository.findById(groupId).orElseThrow(() -> new RuntimeException("Season not found"));
-
-        // Minden felhasználó pontszámának lekérdezése az adott csoport és szezon alapján
-        List<Tip> tips = tipRepository.findByGroupAndSeason(group, season);
-        Set<User> users = tips.stream().map(Tip::getUser).collect(Collectors.toSet());
-
-        for (User user : users) {
-            Integer totalPoints = scoreRepository.getTotalPointsByUserGroupAndSeason(user.getId(), groupId, seasonId);
-            leaderboard.add(new StandingDTO(groupId, seasonId, user.getId(), totalPoints != null ? totalPoints : 0));
-        }
-
-        // Ranglista rendezése pontszám szerint csökkenő sorrendben
-        leaderboard.sort(Comparator.comparingInt(StandingDTO::getTotalPoints).reversed());
-
-        return leaderboard;
     }
 }

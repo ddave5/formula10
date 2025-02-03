@@ -33,9 +33,6 @@ public class Group {
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<GroupMember> members = new ArrayList<>();
 
-    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
-    private List<Season> seasons = new ArrayList<>();
-
     public GroupDTO toDTO() {
         GroupDTO groupDTO = new GroupDTO();
         groupDTO.setId(this.id);
