@@ -17,17 +17,17 @@ const News = ({news, position } :
     + new Date(news.publishedAt).getMinutes().toString();
     
     return (
-        <div key={news.newsId} className="h-[400px] flex items-center relative">
-            <div className='h-[300px] w-2/3 rounded-lg p-8 border-2 border-gray-200 dark:border-gray-700 border-solid flex flex-col justify-between '>
-                <h2 className='mb-2 font-semibold text-lg text-center'>{news.title}</h2>
-                <p className='mb-2'>{news.details}</p>
-                <div>
-                    <span>{date}</span>
-                    <a href={news.sourceUrl} target="_blank" rel="noreferrer">Read more <FaArrowRightLong /></a>    
-                </div>
+        <div key={news.newsId} className="flex flex-col drop-shadow-lg border-2 border-gray-200 dark:border-gray-700 border-solid rounded-md ">
+            <div className='w-full overflow-hidden rounded-t-sm'>
+                <img src={news.imageUrl} alt={news.title}/>
             </div>
-            <div className='h-[200px] w-1/2'>
-                <img src={news.imageUrl} alt={news.title} className='rounded-lg'/>
+            <div className='h-[350px] w-full p-8 flex flex-col justify-between bg-white rounded-b-md'>
+                <p className='mb-4 font-semibold text-lg text-center'>{news.title}</p>
+                <p className='mb-4'>{news.details}</p>
+                <div className='flex justify-between items-center'>
+                    <span className='text-sm text-[--color-font-dark]'>{date}</span>
+                    <a href={news.sourceUrl} target="_blank" rel="noreferrer" className='text-sm text-nowrap text-[--color-primary] before:bg-[--color-primary]'>Read more <FaArrowRightLong /></a>    
+                </div>
             </div>
         </div>
     );

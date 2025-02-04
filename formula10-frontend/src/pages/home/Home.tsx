@@ -38,7 +38,7 @@ const Home: React.FC = () => {
     return (
         <>
             <div className='flex items-center justify-center mt-2'>
-                <div className="w-2/3 grid grid-cols-2 gap-4">
+                <div className="w-2/3 grid grid-cols-3 gap-4">
                     {news.map((article) => (
                         <News
                             news = {article}

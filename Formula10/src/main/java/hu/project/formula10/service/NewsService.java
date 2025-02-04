@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -23,7 +24,7 @@ public class NewsService {
 
     public List<NewsDTO> getAllNews() {
         log.info("Entering method: getAllNews");
-        return newsRepository.findAll().stream().map(News::toDTO).toList();
+        return newsRepository.findAll().stream().map(News::toDTO).sorted(Comparator.comparing(NewsDTO::getPublishedAt).reversed()).toList();
     }
 
     public NewsDTO createNews(NewsDTO newsDTO) {
