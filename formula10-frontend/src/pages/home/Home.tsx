@@ -33,12 +33,10 @@ const Home: React.FC = () => {
         return <div>{error}</div>;
     }
 
-
-
     return (
         <>
-            <div className='flex items-center justify-center mt-2'>
-                <div className="w-2/3 grid grid-cols-3 gap-4">
+            <div className='flex items-center justify-center mt-2 dark:bg-[--color-dark]'>
+                <div className="w-2/3 grid gap-4 sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
                     {news.map((article) => (
                         <News
                             news = {article}

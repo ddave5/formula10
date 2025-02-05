@@ -21,12 +21,14 @@ const News = ({news, position } :
             <div className='w-full overflow-hidden rounded-t-sm'>
                 <img src={news.imageUrl} alt={news.title}/>
             </div>
-            <div className='h-[350px] w-full p-8 flex flex-col justify-between bg-white rounded-b-md'>
-                <p className='mb-4 font-semibold text-lg text-center'>{news.title}</p>
-                <p className='mb-4'>{news.details}</p>
-                <div className='flex justify-between items-center'>
-                    <span className='text-sm text-[--color-font-dark]'>{date}</span>
-                    <a href={news.sourceUrl} target="_blank" rel="noreferrer" className='text-sm text-nowrap text-[--color-primary] before:bg-[--color-primary]'>Read more <FaArrowRightLong /></a>    
+            <div className='h-[350px] w-full p-8 flex flex-col justify-between bg-white dark:bg-[--color-gray] rounded-b-md'>
+                <p className='mb-4 font-semibold text-base text-center'>{news.title}</p>
+                <p className='mb-4 text-xs sm:text-base lg:text-base xl:text-sm 2xl:text-base'>{news.details}</p>
+                <div className='flex justify-between items-center flex-col sm:flex-row'>
+                    <span className='text-xs text-[--color-gray-light]'>{date}</span>
+                    <a href={news.sourceUrl} target="_blank" rel="noreferrer" 
+                    className='text-sm text-nowrap text-[--color-primary] before:bg-[--color-primary] dark:text-[--color-purple-light] dark:before:bg-[--color-purple-light]'>
+                        Read more <FaArrowRightLong /></a>    
                 </div>
             </div>
         </div>

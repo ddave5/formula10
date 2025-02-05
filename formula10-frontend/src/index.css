@@ -25,9 +25,14 @@
     --color-primary-dark: #660000;
 
     --color-gray: #15151e;
+    --color-gray-light: #7f7f7f;
 
     --color-yellow: #ffc000;
     --color-yellow-light: #ffdf22;
+
+    --color-purple-dark: #311432;
+    --color-purple: #6F2DA8;
+    --color-purple-light: #af69ee;
   
     --transition: all 400ms ease;
   
@@ -35,6 +40,12 @@
     --container-width-md: 86%;
     --container-width-sm: 90%;
 }
+
+html.dark {
+    background-color: var(--color-gray);
+    color: var(--color-font);
+}
+
 
 svg {
     display: inline;
