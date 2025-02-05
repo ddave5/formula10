@@ -1,6 +1,7 @@
 package hu.project.formula10.service;
 
 import hu.project.formula10.config.jwt.JwtTokenProvider;
+import hu.project.formula10.dto.CreateUserDTO;
 import hu.project.formula10.dto.UserDTO;
 import hu.project.formula10.enums.RoleName;
 import hu.project.formula10.model.Role;
@@ -39,30 +40,23 @@ public class UserService {
         this.roleRepository = roleRepository;
     }
 
-    public UserDTO createUser(String username, String email, String password) {
-        String encodedPassword = passwordEncoder.encode(password);
-        User newUser = new User(username, email, encodedPassword);
+    public boolean createUser(CreateUserDTO createUserDTO) {
+        if (userRepository.existsByUsername(createUserDTO.getUsername()) ||
+                userRepository.existsByEmail(createUserDTO.getEmail())) {
+            return false; // Felhasználónév vagy e-mail már létezik
+        }
+        String encodedPassword = passwordEncoder.encode(createUserDTO.getPasswordHash());
+        User newUser = new User(createUserDTO.getUsername(), createUserDTO.getEmail(), encodedPassword);
         Role userRole = roleRepository.findByName(RoleName.USER)
                 .orElseThrow(() -> new RuntimeException("Felhasználói szerepkör nem található."));
         newUser.setRoles(Collections.singleton(userRole));
-        User savedUser = userRepository.save(newUser);
-        return new UserDTO(
-                savedUser.getId(),
-                savedUser.getUsername(),
-                savedUser.getEmail(),
-                savedUser.getIsVerified(),
-                savedUser.getCreatedAt(),
-                new ArrayList<>(savedUser.getRoles())
-        );
+        userRepository.save(newUser);
+        return true;
     }
 
     public Optional<UserDTO> getUserByUsername(String username) {
         Optional<User> user = userRepository.findByUsername(username);
         return user.map(User::toDTO);
-    }
-
-    public boolean checkPassword(String rawPassword, String encodedPassword) {
-        return passwordEncoder.matches(rawPassword, encodedPassword); // Hash-elt jelszó összehasonlítása
     }
 
     public String authenticateUser(String username, String password) {

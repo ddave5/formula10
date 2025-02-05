@@ -4,6 +4,7 @@ import hu.project.formula10.config.jwt.JwtAuthenticationResponse;
 import hu.project.formula10.dto.CreateUserDTO;
 import hu.project.formula10.dto.LoginRequestDTO;
 import hu.project.formula10.dto.UserDTO;
+import hu.project.formula10.service.AuthService;
 import hu.project.formula10.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,15 +17,17 @@ import java.util.Optional;
 public class UserController {
 
     private final UserService userService;
+    private final AuthService authService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, AuthService authService) {
         this.userService = userService;
+        this.authService = authService;
     }
 
     @PostMapping
-    public ResponseEntity<UserDTO> createUser(@RequestBody CreateUserDTO createUserDTO) {
-        UserDTO createdUser = userService.createUser(createUserDTO.getUsername(), createUserDTO.getEmail(), createUserDTO.getPasswordHash());
-        return ResponseEntity.ok(createdUser);
+    public ResponseEntity<?> createUser(@RequestBody CreateUserDTO createUserDTO) {
+        boolean isRegistered = userService.createUser(createUserDTO);
+        return ResponseEntity.ok(isRegistered);
     }
 
     @GetMapping("/{username}")
@@ -35,8 +38,8 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> authenticateUser(@RequestBody LoginRequestDTO loginRequest) {
-        String token = userService.authenticateUser(loginRequest.getUsername(), loginRequest.getPassword());
+    public ResponseEntity<?> loginUser(@RequestBody LoginRequestDTO loginRequest) {
+        String token = authService.loginUser(loginRequest);
         return ResponseEntity.ok(new JwtAuthenticationResponse(token));
     }
 }

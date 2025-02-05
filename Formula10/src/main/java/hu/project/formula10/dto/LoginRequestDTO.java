@@ -8,5 +8,15 @@ import lombok.Setter;
 public class LoginRequestDTO {
 
     private String username;
+    private String email;
     private String password;
+
+    public String getUsernameOrEmail() {
+        if (username.equals("") || username == null) {
+            return email;
+        } else {
+            return username;
+        }
+    }
+
 }
