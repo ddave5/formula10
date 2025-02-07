@@ -2,10 +2,11 @@ import { Suspense } from 'react';
 import ThemeToggle from './Theme/ThemeToggle';
 import { useTranslation } from 'react-i18next';
 import LanguageSelector from './Language/LanguageSelector';
-import Login from './Login/Login';
+import Login from './LoginButton/LoginButton';
 import { useWindowWidth } from '@react-hook/window-size';
 import { Link } from 'react-router-dom';
 import { RxHamburgerMenu } from "react-icons/rx";
+import './Navbar.css';
 
 const Navbar = () => {
 
@@ -16,7 +17,7 @@ const Navbar = () => {
         <Suspense fallback="loading">
             <nav className="bg-[--color-primary] text-[--color-font] border-gray-200 dark:bg-[--color-gray]">
                 <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
-                    <a href="#" className="flex items-center space-x-3 rtl:space-x-reverse">
+                    <a href="/#" className="flex items-center space-x-3 rtl:space-x-reverse">
                         <span className="self-center text-2xl title-font whitespace-nowrap dark:text-white">Formula 10</span>
                     </a>
                     <div className="flex items-center space-x-6 rtl:space-x-reverse">

@@ -11,5 +11,16 @@
     "language": "Nyelv",
     "hu": "Magyar",
     "en": "Angol"
+  },
+  "login": {
+    "login": "Bejelentkezés",
+    "username": "Felhasználónév vagy E-mail cím",
+    "password": "Jelszó",
+    "remember": "Emlékezz rám",
+    "forgotPassword": "Elfelejtetted a jelszavad?",
+    "or": "vagy",
+    "google": "Google bejelentkezés",
+    "dontHaveAccount": "Még nincs fiókod?",
+    "register": "Regisztrálj itt!"
   }
 }

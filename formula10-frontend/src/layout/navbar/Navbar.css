@@ -1,0 +1,7 @@
+a {
+    color: var(--color-font);
+}
+
+a::before {
+    background-color: var(--color-font);
+}

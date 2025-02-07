@@ -11,5 +11,16 @@
     "language": "Language",
     "hu": "Hungarian",
     "en": "English"
+  },
+  "login": {
+    "login": "Login",
+    "username": "Username or E-mail address",
+    "password": "Password",
+    "remember": "Remember me",
+    "forgotPassword": "Forgot your password?",
+    "or": "or",
+    "google": "Sign in with Google",
+    "dontHaveAccount": "Don't have an account yet?",
+    "register": "Sign up!"
   }
 }

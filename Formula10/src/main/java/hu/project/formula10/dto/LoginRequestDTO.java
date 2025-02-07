@@ -11,12 +11,4 @@ public class LoginRequestDTO {
     private String email;
     private String password;
 
-    public String getUsernameOrEmail() {
-        if (username.equals("") || username == null) {
-            return email;
-        } else {
-            return username;
-        }
-    }
-
 }

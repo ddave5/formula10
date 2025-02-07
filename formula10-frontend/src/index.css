@@ -33,6 +33,8 @@
     --color-purple-dark: #311432;
     --color-purple: #6F2DA8;
     --color-purple-light: #af69ee;
+
+    --color-blue: #2196f3;
   
     --transition: all 400ms ease;
   
@@ -41,11 +43,14 @@
     --container-width-sm: 90%;
 }
 
+html {
+    color: --color-gray;
+}
+
 html.dark {
     background-color: var(--color-gray);
     color: var(--color-font);
 }
-
 
 svg {
     display: inline;
@@ -58,7 +63,7 @@ svg {
 }
 
 a {
-    color: var(--color-font);
+    color: var(--color-blue);
     position: relative;
 }
 
@@ -70,7 +75,7 @@ a::before {
     height: 2px;
     bottom: 0;
     left: 0;
-    background-color: var(--color-font);
+    background-color: var(--color-blue);
     transform-origin: bottom right;
     transition: transform 0.25s ease-out;
 }
