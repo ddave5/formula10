@@ -1,15 +1,41 @@
 import { Button, Checkbox, Divider, FormControl, FormControlLabel, TextField } from '@mui/material'
-import React from 'react'
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
 import { FcGoogle } from "react-icons/fc";
 import { useTranslation } from 'react-i18next';
 
 const Login = () => {
-
   const { t } = useTranslation();
 
-  const login = () => {
-    console.log('login');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
+  const [error, setError] = useState('');
+
+  const navigate = useNavigate();
+
+  const login = async () => {
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const data = await response.json();
+      if (data.token) {
+        if (rememberMe) {
+          localStorage.setItem('token', data.token);
+        } else {
+          sessionStorage.setItem('token', data.token);
+        }
+        navigate('/home');
+      } else {
+        setError('Invalid credentials');
+      }
+    } catch (err) {
+      setError('Something went wrong');
+    }
   }
 
   //TODO - When you save the theme mode into the Redux store, then change the lightInputStyle and darkInputStyle to use the Redux store value
@@ -37,7 +63,7 @@ const Login = () => {
           <FormControl sx={{ '& .MuiTextField-root': { marginBottom: '.5rem'}}}>
             <TextField id='username' placeholder={t('login.username')} variant='outlined' label={t('login.username')} size='small' className='sm:text-sm'
                        sx={lightInputStyle}/>
-            <TextField id='password' placeholder={t('login.password')} variant='outlined' label={t('login.password')} size='small' className='text-2xl'
+            <TextField id='password' type='password' placeholder={t('login.password')} variant='outlined' label={t('login.password')} size='small' className='text-2xl'
                        sx={lightInputStyle}/>
             <FormControlLabel label={t('login.remember')} control={<Checkbox defaultChecked/>} />
             <Button onClick={login} className='dark:text-[--color-font]'

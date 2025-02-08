@@ -6,6 +6,7 @@ import Menu from './layout/navbar/Menu/Menu';
 import Navbar from './layout/navbar/Navbar';
 import Login from './pages/login/Login';
 import Registration from './pages/registration/Registration';
+import SuccessRegistration from './pages/successRegistration/SuccessRegistration';
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
         <Route path='/menu' Component={Menu} />
         <Route path='/login' Component={Login} />
         <Route path='/register' Component={Registration} />
+        <Route path='/success' Component={SuccessRegistration} />
         <Route path='*' element={<div>404</div>} />
       </Routes>
     </>

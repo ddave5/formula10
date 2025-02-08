@@ -22,5 +22,17 @@
     "google": "Sign in with Google",
     "dontHaveAccount": "Don't have an account yet?",
     "register": "Sign up!"
+  },
+  "registration": {
+    "signUp": "Sign up",
+    "name": "Full name",
+    "username": "Username",
+    "email": "E-mail address",
+    "password": "Password",
+    "passwordAgain": "Password again",
+    "or": "or",
+    "google": "Sign up with Google",
+    "alreadyHaveAccount": "Already have an account?",
+    "login": "Sign in!"
   }
 }

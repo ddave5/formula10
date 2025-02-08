@@ -22,5 +22,17 @@
     "google": "Google bejelentkezés",
     "dontHaveAccount": "Még nincs fiókod?",
     "register": "Regisztrálj itt!"
+  },
+  "registration": {
+    "signUp": "Regisztráció",
+    "name": "Teljes név",
+    "username": "Felhasználónév",
+    "email": "E-mail cím",
+    "password": "Jelszó",
+    "passwordAgain": "Jelszó újra",
+    "or": "vagy",
+    "google": "Google regisztráció",
+    "alreadyHaveAccount": "Már van fiókod?",
+    "login": "Jelentkezz be!"
   }
 }
