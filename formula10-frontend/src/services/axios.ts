@@ -1,5 +1,6 @@
 import axios from 'axios';
 import i18n from '../i18n/i18n';
+import { useError } from '../layout/ErrorContext/ErrorContext';
 
 // Axios instance létrehozása
 const apiClient = axios.create({
@@ -20,6 +21,18 @@ apiClient.interceptors.request.use(
     return config;
   },
   (error) => {
+    return Promise.reject(error);
+  }
+);
+
+// Hibakezelés interceptor
+apiClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    const errorContext = useError();
+    if (error.response && error.response.status === 500) {
+      errorContext.setError('A váratlan hiba történt!');
+    }
     return Promise.reject(error);
   }
 );

@@ -1,10 +1,11 @@
 import apiClient from './axios';
 
-export const registerUser = async (userData: any) => {
+export const registerUser = async (userData: any) :Promise<any> => {
   try {
     const response = await apiClient.post('/api/users', userData);
     return response.data;
   } catch (error) {
+    console.log(error);
     throw error;
   }
 };

@@ -3,8 +3,9 @@ import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next';
 import { FcGoogle } from 'react-icons/fc';
 import { Link, useNavigate } from 'react-router-dom';
-import {debounce} from 'lodash';
+import {debounce, set} from 'lodash';
 import { checkUsernameAvailability, registerUser } from '../../services/userService';
+import Error from '../../components/Error/Error';
 
 const Registration = () => {
   const { t } = useTranslation();
@@ -15,7 +16,11 @@ const Registration = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+
   const [error, setError] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [confirmPasswordError, setConfirmPasswordError] = useState('');
 
   const navigate = useNavigate();
 
@@ -24,11 +29,24 @@ const Registration = () => {
       const isAvailable = await checkUsernameAvailability(username); // Hívás a service-ből
       setUsernameAvailable(isAvailable);
     }
-  }, 300);
+  }, 500);
 
   useEffect(() => {
     checkUsername(username);
   }, [username]);
+
+  useEffect(() => {
+    setEmailError('');
+  }, [email]);
+
+  useEffect(() => {
+    setPasswordError('');
+  }, [password]);
+
+  useEffect(() => {
+    setConfirmPasswordError('');
+  }, [confirmPassword]);
+
 
   const register = async () => {
 
@@ -40,17 +58,14 @@ const Registration = () => {
           email: email,
           password: password
         }).then((response) => {
-          console.log('Got a response from the server', response);
           const data = response.success;
           if (data) {
             navigate('/success');
           }
         }).catch( (err) => {
-          console.log('Got an error from the server', err);
           setError(err.response.data);
         });
       } catch (err) {
-        console.log('Got an error from the server2', err);
         setError('Something went wrong'); 
       }
     }
@@ -59,25 +74,29 @@ const Registration = () => {
   const validation = () => {
     if (!usernameAvailable) {
       setError('Username is already taken');
-      return false;
+    } else {
+      setError('');
     }
   
     if (!validateEmail(email)) {
-      setError('Invalid email format');
-      return false;
+      setEmailError(t('registration.invalidEmail'));
+    } else {
+      setEmailError('');
     }
   
     if (!validatePassword(password)) {
-      setError('Password must be at least 8 characters long and include uppercase, lowercase, numbers, and special characters');
-      return false;
+      setPasswordError(t('registration.invalidPassword'));
+    } else {
+      setPasswordError('');
     }
   
     if (password !== confirmPassword) {
-      setError('Passwords do not match');
-      return false;
+      setConfirmPasswordError(t('registration.passwordsDontMatch'));
+    } else {
+      setConfirmPasswordError('');
     }
 
-    return true;
+    return !error && !emailError && !passwordError && !confirmPasswordError ;
   }
 
   const validateEmail = (email: string) => {
@@ -112,19 +131,23 @@ const Registration = () => {
         <p className="text-2xl title-font whitespace-nowrap dark:text-white mb-4">Formula 10</p>
         <h2 className='text-3xl whitespace-nowrap dark:text-white mb-8'>{t('registration.login')}</h2>
         <div className='flex flex-col space-y-4'>
-          {error && <span className='text-red-500 text-sm'>{error}</span>}
+          {error && <Error errorMessage={error} />}
+          
           <FormControl sx={{ '& .MuiTextField-root': { marginBottom: '.5rem'}}}>
-            <TextField id='name' required placeholder={t('registration.name')} variant='outlined' label={t('registration.name')} size='small' className='sm:text-sm' value={name} onChange={(e) => setName(e.target.value)}
+            <TextField id='name' required placeholder={t('registration.name')} variant='outlined' label={t('registration.name')} size='small' className='sm:text-sm' value={name} onChange={(e) => setName(e.target.value)} autoComplete='off'
                        sx={lightInputStyle}/>
-            <TextField id='username' required placeholder={t('registration.username')} variant='outlined' label={t('registration.username')} size='small' className='sm:text-sm' value={username} onChange={(e) => setUsername(e.target.value)}
+            <TextField id='username' required placeholder={t('registration.username')} variant='outlined' label={t('registration.username')} size='small' className='sm:text-sm' value={username} onChange={(e) => setUsername(e.target.value)} autoComplete='off'
                        sx={lightInputStyle}/>
-                      {!usernameAvailable && <span className='text-red-500 text-sm'>Username is already taken</span>} 
-            <TextField id='email' required type='email' placeholder={t('registration.email')} variant='outlined' label={t('registration.email')} size='small' className='sm:text-sm' value={email} onChange={(e) => setEmail(e.target.value)}
+                      {!usernameAvailable && <span className='text-red-500 text-sm mb-2'>{t('registration.usernameAlreadyTaken')}</span>} 
+            <TextField id='email' required type='email' placeholder={t('registration.email')} variant='outlined' label={t('registration.email')} size='small' className='sm:text-sm' value={email} onChange={(e) => setEmail(e.target.value)} autoComplete='off'
                        sx={lightInputStyle}/>
+                       { emailError && <span className='text-red-500 text-sm mb-2'>{emailError}</span>} 
             <TextField id='password' required type='password' placeholder={t('registration.password')} variant='outlined' label={t('registration.password')} size='small' className='text-2xl' value={password} onChange={(e) => setPassword(e.target.value)}
                        sx={lightInputStyle}/>
+                       { passwordError && <span className='text-red-500 text-sm mb-2'>{passwordError}</span>} 
             <TextField id='confirmPassword' required type='password' placeholder={t('registration.passwordAgain')} variant='outlined' label={t('registration.passwordAgain')} size='small' className='text-2xl' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
                        sx={lightInputStyle}/>
+                       { confirmPasswordError && <span className='text-red-500 text-sm mb-2'>{confirmPasswordError}</span>}
             <Button onClick={register} className='dark:text-[--color-font]'
                     sx={{borderStyle: 'solid', borderColor: 'var(--color-blue)', borderWidth: '2px', color: 'var(--color-gray)'}}>
                       {t('registration.signUp')}
