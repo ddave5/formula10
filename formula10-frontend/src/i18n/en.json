@@ -1,4 +1,8 @@
 {
+  "error": {
+    "error": "Error",
+    "close": "Close"
+  }, 
   "home": {
     "welcome": "Welcome!"
   },
@@ -26,6 +30,7 @@
   "registration": {
     "signUp": "Sign up",
     "name": "Full name",
+    "nameIsEmpty": "Name has to be filled!",
     "username": "Username",
     "usernameAlreadyTaken": "Username already taken!",
     "email": "E-mail address",

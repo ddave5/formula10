@@ -1,4 +1,8 @@
 {
+  "error": {
+    "error": "Hiba",
+    "close": "Bezárás"
+  }, 
   "home": {
     "welcome": "Üdvözlünk!"
   },
@@ -26,6 +30,7 @@
   "registration": {
     "signUp": "Regisztráció",
     "name": "Teljes név",
+    "nameIsEmpty": "Név megadása kötelező",
     "username": "Felhasználónév",
     "usernameAlreadyTaken": "A felhasználónév már foglalt!",
     "email": "E-mail cím",

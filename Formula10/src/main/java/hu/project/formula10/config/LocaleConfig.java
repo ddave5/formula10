@@ -18,7 +18,10 @@ public class LocaleConfig implements WebMvcConfigurer {
     @Bean
     public MessageSource messageSource() {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-        messageSource.setBasename("/WEB-INF/classes/messages");
+        messageSource.setBasenames("lang/messages");
+        messageSource.setDefaultEncoding("UTF-8");
+        messageSource.setUseCodeAsDefaultMessage(true);
+        messageSource.setCacheSeconds(3600);
         return messageSource;
     }
 
@@ -32,7 +35,7 @@ public class LocaleConfig implements WebMvcConfigurer {
     @Bean
     public LocaleChangeInterceptor localeChangeInterceptor() {
         LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
-        localeChangeInterceptor.setParamName("lang"); // Vagy 'Accept-Language'
+        localeChangeInterceptor.setParamName("Accept-Language"); // Vagy 'Accept-Language'
         return localeChangeInterceptor;
     }
 

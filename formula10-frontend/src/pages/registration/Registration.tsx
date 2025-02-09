@@ -18,6 +18,7 @@ const Registration = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const [error, setError] = useState('');
+  const [nameError, setNameError] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
@@ -34,6 +35,10 @@ const Registration = () => {
   useEffect(() => {
     checkUsername(username);
   }, [username]);
+
+  useEffect(() => {
+    setNameError('');
+  }, [name]);
 
   useEffect(() => {
     setEmailError('');
@@ -63,21 +68,21 @@ const Registration = () => {
             navigate('/success');
           }
         }).catch( (err) => {
-          setError(err.response.data);
+          setError('Email is already taken!');
         });
       } catch (err) {
-        setError('Something went wrong'); 
+        setError('Email is already taken!');
       }
     }
   };
 
   const validation = () => {
-    if (!usernameAvailable) {
-      setError('Username is already taken');
+    if (name === "") {
+      setNameError(t('registration.nameIsEmpty'));
     } else {
-      setError('');
+      setNameError('');
     }
-  
+
     if (!validateEmail(email)) {
       setEmailError(t('registration.invalidEmail'));
     } else {
@@ -90,23 +95,23 @@ const Registration = () => {
       setPasswordError('');
     }
   
-    if (password !== confirmPassword) {
+    if (password !== confirmPassword || confirmPassword === "") {
       setConfirmPasswordError(t('registration.passwordsDontMatch'));
     } else {
       setConfirmPasswordError('');
     }
-
-    return !error && !emailError && !passwordError && !confirmPasswordError ;
+    
+    return usernameAvailable && !emailError && !passwordError && !confirmPasswordError ;
   }
 
   const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+    return emailRegex.test(email) && email !== "";
   };
   
   const validatePassword = (password: string) => {
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    return passwordRegex.test(password);
+    return passwordRegex.test(password) && email !== "";
   };
 
   //TODO - When you save the theme mode into the Redux store, then change the lightInputStyle and darkInputStyle to use the Redux store value
@@ -136,6 +141,7 @@ const Registration = () => {
           <FormControl sx={{ '& .MuiTextField-root': { marginBottom: '.5rem'}}}>
             <TextField id='name' required placeholder={t('registration.name')} variant='outlined' label={t('registration.name')} size='small' className='sm:text-sm' value={name} onChange={(e) => setName(e.target.value)} autoComplete='off'
                        sx={lightInputStyle}/>
+                       {nameError && <span className='text-red-500 text-sm mb-2'>{nameError}</span>} 
             <TextField id='username' required placeholder={t('registration.username')} variant='outlined' label={t('registration.username')} size='small' className='sm:text-sm' value={username} onChange={(e) => setUsername(e.target.value)} autoComplete='off'
                        sx={lightInputStyle}/>
                       {!usernameAvailable && <span className='text-red-500 text-sm mb-2'>{t('registration.usernameAlreadyTaken')}</span>} 
@@ -156,7 +162,7 @@ const Registration = () => {
           <Divider> {t('registration.or')} </Divider>
           <Button disabled startIcon={<FcGoogle />} className='dark:text-[--color-font]'
                   sx={{borderStyle: 'solid', borderColor: 'var(--color-blue)', borderWidth: '2px', color: 'var(--color-blue)'}}>{t('registration.google')}</Button>
-          <span className='text-center'> {t('registration.alreadyHaveAccount')} <Link to="/Register" className='text-[--color-blue] before:bg-[--color-blue]'>{t('registration.login')}</Link> </span>
+          <span className='text-center'> {t('registration.alreadyHaveAccount')} <Link to="/Login" className='text-[--color-blue] before:bg-[--color-blue]'>{t('registration.login')}</Link> </span>
         </div>
       </div>
     </div>

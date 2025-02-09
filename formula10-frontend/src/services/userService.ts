@@ -5,7 +5,6 @@ export const registerUser = async (userData: any) :Promise<any> => {
     const response = await apiClient.post('/api/users', userData);
     return response.data;
   } catch (error) {
-    console.log(error);
     throw error;
   }
 };

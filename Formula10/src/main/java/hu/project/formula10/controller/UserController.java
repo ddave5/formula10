@@ -37,20 +37,19 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createUser(@RequestBody CreateUserDTO createUserDTO, Locale locale) {
-//        try {
-//            if (!userService.isEmailAvailable(createUserDTO.getEmail())) {
-//                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(messageSource.getMessage("registration.email.used", null, locale));
-//            }
-//
-//            boolean isRegistered = userService.createUser(createUserDTO);
-//            Map<String, Boolean> response = new HashMap<>();
-//            response.put("success", isRegistered);
-//            return ResponseEntity.ok(response);
-//        } catch (Exception e) {
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(messageSource.getMessage("registration.fail", null, locale));
-//        }
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(messageSource.getMessage("registration.fail", null, locale));
+    public ResponseEntity<?> createUser(@RequestBody CreateUserDTO createUserDTO, @RequestHeader("Accept-Language") Locale locale) {
+        try {
+            if (!userService.isEmailAvailable(createUserDTO.getEmail())) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(messageSource.getMessage("email.used", null, locale));
+            }
+
+            boolean isRegistered = userService.createUser(createUserDTO);
+            Map<String, Boolean> response = new HashMap<>();
+            response.put("success", isRegistered);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(messageSource.getMessage("registration.fail", null, locale));
+       }
     }
 
     @GetMapping("/{username}")
