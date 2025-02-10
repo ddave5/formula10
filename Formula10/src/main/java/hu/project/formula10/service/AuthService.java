@@ -29,11 +29,12 @@ public class AuthService {
     }
 
     public String loginUser(LoginRequestDTO loginDTO) {
-        User user = userRepository.findByUsernameOrEmail(loginDTO.getUsername(), loginDTO.getEmail())
+
+        User user = userRepository.findByUsernameOrEmail(loginDTO.getUsernameOrEmail(), loginDTO.getUsernameOrEmail())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
         if (passwordEncoder.matches(loginDTO.getPassword(), user.getPassword())) {
-            return jwtTokenProvider.generateToken(user.getUsername());
+            return jwtTokenProvider.generateToken(user.getUsername(), loginDTO.isRememberMe());
         } else {
             throw new BadCredentialsException("Invalid credentials");
         }

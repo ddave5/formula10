@@ -9,6 +9,8 @@ import hu.project.formula10.service.UserService;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -60,8 +62,13 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> loginUser(@RequestBody LoginRequestDTO loginRequest) {
-        String token = authService.loginUser(loginRequest);
-        return ResponseEntity.ok(new JwtAuthenticationResponse(token));
+    public ResponseEntity<?> loginUser(@RequestBody LoginRequestDTO loginRequest, Locale locale) {
+        try {
+            String token = authService.loginUser(loginRequest);
+            return ResponseEntity.ok(new JwtAuthenticationResponse(token));
+        } catch (UsernameNotFoundException | BadCredentialsException ex) {
+            String errorMessage = messageSource.getMessage("login.invalid.credentials", null, locale);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorMessage);
+        }
     }
 }

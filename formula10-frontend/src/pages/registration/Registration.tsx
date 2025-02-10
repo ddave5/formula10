@@ -140,8 +140,8 @@ const Registration = () => {
           
           <FormControl sx={{ '& .MuiTextField-root': { marginBottom: '.5rem'}}}>
             <TextField id='name' required placeholder={t('registration.name')} variant='outlined' label={t('registration.name')} size='small' className='sm:text-sm' value={name} onChange={(e) => setName(e.target.value)} autoComplete='off'
-                       sx={lightInputStyle}/>
-                       {nameError && <span className='text-red-500 text-sm mb-2'>{nameError}</span>} 
+                        sx={lightInputStyle}/>          
+            {nameError && <span className='text-red-500 text-sm mb-2'>{nameError}</span>} 
             <TextField id='username' required placeholder={t('registration.username')} variant='outlined' label={t('registration.username')} size='small' className='sm:text-sm' value={username} onChange={(e) => setUsername(e.target.value)} autoComplete='off'
                        sx={lightInputStyle}/>
                       {!usernameAvailable && <span className='text-red-500 text-sm mb-2'>{t('registration.usernameAlreadyTaken')}</span>} 

@@ -3,39 +3,27 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { FcGoogle } from "react-icons/fc";
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../redux/Store';
+import { loginUser } from '../../redux/slices/AuthSlice';
 
 const Login = () => {
   const { t } = useTranslation();
 
-  const [username, setUsername] = useState('');
+  const dispatch = useDispatch<AppDispatch>();
+  const { error } = useSelector((state: RootState) => state.auth);
+  const auth = useSelector((state: RootState) => state.auth);
+
+  const [usernameOrEmail, setUsernameOrEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [rememberMe, setRememberMe] = useState(false);
-  const [error, setError] = useState('');
+  const [rememberMe, setRememberMe] = useState(true);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const navigate = useNavigate();
 
-  const login = async () => {
-    try {
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
-      });
-
-      const data = await response.json();
-      if (data.token) {
-        if (rememberMe) {
-          localStorage.setItem('token', data.token);
-        } else {
-          sessionStorage.setItem('token', data.token);
-        }
-        navigate('/home');
-      } else {
-        setError('Invalid credentials');
-      }
-    } catch (err) {
-      setError('Something went wrong');
-    }
+  const login = async (e: React.FormEvent) => {
+    e.preventDefault();
+    dispatch(loginUser({ usernameOrEmail, password, rememberMe }));
   }
 
   //TODO - When you save the theme mode into the Redux store, then change the lightInputStyle and darkInputStyle to use the Redux store value
@@ -61,11 +49,11 @@ const Login = () => {
         <h2 className='text-3xl whitespace-nowrap dark:text-white mb-8'>{t('login.login')}</h2>
         <div className='flex flex-col space-y-4'>
           <FormControl sx={{ '& .MuiTextField-root': { marginBottom: '.5rem'}}}>
-            <TextField id='username' placeholder={t('login.username')} variant='outlined' label={t('login.username')} size='small' className='sm:text-sm'
+            <TextField id='username' placeholder={t('login.username')} variant='outlined' label={t('login.username')} size='small' className='sm:text-sm' value={usernameOrEmail} onChange={(e) => setUsernameOrEmail(e.target.value)} autoComplete='off'
                        sx={lightInputStyle}/>
-            <TextField id='password' type='password' placeholder={t('login.password')} variant='outlined' label={t('login.password')} size='small' className='text-2xl'
+            <TextField id='password' type='password' placeholder={t('login.password')} variant='outlined' label={t('login.password')} size='small' className='text-2xl' value={password} onChange={(e) => setPassword(e.target.value)} autoComplete='off'
                        sx={lightInputStyle}/>
-            <FormControlLabel label={t('login.remember')} control={<Checkbox defaultChecked/>} />
+            <FormControlLabel label={t('login.remember')} control={<Checkbox defaultChecked/>} value={rememberMe} onChange={() => setRememberMe(!rememberMe)}/>
             <Button onClick={login} className='dark:text-[--color-font]'
                     sx={{borderStyle: 'solid', borderColor: 'var(--color-blue)', borderWidth: '2px', color: 'var(--color-gray)'}}>
                       {t('login.login')}
