@@ -1,4 +1,4 @@
-import { Button, Checkbox, Divider, FormControl, FormControlLabel, TextField } from '@mui/material'
+import { Button, Checkbox, Divider, FormControl, FormControlLabel, IconButton, InputAdornment, OutlinedInput, TextField } from '@mui/material'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { FcGoogle } from "react-icons/fc";
@@ -6,6 +6,9 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/Store';
 import { loginUser } from '../../redux/slices/AuthSlice';
+import Error from '../../components/Error/Error';
+import { MdOutlineVisibility } from "react-icons/md";
+import { MdOutlineVisibilityOff } from "react-icons/md";
 
 const Login = () => {
   const { t } = useTranslation();
@@ -14,16 +17,38 @@ const Login = () => {
   const { error } = useSelector((state: RootState) => state.auth);
   const auth = useSelector((state: RootState) => state.auth);
 
+  const [showPassword, setShowPassword] = React.useState(false);
+
   const [usernameOrEmail, setUsernameOrEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [rememberMe, setRememberMe] = useState(true);
+  const [rememberMe, setRememberMe] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
   const navigate = useNavigate();
 
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
+
+  const handleMouseUpPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
+
   const login = async (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(loginUser({ usernameOrEmail, password, rememberMe }));
+    try {
+      const resultAction = await dispatch(loginUser({ usernameOrEmail, password, rememberMe }));
+
+      if (loginUser.fulfilled.match(resultAction)) {
+        navigate('/'); // Sikeres bejelentkezés után átirányít a kezdőoldalra
+      } else {
+        setErrorMessage('Login failed.');
+      }
+    } catch (error) {
+      setErrorMessage('An error occurred.');
+    }
   }
 
   //TODO - When you save the theme mode into the Redux store, then change the lightInputStyle and darkInputStyle to use the Redux store value
@@ -48,12 +73,28 @@ const Login = () => {
         <p className="text-2xl title-font whitespace-nowrap dark:text-white mb-4">Formula 10</p>
         <h2 className='text-3xl whitespace-nowrap dark:text-white mb-8'>{t('login.login')}</h2>
         <div className='flex flex-col space-y-4'>
+          {errorMessage && <Error errorMessage={errorMessage} />}
           <FormControl sx={{ '& .MuiTextField-root': { marginBottom: '.5rem'}}}>
             <TextField id='username' placeholder={t('login.username')} variant='outlined' label={t('login.username')} size='small' className='sm:text-sm' value={usernameOrEmail} onChange={(e) => setUsernameOrEmail(e.target.value)} autoComplete='off'
                        sx={lightInputStyle}/>
-            <TextField id='password' type='password' placeholder={t('login.password')} variant='outlined' label={t('login.password')} size='small' className='text-2xl' value={password} onChange={(e) => setPassword(e.target.value)} autoComplete='off'
-                       sx={lightInputStyle}/>
-            <FormControlLabel label={t('login.remember')} control={<Checkbox defaultChecked/>} value={rememberMe} onChange={() => setRememberMe(!rememberMe)}/>
+            <OutlinedInput id='password' type={showPassword ? 'text' : 'password'} placeholder={t('login.password')} label={t('login.password')} size='small' className='text-2xl' value={password} onChange={(e) => setPassword(e.target.value)} autoComplete='off'
+                       sx={lightInputStyle}
+                       endAdornment={
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label={
+                              showPassword ? 'hide the password' : 'display the password'
+                            }
+                            onClick={handleClickShowPassword}
+                            onMouseDown={handleMouseDownPassword}
+                            onMouseUp={handleMouseUpPassword}
+                            edge="end"
+                          >
+                            {showPassword ? <MdOutlineVisibilityOff /> : <MdOutlineVisibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      }/>
+            <FormControlLabel label={t('login.remember')} control={<Checkbox onChange={() => setRememberMe(!rememberMe)}/>} value={rememberMe} />
             <Button onClick={login} className='dark:text-[--color-font]'
                     sx={{borderStyle: 'solid', borderColor: 'var(--color-blue)', borderWidth: '2px', color: 'var(--color-gray)'}}>
                       {t('login.login')}

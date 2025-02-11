@@ -1,7 +1,9 @@
 package hu.project.formula10.service;
 
+import hu.project.formula10.config.jwt.JwtAuthenticationResponse;
 import hu.project.formula10.config.jwt.JwtTokenProvider;
 import hu.project.formula10.dto.LoginRequestDTO;
+import hu.project.formula10.dto.UserDTO;
 import hu.project.formula10.model.User;
 import hu.project.formula10.repository.UserRepository;
 import org.springframework.context.annotation.Bean;
@@ -28,13 +30,13 @@ public class AuthService {
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
-    public String loginUser(LoginRequestDTO loginDTO) {
+    public JwtAuthenticationResponse loginUser(LoginRequestDTO loginDTO) {
 
         User user = userRepository.findByUsernameOrEmail(loginDTO.getUsernameOrEmail(), loginDTO.getUsernameOrEmail())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
         if (passwordEncoder.matches(loginDTO.getPassword(), user.getPassword())) {
-            return jwtTokenProvider.generateToken(user.getUsername(), loginDTO.isRememberMe());
+            return new JwtAuthenticationResponse(jwtTokenProvider.generateToken(user.getUsername(), loginDTO.isRememberMe()), user.toDTO());
         } else {
             throw new BadCredentialsException("Invalid credentials");
         }

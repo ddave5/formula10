@@ -12,6 +12,9 @@ import ErrorDialog from './layout/ErrorContext/ErrorDialog';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from './redux/Store';
 import { loadUserFromStorage } from './redux/slices/AuthSlice';
+import eventBus from './services/eventBus';
+import { showError } from './redux/slices/ErrorSlice';
+import { getToken } from './services/tokenService';
 
 function App() {
   
@@ -23,7 +26,23 @@ function App() {
   }, []);
 
   useEffect(() => {
-    dispatch(loadUserFromStorage()); // Token betöltése storage-ból
+    const token = getToken(); // Token ellenőrzése
+    if (token) {
+      dispatch(loadUserFromStorage()); // Csak akkor hívjuk meg, ha van token
+    } // Token betöltése storage-ból
+  }, [dispatch]);
+
+
+  useEffect(() => {
+    // Előfizetés a hibákra, amelyek az Axios által jönnek
+    eventBus.on('error', (message: string) => {
+      dispatch(showError(message));  // Reduxba diszpacsálja a hibát
+    });
+
+    // Eltávolítás a komponens unmount során (ha szükséges)
+    return () => {
+      eventBus.off('error', dispatch);
+    };
   }, [dispatch]);
 
   return (

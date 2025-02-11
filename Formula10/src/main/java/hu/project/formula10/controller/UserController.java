@@ -10,6 +10,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
@@ -64,11 +65,24 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody LoginRequestDTO loginRequest, Locale locale) {
         try {
-            String token = authService.loginUser(loginRequest);
-            return ResponseEntity.ok(new JwtAuthenticationResponse(token));
+            JwtAuthenticationResponse response = authService.loginUser(loginRequest);
+            return ResponseEntity.ok(response);
         } catch (UsernameNotFoundException | BadCredentialsException ex) {
             String errorMessage = messageSource.getMessage("login.invalid.credentials", null, locale);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorMessage);
         }
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<?> getCurrentUser() {
+        // Lekérjük a jelenleg bejelentkezett felhasználó nevét a SecurityContextHolder-ből
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        // Megkeressük a felhasználót az adatbázisban a username alapján
+        UserDTO userDTO = userService.getUserByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        // Visszaadjuk a felhasználó DTO-ját
+        return ResponseEntity.ok(userDTO);
     }
 }

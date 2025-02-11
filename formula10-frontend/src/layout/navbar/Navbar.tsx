@@ -1,4 +1,4 @@
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import ThemeToggle from './Theme/ThemeToggle';
 import { useTranslation } from 'react-i18next';
 import LanguageSelector from './Language/LanguageSelector';
@@ -7,11 +7,17 @@ import { useWindowWidth } from '@react-hook/window-size';
 import { Link } from 'react-router-dom';
 import { RxHamburgerMenu } from "react-icons/rx";
 import './Navbar.css';
+import { getToken } from '../../services/tokenService';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/Store';
+import Logout from './LogoutButton/LogoutButton';
 
 const Navbar = () => {
 
     const { t } = useTranslation();
     const width = useWindowWidth();
+
+    const user = useSelector((state: RootState) => state.auth.user);
 
     return (
         <Suspense fallback="loading">
@@ -23,7 +29,7 @@ const Navbar = () => {
                     <div className="flex items-center space-x-6 rtl:space-x-reverse">
                         <LanguageSelector />
                         <ThemeToggle />
-                        <Login />
+                        {user ? <Logout /> : <Login /> }
                     </div>
                 </div>
             </nav>

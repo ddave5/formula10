@@ -1,6 +1,9 @@
 import axios from 'axios';
 import i18n from '../i18n/i18n';
 import { getToken } from './tokenService';
+import { store } from '../redux/Store';
+import { showError } from '../redux/slices/ErrorSlice';
+import eventBus from './eventBus';
 
 // Axios instance létrehozása
 const apiClient = axios.create({
@@ -32,10 +35,10 @@ apiClient.interceptors.response.use(
   (error) => {
 
     //TODO HANDLE 
-    /*if (error.response && error.response.status === 500) {
+    if (error.response && error.response.status === 500) {
       const message = error.response.data || 'Error :('
-      store.dispatch(showError(message)); // 500-as hibák globális megjelenítése
-    }*/
+      eventBus.emit('error', message); // 500-as hibák globális megjelenítése
+    }
 
     return Promise.reject(error); // Hibát továbbra is feldobjuk
   }
