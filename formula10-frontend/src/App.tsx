@@ -36,10 +36,9 @@ function App() {
   useEffect(() => {
     // Előfizetés a hibákra, amelyek az Axios által jönnek
     eventBus.on('error', (message: string) => {
-      dispatch(showError(message));  // Reduxba diszpacsálja a hibát
+      dispatch(showError(message)); 
     });
 
-    // Eltávolítás a komponens unmount során (ha szükséges)
     return () => {
       eventBus.off('error', dispatch);
     };
@@ -55,7 +54,6 @@ function App() {
           <Route path='/menu' Component={Menu} />
           <Route path='/login' Component={Login} />
           <Route path='/register' Component={Registration} />
-          <Route path='/success' Component={SuccessRegistration} />
           <Route path='*' element={<div>404</div>} />
         </Routes>
       </ErrorProvider>

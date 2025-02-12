@@ -31,8 +31,7 @@ public class UserService {
     }
 
     public boolean createUser(CreateUserDTO createUserDTO) {
-        if (userRepository.existsByUsername(createUserDTO.getUsername()) ||
-                userRepository.existsByEmail(createUserDTO.getEmail())) {
+        if (userRepository.existsByUsername(createUserDTO.getUsername() )) {
             log.error("Felhasználó név már használva van!");
         }
         String encodedPassword = passwordEncoder.encode(createUserDTO.getPassword());

@@ -1,21 +1,20 @@
-import { Button, Checkbox, Divider, FormControl, FormControlLabel, IconButton, InputAdornment, OutlinedInput, TextField } from '@mui/material'
+import { Button, Checkbox, Divider, FormControl, FormControlLabel, IconButton, InputAdornment, TextField } from '@mui/material'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { FcGoogle } from "react-icons/fc";
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../../redux/Store';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../redux/Store';
 import { loginUser } from '../../redux/slices/AuthSlice';
 import Error from '../../components/Error/Error';
 import { MdOutlineVisibility } from "react-icons/md";
 import { MdOutlineVisibilityOff } from "react-icons/md";
+import { useTheme } from '../../layout/navbar/Theme/ThemeContext';
 
 const Login = () => {
   const { t } = useTranslation();
 
   const dispatch = useDispatch<AppDispatch>();
-  const { error } = useSelector((state: RootState) => state.auth);
-  const auth = useSelector((state: RootState) => state.auth);
 
   const [showPassword, setShowPassword] = React.useState(false);
 
@@ -25,6 +24,8 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState('');
 
   const navigate = useNavigate();
+
+  const {theme} = useTheme();
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -58,13 +59,22 @@ const Login = () => {
     '.MuiInputLabel-root': {color: 'var(--color-font)'}, 
     '.MuiOutlinedInput-notchedOutline' : {borderColor: 'var(--color-font)'}, 
     '&:hover .MuiOutlinedInput-notchedOutline' : {borderColor: 'var(--color-font)'}
-}
+  } 
 
   const lightInputStyle = {
     '.css-1pzfmz2-MuiInputBase-input-MuiOutlinedInput-input' : {color: 'var(--color-gray)'}, 
     '.MuiInputLabel-root': {color: 'var(--color-gray)'}, 
     '.MuiOutlinedInput-notchedOutline' : {borderColor: 'var(--color-gray)'}, 
     '&:hover .MuiOutlinedInput-notchedOutline' : {borderColor: 'var(--color-gray)'}
+  }  
+
+  
+  const darkCheckBoxStyle = {
+    '.css-1umw9bq-MuiSvgIcon-root': {color: 'var(--color-font)'},
+  }
+
+  const lightCheckBoxStyle = {
+    '.css-1umw9bq-MuiSvgIcon-root': {color: 'var(--color-gray)'},
   }
 
   return (
@@ -76,25 +86,30 @@ const Login = () => {
           {errorMessage && <Error errorMessage={errorMessage} />}
           <FormControl sx={{ '& .MuiTextField-root': { marginBottom: '.5rem'}}}>
             <TextField id='username' placeholder={t('login.username')} variant='outlined' label={t('login.username')} size='small' className='sm:text-sm' value={usernameOrEmail} onChange={(e) => setUsernameOrEmail(e.target.value)} autoComplete='off'
-                       sx={lightInputStyle}/>
-            <OutlinedInput id='password' type={showPassword ? 'text' : 'password'} placeholder={t('login.password')} label={t('login.password')} size='small' className='text-2xl' value={password} onChange={(e) => setPassword(e.target.value)} autoComplete='off'
-                       sx={lightInputStyle}
-                       endAdornment={
-                        <InputAdornment position="end">
-                          <IconButton
-                            aria-label={
-                              showPassword ? 'hide the password' : 'display the password'
-                            }
-                            onClick={handleClickShowPassword}
-                            onMouseDown={handleMouseDownPassword}
-                            onMouseUp={handleMouseUpPassword}
-                            edge="end"
-                          >
-                            {showPassword ? <MdOutlineVisibilityOff /> : <MdOutlineVisibility />}
-                          </IconButton>
-                        </InputAdornment>
-                      }/>
-            <FormControlLabel label={t('login.remember')} control={<Checkbox onChange={() => setRememberMe(!rememberMe)}/>} value={rememberMe} />
+                       sx={ theme === "dark" ? darkInputStyle : lightInputStyle}/>
+            <TextField id='password' type={showPassword ? 'text' : 'password'} placeholder={t('login.password')} label={t('login.password')} size='small' className='text-2xl' value={password} onChange={(e) => setPassword(e.target.value)} autoComplete='off'
+                       sx={ theme === "dark" ? darkInputStyle : lightInputStyle}
+                       slotProps={{
+                        "input": {
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <IconButton
+                                aria-label={
+                                  showPassword ? 'hide the password' : 'display the password'
+                                }
+                                onClick={handleClickShowPassword}
+                                onMouseDown={handleMouseDownPassword}
+                                onMouseUp={handleMouseUpPassword}
+                                edge="end"
+                              >
+                                {showPassword ? <MdOutlineVisibilityOff /> : <MdOutlineVisibility />}
+                              </IconButton>
+                            </InputAdornment>
+                          )
+                        }
+                       }}
+                       />
+            <FormControlLabel label={t('login.remember')} control={<Checkbox onChange={() => setRememberMe(!rememberMe)}/>} value={rememberMe} sx={ theme === "dark" ? darkCheckBoxStyle : lightCheckBoxStyle}/>
             <Button onClick={login} className='dark:text-[--color-font]'
                     sx={{borderStyle: 'solid', borderColor: 'var(--color-blue)', borderWidth: '2px', color: 'var(--color-gray)'}}>
                       {t('login.login')}

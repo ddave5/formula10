@@ -24,8 +24,6 @@ export const loginUser = createAsyncThunk(
                 rememberMe: credentials.rememberMe
             });
 
-            console.log(response);
-
             const { token, userDTO: user} = response.data; // JWT token
 
             // Token tárolása a "Remember Me" alapján

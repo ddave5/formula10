@@ -43,5 +43,10 @@
     "google": "Sign up with Google",
     "alreadyHaveAccount": "Already have an account?",
     "login": "Sign in!"
+  },
+  "successRegistration": {
+    "success": "Success",
+    "continue": "Continue",
+    "details": "You have successfully registered! Please check your e-mail address to verify your account."
   }
 }
