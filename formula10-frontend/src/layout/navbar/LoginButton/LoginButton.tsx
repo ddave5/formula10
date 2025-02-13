@@ -1,25 +1,24 @@
-import { Button, ButtonProps, styled } from '@mui/material'
-import { purple } from '@mui/material/colors';
-import React from 'react'
+import { Button } from '@mui/material'
 import { useTranslation } from 'react-i18next';
-import { IoMdLogIn } from "react-icons/io";
 import { useNavigate } from 'react-router-dom';
+import { useTheme } from '../Theme/ThemeContext';
 
 
 const Login = () => {
 
     let navigate = useNavigate();
 
-    const ColorButton = styled(Button)<ButtonProps>(({ theme }) => ({
-        color: theme.palette.getContrastText(purple[500]),
-      }));
-
+    const { theme } = useTheme();
 
     const { t } = useTranslation();
+
+    const lightMode = { color: 'var(--color-primary)', backgroundColor: 'var(--color-font)' };
+    const darkMode = { color: 'var(--color-font)', backgroundColor: 'var(--color-gray-light)' };
+
     return (
-        <ColorButton variant="text" startIcon={<IoMdLogIn />} onClick={() => navigate('/Login')}>
+        <Button variant="contained" onClick={() => navigate('/Login')} sx={theme === 'dark' ? darkMode : lightMode}>
             { t('navbar.login') } 
-        </ColorButton>
+        </Button>
   )
 }
 

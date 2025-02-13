@@ -11,6 +11,7 @@ import { getToken } from '../../services/tokenService';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/Store';
 import Logout from './LogoutButton/LogoutButton';
+import SignUpButton from './SignUpButton/SignUpButton';
 
 const Navbar = () => {
 
@@ -29,6 +30,7 @@ const Navbar = () => {
                     <div className="flex items-center space-x-6 rtl:space-x-reverse">
                         <LanguageSelector />
                         <ThemeToggle />
+                        {!user && <SignUpButton />}
                         {user ? <Logout /> : <Login /> }
                     </div>
                 </div>

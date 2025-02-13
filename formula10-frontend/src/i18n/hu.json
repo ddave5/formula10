@@ -9,6 +9,7 @@
   "navbar": {
     "login": "Belépés",
     "logout": "Kijelentkezés",
+    "signUp": "Regisztráció",
     "rules": "Szabályok",
     "groups": "Csoportok",
     "profile": "Profil",

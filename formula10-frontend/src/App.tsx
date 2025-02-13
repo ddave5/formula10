@@ -6,7 +6,6 @@ import Menu from './layout/navbar/Menu/Menu';
 import Navbar from './layout/navbar/Navbar';
 import Login from './pages/login/Login';
 import Registration from './pages/registration/Registration';
-import SuccessRegistration from './pages/successRegistration/SuccessRegistration';
 import { ErrorProvider } from './layout/ErrorContext/ErrorContext';
 import ErrorDialog from './layout/ErrorContext/ErrorDialog';
 import { useDispatch } from 'react-redux';

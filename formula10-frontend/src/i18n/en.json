@@ -7,8 +7,9 @@
     "welcome": "Welcome!"
   },
   "navbar": {
-    "login": "Login",
-    "logout": "Logout",
+    "login": "Sign in",
+    "logout": "Sign out",
+    "signUp": "Sign up",
     "rules": "Rules",
     "groups": "Groups",
     "profile": "Profile",
