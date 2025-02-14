@@ -40,10 +40,10 @@ const Navbar = () => {
                     <div className="flex items-center ">
                         <ul className="flex flex-row font-medium mt-0 space-x-8 rtl:space-x-reverse text-sm">
                             <li>
-                                <a href="#" className="text-[--color-font] dark:text-white"> { t('navbar.rules') }</a>
+                                <Link to="/rules" className="text-[--color-font] dark:text-white"> { t('navbar.rules') }</Link>
                             </li>
                             <li>
-                                <a href="#" className="text-[--color-font] dark:text-white"> { t('navbar.groups') }</a>
+                                <Link to="#" className="text-[--color-font] dark:text-white"> { t('navbar.groups') }</Link>
                             </li>
                         </ul>
                         {width < 768 && <div className="flex-grow">

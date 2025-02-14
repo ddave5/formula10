@@ -14,6 +14,14 @@ import { loadUserFromStorage } from './redux/slices/AuthSlice';
 import eventBus from './services/eventBus';
 import { showError } from './redux/slices/ErrorSlice';
 import { getToken } from './services/tokenService';
+import Footer from './layout/footer/Footer';
+import Contact from './layout/footer/Contact/Contact';
+import PrivacyPolicy from './layout/footer/PrivacyPolicy/PrivacyPolicy';
+import TermsOfUse from './layout/footer/TermsOfUse/TermsOfUse';
+import CopyrightNotice from './layout/footer/CopyrightNotice/CopyrightNotice';
+import LegalNotice from './layout/footer/LegalNotice/LegalNotice';
+import EmailNotice from './layout/footer/EmailNotice/EmailNotice';
+import Rules from './pages/Rules/Rules';
 
 function App() {
   
@@ -48,13 +56,25 @@ function App() {
       <ErrorProvider>
         <ErrorDialog />
         <Navbar />
-        <Routes>
-          <Route path="/" Component={Home} />
-          <Route path='/menu' Component={Menu} />
-          <Route path='/login' Component={Login} />
-          <Route path='/register' Component={Registration} />
-          <Route path='*' element={<div>404</div>} />
-        </Routes>
+        <main>
+          <Routes>
+            <Route path="/" Component={Home} />
+            <Route path='/menu' Component={Menu} />
+            <Route path='/login' Component={Login} />
+            <Route path='/register' Component={Registration} />
+            <Route path='/rules' Component={Rules} />
+
+            <Route path='/contact' Component={Contact} />
+            <Route path='/privacyPolicy' Component={PrivacyPolicy} />
+            <Route path='/termsOfUse' Component={TermsOfUse} />
+            <Route path='/copyrightNotice' Component={CopyrightNotice} />
+            <Route path='/legalNotice' Component={LegalNotice} />
+            <Route path='/emailNotice' Component={EmailNotice} />
+
+            <Route path='*' element={<div>404</div>} />
+          </Routes>
+        </main>
+        <Footer />
       </ErrorProvider>
     </>
   );

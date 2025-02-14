@@ -17,6 +17,15 @@
     "hu": "Hungarian",
     "en": "English"
   },
+  "footer" : {
+    "contact": "Contact",
+    "privacyPolicy": "Privacy policy",
+    "termsOfUse": "Terms of use",
+    "copyRightNotice": "Copyright notice",
+    "legalNotice": "Legal notice",
+    "emailNotice": "Email notice",
+    "copyright": "Copyright © 2022. David Felegyhazi. All rights reserved."
+  },
   "login": {
     "login": "Login",
     "username": "Username or E-mail address",
