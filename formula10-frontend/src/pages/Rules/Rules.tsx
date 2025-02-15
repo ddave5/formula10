@@ -14,7 +14,7 @@ const Rules = () => {
   useEffect(() => {
     const fetchRulesContent = async () => {
       const language = i18n.language === 'hu' ? 'hu' : 'en'; // Ellenőrizzük a nyelvet
-      const response = await fetch(`/content/rules_${language}.json`); // Betöltjük a megfelelő JSON fájlt
+      const response = await fetch(`/content/rules/rules_${language}.json`); // Betöltjük a megfelelő JSON fájlt
       const data: RulesContent = await response.json();
       setRulesContent(data);
       setLoading(false);

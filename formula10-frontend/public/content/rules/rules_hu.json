@@ -1,0 +1,47 @@
+{
+    "title": "Formula 10 Szabálykönyv",
+    "firstPoint": {
+        "title": "A játék célja",
+        "context": "A Formula 10 játék célja, hogy a játékosok a Formula-1-es szezon minden futamán megtippeljék a 10. helyezett versenyzőt. A játékosok a tippjeik alapján pontokat gyűjtenek, és a legtöbb pontot szerző játékos nyeri a játékot."
+    },
+    "secondPoint": {
+        "title": "Pontozás",
+        "list": [
+            "Minden játékos a tippelt pilótájának végső futambeli helyezéséért kap pontot a Pontszámok menüpont táblázata alapján.", 
+            "A pontozás részletesen megtalálható a Pontszámok, aktuális helyezések táblázatban.",
+            "Sprintversenyek esetén a sprintfutam 5. helyezettjét is meg kell tippelni. Ennek pontozása a Pontszámok, aktuális helyezések Sprintfutam táblázata alapján történik."
+        ]
+    },
+    "thirdPoint": {
+        "title": "Tippelés szabályai",
+        "list": [
+            "Minden játékosnak az aktuális futam időmérője előtt kell leadnia a tippjét/tippjeit.",
+            "Amennyiben a hétvégén sprintfutam is van, a játékosnak a sprintfutam időmérője előtt kell leadnia mindkét tippet (a fő futam 10. helyezettjére és a sprintfutam 5. helyezettjére).",
+            "A leadott tippeket az időmérő pillanatáig lehet módosítani.",
+            "Minden játékos csak az előző futam leintését követően tehet tippet a következő futamra."
+        ]
+    },
+    "fourthPoint": {
+        "title": "Büntetések",
+        "list": [
+            "Ha egy játékos nem tippel egy futamra, akkor az eggyel korábbi futam tippjét kapja meg automatikusan, és -5 pontos büntetés éri.",
+            "Amennyiben a választott pilóta nem indul a futamon, automatikusan az őt helyettesítő pilóta lesz az új tipp."
+        ]
+    },
+    "fifthPoint": {
+        "title": "Győzelem",
+        "context": "A játékot az a játékos nyeri, aki a szezon végén a legtöbb pontot gyűjtötte. A pontszámok a Pontszámok, aktuális helyezések táblázatban követhetők."
+    },
+    "sixthPoint": {
+        "title": "Egyéb szabályok",
+        "list": [
+            "A játékban való részvételhez regisztráció szükséges.",
+            "A játék során bekövetkező technikai hibák esetén az Üzemeltető fenntartja a jogot, hogy módosítsa vagy törölje a tippeket.",
+            "A játék szabályait az Üzemeltető bármikor módosíthatja. A változtatásokról a játékosokat e-mailben értesítjük."
+        ]
+    },
+    "seventhPoint": {
+        "title": "Kapcsolat",
+        "context": "Ha kérdése van a játék szabályaival kapcsolatban, kérjük, lépjen kapcsolatba velünk a következő e-mail címen: felegyhazi.david@gmail.com."
+    }
+}

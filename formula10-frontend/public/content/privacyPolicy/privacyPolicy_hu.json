@@ -1,0 +1,43 @@
+{
+    "title": "Adatvédelmi tájékoztató",
+    "preChapter": "Ez az adatvédelmi tájékoztató (a továbbiakban: 'Tájékoztató') a Formula 10 (a továbbiakban: 'Weboldal') használata során felhasználói adatok kezelésével kapcsolatos információkat tartalmaz. A Weboldal üzemeltetője és adatkezelője Félegyházi Dávid (a továbbiakban: 'Üzemeltető').",
+    "firstChapter": {
+        "title": "Milyen adatokat gyüjtünk?",
+        "context": "A Weboldal használata során a következő adatokat gyűjtjük:",
+        "list": [ "Teljes név,", "Felhasználói név,", "E-mail cím,", "Jelszó (titkosított formában)." ]
+    },
+    "secondChapter": {
+        "title": "Miért gyűjtjük ezeket az adatokat?",
+        "context": "Az adatokat a következő célokra gyűjtjük:",
+        "list": [ "Felhasználói fiók létrehozása és kezelése,", "A játékhoz való hozzáférés biztosítása,", "E-mail értesítések küldése (pl. játékeredmények, frissítések)."]
+    },
+    "thirdChapter": {
+        "title": "Hogyan tároljuk az adatokat?",
+        "context": "Az adatokat távoli adatbázisban tároljuk. A jelszavakat titkosított formában (BCrypt) tároljuk, hogy biztosítsuk azok biztonságát."
+    },
+    "fourthChapter": {
+        "title": "Kik férhetnek hozzá az adatokhoz?",
+        "context": "Az adatokhoz csak az Üzemeltető fér hozzá. Harmadik fél számára nem adjuk ki az adatokat, kivéve, ha azt a jogszabályok előírják."
+    },
+    "fifthChapter": {
+        "title": "Mennyi ideig tároljuk az adatokat?",
+        "context": "Az adatokat a felhasználói fiók aktív idejére tároljuk. A felhasználó bármikor kérheti fiókjának törlését, ezzel együtt az adatok törlését is."
+    },
+    "sixthChapter": {
+        "title": "Felhasználói jogok",
+        "context": "A felhasználók a következő jogokkal rendelkeznek:",
+        "list": [ "Hozzáférés az adataikhoz,", "Adataik módosítása,", "Adataik törlése,", "Hozzájárulás visszavonása." ]
+    },
+    "seventhChapter": {
+        "title": "Nincsenek sütik",
+        "context": "A Weboldal nem használ sütiket (cookies)."
+    },
+    "eighthChapter": {
+        "title": "Kapcsolat",
+        "context": "Ha kérdése van az adatkezeléssel kapcsolatban, kérjük, lépjen kapcsolatba velünk a következő e-mail címen: felegyhazi.david@gmail.com."
+    },
+    "ninthChapter": {
+        "title": "Tájékoztató frissítése",
+        "context": "Az Üzemeltető fenntartja a jogot, hogy bármikor módosítsa ezt a Tájékoztatót. A frissítésekről e-mailben értesítjük a felhasználókat."
+    }
+}

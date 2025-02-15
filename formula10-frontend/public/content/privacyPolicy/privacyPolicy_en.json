@@ -1,0 +1,43 @@
+{
+    "title": "Privacy Policy",
+    "preChapter": "This Privacy Policy (hereinafter: 'Policy') provides information about the processing of user data in connection with the use of the Formula 10 (hereinafter: 'Website'). The operator and data controller of the Website is David Felegyhazi (hereinafter: 'Operator').",
+    "firstChapter": {
+        "title": "What data do we collect?",
+        "context": "When using the Website, we collect the following data:",
+        "list": [ "Full name,", "Username,", "Email address,", "Password (in encrypted form)." ]
+    },
+    "secondChapter": {
+        "title": "Why do we collect this data?",
+        "context": "We collect the data for the following purposes:",
+        "list": [ "Creating and managing user accounts,", "Providing access to the game,", "Sending email notifications (e.g., game results, updates)."]
+    },
+    "thirdChapter": {
+        "title": "How do we store the data?",
+        "context": "The data is stored in a remote database. Passwords are stored in encrypted form (BCrypt) to ensure their security."
+    },
+    "fourthChapter": {
+        "title": "Who has access to the data?",
+        "context": "Only the Operator has access to the data. We do not share the data with third parties, except as required by law."
+    },
+    "fifthChapter": {
+        "title": "How long do we store the data?",
+        "context": "The data is stored for the duration of the user account. Users can request the deletion of their account and associated data at any time."
+    },
+    "sixthChapter": {
+        "title": "User rights",
+        "context": "Users have the following rights:",
+        "list": [ "Access to their data,", "Correction of their data,", "Deletion of their data,", "Withdrawal of consent." ]
+    },
+    "seventhChapter": {
+        "title": "No cookies",
+        "context": "The Website does not use cookies."
+    },
+    "eighthChapter": {
+        "title": "Contact",
+        "context": "If you have any questions about data processing, please contact us at the following email address: felegyhazi.david@gmail.com."
+    },
+    "ninthChapter": {
+        "title": "Policy updates",
+        "context": "The Operator reserves the right to modify this Policy at any time. Users will be notified of updates via email."
+    }
+}
