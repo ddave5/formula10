@@ -1,0 +1,56 @@
+{
+    "title": "Felhasználási Feltételek",
+    "context": "Ez a dokumentum (a továbbiakban: 'Feltételek') a Formula 10 (a továbbiakban: 'Weboldal') használatának szabályait tartalmazza. A Weboldal használatával Ön elfogadja és kötelezettséget vállal arra, hogy betartja ezeket a Feltételeket. A Weboldal üzemeltetője Félegyházi Dávid (a továbbiakban: 'Üzemeltető').",
+    "listElements": [
+        {
+            "title": "A Weboldal használata",
+            "list": [ 
+                "A Weboldal használata ingyenes, és csak személyes, nem kereskedelmi célokra engedélyezett.", 
+                "A Weboldal használatához regisztráció szükséges. A regisztráció során, a teljes név kivételével, megadott adatok pontosak és valósak kell, hogy legyenek.", 
+                "A játékhoz való hozzáférés csak regisztrált felhasználók számára engedélyezett." ]
+        },
+        {
+            "title": "Felhasználói fiók",
+            "list": [
+                "A felhasználói fiók létrehozásához szükséges a teljes név, felhasználónév, e-mail cím és jelszó megadása.",
+                "A felhasználó felelős a fiókja biztonságáért, és köteles titkosan tartani a jelszavát.",
+                "Az Üzemeltető fenntartja a jogot, hogy bármikor felfüggessze vagy törölje a fiókot, ha a felhasználó megsérti ezeket a Feltételeket."
+            ]
+        },
+        {
+            "title": "Tiltott tevékenységek",
+            "context": "A Weboldal használata során tilos:",
+            "list": [
+                "Más felhasználók adatainak visszaélése vagy megszerzése,",
+                "A Weboldal működésének akadályozása vagy megzavarása,",
+                "Jogvédett tartalmak feltöltése vagy terjesztése,",
+                "Bármilyen visszaéléssel járó vagy jogellenes tevékenység folytatása."
+            ]
+        },
+        {
+            "title": "Tartalom felelőssége",
+            "list": [
+                "A felhasználók felelősek a saját tippjeikért és tevékenységükért.",
+                "Az Üzemeltető nem vállal felelősséget a felhasználók által beküldött tartalmakért."
+            ]
+        },
+        {
+            "title": "Változtatások a Feltételekben",
+            "list": [
+                "Az Üzemeltető fenntartja a jogot, hogy bármikor módosítsa ezeket a Feltételeket. A változtatásokról a felhasználókat e-mailben értesítjük.",
+                "A Feltételek módosítása után a Weboldal további használata az új Feltételek elfogadását jelenti."
+            ]
+        },
+        {
+            "title": "Felelősségkorlátozás",
+            "list": [
+                "Az Üzemeltető nem vállal felelősséget a Weboldal használatából eredő közvetlen vagy közvetett károkért.",
+                "Az Üzemeltető nem garantálja, hogy a Weboldal mindig elérhető vagy hibamentes lesz."
+            ]
+        },
+        {
+            "title": "Kapcsolat",
+            "context": "Ha kérdése van ezekkel a Feltételekkel kapcsolatban, kérjük, lépjen kapcsolatba velünk a következő e-mail címen: felegyhazi.david@gmail.com."
+        }
+    ]
+}

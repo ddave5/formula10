@@ -1,43 +1,22 @@
 {
     "title": "Privacy Policy",
-    "preChapter": "This Privacy Policy (hereinafter: 'Policy') provides information about the processing of user data in connection with the use of the Formula 10 (hereinafter: 'Website'). The operator and data controller of the Website is David Felegyhazi (hereinafter: 'Operator').",
-    "firstChapter": {
-        "title": "What data do we collect?",
-        "context": "When using the Website, we collect the following data:",
-        "list": [ "Full name,", "Username,", "Email address,", "Password (in encrypted form)." ]
-    },
-    "secondChapter": {
-        "title": "Why do we collect this data?",
-        "context": "We collect the data for the following purposes:",
-        "list": [ "Creating and managing user accounts,", "Providing access to the game,", "Sending email notifications (e.g., game results, updates)."]
-    },
-    "thirdChapter": {
-        "title": "How do we store the data?",
-        "context": "The data is stored in a remote database. Passwords are stored in encrypted form (BCrypt) to ensure their security."
-    },
-    "fourthChapter": {
-        "title": "Who has access to the data?",
-        "context": "Only the Operator has access to the data. We do not share the data with third parties, except as required by law."
-    },
-    "fifthChapter": {
-        "title": "How long do we store the data?",
-        "context": "The data is stored for the duration of the user account. Users can request the deletion of their account and associated data at any time."
-    },
-    "sixthChapter": {
-        "title": "User rights",
-        "context": "Users have the following rights:",
-        "list": [ "Access to their data,", "Correction of their data,", "Deletion of their data,", "Withdrawal of consent." ]
-    },
-    "seventhChapter": {
-        "title": "No cookies",
-        "context": "The Website does not use cookies."
-    },
-    "eighthChapter": {
-        "title": "Contact",
-        "context": "If you have any questions about data processing, please contact us at the following email address: felegyhazi.david@gmail.com."
-    },
-    "ninthChapter": {
-        "title": "Policy updates",
-        "context": "The Operator reserves the right to modify this Policy at any time. Users will be notified of updates via email."
-    }
+    "preContext": "This Privacy Policy (hereinafter: 'Policy') provides information about the processing of user data in connection with the use of the Formula 10 (hereinafter: 'Website'). The operator and data controller of the Website is David Felegyhazi (hereinafter: 'Operator').",
+    "listElements": [
+        {
+            "title": "Purpose and Types of Data Collection",
+            "context": "When using the Website, we collect the following data: full name, username, email address, and password. This data is used to create and manage user accounts, as well as to provide access to the game. Additionally, email addresses are used to send notifications about game results and updates to the Website. Passwords are always stored in encrypted form to ensure their security."
+        },
+        {
+            "title": "Data Storage and Access",
+            "context": "The data is stored in a remote database that operates in a secure environment. Only the Operator has access to the data, and we do not share it with third parties unless required by law. The data is stored for the duration of the user account, but users can request the deletion of their account and associated data at any time. Requests for deletion will be processed as soon as possible, but no later than within 30 days."
+        },
+        {
+            "title": "User Rights and Data Protection",
+            "context": "Users have several rights regarding their data, including the right to access, correct, or delete their data, as well as the right to withdraw consent. If you have any questions about data processing or wish to exercise your rights, please contact us at the following email address: felegyhazi.david@gmail.com. The Website does not use cookies, so you do not need to worry about this aspect."
+        },
+        {
+            "title": "Policy Updates",
+            "context": "The Operator reserves the right to modify this Policy at any time. Users will be notified of changes via email, and the updated Policy will take effect immediately. Continued use of the Website constitutes acceptance of the updated Policy. If you have any questions about our data protection practices, please do not hesitate to contact us."
+        }
+    ]
 }

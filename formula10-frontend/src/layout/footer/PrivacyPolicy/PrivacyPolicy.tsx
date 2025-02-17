@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next';
+import JSONText from '../../../components/JSONText/JSONText';
 
 const PrivacyPolicy = () => {
   return (
-    <div>PrivacyPolicy</div>
+    <JSONText documentName="privacyPolicy" />
   )
 }
 

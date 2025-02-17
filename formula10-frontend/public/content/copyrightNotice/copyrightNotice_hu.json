@@ -1,0 +1,32 @@
+{
+    "title": "Szerzői jogi nyilatkozat",
+    "context": "A Formula 10 (a továbbiakban: 'Weboldal') minden tartalma, beleértve a szövegeket, képeket, grafikákat, logókat és egyéb anyagokat, szerzői jogi védelem alatt áll. A tartalom tulajdonosa Félegyházi Dávid (a továbbiakban: 'Tulajdonos'), kivéve, ha más szerzői jogi tulajdonosokra explicit módon hivatkozunk.",
+    "listElements": [
+        {
+            "title": "Tartalom felhasználása",
+            "list": [       
+                "A Weboldal tartalmának bármilyen formában történő másolása, terjesztése, módosítása vagy felhasználása csak a Tulajdonos előzetes írásbeli engedélyével megengedett.",
+                "Kivételt képeznek a szerzői jogi törvények által megengedett felhasználások, például a személyes, nem kereskedelmi célú felhasználás."
+            ]
+        },
+        {
+            "title": "Harmadik fél tartalma",
+            "list": [       
+                "A Weboldalon előforduló harmadik fél által biztosított tartalom (pl. külső linkek, beágyazott tartalmak) szerzői jogi védelme a megfelelő szerzői jogi tulajdonosokra vonatkozik.",
+                "A Tulajdonos nem vállal felelősséget a harmadik fél tartalmáért."
+            ]
+        },
+        {
+            "title": "Engedélykérések",
+            "context": "Ha szeretné felhasználni a Weboldal tartalmát, kérjük, lépjen kapcsolatba velünk a következő e-mail címen: felegyhazi.david@gmail.com."
+        },
+        {
+            "title": "Jogi következmények",
+            "context": "A szerzői jogok megsértése esetén a Tulajdonos jogosult jogi lépéseket tenni, beleértve a polgári peres eljárást és a kártérítés követelését."
+        },
+        {
+            "title": "Nyilatkozat frissítése",
+            "context": "A Tulajdonos fenntartja a jogot, hogy bármikor módosítsa ezt a Szerzői jogi nyilatkozatot. A változtatásokról a felhasználókat e-mailben értesítjük."
+        }
+    ]
+}

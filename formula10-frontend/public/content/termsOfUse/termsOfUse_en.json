@@ -1,0 +1,56 @@
+{
+    "title": "Terms of Service",
+    "context": "This document (hereinafter: 'Terms') outlines the rules for using the Formula 10 (hereinafter: 'Website'). By using the Website, you agree to and are bound by these Terms. The operator of the Website is David Felegyhazi (hereinafter: 'Operator').",
+    "listElements": [
+        {
+            "title": "Use of the Website",
+            "list": [ 
+                "The use of the Website is free and permitted only for personal, non-commercial purposes.", 
+                "Registration is required to use the Website. The information provided during registration must be accurate and truthful, except for the full name.", 
+                "Access to the game is permitted only for registered users." ]
+        },
+        {
+            "title": "User Account",
+            "list": [
+                "To create a user account, you must provide your full name, username, email address, and password.",
+                "The user is responsible for the security of their account and must keep their password confidential.",
+                "The Operator reserves the right to suspend or delete the account at any time if the user violates these Terms."
+            ]
+        },
+        {
+            "title": "Prohibited Activities",
+            "context": "When using the Website, it is prohibited to:",
+            "list": [
+                "Misuse or obtain other users' data,",
+                "Disrupt or interfere with the operation of the Website,",
+                "Upload or distribute copyrighted content,",
+                "Engage in any abusive or illegal activities."
+            ]
+        },
+        {
+            "title": "Content Responsibility",
+            "list": [
+                "Users are responsible for their own predictions and activities.",
+                "The Operator is not responsible for content submitted by users."
+            ]
+        },
+        {
+            "title": "Changes to the Terms",
+            "list": [
+                "The Operator reserves the right to modify these Terms at any time. Users will be notified of changes via email.",
+                "Continued use of the Website after changes constitutes acceptance of the new Terms."
+            ]
+        },
+        {
+            "title": "Limitation of Liability",
+            "list": [
+                "The Operator is not liable for any direct or indirect damages arising from the use of the Website.",
+                "The Operator does not guarantee that the Website will always be available or error-free."
+            ]
+        },
+        {
+            "title": "Contact",
+            "context": "If you have any questions about these Terms, please contact us at the following email address: felegyhazi.david@gmail.com."
+        }
+    ]
+}

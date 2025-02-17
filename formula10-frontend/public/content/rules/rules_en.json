@@ -1,47 +1,49 @@
 {
   "title": "Formula 10 Rulebook",
-  "firstPoint": {
-      "title": "Objective of the Game",
-      "context": "The goal of the Formula 10 game is for players to predict the 10th-place finisher in every race of the Formula 1 season. Players earn points based on their predictions, and the player with the most points at the end of the season wins the game."
-  },
-  "secondPoint": {
-      "title": "Scoring",
-      "list": [
-          "Each player earns points based on the final race position of their predicted driver, according to the Points Table in the 'Points' section.", 
-          "Detailed scoring can be found in the Points, Current Standings table.",
-          "For sprint races, players must also predict the 5th-place finisher in the sprint race. Scoring for this is based on the Points, Current Standings Sprint Race table."
-      ]
-  },
-  "thirdPoint": {
-      "title": "Prediction Rules",
-      "list": [
-          "Players must submit their predictions before the qualifying session.",
-          "If the race weekend includes a sprint race, players must submit both predictions (for the main race 10th-place finisher and the sprint race 5th-place finisher) before the sprint race qualifying session.",
-          "Predictions can be modified until the start of the qualifying session.",
-          "Players can only submit predictions for the next race after the previous race has ended."
-      ]
-  },
-  "fourthPoint": {
-      "title": "Penalties",
-      "list": [
-          "If a player does not submit a prediction for a race, they will automatically receive the prediction from the previous race and incur a -5 point penalty.",
-          "If the selected driver does not participate in the race, the replacement driver will automatically become the new prediction."
-      ]
-  },
-  "fifthPoint": {
-      "title": "Winning the Game",
-      "context": "The player with the most points at the end of the season wins the game. Points can be tracked in the Points, Current Standings table."
-  },
-  "sixthPoint": {
-      "title": "Additional Rules",
-      "list": [
-          "Registration is required to participate in the game.",
-          "In the event of technical issues, the Operator reserves the right to modify or delete predictions.",
-          "The Operator may modify the game rules at any time. Players will be notified of changes via email."
-      ]
-  },
-  "seventhPoint": {
-      "title": "Contact",
-      "context": "If you have any questions about the game rules, please contact us at the following email address: felegyhazi.david@gmail.com."
-  }
+  "listElements": [
+    {
+        "title": "Objective of the Game",
+        "context": "The goal of the Formula 10 game is for players to predict the 10th-place finisher in every race of the Formula 1 season. Players earn points based on their predictions, and the player with the most points at the end of the season wins the game."
+    },
+    {
+        "title": "Scoring",
+        "list": [
+            "Each player earns points based on the final race position of their predicted driver, according to the Points Table in the 'Points' section.", 
+            "Detailed scoring can be found in the Points, Current Standings table.",
+            "For sprint races, players must also predict the 5th-place finisher in the sprint race. Scoring for this is based on the Points, Current Standings Sprint Race table."
+        ]
+    },
+    {
+        "title": "Prediction Rules",
+        "list": [
+            "Players must submit their predictions before the qualifying session.",
+            "If the race weekend includes a sprint race, players must submit both predictions (for the main race 10th-place finisher and the sprint race 5th-place finisher) before the sprint race qualifying session.",
+            "Predictions can be modified until the start of the qualifying session.",
+            "Players can only submit predictions for the next race after the previous race has ended."
+        ]
+    },
+    {
+        "title": "Penalties",
+        "list": [
+            "If a player does not submit a prediction for a race, they will automatically receive the prediction from the previous race and incur a -5 point penalty.",
+            "If the selected driver does not participate in the race, the replacement driver will automatically become the new prediction."
+        ]
+    },
+    {
+        "title": "Winning the Game",
+        "context": "The player with the most points at the end of the season wins the game. Points can be tracked in the Points, Current Standings table."
+    },
+    {
+        "title": "Additional Rules",
+        "list": [
+            "Registration is required to participate in the game.",
+            "In the event of technical issues, the Operator reserves the right to modify or delete predictions.",
+            "The Operator may modify the game rules at any time. Players will be notified of changes via email."
+        ]
+    },
+    {
+        "title": "Contact",
+        "context": "If you have any questions about the game rules, please contact us at the following email address: felegyhazi.david@gmail.com."
+    }
+    ]
 }

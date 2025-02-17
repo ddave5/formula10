@@ -1,0 +1,39 @@
+{
+    "title": "Jogi nyilatkozatok",
+    "context": "Ez a dokumentum (a továbbiakban: 'Nyilatkozat') a Formula 10 (a továbbiakban: 'Weboldal') használatával kapcsolatos jogi információkat tartalmaz. A Weboldal üzemeltetője Félegyházi Dávid (a továbbiakban: 'Üzemeltető').",
+    "listElements": [
+        {
+            "title": "Tartalom pontossága",
+            "list": [       
+                "Az Üzemeltető minden tőle telhetőt megtesz annak érdekében, hogy a Weboldalon található információk pontosak és naprakészek legyenek.",
+                "Az Üzemeltető azonban nem vállal felelősséget a tartalom pontosságáért, teljességéért vagy hibamentességéért.",
+                "A Weboldal tartalma tájékoztató jellegű, és nem minősül szakmai tanácsadásnak."
+            ]
+        },
+        {
+            "title": "Harmadik fél tartalma",
+            "list": [       
+                "A Weboldalon előforduló harmadik fél által biztosított tartalom (pl. külső linkek, beágyazott tartalmak) felelőssége kizárólag a tartalom szerzőjét terheli.",
+                "Az Üzemeltető nem vállal felelősséget a harmadik fél tartalmáért, elérhetőségéért vagy hibáiért."
+            ]
+        },
+        {
+            "title": "Weboldal elérhetősége",
+            "list": [       
+                "Az Üzemeltető nem garantálja, hogy a Weboldal mindig elérhető vagy hibamentes lesz.",
+                "Az Üzemeltető fenntartja a jogot, hogy bármikor átmenetileg vagy véglegesen leállítsa a Weboldal működését."
+            ]
+        },
+        {
+            "title": "Felelősségkorlátozás",
+            "list": [       
+                "Az Üzemeltető semmilyen körülmények között nem vállal felelősséget közvetlen vagy közvetett károkért, amelyek a Weboldal használatából erednek.",
+                "A felhasználók saját felelősségre használják a Weboldalt."
+            ]
+        },
+        {
+            "title": "Kapcsolat",
+            "context": "Ha kérdése van ezzel a Nyilatkozatttal kapcsolatban, kérjük, lépjen kapcsolatba velünk a következő e-mail címen: felegyhazi.david@gmail.com."
+        }
+    ]
+}
