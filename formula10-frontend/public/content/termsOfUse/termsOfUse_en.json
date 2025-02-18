@@ -4,53 +4,23 @@
     "listElements": [
         {
             "title": "Use of the Website",
-            "list": [ 
-                "The use of the Website is free and permitted only for personal, non-commercial purposes.", 
-                "Registration is required to use the Website. The information provided during registration must be accurate and truthful, except for the full name.", 
-                "Access to the game is permitted only for registered users." ]
+            "context": "The use of the Website is free and permitted only for personal, non-commercial purposes. Registration is required to use the Website, during which users must provide accurate and truthful information. After registration, users gain access to the game and other features of the Website. The Operator reserves the right to modify or suspend the operation of the Website at any time if deemed necessary."
         },
         {
-            "title": "User Account",
-            "list": [
-                "To create a user account, you must provide your full name, username, email address, and password.",
-                "The user is responsible for the security of their account and must keep their password confidential.",
-                "The Operator reserves the right to suspend or delete the account at any time if the user violates these Terms."
-            ]
+            "title": "User Account and Responsibility",
+            "context": "To create a user account, users must provide their full name, username, email address, and password. Users are responsible for the security of their account and must keep their password confidential. If a user suspects unauthorized use of their account, they must immediately notify the Operator. The Operator reserves the right to suspend or delete the account at any time if the user violates these Terms."
         },
         {
             "title": "Prohibited Activities",
-            "context": "When using the Website, it is prohibited to:",
-            "list": [
-                "Misuse or obtain other users' data,",
-                "Disrupt or interfere with the operation of the Website,",
-                "Upload or distribute copyrighted content,",
-                "Engage in any abusive or illegal activities."
-            ]
+            "context": "When using the Website, it is prohibited to misuse or obtain other users' data, disrupt or interfere with the operation of the Website, or upload or distribute copyrighted content. Additionally, any abusive or illegal activity is strictly prohibited. The Operator reserves the right to take immediate action in case of any illegal activity, including suspending or deleting accounts."
         },
         {
-            "title": "Content Responsibility",
-            "list": [
-                "Users are responsible for their own predictions and activities.",
-                "The Operator is not responsible for content submitted by users."
-            ]
-        },
-        {
-            "title": "Changes to the Terms",
-            "list": [
-                "The Operator reserves the right to modify these Terms at any time. Users will be notified of changes via email.",
-                "Continued use of the Website after changes constitutes acceptance of the new Terms."
-            ]
-        },
-        {
-            "title": "Limitation of Liability",
-            "list": [
-                "The Operator is not liable for any direct or indirect damages arising from the use of the Website.",
-                "The Operator does not guarantee that the Website will always be available or error-free."
-            ]
+            "title": "Limitation of Liability and Changes",
+            "context": "The Operator is not liable for any direct or indirect damages arising from the use of the Website, including inaccuracies or omissions in the content. The Operator does not guarantee that it will always be available or error-free. The Operator reserves the right to modify these Terms at any time and will notify users of changes via email. Continued use of the Website constitutes acceptance of the updated Terms."
         },
         {
             "title": "Contact",
-            "context": "If you have any questions about these Terms, please contact us at the following email address: felegyhazi.david@gmail.com."
+            "context": "If you have any questions about these Terms, please contact us at the following email address: felegyhazi.david@gmail.com. The Operator makes every effort to respond to user questions and issues promptly and effectively."
         }
     ]
 }

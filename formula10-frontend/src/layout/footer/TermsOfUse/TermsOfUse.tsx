@@ -1,8 +1,9 @@
 import React from 'react'
+import JSONText from '../../../components/JSONText/JSONText'
 
 const TermsOfUse = () => {
   return (
-    <div>TermsOfUse</div>
+    <JSONText documentName="termsOfUse" />
   )
 }
 

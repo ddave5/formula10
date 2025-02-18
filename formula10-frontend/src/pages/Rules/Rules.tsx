@@ -8,6 +8,7 @@ import { TbGavel } from "react-icons/tb";
 import { IoIosTrophy } from "react-icons/io";
 import { FaList } from "react-icons/fa6";
 import { IoMdContact } from "react-icons/io";
+import Loading from '../../components/Loading/Loading';
 
 
 const Rules = () => {
@@ -30,15 +31,15 @@ const Rules = () => {
   }, [i18n.language]); // Nyelv változáskor újratöltjük a tartalmat
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <Loading isLoading={loading} />;
   }
 
   return (
-    <div className='p-6'>
+    <div className='p-6 flex justify-center'>
       {rulesContent && (
-        <>
-          <h1 className='text-2xl font-bold mb-4'>{rulesContent.title}</h1>
-          <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4'>
+        <div className='w-2/3'>
+          <h1 className='text-2xl font-bold mb-8 text-center'>{rulesContent.title}</h1>
+          <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4'>
             {rulesContent.listElements.map((listElement, index) => { return(
               <div key={index} className='mb-4 border-2 border-gray-200 dark:border-gray-700 border-solid rounded-md p-4'>
                 <div className='flex justify-center items-center mb-4 text-[120px] text-[--color-primary] dark:text-[--color-blue]'>{iconList[index]}</div>
@@ -47,7 +48,7 @@ const Rules = () => {
               </div>
             )})}
           </div>
-        </>
+        </div>
       )}
     </div>
   );

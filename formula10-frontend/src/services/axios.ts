@@ -1,8 +1,6 @@
 import axios from 'axios';
 import i18n from '../i18n/i18n';
 import { getToken } from './tokenService';
-import { store } from '../redux/Store';
-import { showError } from '../redux/slices/ErrorSlice';
 import eventBus from './eventBus';
 
 // Axios instance létrehozása

@@ -5,6 +5,7 @@ import { getAllNews } from '../../services/newsService';
 import News from '../../layout/news/News';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/Store';
+import Loading from '../../components/Loading/Loading';
 
 const Home: React.FC = () => {
 
@@ -30,7 +31,7 @@ const Home: React.FC = () => {
     }, []);
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <Loading isLoading={loading} />;
     }
 
     if (error) {

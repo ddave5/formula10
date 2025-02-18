@@ -1,4 +1,4 @@
-import { Suspense, useEffect } from 'react';
+import { Suspense } from 'react';
 import ThemeToggle from './Theme/ThemeToggle';
 import { useTranslation } from 'react-i18next';
 import LanguageSelector from './Language/LanguageSelector';
@@ -7,7 +7,6 @@ import { useWindowWidth } from '@react-hook/window-size';
 import { Link } from 'react-router-dom';
 import { RxHamburgerMenu } from "react-icons/rx";
 import './Navbar.css';
-import { getToken } from '../../services/tokenService';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/Store';
 import Logout from './LogoutButton/LogoutButton';

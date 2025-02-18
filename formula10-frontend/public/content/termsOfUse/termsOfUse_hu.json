@@ -4,53 +4,23 @@
     "listElements": [
         {
             "title": "A Weboldal használata",
-            "list": [ 
-                "A Weboldal használata ingyenes, és csak személyes, nem kereskedelmi célokra engedélyezett.", 
-                "A Weboldal használatához regisztráció szükséges. A regisztráció során, a teljes név kivételével, megadott adatok pontosak és valósak kell, hogy legyenek.", 
-                "A játékhoz való hozzáférés csak regisztrált felhasználók számára engedélyezett." ]
+            "context": "A Weboldal használata ingyenes, és csak személyes, nem kereskedelmi célokra engedélyezett. A Weboldal használatához regisztráció szükséges, amely során a felhasználóknak pontos és valós adatokat kell megadniuk. A regisztrációt követően a felhasználók hozzáférést kapnak a játékhoz és a Weboldal egyéb funkcióihoz. Az Üzemeltető fenntartja a jogot, hogy bármikor módosítsa vagy leállítsa a Weboldal működését, ha azt szükségesnek látja."
         },
         {
-            "title": "Felhasználói fiók",
-            "list": [
-                "A felhasználói fiók létrehozásához szükséges a teljes név, felhasználónév, e-mail cím és jelszó megadása.",
-                "A felhasználó felelős a fiókja biztonságáért, és köteles titkosan tartani a jelszavát.",
-                "Az Üzemeltető fenntartja a jogot, hogy bármikor felfüggessze vagy törölje a fiókot, ha a felhasználó megsérti ezeket a Feltételeket."
-            ]
+            "title": "Felhasználói fiók és felelősség",
+            "context": "A felhasználói fiók létrehozásához szükséges a teljes név, felhasználónév, e-mail cím és jelszó megadása. A felhasználó felelős a fiókja biztonságáért, és köteles titkosan tartani a jelszavát. Ha a felhasználó gyanítja, hogy fiókját illetéktelenül használják, azonnal értesítenie kell az Üzemeltetőt. Az Üzemeltető fenntartja a jogot, hogy bármikor felfüggessze vagy törölje a fiókot, ha a felhasználó megsérti ezeket a Feltételeket."
         },
         {
             "title": "Tiltott tevékenységek",
-            "context": "A Weboldal használata során tilos:",
-            "list": [
-                "Más felhasználók adatainak visszaélése vagy megszerzése,",
-                "A Weboldal működésének akadályozása vagy megzavarása,",
-                "Jogvédett tartalmak feltöltése vagy terjesztése,",
-                "Bármilyen visszaéléssel járó vagy jogellenes tevékenység folytatása."
-            ]
+            "context": "A Weboldal használata során tilos más felhasználók adatainak visszaélése vagy megszerzése, a Weboldal működésének akadályozása vagy megzavarása, valamint jogvédett tartalmak feltöltése vagy terjesztése. Emellett bármilyen visszaéléssel járó vagy jogellenes tevékenység szigorúan tilos. Az Üzemeltető fenntartja a jogot, hogy bármilyen jogellenes tevékenység esetén azonnal fellépjen, beleértve a fiókok felfüggesztését vagy törlését."
         },
         {
-            "title": "Tartalom felelőssége",
-            "list": [
-                "A felhasználók felelősek a saját tippjeikért és tevékenységükért.",
-                "Az Üzemeltető nem vállal felelősséget a felhasználók által beküldött tartalmakért."
-            ]
-        },
-        {
-            "title": "Változtatások a Feltételekben",
-            "list": [
-                "Az Üzemeltető fenntartja a jogot, hogy bármikor módosítsa ezeket a Feltételeket. A változtatásokról a felhasználókat e-mailben értesítjük.",
-                "A Feltételek módosítása után a Weboldal további használata az új Feltételek elfogadását jelenti."
-            ]
-        },
-        {
-            "title": "Felelősségkorlátozás",
-            "list": [
-                "Az Üzemeltető nem vállal felelősséget a Weboldal használatából eredő közvetlen vagy közvetett károkért.",
-                "Az Üzemeltető nem garantálja, hogy a Weboldal mindig elérhető vagy hibamentes lesz."
-            ]
+            "title": "Felelősségkorlátozás és változtatások",
+            "context": "Az Üzemeltető nem vállal felelősséget a Weboldal használatából eredő közvetlen vagy közvetett károkért, beleértve a tartalom pontatlanságát vagy hiányosságait. Az Üzemeltető nem garantálja, hogy mindig elérhető vagy hibamentes lesz. Az Üzemeltető fenntartja a jogot, hogy bármikor módosítsa ezeket a Feltételeket, és a változtatásokról a felhasználókat e-mailben értesíti. A Weboldal további használata a frissített Feltételek elfogadását jelenti."
         },
         {
             "title": "Kapcsolat",
-            "context": "Ha kérdése van ezekkel a Feltételekkel kapcsolatban, kérjük, lépjen kapcsolatba velünk a következő e-mail címen: felegyhazi.david@gmail.com."
+            "context": "Ha kérdése van ezekkel a Feltételekkel kapcsolatban, kérjük, lépjen kapcsolatba velünk a következő e-mail címen: felegyhazi.david@gmail.com. Az Üzemeltető minden erőfeszítést megtesz annak érdekében, hogy a felhasználók kérdéseire és problémáira gyorsan és hatékonyan válaszoljon."
         }
     ]
 }

@@ -38,7 +38,7 @@ const Registration = () => {
 
   useEffect(() => {
     checkUsername(username);
-  }, [username]);
+  }, [checkUsername, username]);
 
   useEffect(() => {
     setNameError(false);
@@ -150,7 +150,7 @@ const Registration = () => {
               
               <FormControl sx={{ '& .MuiTextField-root': { marginBottom: '.5rem'}}}>
                 <TextField id='name' required placeholder={t('registration.name')} variant='outlined' label={t('registration.name')} size='small' className='sm:text-sm' value={name} onChange={(e) => setName(e.target.value)} autoComplete='off'
-                            sx={ theme === "dark" ? darkInputStyle : lightInputStyle}/>          
+                            sx={ theme === "dark" ? darkInputStyle : lightInputStyle }/>          
                 {nameError && <span className='text-red-500 text-sm mb-2'>{t('registration.nameIsEmpty')}</span>} 
                 <TextField id='username' required placeholder={t('registration.username')} variant='outlined' label={t('registration.username')} size='small' className='sm:text-sm' value={username} onChange={(e) => setUsername(e.target.value)} autoComplete='off'
                           sx={ theme === "dark" ? darkInputStyle : lightInputStyle}/>
