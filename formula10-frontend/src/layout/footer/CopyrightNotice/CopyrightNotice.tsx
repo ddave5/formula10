@@ -1,8 +1,9 @@
 import React from 'react'
+import JSONText from '../../../components/JSONText/JSONText'
 
 const CopyrightNotice = () => {
   return (
-    <div>CopyrightNotice</div>
+    <JSONText documentName="copyrightNotice" />
   )
 }
 

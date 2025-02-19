@@ -1,32 +1,22 @@
 {
     "title": "Copyright Notice",
-    "context": "All content on the Formula 10 (hereinafter: 'Website'), including texts, images, graphics, logos, and other materials, is protected by copyright. The owner of the content is David Felegyhazi (hereinafter: 'Owner'), unless explicitly stated otherwise.",
+    "preContext": "This document (hereinafter: 'Notice') provides information about the copyright protection of the Formula 10 (hereinafter: 'Website'). All content on the Website, including texts, images, graphics, logos, and other materials, is protected by copyright. The owner of the content is David Felegyhazi (hereinafter: 'Owner'), unless explicitly stated otherwise.",
     "listElements": [
         {
-            "title": "Use of Content",
-            "list": [       
-                "Copying, distributing, modifying, or using the content of the Website in any form is permitted only with the prior written consent of the Owner.",
-                "Exceptions include uses permitted by copyright laws, such as personal, non-commercial use."
-            ]
+            "title": "Use of Content and Restrictions",
+            "context": "Copying, distributing, modifying, or using the content of the Website in any form is permitted only with the prior written consent of the Owner. Exceptions include uses permitted by copyright laws, such as personal, non-commercial use. Users are obliged to respect copyright laws and may not use the content without permission."
         },
         {
-            "title": "Third-Party Content",
-            "list": [       
-                "Third-party content (e.g., external links, embedded content) on the Website is protected by the copyright of the respective owners.",
-                "The Owner is not responsible for third-party content."
-            ]
+            "title": "Third-Party Content and Responsibility",
+            "context": "Third-party content (e.g., external links, embedded content) on the Website is protected by the copyright of the respective owners. The Owner is not responsible for third-party content and does not guarantee its accuracy or legal compliance. Users may use third-party content at their own risk."
         },
         {
-            "title": "Permission Requests",
-            "context": "If you wish to use the content of the Website, please contact us at the following email address: felegyhazi.david@gmail.com."
+            "title": "Permission Requests and Contact",
+            "context": "If you wish to use the content of the Website, please contact us at the following email address: felegyhazi.david@gmail.com. Permission requests are evaluated on a case-by-case basis, and we will respond as soon as possible. Please provide detailed information about the intended use and circumstances of the request."
         },
         {
-            "title": "Legal Consequences",
-            "context": "In case of copyright infringement, the Owner is entitled to take legal action, including civil litigation and claims for damages."
-        },
-        {
-            "title": "Notice Updates",
-            "context": "The Owner reserves the right to modify this Copyright Notice at any time. Users will be notified of changes via email."
+            "title": "Legal Consequences and Updates",
+            "context": "In case of copyright infringement, the Owner is entitled to take legal action, including civil litigation and claims for damages. The Notice may be modified at any time, and users will be notified of changes via email. Continued use of the Website constitutes acceptance of the updated Notice."
         }
     ]
 }

@@ -1,0 +1,22 @@
+{
+    "title": "E-mail hozzájárulási és leiratkozási lehetőség",
+    "preContext": "A Formula 10 (a továbbiakban: 'Weboldal') használata során a felhasználók hozzájárulhatnak ahhoz, hogy e-mail értesítéseket kapjanak a játékeredményekről, frissítésekről és egyéb információkról. Ez a szakasz részletesen ismerteti, hogyan kezeljük az e-mail hozzájárulásokat, és hogyan lehet leiratkozni az e-mail értesítésekről. Az e-mail kommunikáció Félegyházi Dávid (a továbbiakban: 'Üzemeltető') által történik.",
+    "listElements": [
+        {
+            "title": "Hozzájárulás az e-mail értesítésekhez",
+            "context": "Amikor a felhasználók regisztrálnak a Weboldalon, lehetőségük van hozzájárulni ahhoz, hogy e-mail értesítéseket kapjanak. Ezek az e-mailek tájékoztató jellegűek, és tartalmazhatnak információkat a játékeredményekről, a Weboldal frissítéseiről, valamint egyéb, a játékkal kapcsolatos hírekről. A hozzájárulás önkéntes, és a felhasználók bármikor visszavonhatják azt."
+        },
+        {
+            "title": "Leiratkozási lehetőség",
+            "context": "Minden e-mail értesítés tartalmaz egy leiratkozási linket, amelyen keresztül a felhasználók bármikor leiratkozhatnak az e-mail értesítésekről. A leiratkozás után a felhasználók többé nem kapnak e-mail értesítéseket, kivéve, ha újra hozzájárulnak azok fogadásához. A leiratkozási folyamat egyszerű és gyors, és a felhasználóknak nem kell további lépéseket megtenniük."
+        },
+        {
+            "title": "Adatvédelem és jogok",
+            "context": "Az e-mail címeket kizárólag az e-mail értesítések küldésére használjuk, és harmadik fél számára nem adjuk ki. A felhasználóknak joguk van bármikor hozzájárulásukat visszavonni, valamint kérni az e-mail címük törlését az adatbázisunkból. Ha kérdése van az e-mail értesítésekkel vagy az adatkezeléssel kapcsolatban, kérjük, lépjen kapcsolatba velünk a következő e-mail címen: felegyhazi.david@gmail.com."
+        },
+        {
+            "title": "Frissítések és változtatások",
+            "context": "Az Üzemeltető fenntartja a jogot, hogy bármikor módosítsa az e-mail értesítésekre vonatkozó szabályokat. A változtatásokról a felhasználókat e-mailben értesítjük, és a frissített szabályok azonnal hatályba lépnek. A Weboldal további használata a frissített szabályok elfogadását jelenti."
+        }
+    ]
+}

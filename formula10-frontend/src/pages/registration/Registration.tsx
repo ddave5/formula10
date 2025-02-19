@@ -1,4 +1,4 @@
-import { Button, Divider, FormControl, TextField } from '@mui/material';
+import { Button, Checkbox, Divider, FormControl, FormControlLabel, TextField } from '@mui/material';
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next';
 import { FcGoogle } from 'react-icons/fc';
@@ -20,12 +20,14 @@ const Registration = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [acceptTerms, setAcceptTerms] = useState(false);
 
   const [error, setError] = useState('');
   const [nameError, setNameError] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
+  const [acceptTermsError, setAcceptTermsError] = useState(false);
 
   const { theme } = useTheme();
 
@@ -136,6 +138,30 @@ const Registration = () => {
     '&:hover .MuiOutlinedInput-notchedOutline' : {borderColor: 'var(--color-gray)'}
   }
 
+  const darkCheckBoxStyle = {
+    '.css-1umw9bq-MuiSvgIcon-root': {color: 'var(--color-font)'},
+  }
+
+  const lightCheckBoxStyle = {
+    '.css-1umw9bq-MuiSvgIcon-root': {color: 'var(--color-gray)'},
+  }
+
+  const termsAndConditions = () => {
+    const el1 = t('registration.acceptTerms1');
+    const el2 = <Link to='/termsOfUse' className='text-[--color-blue] before:bg-[--color-blue]'>{t('registration.acceptTerms2')}</Link>;
+    const el3 = t('registration.acceptTerms3');
+    const el4 = <Link to='/privacyPolicy' className='text-[--color-blue] before:bg-[--color-blue]'>{t('registration.acceptTerms4')}</Link>;
+    const el5 = t('registration.acceptTerms5');
+
+    return (
+      <div className='text-justify w-full'>
+        <span className='text-md '>{el1} {el2} </span>
+        <br />
+        <span className='text-md '>{el3} {el4} {el5}</span>  
+      </div>
+    )
+  }
+
   return (
     <>
       {registrationDone ? (
@@ -163,8 +189,15 @@ const Registration = () => {
                           { passwordError && <span className='text-red-500 text-sm mb-2'>{t('registration.invalidPassword')}</span>} 
                 <TextField id='confirmPassword' required type='password' placeholder={t('registration.passwordAgain')} variant='outlined' label={t('registration.passwordAgain')} size='small' className='text-2xl' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
                           sx={ theme === "dark" ? darkInputStyle : lightInputStyle}/>
-                          { confirmPasswordError && <span className='text-red-500 text-sm mb-2'>{t('registration.passwordsDontMatch')}</span>}
-                <Button onClick={register} className='dark:text-[--color-font]'
+                          { confirmPasswordError && <span className='text-red-500 text-sm mb-2'>{t('registration.passwordsDontMatch')}</span>}          
+                <div className='my-4'>
+                  <FormControlLabel 
+                    label={termsAndConditions()}
+                    control={<Checkbox onChange={() => setAcceptTerms(!acceptTerms)}/>} 
+                    value={acceptTerms} sx={ theme === "dark" ? darkCheckBoxStyle : lightCheckBoxStyle}/>
+                </div>
+
+                <Button onClick={register} className='dark:text-[--color-font]' disabled={!acceptTerms}
                         sx={{borderStyle: 'solid', borderColor: 'var(--color-blue)', borderWidth: '2px', color: 'var(--color-gray)'}}>
                           {t('registration.signUp')}
                 </Button>

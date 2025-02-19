@@ -1,39 +1,22 @@
 {
     "title": "Disclaimer",
-    "context": "This document (hereinafter: 'Disclaimer') provides legal information regarding the use of the Formula 10 (hereinafter: 'Website'). The operator of the Website is David Felegyhazi (hereinafter: 'Operator').",
+    "preContext": "This document (hereinafter: 'Disclaimer') provides legal information regarding the use of the Formula 10 (hereinafter: 'Website'). The operator of the Website is David Felegyhazi (hereinafter: 'Operator').  The purpose of this Disclaimer is to clearly define the legal framework for using the Website and the limitations of the Operator's liability.",
     "listElements": [
         {
-            "title": "Accuracy of Content",
-            "list": [       
-                "The Operator makes every effort to ensure that the information on the Website is accurate and up-to-date.",
-                "However, the Operator is not responsible for the accuracy, completeness, or error-free nature of the content.",
-                "The content of the Website is for informational purposes only and does not constitute professional advice."
-            ]
+            "title": "Accuracy of Content and Liability",
+            "context": "The Operator makes every effort to ensure that the information on the Website is accurate and up-to-date. However, the Operator is not responsible for the accuracy, completeness, or error-free nature of the content. The content of the Website is for informational purposes only and does not constitute professional advice. Users use the Website and its content at their own risk."
         },
         {
-            "title": "Third-Party Content",
-            "list": [       
-                "The responsibility for third-party content (e.g., external links, embedded content) on the Website lies solely with the author of the content.",
-                "The Operator is not responsible for third-party content, its availability, or any errors.."
-            ]
+            "title": "Third-Party Content and Availability",
+            "context": "The responsibility for third-party content (e.g., external links, embedded content) on the Website lies solely with the author of the content. The Operator is not responsible for third-party content, its availability, or any errors. When using the Website, users may navigate to third-party websites at their own risk, and the Operator has no control over such sites."
         },
         {
-            "title": "Website Availability",
-            "list": [       
-                "The Operator does not guarantee that the Website will always be available or error-free.",
-                "The Operator reserves the right to temporarily or permanently suspend the operation of the Website at any time."
-            ]
-        },
-        {
-            "title": "Limitation of Liability",
-            "list": [       
-                "Under no circumstances shall the Operator be liable for any direct or indirect damages arising from the use of the Website.",
-                "Users use the Website at their own risk."
-            ]
+            "title": "Website Availability and Errors",
+            "context": "The Operator does not guarantee that the Website will always be available or error-free. The operation of the Website may occasionally be disrupted due to technical reasons, and the Operator reserves the right to temporarily or permanently suspend the operation of the Website at any time. The Operator makes every effort to ensure the continuous and uninterrupted operation of the Website but is not liable for damages resulting from operational errors."
         },
         {
             "title": "Contact",
-            "context": "If you have any questions about this Disclaimer, please contact us at the following email address: felegyhazi.david@gmail.com."
+            "context": "Under no circumstances shall the Operator be liable for any direct or indirect damages arising from the use of the Website. Users use the Website at their own risk, and the Operator is not responsible for users' decisions or activities. If you have any questions about this Disclaimer, please contact us at the following email address: felegyhazi.david@gmail.com."
         }
     ]
 }

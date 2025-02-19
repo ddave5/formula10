@@ -1,0 +1,22 @@
+{
+    "title": "Email Consent and Unsubscribe Option",
+    "preContext": "When using the Formula 10 (hereinafter: 'Website'), users can consent to receiving email notifications about game results, updates, and other information. This section provides detailed information on how we handle email consent and how users can unsubscribe from email notifications. Email communication is managed by David Felegyhazi (hereinafter: 'Operator').",
+    "listElements": [
+        {
+            "title": "Consent to Email Notifications",
+            "context": "When users register on the Website, they have the option to consent to receiving email notifications. These emails are informational and may include details about game results, updates to the Website, and other news related to the game. Consent is voluntary, and users can withdraw it at any time."
+        },
+        {
+            "title": "Unsubscribe Option",
+            "context": "Every email notification includes an unsubscribe link, allowing users to opt out of receiving further emails at any time. After unsubscribing, users will no longer receive email notifications unless they re-subscribe. The unsubscribe process is simple and quick, requiring no additional steps from the user."
+        },
+        {
+            "title": "Data Protection and Rights",
+            "context": "Email addresses are used exclusively for sending email notifications and are not shared with third parties. Users have the right to withdraw their consent at any time and request the deletion of their email address from our database. If you have any questions about email notifications or data processing, please contact us at the following email address: felegyhazi.david@gmail.com."
+        },
+        {
+            "title": "Updates and Changes",
+            "context": "The Operator reserves the right to modify the rules regarding email notifications at any time. Users will be notified of changes via email, and the updated rules will take effect immediately. Continued use of the Website constitutes acceptance of the updated rules."
+        }
+    ]
+}

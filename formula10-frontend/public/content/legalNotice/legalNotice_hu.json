@@ -1,39 +1,22 @@
 {
     "title": "Jogi nyilatkozatok",
-    "context": "Ez a dokumentum (a továbbiakban: 'Nyilatkozat') a Formula 10 (a továbbiakban: 'Weboldal') használatával kapcsolatos jogi információkat tartalmaz. A Weboldal üzemeltetője Félegyházi Dávid (a továbbiakban: 'Üzemeltető').",
+    "preContext": "Ez a dokumentum (a továbbiakban: 'Nyilatkozat') a Formula 10 (a továbbiakban: 'Weboldal') használatával kapcsolatos jogi információkat tartalmaz. A Weboldal üzemeltetője Félegyházi Dávid (a továbbiakban: 'Üzemeltető'). A Nyilatkozat célja, hogy egyértelműen meghatározza a Weboldal használatának jogi kereteit, valamint az Üzemeltető felelősségének korlátait.",
     "listElements": [
         {
-            "title": "Tartalom pontossága",
-            "list": [       
-                "Az Üzemeltető minden tőle telhetőt megtesz annak érdekében, hogy a Weboldalon található információk pontosak és naprakészek legyenek.",
-                "Az Üzemeltető azonban nem vállal felelősséget a tartalom pontosságáért, teljességéért vagy hibamentességéért.",
-                "A Weboldal tartalma tájékoztató jellegű, és nem minősül szakmai tanácsadásnak."
-            ]
+            "title": "Tartalom pontossága és felelősség",
+            "context": "Az Üzemeltető minden tőle telhetőt megtesz annak érdekében, hogy a Weboldalon található információk pontosak és naprakészek legyenek. Azonban az Üzemeltető nem vállal felelősséget a tartalom pontosságáért, teljességéért vagy hibamentességéért. A Weboldal tartalma tájékoztató jellegű, és nem minősül szakmai tanácsadásnak. A felhasználók saját felelősségre használják a Weboldalt és annak tartalmát."
         },
         {
-            "title": "Harmadik fél tartalma",
-            "list": [       
-                "A Weboldalon előforduló harmadik fél által biztosított tartalom (pl. külső linkek, beágyazott tartalmak) felelőssége kizárólag a tartalom szerzőjét terheli.",
-                "Az Üzemeltető nem vállal felelősséget a harmadik fél tartalmáért, elérhetőségéért vagy hibáiért."
-            ]
+            "title": "Harmadik fél tartalma és elérhetőség",
+            "context": "A Weboldalon előforduló harmadik fél által biztosított tartalom (pl. külső linkek, beágyazott tartalmak) felelőssége kizárólag a tartalom szerzőjét terheli. Az Üzemeltető nem vállal felelősséget a harmadik fél tartalmáért, elérhetőségéért vagy hibáiért. A Weboldal használata során a felhasználók saját felelősségre navigálhatnak harmadik fél által üzemeltetett oldalakra, amelyekre az Üzemeltetőnek nincs befolyása."
         },
         {
-            "title": "Weboldal elérhetősége",
-            "list": [       
-                "Az Üzemeltető nem garantálja, hogy a Weboldal mindig elérhető vagy hibamentes lesz.",
-                "Az Üzemeltető fenntartja a jogot, hogy bármikor átmenetileg vagy véglegesen leállítsa a Weboldal működését."
-            ]
+            "title": "Weboldal elérhetősége és hibák",
+            "context": "Az Üzemeltető nem garantálja, hogy a Weboldal mindig elérhető vagy hibamentes lesz. A Weboldal működése technikai okokból időnként akadályozott lehet, és az Üzemeltető fenntartja a jogot, hogy bármikor átmenetileg vagy véglegesen leállítsa a Weboldal működését. Az Üzemeltető minden erőfeszítést megtesz annak érdekében, hogy a Weboldal folyamatosan és zavartalanul működjön, de nem vállal felelősséget a működési hibákból eredő károkért."
         },
         {
-            "title": "Felelősségkorlátozás",
-            "list": [       
-                "Az Üzemeltető semmilyen körülmények között nem vállal felelősséget közvetlen vagy közvetett károkért, amelyek a Weboldal használatából erednek.",
-                "A felhasználók saját felelősségre használják a Weboldalt."
-            ]
-        },
-        {
-            "title": "Kapcsolat",
-            "context": "Ha kérdése van ezzel a Nyilatkozatttal kapcsolatban, kérjük, lépjen kapcsolatba velünk a következő e-mail címen: felegyhazi.david@gmail.com."
+            "title": "Felelősségkorlátozás és kapcsolat",
+            "context": "Az Üzemeltető semmilyen körülmények között nem vállal felelősséget közvetlen vagy közvetett károkért, amelyek a Weboldal használatából erednek. A felhasználók saját felelősségre használják a Weboldalt, és az Üzemeltető nem vállal felelősséget a felhasználók döntéseiért vagy tevékenységéért. Ha kérdése van ezzel a Nyilatkozatttal kapcsolatban, kérjük, lépjen kapcsolatba velünk a következő e-mail címen: felegyhazi.david@gmail.com."
         }
     ]
 }

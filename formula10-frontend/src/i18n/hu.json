@@ -1,7 +1,9 @@
 {
   "error": {
     "error": "Hiba",
-    "close": "Bezárás"
+    "close": "Bezárás",
+    "pageNotFound": "Úgy tűnik, nem találjuk az Ön által keresett oldalt.",
+    "backToHome": "Vissza a főoldalra"
   }, 
   "home": {
     "welcome": "Üdvözlünk!"
@@ -49,6 +51,11 @@
     "invalidPassword": "A jelszónak legalább 8 karakter hosszúnak kell lennie, tartalmaznia kell legalább egy nagybetűt, egy kisbetűt, egy számot és egy speciális karaktert!",
     "passwordAgain": "Jelszó újra",
     "passwordsDontMatch": "A jelszavak nem egyeznek!",
+    "acceptTerms1": "Elolvastam és elfogadom a",
+    "acceptTerms2": "Felhasználási feltételeit",
+    "acceptTerms3": "és az",
+    "acceptTerms4": "Adatvédelmi irányelveket",
+    "acceptTerms5": "a Formula 10-nek.",
     "or": "vagy",
     "google": "Google regisztráció",
     "alreadyHaveAccount": "Már van fiókod?",

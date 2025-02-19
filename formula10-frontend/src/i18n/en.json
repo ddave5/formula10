@@ -1,7 +1,9 @@
 {
   "error": {
     "error": "Error",
-    "close": "Close"
+    "close": "Close",
+    "pageNotFound": "We can't seem to find a page you are looking for",
+    "backToHome": "Back to home"
   }, 
   "home": {
     "welcome": "Welcome!"
@@ -49,6 +51,11 @@
     "invalidPassword": "Password must be at least 8 characters long, must contain at least one uppercase letter, one lowercase letter, one number and one special character!",
     "passwordAgain": "Password again",
     "passwordsDontMatch": "Passwords don't match!",
+    "acceptTerms1": "I state that I have read and understood the",
+    "acceptTerms2": "Terms of Use",
+    "acceptTerms3": "and the",
+    "acceptTerms4": "Privacy Policy",
+    "acceptTerms5": "of the Formula 10.",
     "or": "or",
     "google": "Sign up with Google",
     "alreadyHaveAccount": "Already have an account?",
