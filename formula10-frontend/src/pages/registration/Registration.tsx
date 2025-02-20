@@ -119,7 +119,7 @@ const Registration = () => {
   
   const validatePassword = (password: string) => {
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    return passwordRegex.test(password) && email !== "";
+    return passwordRegex.test(password) && password !== "";
   };
 
   //TODO - When you save the theme mode into the Redux store, then change the lightInputStyle and darkInputStyle to use the Redux store value
@@ -167,7 +167,7 @@ const Registration = () => {
       {registrationDone ? (
         <SuccessRegistration />
       ) : (
-        <div className='flex flex-col items-center justify-center xxl:h-[80dvh] mt-4'>
+        <div className='flex flex-col items-center justify-center xxl:h-[80dvh] my-4'>
           <div className='flex flex-col p-8 border-solid border-2 border-gray-200 rounded-md shadow-md dark:border-gray-700 dark:bg-gray-800 xxl:w-1/4 sm:w-1/2 lg:w-1/3'>
             <p className="text-2xl title-font whitespace-nowrap dark:text-white mb-4">Formula 10</p>
             <h2 className='text-3xl whitespace-nowrap dark:text-white mb-8'>{t('registration.login')}</h2>

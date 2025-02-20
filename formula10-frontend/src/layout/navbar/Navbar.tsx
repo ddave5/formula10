@@ -42,7 +42,7 @@ const Navbar = () => {
                                 <Link to="/rules" className="text-[--color-font] dark:text-white"> { t('navbar.rules') }</Link>
                             </li>
                             <li>
-                                <Link to="#" className="text-[--color-font] dark:text-white"> { t('navbar.groups') }</Link>
+                                <Link to="/groups" className="text-[--color-font] dark:text-white"> { t('navbar.groups') }</Link>
                             </li>
                         </ul>
                         {width < 768 && <div className="flex-grow">

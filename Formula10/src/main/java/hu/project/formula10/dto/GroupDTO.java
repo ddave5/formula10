@@ -16,5 +16,4 @@ public class GroupDTO {
     private Long id;
     private String name;
     private List<GroupMemberDTO> members;
-    private Long ownerId;
 }

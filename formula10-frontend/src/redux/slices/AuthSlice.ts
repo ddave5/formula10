@@ -4,7 +4,7 @@ import { getToken, setToken } from '../../services/tokenService';
 
 interface AuthState {
     token: string | null;
-    user: { name: string; role: string } | null;
+    user: { id: number; name: string; role: string } | null;
     error: string | null;
 }
 

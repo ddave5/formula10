@@ -1,8 +1,11 @@
 package hu.project.formula10.controller;
 
+import hu.project.formula10.dto.CreateGroupRequest;
 import hu.project.formula10.dto.GroupDTO;
 import hu.project.formula10.dto.GroupMemberDTO;
+import hu.project.formula10.dto.JoinGroupRequest;
 import hu.project.formula10.service.GroupService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,10 +21,10 @@ public class GroupController {
         this.groupService = groupService;
     }
 
-    @PostMapping
-    public ResponseEntity<GroupDTO> createGroup(@RequestBody GroupDTO groupDTO) {
-        GroupDTO createdGroup = groupService.createGroup(groupDTO);
-        return ResponseEntity.ok(createdGroup);
+    @PostMapping("/create")
+    public ResponseEntity<GroupDTO> createGroup(@RequestBody CreateGroupRequest createGroupRequest) {
+        GroupDTO group = groupService.createGroup(createGroupRequest.getName(), createGroupRequest.getPassword(), createGroupRequest.getUserId());
+        return ResponseEntity.ok(group);
     }
 
     @GetMapping("/{id}")
@@ -36,17 +39,25 @@ public class GroupController {
         return ResponseEntity.ok(groupDTOList);
     }
 
-    @PostMapping("/{groupId}/members")
-    public ResponseEntity<GroupMemberDTO> addMemberToGroup(
-            @PathVariable Long groupId,
-            @RequestBody GroupMemberDTO groupMemberDTO) {
-        GroupMemberDTO addedMember = groupService.addMemberToGroup(groupId, groupMemberDTO);
-        return ResponseEntity.ok(addedMember);
+    @PostMapping("/joinGroup")
+    public ResponseEntity<?> joinGroup(@RequestBody JoinGroupRequest joinGroupRequest) {
+        try {
+            groupService.joinGroup(joinGroupRequest.getUserId(), joinGroupRequest.getGroupId(), joinGroupRequest.getPassword());
+            return ResponseEntity.ok("Successfully joined the group!");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
     @GetMapping("/{groupId}/members")
     public ResponseEntity<List<GroupMemberDTO>> getGroupMembers(@PathVariable Long groupId) {
         List<GroupMemberDTO> members = groupService.getGroupMembers(groupId);
         return ResponseEntity.ok(members);
+    }
+
+    @GetMapping("/checkGroupName")
+    public ResponseEntity<Boolean> checkGroupName(@RequestParam String name) {
+        boolean isTaken = groupService.isGroupNameTaken(name);
+        return ResponseEntity.ok(isTaken);
     }
 }

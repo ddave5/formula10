@@ -78,7 +78,7 @@ const Login = () => {
   }
 
   return (
-    <div className='flex flex-col items-center justify-center xxl:h-[80dvh] mt-4'>
+    <div className='flex flex-col items-center justify-center xxl:h-[80dvh] my-4'>
       <div className='flex flex-col p-8 border-solid border-2 border-gray-200 rounded-md shadow-md dark:border-gray-700 dark:bg-gray-800 xxl:w-1/4 sm:w-1/2 lg:w-1/3'>
         <p className="text-2xl title-font whitespace-nowrap dark:text-white mb-4">Formula 10</p>
         <h2 className='text-3xl whitespace-nowrap dark:text-white mb-8'>{t('login.login')}</h2>

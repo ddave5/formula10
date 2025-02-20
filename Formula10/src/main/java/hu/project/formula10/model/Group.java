@@ -26,9 +26,8 @@ public class Group {
     @Column(name = "created_at")
     private LocalDate createdAt;
 
-    @ManyToOne
-    @JoinColumn(name = "owner_id", nullable = false)
-    private User owner;
+    @Column(name = "password")
+    private String password;
 
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<GroupMember> members = new ArrayList<>();
@@ -40,7 +39,6 @@ public class Group {
         groupDTO.setMembers(this.members.stream()
                 .map(GroupMember::toDTO)
                 .collect(Collectors.toList()));
-        groupDTO.setOwnerId(this.owner.getId());
         return groupDTO;
     }
 }

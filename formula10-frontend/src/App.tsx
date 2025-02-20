@@ -22,6 +22,15 @@ import LegalNotice from './layout/footer/LegalNotice/LegalNotice';
 import EmailNotice from './layout/footer/EmailNotice/EmailNotice';
 import Rules from './pages/Rules/Rules';
 import Error404 from './pages/error/Error404';
+import GroupsHome from './pages/group/home/GroupsHome';
+import GroupDetails from './pages/group/groupid/group-details/GroupDetails';
+import CreateGroup from './pages/group/create-group/CreateGroup';
+import Tip from './pages/group/groupid/tip/Tip';
+import Members from './pages/group/groupid/members/Members';
+import Archive from './pages/group/groupid/archive/Archive';
+import GroupMenu from './pages/group/groupid/groupMenu/GroupMenu';
+import Standing from './pages/group/groupid/standing/Standing';
+import JoinGroup from './pages/group/join-group/JoinGroup';
 
 function App() {
   
@@ -58,11 +67,24 @@ function App() {
         <Navbar />
         <main>
           <Routes>
-            <Route path="/" Component={Home} />
+            <Route index path="/" Component={Home} />
             <Route path='/menu' Component={Menu} />
             <Route path='/login' Component={Login} />
             <Route path='/register' Component={Registration} />
             <Route path='/rules' Component={Rules} />
+
+            <Route path='/groups'>
+              <Route index Component={GroupsHome} />
+              <Route path='create' Component={CreateGroup} />
+              <Route path='join' Component={JoinGroup} />
+              <Route path=':groupId' Component={GroupMenu} >
+                <Route index Component={GroupDetails} />
+                <Route path='standing' Component={Standing} />
+                <Route path='tip' Component={Tip} />
+                <Route path='members' Component={Members} />
+                <Route path='archive' Component={Archive} />
+              </Route>
+            </Route>
             
             <Route path='/privacyPolicy' Component={PrivacyPolicy} />
             <Route path='/termsOfUse' Component={TermsOfUse} />
