@@ -19,7 +19,7 @@ const GroupMenu = () => {
             <Link to="/groups/create" className={`${menuElementStyle} mb-1`}>< IoMdCreate/> {t('groupMenu.createGroup')}</Link>
             <Link to="/groups/join" className={`${menuElementStyle} `}>< MdGroup/> {t('groupMenu.joinGroup')}</Link>
           </div>
-          <div className='p-4 flex flex-col border-y-2 border-r-2 dark:border-gray-800 border-solid'>
+          <div className='p-4 flex flex-col border-y-2 border-r-2 border-gray-300 dark:border-gray-800 border-solid '>
             <Link to="/groups/1" className={`${menuElementStyle} mb-1`}><FaFlagCheckered /> Group1</Link>
             <Link to="/groups/2" className={`${menuElementStyle} mb-1`}><FaFlagCheckered /> Group2</Link>
             <Link to="/groups/3" className={`${menuElementStyle} mb-1`}><FaFlagCheckered /> Group3</Link>
