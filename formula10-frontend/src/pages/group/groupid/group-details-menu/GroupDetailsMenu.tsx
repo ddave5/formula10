@@ -1,12 +1,12 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 
-const GroupMenu = () => {
+const GroupDetailsMenu = () => {
   return (
-    <div>GroupMenu
+    <div>GroupDetailsMenu
         <Outlet />
     </div>
   )
 }
 
-export default GroupMenu
+export default GroupDetailsMenu

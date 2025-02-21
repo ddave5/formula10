@@ -34,15 +34,15 @@ const Navbar = () => {
                     </div>
                 </div>
             </nav>
-            <nav className="bg-[--color-gray] dark:bg-gray-700">
+            <nav className="bg-gray-100 dark:bg-gray-700">
                 <div className="max-w-screen-xl px-4 py-3 mx-auto">
                     <div className="flex items-center ">
                         <ul className="flex flex-row font-medium mt-0 space-x-8 rtl:space-x-reverse text-sm">
                             <li>
-                                <Link to="/rules" className="text-[--color-font] dark:text-white"> { t('navbar.rules') }</Link>
+                                <Link to="/rules" className="text-[--color-primary] dark:text-white before:bg-[--color-primary] dark:before:bg-white"> { t('navbar.rules') }</Link>
                             </li>
                             <li>
-                                <Link to="/groups" className="text-[--color-font] dark:text-white"> { t('navbar.groups') }</Link>
+                                <Link to="/groups" className="text-[--color-primary] dark:text-white before:bg-[--color-primary] dark:before:bg-white"> { t('navbar.groups') }</Link>
                             </li>
                         </ul>
                         {width < 768 && <div className="flex-grow">

@@ -65,5 +65,9 @@
     "success": "Success",
     "continue": "Continue",
     "details": "You have successfully registered! Please check your e-mail address to verify your account."
+  },
+  "groupMenu": {
+    "createGroup": "Create a group",
+    "joinGroup": "Join a group"
   }
 }

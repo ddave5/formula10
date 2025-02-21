@@ -65,5 +65,9 @@
     "success": "Sikeres Regisztráció",
     "continue": "Tovább",
     "details": "Sikeres regisztráció! Kérlek ellenőrizd az e-mail fiókodat, hogy aktiváld a fiókod!"
+  },
+  "groupMenu": {
+    "createGroup": "Csoport készítése",
+    "joinGroup": "Csatlakozás egy csoportba"
   }
 }

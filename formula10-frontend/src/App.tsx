@@ -28,9 +28,10 @@ import CreateGroup from './pages/group/create-group/CreateGroup';
 import Tip from './pages/group/groupid/tip/Tip';
 import Members from './pages/group/groupid/members/Members';
 import Archive from './pages/group/groupid/archive/Archive';
-import GroupMenu from './pages/group/groupid/groupMenu/GroupMenu';
 import Standing from './pages/group/groupid/standing/Standing';
 import JoinGroup from './pages/group/join-group/JoinGroup';
+import GroupDetailsMenu from './pages/group/groupid/group-details-menu/GroupDetailsMenu';
+import GroupMenu from './pages/group/group-menu/GroupMenu';
 
 function App() {
   
@@ -73,18 +74,19 @@ function App() {
             <Route path='/register' Component={Registration} />
             <Route path='/rules' Component={Rules} />
 
-            <Route path='/groups'>
+            <Route path='/groups' Component={GroupMenu} >
               <Route index Component={GroupsHome} />
               <Route path='create' Component={CreateGroup} />
               <Route path='join' Component={JoinGroup} />
-              <Route path=':groupId' Component={GroupMenu} >
+            </Route>
+
+            <Route path='groups/:groupId' Component={GroupDetailsMenu} >
                 <Route index Component={GroupDetails} />
                 <Route path='standing' Component={Standing} />
                 <Route path='tip' Component={Tip} />
                 <Route path='members' Component={Members} />
                 <Route path='archive' Component={Archive} />
               </Route>
-            </Route>
             
             <Route path='/privacyPolicy' Component={PrivacyPolicy} />
             <Route path='/termsOfUse' Component={TermsOfUse} />
