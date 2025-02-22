@@ -1,4 +1,5 @@
 package hu.project.formula10.enums;
 
-public class GroupAvailability {
+public enum GroupAvailability {
+    PRIVATE, PUBLIC
 }

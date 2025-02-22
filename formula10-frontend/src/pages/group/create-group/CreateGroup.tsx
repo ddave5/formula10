@@ -7,10 +7,13 @@ import { Button, FormControl, TextField } from '@mui/material';
 import { RootState } from '../../../redux/Store';
 import { checkGroupName, createGroup } from '../../../services/groupService';
 import Error from '../../../components/Error/Error';
+import SuccessPanel from '../../../components/SuccessPanel/SuccessPanel';
 
 const CreateGroup = () => {
 
   const { t } = useTranslation();
+
+  const [createDone, setCreateDone] = useState(false);
 
   const [name, setName] = useState('');
   const [nameTaken, setNameTaken] = useState(true);
@@ -19,7 +22,6 @@ const CreateGroup = () => {
 
   const [error, setError] = useState('');
   const [nameError, setNameError] = useState(false);
-  const [passwordError, setPasswordError] = useState(false);
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
 
   const user = useSelector((state: RootState) => state.auth.user);
@@ -38,10 +40,6 @@ const CreateGroup = () => {
   }, [name]);
 
   useEffect(() => {
-    setPasswordError(false);
-  }, [password]);
-
-  useEffect(() => {
     setConfirmPasswordError(false);
   }, [confirmPassword]);
 
@@ -51,7 +49,7 @@ const CreateGroup = () => {
     if (validation()) {
       try {
         createGroup(name, password, (user ? user.id : 0 ) ).then((response) => {
-          const data = response;
+          setCreateDone(true);
         }).catch( (err) => {
           setError('Something Went Wrong!');
         });
@@ -75,12 +73,7 @@ const CreateGroup = () => {
       }
     }
   
-    if (password == null || password === "") {
-      isValid = false;
-      setPasswordError(true);
-    } 
-  
-    if (password !== confirmPassword || confirmPassword === "") {
+    if (password !== confirmPassword ) {
       isValid = false;
       setConfirmPasswordError(true);
     } 
@@ -103,30 +96,36 @@ const CreateGroup = () => {
   }
 
   return (
-    <div className='flex flex-col items-center justify-center xxl:h-[80dvh] my-4'>
-      <div className='flex flex-col p-8 border-solid border-2 border-gray-200 rounded-md shadow-md dark:border-gray-700 dark:bg-gray-800 xxl:w-1/4 sm:w-1/2 lg:w-1/3'>
-        <p className="text-2xl title-font whitespace-nowrap dark:text-white mb-4">Csoport létrehozás</p>
-        <div className='flex flex-col space-y-4'>
-          {error && <Error errorMessage={error} />}
-          <FormControl sx={{ '& .MuiTextField-root': { marginBottom: '.5rem'}}}>
-            <TextField id='name' required placeholder='név' variant='outlined' label='név' size='small' className='sm:text-sm' value={name} onChange={(e) => setName(e.target.value)} autoComplete='off'
-                        sx={ theme === "dark" ? darkInputStyle : lightInputStyle }/>          
-            {nameError && <span className='text-red-500 text-sm mb-2'>{t('registration.nameIsEmpty')}</span>} 
-            <TextField id='password' required type='password' placeholder={t('registration.password')} variant='outlined' label={t('registration.password')} size='small' className='text-2xl' value={password} onChange={(e) => setPassword(e.target.value)}
-                      sx={ theme === "dark" ? darkInputStyle : lightInputStyle}/>
-                      { passwordError && <span className='text-red-500 text-sm mb-2'>{t('registration.invalidPassword')}</span>} 
-            <TextField id='confirmPassword' required type='password' placeholder={t('registration.passwordAgain')} variant='outlined' label={t('registration.passwordAgain')} size='small' className='text-2xl' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
-                      sx={ theme === "dark" ? darkInputStyle : lightInputStyle}/>
-                      { confirmPasswordError && <span className='text-red-500 text-sm mb-2'>{t('registration.passwordsDontMatch')}</span>}          
+    <>
+      {createDone ? (
+          <SuccessPanel title='createGroup.successTitle' details='createGroup.successDetails' url={'/login'} />
+      ) : (
+        <div className='flex flex-col items-center my-8'>
+        <div className='flex flex-col p-8 xl:w-2/3 sm:w-1/2 lg:w-1/3'>
+          <p className="text-4xl title-font whitespace-nowrap dark:text-white mb-16 text-center">{t('createGroup.createGroup')}</p>
+          <div className='flex flex-col space-y-4'>
+            {error && <Error errorMessage={error} />}
+            <FormControl sx={{ '& .MuiTextField-root': { marginBottom: '.5rem'}}}>
+              <TextField id='name' required placeholder={t('createGroup.name')} variant='outlined' label={t('createGroup.name')} size='small' className='sm:text-sm' value={name} onChange={(e) => setName(e.target.value)} autoComplete='off'
+                          sx={ theme === "dark" ? darkInputStyle : lightInputStyle }/>          
+              {nameError && <span className='text-red-500 text-sm mb-2'>{t('createGroup.nameIsEmpty')}</span>} 
+              <TextField id='password' type='password' placeholder={t('createGroup.password')} variant='outlined' label={t('createGroup.password')} size='small' className='text-2xl' value={password} onChange={(e) => setPassword(e.target.value)}
+                        sx={ theme === "dark" ? darkInputStyle : lightInputStyle}/>
+              <TextField id='confirmPassword' type='password' placeholder={t('createGroup.confirmPassword')} variant='outlined' label={t('createGroup.confirmPassword')} size='small' className='text-2xl' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
+                        sx={ theme === "dark" ? darkInputStyle : lightInputStyle}/>
+                        { confirmPasswordError && <span className='text-red-500 text-sm mb-2'>{t('createGroup.passwordsDontMatch')}</span>}          
 
-            <Button onClick={create} className='dark:text-[--color-font]'
-                    sx={{borderStyle: 'solid', borderColor: 'var(--color-blue)', borderWidth: '2px', color: 'var(--color-gray)'}}>
-                      {t('registration.signUp')}
-            </Button>
-          </FormControl>
+              <Button onClick={create} className='dark:text-[--color-font]'
+                      sx={{borderStyle: 'solid', borderColor: 'var(--color-blue)', borderWidth: '2px', color: 'var(--color-gray)'}}>
+                        {t('createGroup.create')}
+              </Button>
+            </FormControl>
+          </div>
         </div>
       </div>
-    </div>
+      )}
+    </>
+    
   )
 }
 

@@ -59,15 +59,26 @@
     "or": "vagy",
     "google": "Google regisztráció",
     "alreadyHaveAccount": "Már van fiókod?",
-    "login": "Jelentkezz be!"
+    "login": "Jelentkezz be!",
+    "successTitle": "Sikeres Regisztráció",
+    "successDetails": "Sikeres regisztráció! Kérlek ellenőrizd az e-mail fiókodat, hogy aktiváld a fiókod!"
   },
-  "successRegistration": {
-    "success": "Sikeres Regisztráció",
-    "continue": "Tovább",
-    "details": "Sikeres regisztráció! Kérlek ellenőrizd az e-mail fiókodat, hogy aktiváld a fiókod!"
+  "successPanel": {
+    "continue": "Tovább"
   },
   "groupMenu": {
     "createGroup": "Csoport készítése",
     "joinGroup": "Csatlakozás egy csoportba"
+  },
+  "createGroup": {
+    "createGroup": "Csoport készítése",
+    "name": "Csoport neve",
+    "password": "Jelszó",
+    "confirmPassword": "Jelszó mégegyszer",
+    "nameIsEmpty": "Csoportnév megadása kötelező!",
+    "passwordsDontMatch": "A jelszavak nem egyeznek!",
+    "create": "Csoport készítés",
+    "successTitle": "Siker!",
+    "successDetails": "Sikeresen elkészítetted a csoportot!"
   }
 }

@@ -59,15 +59,26 @@
     "or": "or",
     "google": "Sign up with Google",
     "alreadyHaveAccount": "Already have an account?",
-    "login": "Sign in!"
+    "login": "Sign in!",
+    "successTitle": "Success",
+    "successDetails": "You have successfully registered! Please check your e-mail address to verify your account."
   },
-  "successRegistration": {
-    "success": "Success",
-    "continue": "Continue",
-    "details": "You have successfully registered! Please check your e-mail address to verify your account."
+  "successPanel": {
+    "continue": "Continue"
   },
   "groupMenu": {
     "createGroup": "Create a group",
     "joinGroup": "Join a group"
+  },
+  "createMenu": {
+    "createGroup": "Create a group",
+    "name": "Group name",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "nameIsEmpty": "Name has to be filled!",
+    "passwordsDontMatch": "Passwords don't match!",
+    "create": "Create",
+    "successTitle": "Success",
+    "successDetails": "You have successfully created a group!"
   }
 }

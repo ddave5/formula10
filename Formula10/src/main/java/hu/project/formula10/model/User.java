@@ -22,9 +22,6 @@ public class User {
     @SequenceGenerator(name = "user_id_seq", sequenceName = "users_user_id_seq", allocationSize = 1)
     private Long id;
 
-    @Column(nullable = false, length = 100, name = "name")
-    private String name;
-
     @Column(nullable = false, unique = true, length = 50, name = "username")
     private String username;
 
@@ -51,8 +48,7 @@ public class User {
 
     public User() { }
 
-    public User(String name, String username, String email, String passwordHash) {
-        this.name = name;
+    public User(String username, String email, String passwordHash) {
         this.username = username;
         this.email = email;
         this.password = passwordHash;
@@ -61,7 +57,7 @@ public class User {
     }
 
     public UserDTO toDTO() {
-        return new UserDTO(this.getId(), this.getName(), this.getUsername(), this.getEmail(), this.getIsVerified(), this.getCreatedAt(), new ArrayList<>(this.roles));
+        return new UserDTO(this.getId(), this.getUsername(), this.getEmail(), this.getIsVerified(), this.getCreatedAt(), new ArrayList<>(this.roles));
     }
 
 }

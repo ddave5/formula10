@@ -2,6 +2,7 @@ package hu.project.formula10.service;
 
 import hu.project.formula10.dto.GroupDTO;
 import hu.project.formula10.dto.GroupMemberDTO;
+import hu.project.formula10.enums.GroupAvailability;
 import hu.project.formula10.enums.GroupRole;
 import hu.project.formula10.model.Group;
 import hu.project.formula10.model.GroupMember;
@@ -44,6 +45,7 @@ public class GroupService {
         group.setName(name);
         group.setPassword(passwordEncoder.encode(rawPassword));
         group.setCreatedAt(LocalDate.now());
+        group.setAvailability(rawPassword == null || rawPassword.equals("") ? GroupAvailability.PUBLIC : GroupAvailability.PRIVATE);
 
         GroupMember groupMember = new GroupMember();
         groupMember.setUser(userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not found")));

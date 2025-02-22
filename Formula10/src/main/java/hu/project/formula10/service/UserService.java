@@ -35,7 +35,7 @@ public class UserService {
             log.error("Felhasználó név már használva van!");
         }
         String encodedPassword = passwordEncoder.encode(createUserDTO.getPassword());
-        User newUser = new User(createUserDTO.getName(), createUserDTO.getUsername(), createUserDTO.getEmail(), encodedPassword);
+        User newUser = new User(createUserDTO.getUsername(), createUserDTO.getEmail(), encodedPassword);
         Role userRole = roleRepository.findByName(RoleName.USER)
                 .orElseThrow(() -> new RuntimeException("Felhasználói szerepkör nem található."));
         newUser.setRoles(Collections.singleton(userRole));

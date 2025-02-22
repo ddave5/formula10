@@ -6,15 +6,14 @@ import { Link } from 'react-router-dom';
 import {debounce} from 'lodash';
 import { checkUsernameAvailability, registerUser } from '../../services/userService';
 import Error from '../../components/Error/Error';
-import SuccessRegistration from '../successRegistration/SuccessRegistration';
 import { useTheme } from '../../layout/navbar/Theme/ThemeContext';
+import SuccessPanel from '../../components/SuccessPanel/SuccessPanel';
 
 const Registration = () => {
   const { t } = useTranslation();
 
   const [registrationDone, setRegistrationDone] = useState(false);
 
-  const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [usernameAvailable, setUsernameAvailable] = useState(true);
   const [email, setEmail] = useState('');
@@ -23,11 +22,9 @@ const Registration = () => {
   const [acceptTerms, setAcceptTerms] = useState(false);
 
   const [error, setError] = useState('');
-  const [nameError, setNameError] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
-  const [acceptTermsError, setAcceptTermsError] = useState(false);
 
   const { theme } = useTheme();
 
@@ -41,10 +38,6 @@ const Registration = () => {
   useEffect(() => {
     checkUsername(username);
   }, [checkUsername, username]);
-
-  useEffect(() => {
-    setNameError(false);
-  }, [name]);
 
   useEffect(() => {
     setEmailError(false);
@@ -64,7 +57,6 @@ const Registration = () => {
     if (validation()) {
       try {
         registerUser({
-          name: name,
           username: username,
           email: email,
           password: password
@@ -84,11 +76,6 @@ const Registration = () => {
 
   const validation = () => {
     let isValid = true;
-
-    if (name === "") {
-      isValid = false;
-      setNameError(true);
-    } 
 
     if (!validateEmail(email)) {
       isValid = false;
@@ -165,7 +152,7 @@ const Registration = () => {
   return (
     <>
       {registrationDone ? (
-        <SuccessRegistration />
+        <SuccessPanel title='registration.successTitle' details='registration.successDetails' url={'/login'} />
       ) : (
         <div className='flex flex-col items-center justify-center xxl:h-[80dvh] my-4'>
           <div className='flex flex-col p-8 border-solid border-2 border-gray-200 rounded-md shadow-md dark:border-gray-700 dark:bg-gray-800 xxl:w-1/4 sm:w-1/2 lg:w-1/3'>
@@ -175,9 +162,6 @@ const Registration = () => {
               {error && <Error errorMessage={error} />}
               
               <FormControl sx={{ '& .MuiTextField-root': { marginBottom: '.5rem'}}}>
-                <TextField id='name' required placeholder={t('registration.name')} variant='outlined' label={t('registration.name')} size='small' className='sm:text-sm' value={name} onChange={(e) => setName(e.target.value)} autoComplete='off'
-                            sx={ theme === "dark" ? darkInputStyle : lightInputStyle }/>          
-                {nameError && <span className='text-red-500 text-sm mb-2'>{t('registration.nameIsEmpty')}</span>} 
                 <TextField id='username' required placeholder={t('registration.username')} variant='outlined' label={t('registration.username')} size='small' className='sm:text-sm' value={username} onChange={(e) => setUsername(e.target.value)} autoComplete='off'
                           sx={ theme === "dark" ? darkInputStyle : lightInputStyle}/>
                           {!usernameAvailable && <span className='text-red-500 text-sm mb-2'>{t('registration.usernameAlreadyTaken')}</span>} 
