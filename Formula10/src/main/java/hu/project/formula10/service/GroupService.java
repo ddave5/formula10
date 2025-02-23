@@ -102,4 +102,12 @@ public class GroupService {
     public boolean isGroupNameTaken(String name) {
         return groupRepository.existsByName(name);
     }
+
+    public List<GroupDTO> getGroupListByUserId(Long userId) {
+        return groupRepository
+                .findGroupListByUserId(userId)
+                .stream()
+                .map(Group::toDTO)
+                .toList();
+    }
 }

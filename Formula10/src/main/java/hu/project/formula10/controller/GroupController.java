@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -59,5 +60,16 @@ public class GroupController {
     public ResponseEntity<Boolean> checkGroupName(@RequestParam String name) {
         boolean isTaken = groupService.isGroupNameTaken(name);
         return ResponseEntity.ok(isTaken);
+    }
+
+    @GetMapping("/getGroupListByUserId/{userId}")
+    public ResponseEntity<List<GroupDTO>> getGroupListByUserId(@PathVariable Long userId) {
+        try {
+            List<GroupDTO> groupDTOList = groupService.getGroupListByUserId(userId);
+            return ResponseEntity.ok(groupDTOList);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ArrayList<>());
+        }
+
     }
 }

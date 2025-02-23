@@ -16,7 +16,7 @@ const Login = () => {
 
   const dispatch = useDispatch<AppDispatch>();
 
-  const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const [usernameOrEmail, setUsernameOrEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -108,7 +108,7 @@ const Login = () => {
                           )
                         }
                        }}
-                       />
+            />
             <FormControlLabel label={t('login.remember')} control={<Checkbox onChange={() => setRememberMe(!rememberMe)}/>} value={rememberMe} sx={ theme === "dark" ? darkCheckBoxStyle : lightCheckBoxStyle}/>
             <Button onClick={login} className='dark:text-[--color-font]'
                     sx={{borderStyle: 'solid', borderColor: 'var(--color-blue)', borderWidth: '2px', color: 'var(--color-gray)'}}>

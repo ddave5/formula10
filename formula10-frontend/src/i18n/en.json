@@ -76,9 +76,25 @@
     "password": "Password",
     "confirmPassword": "Confirm password",
     "nameIsEmpty": "Name has to be filled!",
+    "nameTaken": "Name already taken!",
     "passwordsDontMatch": "Passwords don't match!",
     "create": "Create",
     "successTitle": "Success",
     "successDetails": "You have successfully created a group!"
+  },
+  "joinGroup": {
+    "joinGroup": "Join to a group",
+    "groupName": "Group name",
+    "availability": "Availability",
+    "numberOfMembers": "Number of members",
+    "join": "Join",
+    "alreadyMember": "Already a member",
+    "password": "Password",
+    "successTitle": "Success!",
+    "successDetails": "You have successfully joined the group!",
+    "dialogTitle": "Join to a private group",
+    "dialogDetails": "This is a private group! In order to join, please enter your password:",
+    "cancel": "Cancel",
+    "confirm": "Join"
   }
 }

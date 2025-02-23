@@ -76,9 +76,25 @@
     "password": "Jelszó",
     "confirmPassword": "Jelszó mégegyszer",
     "nameIsEmpty": "Csoportnév megadása kötelező!",
+    "nameTaken": "A csoportnév már foglalt!",
     "passwordsDontMatch": "A jelszavak nem egyeznek!",
     "create": "Csoport készítés",
     "successTitle": "Siker!",
     "successDetails": "Sikeresen elkészítetted a csoportot!"
+  },
+  "joinGroup": {
+    "joinGroup": "Csatlakozás egy csoportba",
+    "groupName": "Csoport neve",
+    "availability": "Elérhetőség",
+    "numberOfMembers": "Tagok szám",
+    "join": "Csatlakozás",
+    "alreadyMember": "Már tagja",
+    "password":"Jelszó",
+    "successTitle": "Siker!",
+    "successDetails": "Sikeresen csatlakoztál a csoporthoz!",
+    "dialogTitle": "Csatlakozás egy privát csoporthoz",
+    "dialogDetails": "Ez egy privát csoport! Ahhoz, hogy csatlakozni tudj, kérlek add meg a jelszót:",
+    "cancel": "Mégse",
+    "confirm": "Csatlakozás"
   }
 }
