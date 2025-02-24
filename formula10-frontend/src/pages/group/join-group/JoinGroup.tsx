@@ -1,22 +1,26 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, InputAdornment, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField } from '@mui/material';
-import React, { useEffect, useState } from 'react'
-import { getGroupList, joinGroup } from '../../../services/groupService';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../redux/Store';
+import React, { useEffect, useMemo, useState } from 'react'
+import { joinGroup } from '../../../services/groupService';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../../redux/Store';
 import { GroupDTO } from '../../../dto/group.dto';
 import Loading from '../../../components/Loading/Loading';
 import { useTranslation } from 'react-i18next';
 import SuccessPanel from '../../../components/SuccessPanel/SuccessPanel';
 import { MdOutlineVisibility, MdOutlineVisibilityOff } from 'react-icons/md';
 import { useTheme } from '../../../layout/navbar/Theme/ThemeContext';
+import { fetchGroupList } from '../../../redux/slices/GroupSlice';
 
 const JoinGroup = () => {
 
   const user = useSelector((state: RootState) => state.auth.user);
-  const [groups, setGroups] = useState<GroupDTO[]>([]);
+  const groups = useSelector((state: RootState) => state.groups.groups);
+  const loading = useSelector((state: RootState) => state.groups.loading);
+  const error = useSelector((state: RootState) => state.groups.error);
+
+  const dispatch = useDispatch<AppDispatch>();
+
   const [myGroups, setMyGroups] = useState<GroupDTO[]>([]);
-  const [error, setError] = useState<string | null>(null); 
-  const [loading, setLoading] = useState<boolean>(true);
   const [password, setPassword] = useState('');
 
   const [passwordCheck, setPasswordCheck] = useState(false);
@@ -58,7 +62,7 @@ const JoinGroup = () => {
         setJoinDone(true);
       }
     } catch (err) {
-      setError('Failed to join group');
+      console.log('Failed to join group');
     }
   }
 
@@ -71,20 +75,17 @@ const JoinGroup = () => {
   };
 
   useEffect(() => {
-      const fetchGroups = async () => {
-          try {
-              const data = await getGroupList();
-              setMyGroups(data.filter((group) => group.members.some((member) => member.id === user?.id)));
-              setGroups(data);
-          } catch (err) {
-              setError('Failed to fetch groups');
-          } finally {
-              setLoading(false);
-          }
-      };
-      
-      fetchGroups();
-    }, []);
+    if (user) {
+      dispatch(fetchGroupList(user.id));
+    }
+  }, [user, dispatch]); 
+
+  useEffect(() => {
+    if (user && groups.length > 0) {
+      const filtered = groups.filter(group => group.members.some(member => member.id === user?.id));
+      setMyGroups(filtered);
+    }
+  }, [groups, user]); 
 
   if (loading) {
       return <Loading isLoading={loading} />;
@@ -142,8 +143,6 @@ const JoinGroup = () => {
                 component: 'form',
                 onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
                   event.preventDefault();
-                  const formData = new FormData(event.currentTarget);
-                  const formJson = Object.fromEntries((formData as any).entries());
                   setPasswordCheck(false);
                 },
               },

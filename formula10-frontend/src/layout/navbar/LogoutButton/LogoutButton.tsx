@@ -4,21 +4,28 @@ import { useDispatch } from "react-redux";
 import { logout } from "../../../redux/slices/AuthSlice";
 import { Button, ButtonProps, styled } from "@mui/material";
 import { purple } from "@mui/material/colors";
+import { useNavigate } from "react-router-dom";
 
 const Logout = () => {
 
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-    const ColorButton = styled(Button)<ButtonProps>(({ theme }) => ({
-        color: theme.palette.getContrastText(purple[500]),
-      }));
+  const navigate = useNavigate();
 
+  const ColorButton = styled(Button)<ButtonProps>(({ theme }) => ({
+      color: theme.palette.getContrastText(purple[500]),
+    }));
 
-    const { t } = useTranslation();
-    return (
-        <ColorButton variant="text" endIcon={<IoMdLogOut />} onClick={() => dispatch(logout())}>
-            { t('navbar.logout') } 
-        </ColorButton>
+  const logOut = () => {
+    dispatch(logout());
+    navigate('/');
+  }
+
+  const { t } = useTranslation();
+  return (
+      <ColorButton variant="text" endIcon={<IoMdLogOut />} onClick={() => logOut()}>
+          { t('navbar.logout') } 
+      </ColorButton>
   )
 }
 

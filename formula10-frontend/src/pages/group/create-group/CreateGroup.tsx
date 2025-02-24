@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../../layout/navbar/Theme/ThemeContext';
-import { debounce } from 'lodash';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button, FormControl, TextField } from '@mui/material';
-import { RootState } from '../../../redux/Store';
+import { AppDispatch, RootState } from '../../../redux/Store';
 import { checkGroupName, createGroup } from '../../../services/groupService';
 import Error from '../../../components/Error/Error';
 import SuccessPanel from '../../../components/SuccessPanel/SuccessPanel';
+import { useOutletContext } from 'react-router-dom';
+import { fetchGroupList } from '../../../redux/slices/GroupSlice';
 
 const CreateGroup = () => {
 
@@ -26,6 +27,8 @@ const CreateGroup = () => {
 
   const user = useSelector((state: RootState) => state.auth.user);
 
+  const dispatch = useDispatch<AppDispatch>();
+
   const { theme } = useTheme();
 
   useEffect(() => {
@@ -42,6 +45,9 @@ const CreateGroup = () => {
     if (await validation()) {
       try {
         await createGroup(name, password, (user ? user.id : 0));
+        if (user) {
+          dispatch(fetchGroupList(user.id));
+        }
         setCreateDone(true);
       } catch (err) {
         setError('Something Went Wrong!');

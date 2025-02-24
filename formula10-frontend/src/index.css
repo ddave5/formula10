@@ -47,11 +47,26 @@
 
 html {
     color: --color-gray;
+    height: 100%;
 }
 
 html.dark {
     background-color: var(--color-gray);
     color: var(--color-font);
+}
+
+body {
+    height: 100%;
+}
+
+#root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+main {
+    flex: 1;
+    height: 100%;
 }
 
 svg {

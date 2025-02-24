@@ -32,6 +32,7 @@ import Standing from './pages/group/groupid/standing/Standing';
 import JoinGroup from './pages/group/join-group/JoinGroup';
 import GroupDetailsMenu from './pages/group/groupid/group-details-menu/GroupDetailsMenu';
 import GroupMenu from './pages/group/group-menu/GroupMenu';
+import PasswordChange from './pages/login/PasswordChange/PasswordChange';
 
 function App() {
   
@@ -72,7 +73,7 @@ function App() {
             <Route path='/menu' Component={Menu} />
             <Route path='/login' Component={Login} />
             <Route path='/register' Component={Registration} />
-            <Route path='/rules' Component={Rules} />
+            <Route path='/passwordChange' Component={PasswordChange} />
 
             <Route path='/groups' Component={GroupMenu} >
               <Route index Component={GroupsHome} />
@@ -88,6 +89,7 @@ function App() {
                 <Route path='archive' Component={Archive} />
               </Route>
             
+            <Route path='/rules' Component={Rules} />
             <Route path='/privacyPolicy' Component={PrivacyPolicy} />
             <Route path='/termsOfUse' Component={TermsOfUse} />
             <Route path='/copyrightNotice' Component={CopyrightNotice} />

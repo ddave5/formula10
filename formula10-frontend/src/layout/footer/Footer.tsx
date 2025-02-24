@@ -6,7 +6,6 @@ const Footer = () => {
 
   const { t }  = useTranslation();
 
-  //TODO Nézd meg kérlek a bottom részen maradást. Lehetőleg kerüld az absolute-ot.
   return (
     <footer className='flex items-center flex-col p-8 bg-[var(--color-primary)] text-[var(--color-font)] dark:bg-gray-700 w-full' >
       <span className="text-2xl title-font whitespace-nowrap dark:text-white mb-8">Formula 10</span>
