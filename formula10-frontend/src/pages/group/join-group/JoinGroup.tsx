@@ -75,10 +75,10 @@ const JoinGroup = () => {
   };
 
   useEffect(() => {
-    if (user) {
+    if (user && groups.length === 0) {
       dispatch(fetchGroupList(user.id));
     }
-  }, [user, dispatch]); 
+  }, [user, groups.length, dispatch]); 
 
   useEffect(() => {
     if (user && groups.length > 0) {
