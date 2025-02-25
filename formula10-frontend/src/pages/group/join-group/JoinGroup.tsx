@@ -1,6 +1,6 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, InputAdornment, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField } from '@mui/material';
-import React, { useEffect, useMemo, useState } from 'react'
-import { joinGroup } from '../../../services/groupService';
+import React, { useEffect, useState } from 'react'
+import { getGroupList, joinGroup } from '../../../services/groupService';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../redux/Store';
 import { GroupDTO } from '../../../dto/group.dto';
@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import SuccessPanel from '../../../components/SuccessPanel/SuccessPanel';
 import { MdOutlineVisibility, MdOutlineVisibilityOff } from 'react-icons/md';
 import { useTheme } from '../../../layout/navbar/Theme/ThemeContext';
-import { fetchGroupList } from '../../../redux/slices/GroupSlice';
+import { addGroup, fetchGroupList } from '../../../redux/slices/GroupSlice';
 
 const JoinGroup = () => {
 
@@ -20,7 +20,7 @@ const JoinGroup = () => {
 
   const dispatch = useDispatch<AppDispatch>();
 
-  const [myGroups, setMyGroups] = useState<GroupDTO[]>([]);
+  const [allGroups, setAllGroups] = useState<GroupDTO[]>([]);
   const [password, setPassword] = useState('');
 
   const [passwordCheck, setPasswordCheck] = useState(false);
@@ -28,6 +28,8 @@ const JoinGroup = () => {
 
   const [selectedGroup, setSelectedGroup] = useState<GroupDTO | null>(null);
   const [showPassword, setShowPassword] = useState(false);
+  
+  const [allGroupsLoading, setAllGroupsLoading] = useState(true);
 
   const { t } = useTranslation();
   const { theme } = useTheme();
@@ -57,14 +59,15 @@ const JoinGroup = () => {
 
   const join = async (groupId: number = selectedGroup?.id || 0) => {
     try {
-      const data = await joinGroup( user?.id || 0, groupId, password);
+      const data = await joinGroup(user?.id || 0, groupId, password);
       if (data) {
         setJoinDone(true);
+        dispatch(addGroup(data));
       }
     } catch (err) {
       console.log('Failed to join group');
     }
-  }
+  };
 
   const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -75,19 +78,29 @@ const JoinGroup = () => {
   };
 
   useEffect(() => {
+    const fetchAllGroups = async () => {
+      try {
+        const data = await getGroupList();
+        setAllGroups(data);
+      } catch (err) {
+        console.log(err);
+      } finally {
+        setAllGroupsLoading(false);
+      }
+    };
+
+    fetchAllGroups(); // Lekérdezés az összes csoporthoz
+  }, [user]);
+
+
+  useEffect(() => {
     if (user && groups.length === 0) {
       dispatch(fetchGroupList(user.id));
     }
   }, [user, groups.length, dispatch]); 
 
-  useEffect(() => {
-    if (user && groups.length > 0) {
-      const filtered = groups.filter(group => group.members.some(member => member.id === user?.id));
-      setMyGroups(filtered);
-    }
-  }, [groups, user]); 
 
-  if (loading) {
+  if (loading || allGroupsLoading) {
       return <Loading isLoading={loading} />;
   }
 
@@ -113,7 +126,7 @@ const JoinGroup = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {groups.map((group) => (
+                  {allGroups.map((group) => (
                     <TableRow
                       key={group.name}
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -124,8 +137,8 @@ const JoinGroup = () => {
                       <TableCell align="center">{group.availability}</TableCell>
                       <TableCell align="center">{group.members.length}</TableCell>
                       <TableCell align="right">
-                        {myGroups.some((myGroup) => myGroup.id === group.id) ? 
-                          t('joinGroup.joined') : 
+                        {groups.some((g) => g.id === group.id) ? 
+                          t('joinGroup.alreadyMember') : 
                           <Button onClick={() => availabilityChecker(group)} variant="contained">{t('joinGroup.join')}</Button>
                         }
                       </TableCell>

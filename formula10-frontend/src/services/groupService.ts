@@ -1,9 +1,7 @@
 import { GroupDTO } from '../dto/group.dto';
 import apiClient from './axios';
 
-const API_URL = process.env.REACT_APP_API_URL;
-
-export const createGroup = async (groupName: string, password: string, userId: number): Promise<void> => {
+export const createGroup = async (groupName: string, password: string, userId: number): Promise<GroupDTO> => {
   try {
     const response = await apiClient.post('/api/groups/create', {
       name: groupName,
@@ -50,7 +48,7 @@ export const getGroupList = async (): Promise<GroupDTO[]> => {
   }
 }
 
-export const joinGroup = async (userId: number, groupId: number, password: string): Promise<boolean> => {
+export const joinGroup = async (userId: number, groupId: number, password: string): Promise<GroupDTO> => {
   try {
     const response = await apiClient.post(`/api/groups/joinGroup`, { userId, groupId, password });
     return response.data;

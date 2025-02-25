@@ -7,8 +7,7 @@ import { AppDispatch, RootState } from '../../../redux/Store';
 import { checkGroupName, createGroup } from '../../../services/groupService';
 import Error from '../../../components/Error/Error';
 import SuccessPanel from '../../../components/SuccessPanel/SuccessPanel';
-import { useOutletContext } from 'react-router-dom';
-import { fetchGroupList } from '../../../redux/slices/GroupSlice';
+import { addGroup } from '../../../redux/slices/GroupSlice';
 
 const CreateGroup = () => {
 
@@ -44,11 +43,11 @@ const CreateGroup = () => {
 
     if (await validation()) {
       try {
-        await createGroup(name, password, (user ? user.id : 0));
-        if (user) {
-          dispatch(fetchGroupList(user.id));
+        const newGroup = await createGroup(name, password, (user ? user.id : 0));
+        if (newGroup && user) {
+          dispatch(addGroup(newGroup));
+          setCreateDone(true);
         }
-        setCreateDone(true);
       } catch (err) {
         setError('Something Went Wrong!');
       }

@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { getGroupListByUserId } from '../../services/groupService';
 import { GroupDTO } from '../../dto/group.dto';
 
@@ -26,7 +26,20 @@ const initialState: GroupState = {
 const groupSlice = createSlice({
   name: 'groups',
   initialState,
-  reducers: {},
+  reducers: {
+    setGroups: (state, action: PayloadAction<GroupDTO[]>) => {
+      state.groups = action.payload;
+    },
+    addGroup: (state, action: PayloadAction<GroupDTO>) => {
+      state.groups.push(action.payload);
+    },
+    removeGroup: (state, action: PayloadAction<number>) => {
+      state.groups = state.groups.filter(group => group.id !== action.payload);
+    },
+    clearGroups: (state) => {
+      state.groups = [];
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchGroupList.pending, (state) => {
@@ -43,5 +56,7 @@ const groupSlice = createSlice({
       });
   },
 });
+
+export const { setGroups, addGroup, removeGroup, clearGroups } = groupSlice.actions;
 
 export default groupSlice.reducer;

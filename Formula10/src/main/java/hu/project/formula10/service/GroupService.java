@@ -68,7 +68,7 @@ public class GroupService {
 
 
     @Transactional
-    public void joinGroup(Long userId, Long groupId, String password) {
+    public GroupDTO joinGroup(Long userId, Long groupId, String password) {
         Group group = groupRepository.findById(groupId)
                 .orElseThrow(() -> new IllegalArgumentException("Group not found"));
 
@@ -91,6 +91,8 @@ public class GroupService {
         groupMember.setJoinDate(LocalDate.now());
 
         groupMemberRepository.save(groupMember);
+
+        return group.toDTO();
     }
 
     public List<GroupMemberDTO> getGroupMembers(Long groupId) {

@@ -41,12 +41,12 @@ public class GroupController {
     }
 
     @PostMapping("/joinGroup")
-    public ResponseEntity<?> joinGroup(@RequestBody JoinGroupRequest joinGroupRequest) {
+    public ResponseEntity<GroupDTO> joinGroup(@RequestBody JoinGroupRequest joinGroupRequest) {
         try {
-            groupService.joinGroup(joinGroupRequest.getUserId(), joinGroupRequest.getGroupId(), joinGroupRequest.getPassword());
-            return ResponseEntity.ok("Successfully joined the group!");
+            GroupDTO groupDTO = groupService.joinGroup(joinGroupRequest.getUserId(), joinGroupRequest.getGroupId(), joinGroupRequest.getPassword());
+            return ResponseEntity.ok(groupDTO);
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
 

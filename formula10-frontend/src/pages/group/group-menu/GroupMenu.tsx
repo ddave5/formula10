@@ -45,7 +45,7 @@ const GroupMenu = () => {
           </div>
           <div className='p-4 flex flex-col border-y-2 border-r-2 border-gray-300 dark:border-gray-800 border-solid h-full'>
             {groups.map((group) => (
-              <Link to={`/groups/${group.id}`} className={`${menuElementStyle} mb-1`}><FaFlagCheckered /> {group.name}
+              <Link to={`/groups/${group.id}`} className={`${menuElementStyle} mb-1`} key={group.id}><FaFlagCheckered /> {group.name}
               </Link>)
             )}
           </div>

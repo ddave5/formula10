@@ -5,6 +5,7 @@ import { logout } from "../../../redux/slices/AuthSlice";
 import { Button, ButtonProps, styled } from "@mui/material";
 import { purple } from "@mui/material/colors";
 import { useNavigate } from "react-router-dom";
+import { clearGroups } from "../../../redux/slices/GroupSlice";
 
 const Logout = () => {
 
@@ -18,6 +19,7 @@ const Logout = () => {
 
   const logOut = () => {
     dispatch(logout());
+    dispatch(clearGroups());
     navigate('/');
   }
 
