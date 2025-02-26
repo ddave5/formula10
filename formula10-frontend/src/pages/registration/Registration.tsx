@@ -8,6 +8,7 @@ import { checkUsernameAvailability, registerUser } from '../../services/userServ
 import Error from '../../components/Error/Error';
 import { useTheme } from '../../layout/navbar/Theme/ThemeContext';
 import SuccessPanel from '../../components/SuccessPanel/SuccessPanel';
+import PasswordInput from '../../components/passwordInput/PasswordInput';
 
 const Registration = () => {
   const { t } = useTranslation();
@@ -30,7 +31,7 @@ const Registration = () => {
 
   const checkUsername = debounce(async (username: string) => {
     if (username) {
-      const isAvailable = await checkUsernameAvailability(username); // Hívás a service-ből
+      const isAvailable = await checkUsernameAvailability(username);
       setUsernameAvailable(isAvailable);
     }
   }, 500);
@@ -109,8 +110,6 @@ const Registration = () => {
     return passwordRegex.test(password) && password !== "";
   };
 
-  //TODO - When you save the theme mode into the Redux store, then change the lightInputStyle and darkInputStyle to use the Redux store value
-
   const darkInputStyle = {
     '.css-1pzfmz2-MuiInputBase-input-MuiOutlinedInput-input' : {color: 'var(--color-font)'}, 
     '.MuiInputLabel-root': {color: 'var(--color-font)'}, 
@@ -168,11 +167,9 @@ const Registration = () => {
                 <TextField id='email' required type='email' placeholder={t('registration.email')} variant='outlined' label={t('registration.email')} size='small' className='sm:text-sm' value={email} onChange={(e) => setEmail(e.target.value)} autoComplete='off'
                           sx={ theme === "dark" ? darkInputStyle : lightInputStyle}/>
                           { emailError && <span className='text-red-500 text-sm mb-2'>{t('registration.invalidEmail')}</span>} 
-                <TextField id='password' required type='password' placeholder={t('registration.password')} variant='outlined' label={t('registration.password')} size='small' className='text-2xl' value={password} onChange={(e) => setPassword(e.target.value)}
-                          sx={ theme === "dark" ? darkInputStyle : lightInputStyle}/>
+                <PasswordInput password={password} setPassword={setPassword} label='password'/>
                           { passwordError && <span className='text-red-500 text-sm mb-2'>{t('registration.invalidPassword')}</span>} 
-                <TextField id='confirmPassword' required type='password' placeholder={t('registration.passwordAgain')} variant='outlined' label={t('registration.passwordAgain')} size='small' className='text-2xl' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
-                          sx={ theme === "dark" ? darkInputStyle : lightInputStyle}/>
+                <PasswordInput password={confirmPassword} setPassword={setConfirmPassword}  label='passwordAgain'/>
                           { confirmPasswordError && <span className='text-red-500 text-sm mb-2'>{t('registration.passwordsDontMatch')}</span>}          
                 <div className='my-4'>
                   <FormControlLabel 

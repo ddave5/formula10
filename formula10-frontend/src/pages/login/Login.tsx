@@ -1,4 +1,4 @@
-import { Button, Checkbox, Divider, FormControl, FormControlLabel, IconButton, InputAdornment, TextField } from '@mui/material'
+import { Button, Checkbox, Divider, FormControl, FormControlLabel, TextField } from '@mui/material'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { FcGoogle } from "react-icons/fc";
@@ -7,16 +7,14 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../redux/Store';
 import { loginUser } from '../../redux/slices/AuthSlice';
 import Error from '../../components/Error/Error';
-import { MdOutlineVisibility } from "react-icons/md";
-import { MdOutlineVisibilityOff } from "react-icons/md";
 import { useTheme } from '../../layout/navbar/Theme/ThemeContext';
+import PasswordInput from '../../components/passwordInput/PasswordInput';
+import { darkInputStyle, lightInputStyle } from '../../components/TextInput/InputStyle';
 
 const Login = () => {
   const { t } = useTranslation();
 
   const dispatch = useDispatch<AppDispatch>();
-
-  const [showPassword, setShowPassword] = useState(false);
 
   const [usernameOrEmail, setUsernameOrEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -27,23 +25,13 @@ const Login = () => {
 
   const {theme} = useTheme();
 
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-  };
-
-  const handleMouseUpPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-  };
-
   const login = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       const resultAction = await dispatch(loginUser({ usernameOrEmail, password, rememberMe }));
 
       if (loginUser.fulfilled.match(resultAction)) {
-        navigate('/'); // Sikeres bejelentkezés után átirányít a kezdőoldalra
+        navigate('/');
       } else {
         setErrorMessage('Login failed.');
       }
@@ -52,23 +40,6 @@ const Login = () => {
     }
   }
 
-  //TODO - When you save the theme mode into the Redux store, then change the lightInputStyle and darkInputStyle to use the Redux store value
-
-  const darkInputStyle = {
-    '.css-1pzfmz2-MuiInputBase-input-MuiOutlinedInput-input' : {color: 'var(--color-font)'}, 
-    '.MuiInputLabel-root': {color: 'var(--color-font)'}, 
-    '.MuiOutlinedInput-notchedOutline' : {borderColor: 'var(--color-font)'}, 
-    '&:hover .MuiOutlinedInput-notchedOutline' : {borderColor: 'var(--color-font)'}
-  } 
-
-  const lightInputStyle = {
-    '.css-1pzfmz2-MuiInputBase-input-MuiOutlinedInput-input' : {color: 'var(--color-gray)'}, 
-    '.MuiInputLabel-root': {color: 'var(--color-gray)'}, 
-    '.MuiOutlinedInput-notchedOutline' : {borderColor: 'var(--color-gray)'}, 
-    '&:hover .MuiOutlinedInput-notchedOutline' : {borderColor: 'var(--color-gray)'}
-  }  
-
-  
   const darkCheckBoxStyle = {
     '.css-1umw9bq-MuiSvgIcon-root': {color: 'var(--color-font)'},
   }
@@ -87,35 +58,14 @@ const Login = () => {
           <FormControl sx={{ '& .MuiTextField-root': { marginBottom: '.5rem'}}}>
             <TextField id='username' placeholder={t('login.username')} variant='outlined' label={t('login.username')} size='small' className='sm:text-sm' value={usernameOrEmail} onChange={(e) => setUsernameOrEmail(e.target.value)} autoComplete='off'
                        sx={ theme === "dark" ? darkInputStyle : lightInputStyle}/>
-            <TextField id='password' type={showPassword ? 'text' : 'password'} placeholder={t('login.password')} label={t('login.password')} size='small' className='text-2xl' value={password} onChange={(e) => setPassword(e.target.value)} autoComplete='off'
-                       sx={ theme === "dark" ? darkInputStyle : lightInputStyle}
-                       slotProps={{
-                        "input": {
-                          endAdornment: (
-                            <InputAdornment position="end">
-                              <IconButton
-                                aria-label={
-                                  showPassword ? 'hide the password' : 'display the password'
-                                }
-                                onClick={handleClickShowPassword}
-                                onMouseDown={handleMouseDownPassword}
-                                onMouseUp={handleMouseUpPassword}
-                                edge="end"
-                              >
-                                {showPassword ? <MdOutlineVisibilityOff /> : <MdOutlineVisibility />}
-                              </IconButton>
-                            </InputAdornment>
-                          )
-                        }
-                       }}
-            />
+            <PasswordInput password={password} setPassword={setPassword} label='password'/>
             <FormControlLabel label={t('login.remember')} control={<Checkbox onChange={() => setRememberMe(!rememberMe)}/>} value={rememberMe} sx={ theme === "dark" ? darkCheckBoxStyle : lightCheckBoxStyle}/>
             <Button onClick={login} className='dark:text-[--color-font]'
                     sx={{borderStyle: 'solid', borderColor: 'var(--color-blue)', borderWidth: '2px', color: 'var(--color-gray)'}}>
                       {t('login.login')}
             </Button>
           </FormControl>
-          <Link to="/ForgotPassword" className='w-fit text-[--color-blue] before:bg-[--color-blue]'> {t('login.forgotPassword')} </Link>
+          <Link to="/passwordChange" className='w-fit text-[--color-blue] before:bg-[--color-blue]'> {t('login.forgotPassword')} </Link>
           <Divider> {t('login.or')} </Divider>
           <Button disabled startIcon={<FcGoogle />} className='dark:text-[--color-font]'
                   sx={{borderStyle: 'solid', borderColor: 'var(--color-blue)', borderWidth: '2px', color: 'var(--color-blue)'}}>{t('login.google')}</Button>

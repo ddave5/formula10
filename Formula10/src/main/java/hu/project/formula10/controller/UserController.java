@@ -75,14 +75,21 @@ public class UserController {
 
     @GetMapping("/me")
     public ResponseEntity<?> getCurrentUser() {
-        // Lekérjük a jelenleg bejelentkezett felhasználó nevét a SecurityContextHolder-ből
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        // Megkeressük a felhasználót az adatbázisban a username alapján
         UserDTO userDTO = userService.getUserByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        // Visszaadjuk a felhasználó DTO-ját
         return ResponseEntity.ok(userDTO);
+    }
+
+    @PutMapping("/changePassword")
+    public ResponseEntity<UserDTO> changePassword(@RequestBody Map<String, String> datas) {
+        try {
+            UserDTO userDTO = userService.changePassword(datas.get("email"), datas.get("newPassword"));
+            return ResponseEntity.ok(userDTO);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 }

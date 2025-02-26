@@ -56,4 +56,14 @@ public class UserService {
         return !userRepository.existsByEmail(email);
     }
 
+    public UserDTO changePassword(String email, String password) throws Exception {
+        User user = userRepository
+                .findByEmail(email)
+                .orElseThrow( () -> new Exception("No user with this email address"));
+
+        user.setPassword(passwordEncoder.encode(password));
+
+        return userRepository.save(user).toDTO();
+    }
+
 }

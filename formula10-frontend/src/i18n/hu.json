@@ -22,13 +22,22 @@
   "login": {
     "login": "Bejelentkezés",
     "username": "Felhasználónév vagy E-mail cím",
-    "password": "Jelszó",
     "remember": "Emlékezz rám",
     "forgotPassword": "Elfelejtetted a jelszavad?",
     "or": "vagy",
     "google": "Google bejelentkezés",
     "dontHaveAccount": "Még nincs fiókod?",
     "register": "Regisztrálj itt!"
+  },
+  "passwordChange": {
+    "email" :"E-mail",
+    "passwordChange": "Jelszó csere",
+    "emailInvalid": "Érvénytelen e-mail cím!",
+    "invalidPassword": "A jelszónak legalább 8 karakter hosszúnak kell lennie, tartalmaznia kell legalább egy nagybetűt, egy kisbetűt, egy számot és egy speciális karaktert!",
+    "passwordsDontMatch": "A jelszavak nem egyeznek!",
+    "change": "Jelszó csere",
+    "successTitle": "Sikeres jelszócsere",
+    "successDetails": "Sikeresen módosítottad a jelszavad!"
   },
   "footer" : {
     "contact": "Kapcsolat",
@@ -37,7 +46,7 @@
     "copyRightNotice": "Szerzői jogi tájékoztató",
     "legalNotice": "Jogi tájékoztató",
     "emailNotice": "E-mail tájékoztató",
-    "copyright": "©2024 Félegyházi Dávid. Minden jog fenntartva."
+    "copyright": "©2025 Félegyházi Dávid. Minden jog fenntartva."
   },
   "registration": {
     "signUp": "Regisztráció",
@@ -47,9 +56,7 @@
     "usernameAlreadyTaken": "A felhasználónév már foglalt!",
     "email": "E-mail cím",
     "invalidEmail": "Érvénytelen e-mail cím!",
-    "password": "Jelszó",
     "invalidPassword": "A jelszónak legalább 8 karakter hosszúnak kell lennie, tartalmaznia kell legalább egy nagybetűt, egy kisbetűt, egy számot és egy speciális karaktert!",
-    "passwordAgain": "Jelszó újra",
     "passwordsDontMatch": "A jelszavak nem egyeznek!",
     "acceptTerms1": "Elolvastam és elfogadom a",
     "acceptTerms2": "Felhasználási feltételeit",
@@ -96,5 +103,11 @@
     "dialogDetails": "Ez egy privát csoport! Ahhoz, hogy csatlakozni tudj, kérlek add meg a jelszót:",
     "cancel": "Mégse",
     "confirm": "Csatlakozás"
+  },
+  "passwordInput": {
+    "password": "Jelszó",
+    "passwordAgain": "Jelszó újra",
+    "newPassword": "Új jelszó",
+    "newPasswordAgain": "Új jelszó újra"
   }
 }

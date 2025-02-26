@@ -17,3 +17,12 @@ export const checkUsernameAvailability = async (username: string) => {
     throw error;
   }
 };
+
+export const changePassword = async (email: string, password: string) => {
+  try {
+    const response = await apiClient.put(`/api/users/changePassword`, { email, newPassword: password });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}

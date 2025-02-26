@@ -9,7 +9,6 @@ import Error from '../../../components/Error/Error';
 import SuccessPanel from '../../../components/SuccessPanel/SuccessPanel';
 import { addGroup } from '../../../redux/slices/GroupSlice';
 import PasswordInput from '../../../components/passwordInput/PasswordInput';
-import { darkInputStyle, lightInputStyle } from '../../../components/TextInput/InputStyle';
 
 const CreateGroup = () => {
 
@@ -88,8 +87,22 @@ const CreateGroup = () => {
         return true; 
       }
     }
-    return true;
+    return true; // Ha nincs név, azt foglaltnak tekintjük
   };
+
+  const darkInputStyle = {
+    '.css-1pzfmz2-MuiInputBase-input-MuiOutlinedInput-input' : {color: 'var(--color-font)'}, 
+    '.MuiInputLabel-root': {color: 'var(--color-font)'}, 
+    '.MuiOutlinedInput-notchedOutline' : {borderColor: 'var(--color-font)'}, 
+    '&:hover .MuiOutlinedInput-notchedOutline' : {borderColor: 'var(--color-font)'}
+}
+
+  const lightInputStyle = {
+    '.css-1pzfmz2-MuiInputBase-input-MuiOutlinedInput-input' : {color: 'var(--color-gray)'}, 
+    '.MuiInputLabel-root': {color: 'var(--color-gray)'}, 
+    '.MuiOutlinedInput-notchedOutline' : {borderColor: 'var(--color-gray)'}, 
+    '&:hover .MuiOutlinedInput-notchedOutline' : {borderColor: 'var(--color-gray)'}
+  }
 
   return (
     <>

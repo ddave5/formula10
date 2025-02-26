@@ -26,18 +26,27 @@
     "copyRightNotice": "Copyright notice",
     "legalNotice": "Legal notice",
     "emailNotice": "Email notice",
-    "copyright": "Copyright © 2022. David Felegyhazi. All rights reserved."
+    "copyright": "Copyright © 2025. David Felegyhazi. All rights reserved."
   },
   "login": {
     "login": "Login",
     "username": "Username or E-mail address",
-    "password": "Password",
     "remember": "Remember me",
     "forgotPassword": "Forgot your password?",
     "or": "or",
     "google": "Sign in with Google",
     "dontHaveAccount": "Don't have an account yet?",
     "register": "Sign up!"
+  },
+  "passwordChange": {
+    "email" :"E-mail",
+    "passwordChange": "Password change",
+    "emailInvalid": "Invalid e-mail address!",
+    "invalidPassword": "Password must be at least 8 characters long, must contain at least one uppercase letter, one lowercase letter, one number and one special character!",
+    "passwordsDontMatch": "Passwords don't match!",
+    "change": "Change",
+    "successTitle": "Success",
+    "successDetails": "You have successfully changed your password!"
   },
   "registration": {
     "signUp": "Sign up",
@@ -47,9 +56,7 @@
     "usernameAlreadyTaken": "Username already taken!",
     "email": "E-mail address",
     "invalidEmail": "Invalid e-mail address!",
-    "password": "Password",
     "invalidPassword": "Password must be at least 8 characters long, must contain at least one uppercase letter, one lowercase letter, one number and one special character!",
-    "passwordAgain": "Password again",
     "passwordsDontMatch": "Passwords don't match!",
     "acceptTerms1": "I state that I have read and understood the",
     "acceptTerms2": "Terms of Use",
@@ -70,7 +77,7 @@
     "createGroup": "Create a group",
     "joinGroup": "Join a group"
   },
-  "createMenu": {
+  "createGroup": {
     "createGroup": "Create a group",
     "name": "Group name",
     "password": "Password",
@@ -96,5 +103,11 @@
     "dialogDetails": "This is a private group! In order to join, please enter your password:",
     "cancel": "Cancel",
     "confirm": "Join"
+  },
+  "passwordInput": {
+    "password": "Password",
+    "passwordAgain": "Password again",
+    "newPassword": "New password",
+    "newPasswordAgain": "New password again"
   }
 }

@@ -5,7 +5,7 @@ import eventBus from './eventBus';
 
 // Axios instance létrehozása
 const apiClient = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:8080', // Az alap URL, amit az API hívásokhoz használsz
+  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:8080', 
   headers: {
     'Content-Type': 'application/json',
   },
