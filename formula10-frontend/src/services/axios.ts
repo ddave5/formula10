@@ -33,12 +33,12 @@ apiClient.interceptors.response.use(
   (error) => {
 
     //TODO HANDLE 
-    if (error.response && error.response.status === 500) {
+    if (error.response && error.response.status > 400) {
       const message = error.response.data || 'Error :('
-      eventBus.emit('error', message); // 500-as hibák globális megjelenítése
+      eventBus.emit('error', message); 
     }
 
-    return Promise.reject(error); // Hibát továbbra is feldobjuk
+    return Promise.reject(error); 
   }
 );
 
