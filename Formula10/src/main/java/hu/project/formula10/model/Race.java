@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Entity
 @Getter
@@ -24,10 +25,10 @@ public class Race {
     private Season season;
 
     @Column(name="qualifying_start")
-    private LocalDateTime qualifyingStart;
+    private ZonedDateTime qualifyingStart;
 
-    @Column(name="race_finish")
-    private LocalDateTime raceFinish;
+    @Column(name="race_start")
+    private ZonedDateTime raceStart;
 
     public RaceDTO toDTO() {
         return new RaceDTO(
@@ -35,7 +36,7 @@ public class Race {
                 this.getLocation(),
                 this.getSeason().getId(),
                 this.getQualifyingStart(),
-                this.getRaceFinish()
+                this.getRaceStart()
         );
     }
 

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Getter
 @Setter
@@ -16,6 +17,6 @@ public class RaceDTO {
     private Long id;
     private String location;
     private Long seasonId;
-    private LocalDateTime qualifyingStart;
-    private LocalDateTime raceFinish;
+    private ZonedDateTime qualifyingStart;
+    private ZonedDateTime raceStart;
 }
