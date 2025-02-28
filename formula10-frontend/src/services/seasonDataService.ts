@@ -9,7 +9,7 @@ export const currentSeasonStanding = async (season: number): Promise<CurrentSeas
       const standings = response.data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
   
       const formattedStandings = standings.filter( (standings: any) => 
-        Array.from({ length: 10 }, (_, index) => (index + 1).toString()).includes(standings.position)
+        Array.from({ length: 5 }, (_, index) => (index + 8).toString()).includes(standings.position)
       ).map((standing: any) => ({
         position: parseInt(standing.position),
         driver: `${standing.Driver.givenName} ${standing.Driver.familyName}`,
@@ -31,7 +31,7 @@ export const currentSeasonConstuctorStanding = async (season: number): Promise<C
         const standings = response.data.MRData.StandingsTable.StandingsLists[0].ConstructorStandings;
     
         const formattedStandings = standings.filter( (standings: any) => 
-            Array.from({ length: 10 }, (_, index) => (index + 1).toString()).includes(standings.position)
+            Array.from({ length: 5 }, (_, index) => (index + 6).toString()).includes(standings.position)
         ).map((standing: any) => ({
           position: parseInt(standing.position),
           constructor: `${standing.Constructor.name}`,

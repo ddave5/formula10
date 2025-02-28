@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { currentSeasonConstuctorStanding, currentSeasonStanding } from '../../../services/seasonDataService';
 import { CurrentSeasonConstructorStainding, CurrentSeasonDriverStanding } from '../../../interfaces/groupHome/currentSeason';
+import StandingTable from './standingTable/StandingTable';
+import DateCard from './dateCard/DateCard';
+
 
 const GroupsHome = () => {
 
   const [currentDriverStanding, setCurrentDriverStanding] = useState<CurrentSeasonDriverStanding[]>([]);
   const [currentConstructorStanding, setCurrentConstructorStanding] = useState<CurrentSeasonConstructorStainding[]>([]);
-  
 
   useEffect(() => {
     // Versenyzők állásának lekérése
@@ -25,27 +27,11 @@ const GroupsHome = () => {
   }, []);
 
   return (
-    <div>
-      <h2>Driver Standings</h2>
-      <ul>
-        {currentDriverStanding.map((driver, index) => (
-          <li key={index}>
-            <strong>Position:</strong> {driver.position} - 
-            <strong> Driver:</strong> {driver.driver} - 
-            <strong> Points:</strong> {driver.points}
-          </li>
-        ))}
-      </ul>
-      <h2>Constructor Standings </h2>
-      <ul>
-        {currentConstructorStanding.map((constructor, index) => (
-          <li key={index}>
-            <strong>Position:</strong> {constructor.position} - 
-            <strong> Constructor:</strong> {constructor.constructor} - 
-            <strong> Points:</strong> {constructor.points}
-          </li>
-        ))}
-      </ul>
+    <div className='container mx-auto p-4 space-y-4 grid grid-cols-1 md:grid-cols-2 gap-4'>
+      <DateCard date={new Date()} title='Qualifying Date' />
+      <DateCard date={new Date()} title='Race Date' />
+      <StandingTable data={currentDriverStanding} type="driver" />
+      <StandingTable data={currentConstructorStanding} type="constructor" />
     </div>
     
   );
