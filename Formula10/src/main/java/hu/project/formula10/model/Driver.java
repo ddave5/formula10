@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table( name = "drivers")
+@Table( name = "driver")
 @Getter
 @Setter
 public class Driver {
@@ -21,8 +21,7 @@ public class Driver {
     @Column(unique = true, name = "name")
     private String name;
 
-    // Mapping for the many-to-many relationship with Season
-    @ManyToMany(mappedBy = "drivers")
+    @ManyToMany(mappedBy = "driver")
     private Set<Season> seasons = new HashSet<>();
 
     public DriverDTO toDTO() {

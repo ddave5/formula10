@@ -16,24 +16,23 @@ public class Race {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "raceLocationId", referencedColumnName = "id")
-    private RaceLocation location;
+    @Column(name = "race_location")
+    private String location;
 
     @ManyToOne
-    @JoinColumn(name = "seasonId", referencedColumnName = "id")
+    @JoinColumn(name = "season_id", referencedColumnName = "id")
     private Season season;
 
-    @Column(name="qualifyingStart")
+    @Column(name="qualifying_start")
     private LocalDateTime qualifyingStart;
 
-    @Column(name="raceFinish")
+    @Column(name="race_finish")
     private LocalDateTime raceFinish;
 
     public RaceDTO toDTO() {
         return new RaceDTO(
                 this.getId(),
-                this.getLocation().getId(),
+                this.getLocation(),
                 this.getSeason().getId(),
                 this.getQualifyingStart(),
                 this.getRaceFinish()

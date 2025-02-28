@@ -1,6 +1,5 @@
 package hu.project.formula10.dto;
 
-import hu.project.formula10.model.RaceLocation;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +14,7 @@ import java.time.LocalDateTime;
 public class RaceDTO {
 
     private Long id;
-    private Long locationId;
+    private String location;
     private Long seasonId;
     private LocalDateTime qualifyingStart;
     private LocalDateTime raceFinish;
