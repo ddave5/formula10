@@ -9,7 +9,7 @@ const Footer = () => {
   return (
     <footer className='flex items-center flex-col p-8 bg-[var(--color-primary)] text-[var(--color-font)] dark:bg-gray-700 w-full' >
       <span className="text-2xl title-font whitespace-nowrap dark:text-white mb-8">Formula 10</span>
-      <div className='flex justify-between items-center flex-col lg:flex-row w-1/2 lg:w-full xl:w-3/4 mb-8'>
+      <div className='flex justify-between items-center text-center flex-col lg:flex-row w-1/2 lg:w-full xl:w-3/4 mb-8'>
         <Link to="/privacyPolicy" className='mb-2'> {t('footer.privacyPolicy')} </Link>
         <Link to="/termsOfUse" className='mb-2'> {t('footer.termsOfUse')} </Link>
         <Link to="/copyrightNotice" className='mb-2'> {t('footer.copyRightNotice')} </Link>

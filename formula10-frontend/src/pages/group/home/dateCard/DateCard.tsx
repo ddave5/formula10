@@ -1,7 +1,10 @@
 import React from 'react'
 import { Card, CardContent } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
-const DateCard = ({date, title}: {date: Date, title: string}) => {
+const DateCard = ({date, title, location}: {date: Date, title: string, location: string}) => {
+
+    const { t } = useTranslation();
 
     function formatDate(date: Date): string {
         const year = date.getFullYear()
@@ -20,6 +23,7 @@ const DateCard = ({date, title}: {date: Date, title: string}) => {
             <CardContent className="p-6">
                 <div className="flex flex-col items-center space-y-4">
                     <h2 className="text-xl font-semibold text-primary">{title}</h2>
+                    <p className="text-md font-semibold text-center">{t('groupHome.location')}: {location}</p>
                     <p className="text-2xl font-bold tracking-tight text-center">{formattedDate}</p>
                     <div className="w-full h-1 bg-gradient-to-r from-gray-300 via-gray-500 to-gray-300 rounded-full mt-2" />
                 </div>

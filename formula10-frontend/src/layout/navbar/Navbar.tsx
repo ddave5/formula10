@@ -3,9 +3,7 @@ import ThemeToggle from './Theme/ThemeToggle';
 import { useTranslation } from 'react-i18next';
 import LanguageSelector from './Language/LanguageSelector';
 import Login from './LoginButton/LoginButton';
-import { useWindowWidth } from '@react-hook/window-size';
 import { Link } from 'react-router-dom';
-import { RxHamburgerMenu } from "react-icons/rx";
 import './Navbar.css';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/Store';
@@ -15,7 +13,6 @@ import SignUpButton from './SignUpButton/SignUpButton';
 const Navbar = () => {
 
     const { t } = useTranslation();
-    const width = useWindowWidth();
 
     const user = useSelector((state: RootState) => state.auth.user);
 
@@ -45,11 +42,6 @@ const Navbar = () => {
                                 <Link to="/groups" className="text-[--color-primary] dark:text-white before:bg-[--color-primary] dark:before:bg-white"> { t('navbar.groups') }</Link>
                             </li>
                         </ul>
-                        {width < 768 && <div className="flex-grow">
-                            <Link to="/menu" className="flex items-center justify-end text-[--color-font] dark:text-white">
-                                <RxHamburgerMenu />
-                            </Link>
-                            </div>}
                     </div>
                 </div>
             </nav>

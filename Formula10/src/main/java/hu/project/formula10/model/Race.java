@@ -35,6 +35,7 @@ public class Race {
                 this.getId(),
                 this.getLocation(),
                 this.getSeason().getId(),
+                this.getSeason().getYear(),
                 this.getQualifyingStart(),
                 this.getRaceStart()
         );

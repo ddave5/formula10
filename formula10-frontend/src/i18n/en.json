@@ -75,7 +75,19 @@
   },
   "groupMenu": {
     "createGroup": "Create a group",
-    "joinGroup": "Join a group"
+    "joinGroup": "Join a group",
+    "group": "Group"
+  },
+  "groupHome": {
+    "qualifyingDate" : "Qualifying date",
+    "raceDate": "Race date",
+    "location": "Location",
+    "driverStanding": "Driver standing",
+    "constructorStanding": "Constructor standing",
+    "position": "Position",
+    "driver": "Driver",
+    "Constructor": "Constructor",
+    "points": "Points"
   },
   "createGroup": {
     "createGroup": "Create a group",

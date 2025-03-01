@@ -21,7 +21,7 @@ public class Driver {
     @Column(unique = true, name = "name")
     private String name;
 
-    @ManyToMany(mappedBy = "driver")
+    @ManyToMany(mappedBy = "drivers")
     private Set<Season> seasons = new HashSet<>();
 
     public DriverDTO toDTO() {

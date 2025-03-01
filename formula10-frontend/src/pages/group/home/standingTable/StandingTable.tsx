@@ -1,17 +1,21 @@
 import { Card, CardContent, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 import React from 'react'
+import { useTranslation } from 'react-i18next';
 
 const StandingTable = ({data, type} : {data: any[], type: string}) => {
+
+    const { t } = useTranslation();
+
     return (
         <Card className="w-full shadow-lg border-0 bg-white/80 backdrop-blur-sm dark:bg-slate-950/80">
             <CardContent>
-                <h2 className="text-xl font-semibold text-center">{type === "driver" ? "Driver Standing" : "Constructor Standing"}</h2>
+                <h2 className="text-xl font-semibold text-center">{type === "driver" ? t('groupHome.driverStanding') : t('groupHome.constructorStanding')}</h2>
                 <Table>
                 <TableHead>
                     <TableRow>
-                        <TableCell className="w-[100px]">Position</TableCell>
-                        <TableCell>{type === "driver" ? "Driver" : "Constructor"}</TableCell>
-                        <TableCell className="text-right">Points</TableCell>
+                        <TableCell className="w-[100px]">{t('groupHome.position')}</TableCell>
+                        <TableCell>{type === "driver" ? t('groupHome.driver') : t('groupHome.constructor')}</TableCell>
+                        <TableCell className="text-right">{t('groupHome.points')}</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>

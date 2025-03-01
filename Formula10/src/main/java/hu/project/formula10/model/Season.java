@@ -26,8 +26,8 @@ public class Season {
     @ManyToMany
     @JoinTable(
             name = "season_driver", // Join table name
-            joinColumns = @JoinColumn(name = "seasonId"), // Foreign key for season
-            inverseJoinColumns = @JoinColumn(name = "driverId") // Foreign key for driver
+            joinColumns = @JoinColumn(name = "season_id"), // Foreign key for season
+            inverseJoinColumns = @JoinColumn(name = "driver_id") // Foreign key for driver
     )
     private Set<Driver> drivers = new HashSet<>();
 

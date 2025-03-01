@@ -17,6 +17,7 @@ public class RaceDTO {
     private Long id;
     private String location;
     private Long seasonId;
+    private int seasonYear;
     private ZonedDateTime qualifyingStart;
     private ZonedDateTime raceStart;
 }

@@ -75,7 +75,19 @@
   },
   "groupMenu": {
     "createGroup": "Csoport készítése",
-    "joinGroup": "Csatlakozás egy csoportba"
+    "joinGroup": "Csatlakozás egy csoportba",
+    "group": "Csoport"
+  },
+  "groupHome": {
+    "qualifyingDate" : "Kvalifikació kezdése",
+    "raceDate": "Futam kezdése",
+    "location": "Helyszín",
+    "driverStanding": "Versenyzői tabella",
+    "constructorStanding": "Konstruktőri tabella",
+    "position": "Helyezés",
+    "driver": "Pilóta",
+    "Constructor": "Konstruktőr",
+    "points": "Pontszám"
   },
   "createGroup": {
     "createGroup": "Csoport készítése",
