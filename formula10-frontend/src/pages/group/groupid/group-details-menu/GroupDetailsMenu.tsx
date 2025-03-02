@@ -1,36 +1,22 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, Outlet, useLocation } from 'react-router-dom'
-import { AppDispatch, RootState } from '../../../../redux/Store';
-import { useTranslation } from 'react-i18next';
+import {Outlet, useLocation } from 'react-router-dom'
 import { useWindowWidth } from '@react-hook/window-size';
 import Loading from '../../../../components/Loading/Loading';
-import { FaFlagCheckered } from 'react-icons/fa6';
 import { Button } from '@mui/material';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { GroupDTO } from '../../../../dto/group.dto';
 import { getGroupById } from '../../../../services/groupService';
-import { TiPencil } from "react-icons/ti";
-import { AiOutlineTrophy } from "react-icons/ai";
-import { GrGroup } from "react-icons/gr";
-import { FaBoxArchive } from "react-icons/fa6";
-import { IoMdSettings } from "react-icons/io";
 import Menu from '../../../../components/Menu/Menu';
 
 const GroupDetailsMenu = () => {
 
-  const user = useSelector((state: RootState) => state.auth.user);
   const [group, setGroup] = useState<GroupDTO>();
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [showMenu, setShowMenu] = useState(false);
 
-  const dispatch = useDispatch<AppDispatch>();
-  const { t } = useTranslation();
   const width = useWindowWidth();
   const location = useLocation();
-
-  const menuElementStyle= 'p-2 rounded-md bg-gray-200 hover:bg-gray-100 before:h-0 text-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200';
 
   useEffect(() => {
     if (showMenu) {
