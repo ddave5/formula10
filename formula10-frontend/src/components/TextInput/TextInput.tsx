@@ -1,10 +1,9 @@
+import React from 'react'
 
-const TextInput = ({value, setValue} : {value: string, setValue: Function}) => {
-    return (
-        <>
-
-        </>
-    )
+const TextInput = () => {
+  return (
+    <div>TextInput</div>
+  )
 }
 
-export default TextInput;
+export default TextInput

@@ -57,3 +57,13 @@ export const joinGroup = async (userId: number, groupId: number, password: strin
     throw error;
   }
 }
+
+export const getGroupById = async (groupId: number): Promise<GroupDTO> => {
+  try {
+    const response = await apiClient.get<GroupDTO>(`/api/groups/${groupId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error getting group:', error);
+    throw error;
+  }
+}

@@ -115,13 +115,13 @@ const JoinGroup = () => {
         <>
           <div className='flex flex-col mt-8'>
             <p className="text-4xl title-font whitespace-nowrap dark:text-white mb-12 text-center">{t('joinGroup.joinGroup')}</p>
-            <TableContainer component={Paper} sx={{ padding: '1rem', border: '1px solid #ccc', display: 'flex', justifyContent: 'center', width: '66%', margin: '1rem auto' }}>
+            <TableContainer component={Paper} sx={{ padding: '1rem', border: '1px solid #ccc', display: 'flex', justifyContent: 'center', width: '66%', margin: '1rem auto', backgroundColor: theme === 'dark' ? 'var(--color-gray)' : 'white' }}>
               <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                   <TableRow>
-                    <TableCell>{t('joinGroup.groupName')}</TableCell>
-                    <TableCell align="center">{t('joinGroup.availability')}</TableCell>
-                    <TableCell align="center">{t('joinGroup.numberOfMembers')}</TableCell>
+                    <TableCell className='dark:text-[--color-font]'>{t('joinGroup.groupName')}</TableCell>
+                    <TableCell align="center" className='dark:text-[--color-font]'>{t('joinGroup.availability')}</TableCell>
+                    <TableCell align="center" className='dark:text-[--color-font]'>{t('joinGroup.numberOfMembers')}</TableCell>
                     <TableCell align="right"></TableCell>
                   </TableRow>
                 </TableHead>
@@ -131,12 +131,12 @@ const JoinGroup = () => {
                       key={group.name}
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
-                      <TableCell component="th" scope="row">
+                      <TableCell component="th" scope="row" className='dark:text-[--color-font]'>
                         {group.name}
                       </TableCell>
-                      <TableCell align="center">{group.availability}</TableCell>
-                      <TableCell align="center">{group.members.length}</TableCell>
-                      <TableCell align="right">
+                      <TableCell align="center" className='dark:text-[--color-font]'>{group.availability}</TableCell>
+                      <TableCell align="center" className='dark:text-[--color-font]'>{group.members.length}</TableCell>
+                      <TableCell align="right" className='dark:text-[--color-font]'>
                         {groups.some((g) => g.id === group.id) ? 
                           t('joinGroup.alreadyMember') : 
                           <Button onClick={() => availabilityChecker(group)} variant="contained">{t('joinGroup.join')}</Button>

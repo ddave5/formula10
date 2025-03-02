@@ -76,7 +76,7 @@
   "groupMenu": {
     "createGroup": "Create a group",
     "joinGroup": "Join a group",
-    "group": "Group"
+    "group": "Groups"
   },
   "groupHome": {
     "qualifyingDate" : "Qualifying date",
@@ -121,5 +121,14 @@
     "passwordAgain": "Password again",
     "newPassword": "New password",
     "newPasswordAgain": "New password again"
+  },
+  "groupDetailsMenu": {
+    "tip": "Tip",
+    "standing": "Standing",
+    "members": "Members",
+    "archive": "Archive",
+    "manageGroup": "Manage group",
+    "leaveGroup": "Leave group",
+    "deleteGroup": "Delete group"
   }
 }

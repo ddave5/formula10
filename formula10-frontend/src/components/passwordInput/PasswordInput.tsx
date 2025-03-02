@@ -28,7 +28,9 @@ const PasswordInput = ({password, setPassword, label} : {password: string, setPa
 
     const passwordDarkInputStyle = {
         ...darkInputStyle, 
-        '.MuiButtonBase-root': {color: 'var(--color-font)'}
+        '.MuiButtonBase-root': {color: 'var(--color-font)'},
+        '.css-13meb6w-MuiInputBase-input-MuiOutlinedInput-input:focus': {color: 'var(--color-font)'},
+        '.css-13meb6w-MuiInputBase-input-MuiOutlinedInput-input': {color: 'var(--color-font)'}
     }
 
     return (

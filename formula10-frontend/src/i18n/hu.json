@@ -76,7 +76,7 @@
   "groupMenu": {
     "createGroup": "Csoport készítése",
     "joinGroup": "Csatlakozás egy csoportba",
-    "group": "Csoport"
+    "group": "Csoportok"
   },
   "groupHome": {
     "qualifyingDate" : "Kvalifikació kezdése",
@@ -86,7 +86,7 @@
     "constructorStanding": "Konstruktőri tabella",
     "position": "Helyezés",
     "driver": "Pilóta",
-    "Constructor": "Konstruktőr",
+    "constructor": "Konstruktőr",
     "points": "Pontszám"
   },
   "createGroup": {
@@ -121,5 +121,14 @@
     "passwordAgain": "Jelszó újra",
     "newPassword": "Új jelszó",
     "newPasswordAgain": "Új jelszó újra"
+  },
+  "groupDetailsMenu": {
+    "tip": "Tipp leadás",
+    "standing": "Tabella",
+    "members": "Tagok",
+    "archive": "Archívum",
+    "manageGroup": "Csoport kezelése",
+    "leaveGroup": "Csoport elhagyása",
+    "deleteGroup": "Csoport törlése"
   }
 }
