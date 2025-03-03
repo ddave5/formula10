@@ -14,7 +14,7 @@ public class News {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long newsId;
+    private Long id;
 
     @Column(nullable = false, length = 255)
     private String title;
@@ -28,19 +28,11 @@ public class News {
     @Column(nullable = false)
     private LocalDateTime publishedAt;
 
-    @Column(name = "details")
+    @Column(name = "details", length = 1000)
     private String details;
 
-    public News(String title, String sourceUrl, String imageUrl, LocalDateTime publishedAt, String details) {
-        this.title = title;
-        this.sourceUrl = sourceUrl;
-        this.imageUrl = imageUrl;
-        this.publishedAt = publishedAt;
-        this.details = details;
-    }
-
     public NewsDTO toDTO() {
-        return new NewsDTO(this.getNewsId(), this.getTitle(), this.getSourceUrl(), this.getImageUrl(), this.getPublishedAt(), this.getDetails());
+        return new NewsDTO(this.getId(), this.getTitle(), this.getSourceUrl(), this.getImageUrl(), this.getPublishedAt(), this.getDetails());
     }
 
     public News() { }

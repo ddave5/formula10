@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Setter
 public class NewsDTO {
 
-    private Long newsId;
+    private Long id;
     private String title;
     private String sourceUrl;
     private String imageUrl;
@@ -20,12 +20,14 @@ public class NewsDTO {
     private String details;
 
 
-    public NewsDTO(Long newsId, String title, String sourceUrl, String imageUrl, LocalDateTime publishedAt, String details) {
-        this.newsId = newsId;
+    public NewsDTO(Long id, String title, String sourceUrl, String imageUrl, LocalDateTime publishedAt, String details) {
+        this.id = id;
         this.title = title;
         this.sourceUrl = sourceUrl;
         this.imageUrl = imageUrl;
         this.publishedAt = publishedAt;
         this.details = details;
     }
+
+    public NewsDTO() {}
 }
