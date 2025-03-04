@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Position } from '../../layout/news/NewsPosition.enum';
 import { NewsDTO } from '../../dto/news.dto';
 import { getAllNews } from '../../services/newsService';
 import News from '../../layout/news/News';
@@ -47,7 +46,6 @@ const Home: React.FC = () => {
                         <News
                             key={article.newsId}
                             news = {article}
-                            position={Position.left}
                         />
                     ))}
                 </div>

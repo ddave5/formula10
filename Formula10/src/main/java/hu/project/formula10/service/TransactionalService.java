@@ -17,6 +17,6 @@ public class TransactionalService {
 
     @Transactional
     public void deleteOldNewsTransactional() {
-        newsRepository.deleteNewsByPublishedAtBefore(LocalDateTime.now().minusMonths(2));
+        newsRepository.deleteNewsByPublishedAtBefore(LocalDateTime.now().minusWeeks(2));
     }
 }
