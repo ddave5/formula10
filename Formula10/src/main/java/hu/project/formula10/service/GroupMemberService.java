@@ -7,12 +7,14 @@ import hu.project.formula10.model.User;
 import hu.project.formula10.repository.GroupMemberRepository;
 import hu.project.formula10.repository.GroupRepository;
 import hu.project.formula10.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Service
+@Slf4j
 public class GroupMemberService {
 
     private final GroupMemberRepository groupMemberRepository;
@@ -25,31 +27,18 @@ public class GroupMemberService {
         this.userRepository = userRepository;
     }
 
-    public GroupMember addMemberToGroup(Long groupId, Long userId, GroupRole role) {
-        Group group = groupRepository.findById(groupId)
-                .orElseThrow(() -> new RuntimeException("Group not found"));
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        GroupMember groupMember = new GroupMember(group, user, role, LocalDate.now());
-        return groupMemberRepository.save(groupMember);
-    }
-
     public void removeMemberFromGroup(Long groupId, Long userId) {
+        log.info("Fetching group with id: {}", groupId);
         Group group = groupRepository.findById(groupId)
                 .orElseThrow(() -> new RuntimeException("Group not found"));
+        log.info("Fetching user with id: {}", userId);
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
+        log.info("Delete member");
         GroupMember groupMember = groupMemberRepository.findByGroupAndUser(group, user)
                 .orElseThrow(() -> new RuntimeException("Member not found"));
 
         groupMemberRepository.delete(groupMember);
-    }
-
-    public List<GroupMember> getMembersOfGroup(Long groupId) {
-        Group group = groupRepository.findById(groupId)
-                .orElseThrow(() -> new RuntimeException("Group not found"));
-        return groupMemberRepository.findByGroup(group);
     }
 }

@@ -26,15 +26,4 @@ public class DriverController {
     public ResponseEntity<DriverDTO> getDriverById(@PathVariable Long id) {
         return ResponseEntity.ok(driverService.getDriverById(id));
     }
-
-    @PostMapping
-    public ResponseEntity<DriverDTO> createDriver(@RequestBody DriverDTO driverDTO) {
-        DriverDTO createdDriver = driverService.createDriver(driverDTO);
-        return ResponseEntity.ok(createdDriver);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteDriver(@PathVariable Long id) {
-        driverService.deleteDriver(id);
-    }
 }

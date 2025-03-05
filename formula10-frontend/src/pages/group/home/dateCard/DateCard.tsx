@@ -23,7 +23,7 @@ const DateCard = ({date, title, location}: {date: Date, title: string, location:
             <CardContent className="p-6">
                 <div className="flex flex-col items-center space-y-4">
                     <h2 className="text-xl font-semibold text-primary dark:text-[--color-font]">{title}</h2>
-                    <p className="text-md font-semibold text-center dark:text-[--color-font]">{t('groupHome.location')}: {location}</p>
+                    <p className="text-md font-semibold text-center dark:text-[--color-font]">{t('groupHome.location')}: {t(`location.${location}`)}</p>
                     <p className="text-2xl font-bold tracking-tight text-center dark:text-[--color-font]">{formattedDate}</p>
                     <div className="w-full h-1 bg-gradient-to-r from-gray-300 via-gray-500 to-gray-300 rounded-full mt-2 dark:text-[--color-font]" />
                 </div>

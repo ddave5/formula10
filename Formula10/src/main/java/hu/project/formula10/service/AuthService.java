@@ -6,6 +6,7 @@ import hu.project.formula10.dto.LoginRequestDTO;
 import hu.project.formula10.dto.UserDTO;
 import hu.project.formula10.model.User;
 import hu.project.formula10.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class AuthService {
 
     private final UserRepository userRepository;
@@ -31,7 +33,7 @@ public class AuthService {
     }
 
     public JwtAuthenticationResponse loginUser(LoginRequestDTO loginDTO) {
-
+        log.info("Fetching user with email/username: {}", loginDTO.getUsernameOrEmail());
         User user = userRepository.findByUsernameOrEmail(loginDTO.getUsernameOrEmail(), loginDTO.getUsernameOrEmail())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 

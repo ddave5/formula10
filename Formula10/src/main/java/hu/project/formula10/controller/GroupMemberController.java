@@ -18,12 +18,6 @@ public class GroupMemberController {
         this.groupMemberService = groupMemberService;
     }
 
-    @PostMapping("/{groupId}/members/{userId}")
-    public ResponseEntity<GroupMember> addMemberToGroup(@PathVariable Long groupId, @PathVariable Long userId, @RequestParam GroupRole role) {
-        GroupMember groupMember = groupMemberService.addMemberToGroup(groupId, userId, role);
-        return ResponseEntity.ok(groupMember);
-    }
-
     @DeleteMapping("/{groupId}/members/{userId}")
     public ResponseEntity<Void> removeMemberFromGroup(@PathVariable Long groupId, @PathVariable Long userId) {
         groupMemberService.removeMemberFromGroup(groupId, userId);

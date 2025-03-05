@@ -32,11 +32,4 @@ public class ResultsController {
         List<ResultsDTO> results = resultsService.getResultsByRace(raceId);
         return ResponseEntity.ok(results);
     }
-
-    // Eredmények lekérdezése adott pilóta alapján
-    @GetMapping("/driver/{driverId}")
-    public ResponseEntity<List<ResultsDTO>> getResultsByDriver(@PathVariable Long driverId) {
-        List<ResultsDTO> results = resultsService.getResultsByDriver(driverId);
-        return ResponseEntity.ok(results);
-    }
 }

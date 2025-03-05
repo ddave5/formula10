@@ -35,6 +35,9 @@ public class UserService {
             log.error("Felhasználó név már használva van!");
         }
         String encodedPassword = passwordEncoder.encode(createUserDTO.getPassword());
+
+        log.info("Create user");
+
         User newUser = new User(createUserDTO.getUsername(), createUserDTO.getEmail(), encodedPassword);
         Role userRole = roleRepository.findByName(RoleName.USER)
                 .orElseThrow(() -> new RuntimeException("Felhasználói szerepkör nem található."));
@@ -44,25 +47,30 @@ public class UserService {
     }
 
     public Optional<UserDTO> getUserByUsername(String username) {
+        log.info("Fetching user by username: {}", username);
         Optional<User> user = userRepository.findByUsername(username);
         return user.map(User::toDTO);
     }
 
     public boolean isUsernameAvailable(String username) {
+        log.info("Check username is taken");
         return !userRepository.existsByUsername(username);
     }
 
     public boolean isEmailAvailable(String email) {
+        log.info("Check email address is taken");
         return !userRepository.existsByEmail(email);
     }
 
     public UserDTO changePassword(String email, String password) throws Exception {
+        log.info("Fetching user by email: {}", email);
         User user = userRepository
                 .findByEmail(email)
                 .orElseThrow( () -> new Exception("No user with this email address"));
 
         user.setPassword(passwordEncoder.encode(password));
 
+        log.info("Save user with the new password");
         return userRepository.save(user).toDTO();
     }
 

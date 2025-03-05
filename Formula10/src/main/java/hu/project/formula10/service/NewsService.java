@@ -5,14 +5,14 @@ import hu.project.formula10.dto.NewsDTO;
 import hu.project.formula10.model.News;
 import hu.project.formula10.repository.NewsRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.aop.framework.AopContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -30,9 +30,11 @@ public class NewsService {
         this.transactionalService = transactionalService;
     }
 
-    public List<NewsDTO> getAllNews() {
-        log.info("Entering method: getAllNews");
-        return newsRepository.findAll().stream().map(News::toDTO).sorted(Comparator.comparing(NewsDTO::getPublishedAt).reversed()).toList();
+    public Page<NewsDTO> getAllNews(int page, int size) {
+        log.info("Fetching news for page: {}, size: {}", page, size);
+        Pageable pageable = PageRequest.of(page, size, Sort.by("publishedAt").ascending());
+        return newsRepository.findAllByOrderByPublishedAtAsc(pageable)
+                .map(News::toDTO);
     }
 
     public NewsDTO createNews(NewsDTO newsDTO) {

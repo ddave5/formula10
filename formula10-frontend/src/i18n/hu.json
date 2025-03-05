@@ -130,5 +130,31 @@
     "manageGroup": "Csoport kezelése",
     "leaveGroup": "Csoport elhagyása",
     "deleteGroup": "Csoport törlése"
+  },
+  "location": {
+    "australia": "Ausztrália / Melburne",
+    "bahrain": "Bahrein / Szahír",
+    "canada": "Kanada / Montreal",
+    "china": "Kína / Sanghaj",
+    "japan": "Japán / Szuzuka",
+    "saud-arabia": "Szaúd-Arábia / Jeddah",
+    "spain": "Spanyolország / Barcelona",
+    "miami": "USA / Miami",
+    "monaco": "Monaco / Monte-Carlo",
+    "imola": "Olaszország / Imola",
+    "austria": "Ausztria / Spielberg",
+    "united-kingdom": "Egyesült Királyság / Silverstone",
+    "belgium": "Beglium / Spa Francorchamps",
+    "hungary": "Magyarország / Mogyoród",
+    "netherland": "Hollandia / Zandvoort",
+    "monza": "Olaszország / Monza",
+    "azerbaijan": "Azerbajdzsán / Baku",
+    "singapore": "Szingapúr / Szingapúr",
+    "austin": "USA / Austin",
+    "mexico": "Mexikó / Mexikóváros",
+    "brazil": "Brazília / Sao Paulo",
+    "las-vegas": "USA / Las Vegas",
+    "qatar": "Katar / Doha",
+    "UAE": "Egyesült Arab Emírségek / Abu-Dzabi"
   }
 }

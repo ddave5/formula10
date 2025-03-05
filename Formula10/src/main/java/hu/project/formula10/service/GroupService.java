@@ -11,6 +11,7 @@ import hu.project.formula10.repository.GroupMemberRepository;
 import hu.project.formula10.repository.GroupRepository;
 import hu.project.formula10.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +22,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class GroupService {
 
     private final GroupRepository groupRepository;
@@ -37,6 +39,7 @@ public class GroupService {
 
     @Transactional
     public GroupDTO createGroup(String name, String rawPassword, Long userId) {
+        log.info("Create group with name: {}", name);
         if (groupRepository.existsByName(name)) {
             throw new IllegalArgumentException("Group name is already in use.");
         }
@@ -47,6 +50,7 @@ public class GroupService {
         group.setCreatedAt(LocalDate.now());
         group.setAvailability(rawPassword == null || rawPassword.equals("") ? GroupAvailability.PUBLIC : GroupAvailability.PRIVATE);
 
+        log.info("Create group member with id: {}", userId);
         GroupMember groupMember = new GroupMember();
         groupMember.setUser(userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not found")));
         groupMember.setRole(GroupRole.ADMIN);
@@ -59,19 +63,23 @@ public class GroupService {
     }
 
     public GroupDTO getGroupById(Long id) {
+        log.info("Get group with id: {}", id);
         return groupRepository.findById(id).orElseThrow(() -> new RuntimeException("Group not found")).toDTO();
     }
 
     public List<GroupDTO> getAllGroups() {
+        log.info("Get all groups");
         return groupRepository.findAll().stream().map(Group::toDTO).toList();
     }
 
 
     @Transactional
     public GroupDTO joinGroup(Long userId, Long groupId, String password) {
+        log.info("Fetching group with id: {}", groupId);
         Group group = groupRepository.findById(groupId)
                 .orElseThrow(() -> new IllegalArgumentException("Group not found"));
 
+        log.info("Fetching user with id: {}", userId);
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
@@ -84,6 +92,7 @@ public class GroupService {
             throw new IllegalArgumentException("User is already a member of the group");
         }
 
+        log.info("Add user with id {} to group with id: {}", userId, groupId);
         GroupMember groupMember = new GroupMember();
         groupMember.setGroup(group);
         groupMember.setUser(user);
@@ -96,16 +105,19 @@ public class GroupService {
     }
 
     public List<GroupMemberDTO> getGroupMembers(Long groupId) {
+        log.info("Fetching group with id: {}", groupId);
         Group group = groupRepository.findById(groupId).orElseThrow();
         List<GroupMember> members = groupMemberRepository.findByGroup(group);
         return members.stream().map(GroupMember::toDTO).collect(Collectors.toList());
     }
 
     public boolean isGroupNameTaken(String name) {
+        log.info("Checking group with name ({}) exists", name);
         return groupRepository.existsByName(name);
     }
 
     public List<GroupDTO> getGroupListByUserId(Long userId) {
+        log.info("Fetching groups for an user with id {}", userId);
         return groupRepository
                 .findGroupListByUserId(userId)
                 .stream()
