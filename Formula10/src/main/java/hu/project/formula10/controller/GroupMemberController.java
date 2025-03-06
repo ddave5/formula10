@@ -23,10 +23,4 @@ public class GroupMemberController {
         groupMemberService.removeMemberFromGroup(groupId, userId);
         return ResponseEntity.noContent().build();
     }
-
-    @GetMapping("/{groupId}/members")
-    public ResponseEntity<List<GroupMember>> getMembersOfGroup(@PathVariable Long groupId) {
-        List<GroupMember> members = groupMemberService.getMembersOfGroup(groupId);
-        return ResponseEntity.ok(members);
-    }
 }

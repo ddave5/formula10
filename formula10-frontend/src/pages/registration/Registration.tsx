@@ -9,6 +9,7 @@ import Error from '../../components/Error/Error';
 import { useTheme } from '../../layout/navbar/Theme/ThemeContext';
 import SuccessPanel from '../../components/SuccessPanel/SuccessPanel';
 import PasswordInput from '../../components/passwordInput/PasswordInput';
+import TextInput from '../../components/TextInput/TextInput';
 
 const Registration = () => {
   const { t } = useTranslation();
@@ -161,12 +162,8 @@ const Registration = () => {
               {error && <Error errorMessage={error} />}
               
               <FormControl sx={{ '& .MuiTextField-root': { marginBottom: '.5rem'}}}>
-                <TextField id='username' required placeholder={t('registration.username')} variant='outlined' label={t('registration.username')} size='small' className='sm:text-sm' value={username} onChange={(e) => setUsername(e.target.value)} autoComplete='off'
-                          sx={ theme === "dark" ? darkInputStyle : lightInputStyle}/>
-                          {!usernameAvailable && <span className='text-red-500 text-sm mb-2'>{t('registration.usernameAlreadyTaken')}</span>} 
-                <TextField id='email' required type='email' placeholder={t('registration.email')} variant='outlined' label={t('registration.email')} size='small' className='sm:text-sm' value={email} onChange={(e) => setEmail(e.target.value)} autoComplete='off'
-                          sx={ theme === "dark" ? darkInputStyle : lightInputStyle}/>
-                          { emailError && <span className='text-red-500 text-sm mb-2'>{t('registration.invalidEmail')}</span>} 
+                <TextInput props={{id: 'username', isRequired: true, type: 'text', i18n: 'registration.username', errori18n: 'registration.usernameAlreadyTaken', variant: 'outlined', value: username, setValue: setUsername, error: usernameAvailable}}/>
+                <TextInput props={{id: 'email', isRequired: true,  type: 'text', i18n: 'registration.email', errori18n: 'registration.invalidEmail', variant: 'outlined', value: email, setValue: setEmail, error: emailError}}/>
                 <PasswordInput password={password} setPassword={setPassword} label='password'/>
                           { passwordError && <span className='text-red-500 text-sm mb-2'>{t('registration.invalidPassword')}</span>} 
                 <PasswordInput password={confirmPassword} setPassword={setConfirmPassword}  label='passwordAgain'/>

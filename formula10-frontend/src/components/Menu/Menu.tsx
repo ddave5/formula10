@@ -1,4 +1,3 @@
-import React from 'react'
 import { GroupDTO } from '../../dto/group.dto'
 import { Link } from 'react-router-dom'
 import { Button } from '@mui/material'
@@ -47,9 +46,9 @@ const Menu = (
                         <Link to={`/groups/${group?.id}/members`} className={`${menuElementStyle} mb-1`} key='members'><GrGroup /> {t('groupDetailsMenu.members')} </Link>
                         <Link to={`/groups/${group?.id}/archive`} className={`${menuElementStyle} mb-1`} key='archive'><FaBoxArchive /> {t('groupDetailsMenu.archive')} </Link>
                         <Link to={`/groups/${group?.id}/manage`} className={`${menuElementStyle} mb-1`} key='manage'><IoMdSettings /> {t('groupDetailsMenu.manageGroup')} </Link>
-                        <div className='flex flex-col absolute bottom-4 justify-center md:w-[calc(100%-2rem)]'>
-                            <Button variant="contained" onClick={leaveGroup} sx={{ mb: 1 , color: 'var(--color-font)', backgroundColor: 'var(--color-primary)'}}>{t('groupDetailsMenu.leaveGroup')}</Button>
-                            <Button variant="contained" onClick={deleteGroup} sx={{color: 'var(--color-font)', backgroundColor: 'var(--color-primary)'}}>{t('groupDetailsMenu.deleteGroup')}</Button>
+                        <div className='flex flex-col absolute bottom-4 justify-center md:w-[calc(100%-4rem)]'>
+                            <Button variant="contained" onClick={leaveGroup} sx={{ mb: 1 , color: 'var(--color-font)', backgroundColor: 'var(--color-primary)', width: 'calc(100% - 1rem)'}}>{t('groupDetailsMenu.leaveGroup')}</Button>
+                            <Button variant="contained" onClick={deleteGroup} sx={{color: 'var(--color-font)', backgroundColor: 'var(--color-primary)', width: 'calc(100% - 1rem)' }}>{t('groupDetailsMenu.deleteGroup')}</Button>
                         </div>
                     </>
                 )}
