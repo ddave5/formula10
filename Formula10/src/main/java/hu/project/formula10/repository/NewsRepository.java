@@ -16,5 +16,5 @@ public interface NewsRepository extends JpaRepository<News, Long> {
 
     void deleteNewsByPublishedAtBefore(LocalDateTime twoWeeksAgo);
 
-    Page<News> findAllByOrderByPublishedAtAsc(Pageable pageable);
+    Page<News> findAllByOrderByPublishedAtDesc(Pageable pageable);
 }

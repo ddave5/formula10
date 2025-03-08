@@ -32,8 +32,8 @@ public class NewsService {
 
     public Page<NewsDTO> getAllNews(int page, int size) {
         log.info("Fetching news for page: {}, size: {}", page, size);
-        Pageable pageable = PageRequest.of(page, size, Sort.by("publishedAt").ascending());
-        return newsRepository.findAllByOrderByPublishedAtAsc(pageable)
+        Pageable pageable = PageRequest.of(page, size, Sort.by("publishedAt").descending());
+        return newsRepository.findAllByOrderByPublishedAtDesc(pageable)
                 .map(News::toDTO);
     }
 

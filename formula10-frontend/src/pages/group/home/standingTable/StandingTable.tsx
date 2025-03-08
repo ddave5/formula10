@@ -1,5 +1,4 @@
 import { Card, CardContent, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
-import React from 'react'
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../../../layout/navbar/Theme/ThemeContext';
 

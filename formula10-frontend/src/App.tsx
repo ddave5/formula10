@@ -33,6 +33,9 @@ import JoinGroup from './pages/group/join-group/JoinGroup';
 import GroupDetailsMenu from './pages/group/groupid/group-details-menu/GroupDetailsMenu';
 import GroupMenu from './pages/group/group-menu/GroupMenu';
 import PasswordChange from './pages/login/PasswordChange/PasswordChange';
+import Points from './pages/points/Points';
+import NewsManagement from './pages/admin/newsManagement/NewsManagement';
+import ProtectedRoute from './ProtectedRoute';
 
 function App() {
   
@@ -75,21 +78,30 @@ function App() {
             <Route path='/register' Component={Registration} />
             <Route path='/passwordChange' Component={PasswordChange} />
 
-            <Route path='/groups' Component={GroupMenu} >
-              <Route index Component={GroupsHome} />
-              <Route path='create' Component={CreateGroup} />
-              <Route path='join' Component={JoinGroup} />
+            <Route element={<ProtectedRoute />}>
+              <Route path='/groups' Component={GroupMenu} >
+                <Route index Component={GroupsHome} />
+                <Route path='create' Component={CreateGroup} />
+                <Route path='join' Component={JoinGroup} />
+              </Route>
+
+              <Route path='groups/:groupId' Component={GroupDetailsMenu} >
+                  <Route index Component={GroupDetails} />
+                  <Route path='standing' Component={Standing} />
+                  <Route path='tip' Component={Tip} />
+                  <Route path='members' Component={Members} />
+                  <Route path='archive' Component={Archive} />
+              </Route>
             </Route>
 
-            <Route path='groups/:groupId' Component={GroupDetailsMenu} >
-                <Route index Component={GroupDetails} />
-                <Route path='standing' Component={Standing} />
-                <Route path='tip' Component={Tip} />
-                <Route path='members' Component={Members} />
-                <Route path='archive' Component={Archive} />
+            <Route element={<ProtectedRoute roleRequired='ADMIN'/>}>
+              <Route path='admin'>
+                <Route path='newsManagement' Component={NewsManagement} />
               </Route>
+            </Route>
             
             <Route path='/rules' Component={Rules} />
+            <Route path='/points' Component={Points} />
             <Route path='/privacyPolicy' Component={PrivacyPolicy} />
             <Route path='/termsOfUse' Component={TermsOfUse} />
             <Route path='/copyrightNotice' Component={CopyrightNotice} />

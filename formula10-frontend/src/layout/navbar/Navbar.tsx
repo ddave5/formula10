@@ -39,8 +39,15 @@ const Navbar = () => {
                                 <Link to="/rules" className="text-[--color-primary] dark:text-white before:bg-[--color-primary] dark:before:bg-white"> { t('navbar.rules') }</Link>
                             </li>
                             <li>
-                                <Link to="/groups" className="text-[--color-primary] dark:text-white before:bg-[--color-primary] dark:before:bg-white"> { t('navbar.groups') }</Link>
+                                <Link to="/points" className="text-[--color-primary] dark:text-white before:bg-[--color-primary] dark:before:bg-white"> { t('navbar.points') }</Link>
                             </li>
+                            {
+                                user && (
+                                    <li>
+                                        <Link to="/groups" className="text-[--color-primary] dark:text-white before:bg-[--color-primary] dark:before:bg-white"> { t('navbar.groups') }</Link>
+                                    </li>
+                                )
+                            }
                         </ul>
                     </div>
                 </div>
