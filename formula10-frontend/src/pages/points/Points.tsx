@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import TableComponent from '../../components/table/TableComponent'
+import { useTranslation } from 'react-i18next';
 
 const Points = () => {
 
@@ -11,42 +12,43 @@ const Points = () => {
   const [raceBody, setRaceBody] = useState<{style: string, value: string}[][]>([]);
   const [sprintRaceBody, setSprintRaceBody] = useState<{style: string, value: string}[][]>([]);
 
+  const { t } = useTranslation();
+
   useEffect( () => {
 
     const raceMatrix = racePosition.map((pos, index) => [pos, racePoints[index]]);
     const newRaceBody = raceMatrix.map((row) => [
-      { value: row[0].toString(), style: '' },
-      { value: row[1].toString(), style: '' },
+      { value: row[0].toString(), style: 'dark:text-[--color-font]' },
+      { value: row[1].toString(), style: 'dark:text-[--color-font]' },
     ]);
-    setRaceBody(newRaceBody); // Állapot frissítése
+    setRaceBody(newRaceBody);
 
-    // Sprintverseny pozíció és pontok mátrix létrehozása
     const sprintMatrix = sprintRacePosition.map((pos, index) => [pos, sprintRacePoints[index]]);
     const newSprintRaceBody = sprintMatrix.map((row) => [
-      { value: row[0].toString(), style: '' },
-      { value: row[1].toString(), style: '' },
+      { value: row[0].toString(), style: 'dark:text-[--color-font]' },
+      { value: row[1].toString(), style: 'dark:text-[--color-font]' },
     ]);
-    setSprintRaceBody(newSprintRaceBody); // Állapot frissítése
+    setSprintRaceBody(newSprintRaceBody);
   }, []);
 
   return (
-    <div className=''> 
-        <h1>Points</h1>
-        <div>
+    <> 
+        <h1 className='text-2xl font-bold my-8 text-center'>{t('points.pointsTitle')}</h1>
+        <div className='container mx-auto p-4 space-y-4 grid grid-cols-1 md:grid-cols-2 gap-4'>
           <TableComponent 
-            title={'points'} 
-            header={[{text: 'points.position', style: 'w-1/3'}, {text: 'points.points', style: 'w-1/3'}]} 
+            title={'points.racePoints'} 
+            header={[{text: 'points.position', style: 'dark:text-[--color-font]'}, {text: 'points.points', style: 'dark:text-[--color-font]'}]} 
             body={
               raceBody
             }/>
           <TableComponent 
-            title={'sprintRace'} 
-            header={[{text: 'points.position', style: 'w-1/3'}, {text: 'points.points', style: 'w-1/3'}]} 
+            title={'points.sprintRacePoints'} 
+            header={[{text: 'points.position', style: 'dark:text-[--color-font]'}, {text: 'points.points', style: 'dark:text-[--color-font]'}]} 
             body={
               sprintRaceBody
             }/>
         </div>
-    </div>
+    </>
   )
 }
 

@@ -157,5 +157,12 @@
     "las-vegas": "USA / Las Vegas",
     "qatar": "Katar / Doha",
     "UAE": "Egyesült Arab Emírségek / Abu-Dzabi"
+  },
+  "points": {
+    "pointsTitle": "Pontszámok",
+    "points": "Pontszám",
+    "position": "Helyezés",
+    "racePoints": "Futam pontszámok",
+    "sprintRacePoints": "Sprintfutam pontszámok"
   }
 }
