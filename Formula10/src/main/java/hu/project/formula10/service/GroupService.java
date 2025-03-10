@@ -72,7 +72,6 @@ public class GroupService {
         return groupRepository.findAll().stream().map(Group::toDTO).toList();
     }
 
-
     @Transactional
     public GroupDTO joinGroup(Long userId, Long groupId, String password) {
         log.info("Fetching group with id: {}", groupId);

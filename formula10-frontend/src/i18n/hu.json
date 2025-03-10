@@ -82,6 +82,8 @@
   "groupHome": {
     "qualifyingDate" : "Kvalifikació kezdése",
     "raceDate": "Futam kezdése",
+    "sprintQualifyingDate": "Sprint kvalifikáció kezdése",
+    "sprintRaceDate": "Sprint futam kezdése",
     "location": "Helyszín",
     "driverStanding": "Versenyzői tabella",
     "constructorStanding": "Konstruktőri tabella",
@@ -105,6 +107,7 @@
   "joinGroup": {
     "joinGroup": "Csatlakozás egy csoportba",
     "groupName": "Csoport neve",
+    "searchGroup": "Keresés",
     "availability": "Elérhetőség",
     "numberOfMembers": "Tagok szám",
     "join": "Csatlakozás",
@@ -115,7 +118,9 @@
     "dialogTitle": "Csatlakozás egy privát csoporthoz",
     "dialogDetails": "Ez egy privát csoport! Ahhoz, hogy csatlakozni tudj, kérlek add meg a jelszót:",
     "cancel": "Mégse",
-    "confirm": "Csatlakozás"
+    "confirm": "Csatlakozás",
+    "rowsPerPage": "Sorok száma:",
+    "of": "összesen"
   },
   "passwordInput": {
     "password": "Jelszó",

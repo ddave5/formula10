@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Component
 public class NewsScraper {
@@ -36,7 +37,7 @@ public class NewsScraper {
         for (String link : newsLinks) {
             Document subdoc = Jsoup.connect(BASE_URL + link).get();
             NewsDTO newsDTO = new NewsDTO();
-            newsDTO.setTitle(subdoc.select("h1").text());
+            newsDTO.setTitle(Objects.requireNonNull(subdoc.select("h1").first()).text());
             newsDTO.setPublishedAt(LocalDateTime.parse(subdoc.getElementsByClass("article-header-date").getFirst().text(), formatter));
             newsDTO.setSourceUrl(BASE_URL + link);
             newsDTO.setDetails(subdoc.getElementsByClass("lead").getFirst().text());

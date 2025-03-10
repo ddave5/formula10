@@ -30,6 +30,12 @@ public class Race {
     @Column(name="race_start")
     private ZonedDateTime raceStart;
 
+    @Column(name="sprint_qualifying_start")
+    private ZonedDateTime sprintQualifyingStart;
+
+    @Column(name="sprint_race_start")
+    private ZonedDateTime sprintRaceStart;
+
     public RaceDTO toDTO() {
         return new RaceDTO(
                 this.getId(),
@@ -37,7 +43,9 @@ public class Race {
                 this.getSeason().getId(),
                 this.getSeason().getYear(),
                 this.getQualifyingStart(),
-                this.getRaceStart()
+                this.getRaceStart(),
+                this.getSprintQualifyingStart(),
+                this.getSprintRaceStart()
         );
     }
 

@@ -33,7 +33,7 @@ const Points = () => {
 
   return (
     <> 
-        <h1 className='text-2xl font-bold my-8 text-center'>{t('points.pointsTitle')}</h1>
+        <h1 className='text-4xl title-font font-bold my-8 text-center'>{t('points.pointsTitle')}</h1>
         <div className='container mx-auto p-4 space-y-4 grid grid-cols-1 md:grid-cols-2 gap-4'>
           <TableComponent 
             title={'points.racePoints'} 

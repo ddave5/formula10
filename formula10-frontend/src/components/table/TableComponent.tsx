@@ -1,12 +1,21 @@
 import { Card, CardContent, styled, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material'
 import { useTranslation } from 'react-i18next';
+import { useTheme } from '../../layout/navbar/Theme/ThemeContext';
 
 const TableComponent = ({title, header, body } : {title: string, header: {text: string, style: string}[], body: {style: string, value: string}[][]}) => {
     const { t } = useTranslation();
+    const {theme:appTheme} = useTheme();
+
+    const StyledTableHeaderRow = styled(TableRow)(({ theme }) => ({
+        '&:nth-of-type(odd)': {
+          backgroundColor: `${appTheme === "dark" ? 'rgb(55 65 81 / var(--tw-bg-opacity, 1))' : 'rgb(229 231 235 / var(--tw-bg-opacity, 1))'}`,
+          borderTop: '1px solid rgba(224, 224, 224, 1)'
+        }
+    }))
 
     const StyledTableRow = styled(TableRow)(({ theme }) => ({
-        '&:nth-of-type(odd)': {
-          backgroundColor: theme.palette.action.hover,
+        '&:nth-of-type(even)': {
+          backgroundColor: `${appTheme === "dark" ? 'rgb(55 65 81 / var(--tw-bg-opacity, 1))' : 'rgb(229 231 235 / var(--tw-bg-opacity, 1))'}`,
         }
       }));
     
@@ -16,11 +25,11 @@ const TableComponent = ({title, header, body } : {title: string, header: {text: 
                 <h2 className="text-xl font-semibold text-center dark:text-[--color-font] mb-4">{t(title)}</h2>
                 <Table>
                     <TableHead>
-                        <StyledTableRow >
+                        <StyledTableHeaderRow >
                             {header.map((header, index) => (
                                 <TableCell className={`${header.style}`} key={index}>{t(header.text)}</TableCell>
                             ))}
-                        </StyledTableRow>
+                        </StyledTableHeaderRow>
                     </TableHead>
                     <TableBody>
                         {body.map((row, rowIndex) => (

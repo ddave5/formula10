@@ -20,4 +20,6 @@ public class RaceDTO {
     private int seasonYear;
     private ZonedDateTime qualifyingStart;
     private ZonedDateTime raceStart;
+    private ZonedDateTime sprintQualifyingStart;
+    private ZonedDateTime sprintRaceStart;
 }

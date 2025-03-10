@@ -5,4 +5,6 @@ export interface RaceDTO {
     seasonYear: number;
     qualifyingStart: string;
     raceStart: string;
+    sprintQualifyingStart?: string;
+    sprintRaceStart?: string;
   }

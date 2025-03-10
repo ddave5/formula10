@@ -82,6 +82,8 @@
   "groupHome": {
     "qualifyingDate" : "Qualifying date",
     "raceDate": "Race date",
+    "sprintQualifyingDate": "Sprint qualifying date",
+    "sprintRaceDate": "Sprint race date",
     "location": "Location",
     "driverStanding": "Driver standing",
     "constructorStanding": "Constructor standing",
@@ -105,6 +107,7 @@
   "joinGroup": {
     "joinGroup": "Join to a group",
     "groupName": "Group name",
+    "searchGroup": "Search group",
     "availability": "Availability",
     "numberOfMembers": "Number of members",
     "join": "Join",
@@ -115,7 +118,9 @@
     "dialogTitle": "Join to a private group",
     "dialogDetails": "This is a private group! In order to join, please enter your password:",
     "cancel": "Cancel",
-    "confirm": "Join"
+    "confirm": "Join",
+    "rowsPerPage": "Rows per page:",
+    "of": "of"
   },
   "passwordInput": {
     "password": "Password",

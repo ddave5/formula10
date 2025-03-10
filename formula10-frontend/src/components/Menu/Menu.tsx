@@ -23,7 +23,7 @@ const Menu = (
 
     return (
         <div className={containerStyle}>
-            <div className='p-4 flex flex-col border-t-2 border-gray-300 dark:border-gray-700 border-solid'>
+            <div className='p-4 flex flex-col border-t-2 border-gray-300 dark:border-gray-700 border-solid max-h-[500px] overflow-y-scroll'>
                 {group && (
                     <p className='text-2xl title-font whitespace-nowrap dark:text-white flex items-center'>{group?.name}</p>
                 )}
@@ -34,10 +34,17 @@ const Menu = (
                     </>
                 )}
             </div>
-            <div className='p-4 flex flex-col border-t-2  border-gray-300 dark:border-gray-700 border-solid'>
+            <div className='p-4 flex flex-col border-t-2 border-gray-300 dark:border-gray-700 border-solid max-h-[500px] overflow-y-scroll'>
                 {groupList && (
                     groupList.map(
-                        (group) => ( <Link to={`/groups/${group.id}`} className={`${menuElementStyle} mb-1`} key={group.id}><FaFlagCheckered /> {group.name} </Link>))
+                        (group) => ( 
+                            <>
+                                <Link to={`/groups/${group.id}`} className={`${menuElementStyle} mb-1`} key={group.id}><FaFlagCheckered /> {group.name} </Link>
+                                <Link to={`/groups/${group.id}`} className={`${menuElementStyle} mb-1`} key={group.id}><FaFlagCheckered /> {group.name} </Link>
+                            </>
+                            
+                            
+                        ))
                 )}
                 { !groupList && (
                     <>

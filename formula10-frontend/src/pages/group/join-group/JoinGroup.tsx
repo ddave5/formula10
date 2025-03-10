@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, InputAdornment, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, InputAdornment, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import { getGroupList, joinGroup } from '../../../services/groupService';
 import { useDispatch, useSelector } from 'react-redux';
@@ -30,6 +30,11 @@ const JoinGroup = () => {
   const [showPassword, setShowPassword] = useState(false);
   
   const [allGroupsLoading, setAllGroupsLoading] = useState(true);
+
+  // New states for pagination and filtering
+  const [currentPage, setCurrentPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [filterText, setFilterText] = useState('');
 
   const { t } = useTranslation();
   const { theme } = useTheme();
@@ -89,8 +94,23 @@ const JoinGroup = () => {
       }
     };
 
-    fetchAllGroups(); // Lekérdezés az összes csoporthoz
+    fetchAllGroups();
   }, [user]);
+
+  const filteredGroups = allGroups.filter(group =>
+    group.name.toLowerCase().includes(filterText.toLowerCase())
+  );
+
+  const paginatedGroups = filteredGroups.slice(currentPage * rowsPerPage, currentPage * rowsPerPage + rowsPerPage);
+
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setCurrentPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setCurrentPage(0); // reset to the first page
+  };
 
 
   useEffect(() => {
@@ -115,7 +135,16 @@ const JoinGroup = () => {
         <>
           <div className='flex flex-col mt-8'>
             <p className="text-4xl title-font whitespace-nowrap dark:text-white mb-12 text-center">{t('joinGroup.joinGroup')}</p>
-            <TableContainer component={Paper} sx={{ padding: '1rem', border: '1px solid #ccc', display: 'flex', justifyContent: 'center', width: '66%', margin: '1rem auto', backgroundColor: theme === 'dark' ? 'var(--color-gray)' : 'white' }}>
+            <TextField 
+              label={t('joinGroup.searchGroup')}
+              variant="outlined"
+              size="small"
+              fullWidth
+              value={filterText}
+              onChange={(e) => setFilterText(e.target.value)}
+              sx={{ margin: '1rem', maxWidth: '400px', alignSelf: 'center', ...theme === 'dark' ? darkInputStyle : lightInputStyle }}
+            />
+            <TableContainer component={Paper} sx={{ padding: '1rem', border: '1px solid #ccc', width: '66%', margin: '1rem auto', backgroundColor: theme === 'dark' ? 'var(--color-gray)' : 'white' }}>
               <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                   <TableRow>
@@ -126,7 +155,7 @@ const JoinGroup = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {allGroups.map((group) => (
+                  {paginatedGroups.map((group) => (
                     <TableRow
                       key={group.name}
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -146,8 +175,33 @@ const JoinGroup = () => {
                   ))}
                 </TableBody>
               </Table>
+              <TablePagination
+                rowsPerPageOptions={[5, 10, 25]}
+                component="div"
+                count={filteredGroups.length}
+                rowsPerPage={rowsPerPage}
+                page={currentPage}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                labelRowsPerPage={t('joinGroup.rowsPerPage')}
+                sx={{ 
+                  color: theme === 'dark' ? 'var(--color-font)' : 'inherit',
+                  '.MuiTablePagination-toolbar': {
+                    color: theme === 'dark' ? 'var(--color-font)' : 'inherit',
+                  },
+                  '.MuiTablePagination-selectLabel, .MuiTablePagination-input, .MuiTablePagination-displayedRows': {
+                    color: theme === 'dark' ? 'var(--color-font)' : 'inherit',
+                  },
+                  '.MuiTablePagination-actions .MuiIconButton-root': {
+                    color: theme === 'dark' ? 'var(--color-font)' : 'inherit',
+                  }, 
+                  }}
+                labelDisplayedRows={({ from, to, count }) => `${from}-${to} ${t('joinGroup.of')} ${count !== -1 ? count : `more than ${to}`}`}
+              />
             </TableContainer>
           </div>
+
+          {/* Password dialog */}
           <Dialog
             open={passwordCheck}
             onClose={() => setPasswordCheck(false)}

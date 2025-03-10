@@ -15,7 +15,7 @@ const News = ({news } :
     + (new Date(news.publishedAt).getMinutes() < 10 ? "0" + new Date(news.publishedAt).getMinutes().toString() : new Date(news.publishedAt).getMinutes().toString());
     
     return (
-        <div key={news.newsId} className="flex flex-col drop-shadow-lg border-2 border-gray-200 dark:border-gray-700 border-solid rounded-md">
+        <div key={news.newsId} className="flex flex-col drop-shadow-lg rounded-md">
             <div className='w-full overflow-hidden rounded-t-sm'>
                 <img src={news.imageUrl} alt={news.title}/>
             </div>

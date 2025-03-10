@@ -2,9 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { NewsDTO } from '../../dto/news.dto';
 import { getAllNews } from '../../services/newsService';
 import News from '../../layout/news/News';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/Store';
-import Loading from '../../components/Loading/Loading';
+import _ from 'lodash'; // lodash importálása
 
 const Home: React.FC = () => {
 
@@ -14,16 +12,15 @@ const Home: React.FC = () => {
     const [page, setPage] = useState<number>(0); // Kezdő oldal
     const [hasMoreNews, setHasMoreNews] = useState<boolean>(true); // Jelzi, van-e még több hír
 
-    const { user } = useSelector((state: RootState) => state.auth);
-
+    // Hírek lekérése az oldal és méret alapján
     const fetchNews = useCallback(async (page: number) => {
+        setLoading(true);
         try {
             const data = await getAllNews(page, 9); // Lekérjük a 9 hírt
             if (data.length < 9) {
                 setHasMoreNews(false); // Ha kevesebb mint 9 hír jön, nincs több betöltendő
             }
-            const fullNewsList = news.concat(data);
-            setNews(fullNewsList); // Hírek hozzáadása a meglévőkhöz
+            setNews((prevNews) => [...prevNews, ...data]); // Hírek hozzáadása a meglévőkhöz
         } catch (err) {
             setError('Failed to fetch news');
         } finally {
@@ -31,19 +28,21 @@ const Home: React.FC = () => {
         }
     }, []);
 
+    // Fetch news whenever 'page' changes
     useEffect(() => {
         fetchNews(page);
-    }, [page]);
+    }, [page, fetchNews]);
 
-    const handleScroll = useCallback( () => {
-        // Ellenőrizzük, hogy közel van-e a felhasználó az oldal aljához
-        if (
-          window.innerHeight + window.scrollY >= document.body.offsetHeight - 100 && // 500px-re az oldal aljától
-          !loading && hasMoreNews
-        ) {
-          setPage((prevPage) => prevPage + 1); // Következő oldal lekérdezése
-        }
-    }, []);
+    // Scroll esemény kezelése
+    const handleScroll = useCallback(
+        _.throttle(() => {
+            if (
+              window.innerHeight + window.scrollY >= document.body.offsetHeight - 500 && // Az aljától 500px-re
+              !loading && hasMoreNews
+            ) {
+              setPage((prevPage) => prevPage + 1); // Következő oldal lekérdezése
+            }
+        }, 200), [loading, hasMoreNews]); // Loading és hasMoreNews függőségek figyelése
 
     useEffect(() => {
         // Eseményfigyelő hozzáadása a scroll eseményhez
@@ -53,11 +52,8 @@ const Home: React.FC = () => {
         return () => {
           window.removeEventListener('scroll', handleScroll);
         };
-      }, [loading, hasMoreNews]); // Ha változik a töltési állapot vagy a hír elérhetősége
+      }, [handleScroll]); // `handleScroll` függőségek frissítése
 
-    if (loading) {
-        return <Loading isLoading={loading} />;
-    }
 
     if (error) {
         return <div>{error}</div>;
@@ -65,7 +61,6 @@ const Home: React.FC = () => {
 
     return (
         <>
-            {user ? <h1>Hello, {user.username}!</h1> : <h1>Welcome to the app!</h1>}
             <div className='flex items-center justify-center mt-2 dark:bg-[--color-dark]' >
                 <div className="w-2/3 grid gap-4 sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 mb-4">
                     {news.map((article, index) => (
