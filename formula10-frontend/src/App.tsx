@@ -36,6 +36,7 @@ import PasswordChange from './pages/login/PasswordChange/PasswordChange';
 import Points from './pages/points/Points';
 import NewsManagement from './pages/admin/newsManagement/NewsManagement';
 import ProtectedRoute from './ProtectedRoute';
+import ManageGroup from './pages/group/groupid/manage/ManageGroup';
 
 function App() {
   
@@ -91,6 +92,7 @@ function App() {
                   <Route path='tip' Component={Tip} />
                   <Route path='members' Component={Members} />
                   <Route path='archive' Component={Archive} />
+                  <Route path='manage' Component={ManageGroup} />
               </Route>
             </Route>
 

@@ -8,6 +8,8 @@ import { AiOutlineTrophy } from 'react-icons/ai'
 import { GrGroup } from 'react-icons/gr'
 import { FaBoxArchive, FaFlagCheckered } from 'react-icons/fa6'
 import { useTranslation } from 'react-i18next'
+import { IoArrowBackCircleOutline } from "react-icons/io5";
+
 
 const Menu = (
     {
@@ -23,7 +25,7 @@ const Menu = (
 
     return (
         <div className={containerStyle}>
-            <div className='p-4 flex flex-col border-t-2 border-gray-300 dark:border-gray-700 border-solid max-h-[500px] overflow-y-scroll'>
+            <div className='p-4 flex flex-col border-t-2 border-gray-300 dark:border-gray-700 border-solid'>
                 {group && (
                     <p className='text-2xl title-font whitespace-nowrap dark:text-white flex items-center'>{group?.name}</p>
                 )}
@@ -40,7 +42,6 @@ const Menu = (
                         (group) => ( 
                             <>
                                 <Link to={`/groups/${group.id}`} className={`${menuElementStyle} mb-1`} key={group.id}><FaFlagCheckered /> {group.name} </Link>
-                                <Link to={`/groups/${group.id}`} className={`${menuElementStyle} mb-1`} key={group.id}><FaFlagCheckered /> {group.name} </Link>
                             </>
                             
                             
@@ -48,6 +49,7 @@ const Menu = (
                 )}
                 { !groupList && (
                     <>
+                        <Link to={`/groups`} className={`${menuElementStyle} mb-1`} key='back'><IoArrowBackCircleOutline /> {t('groupDetailsMenu.backToGroup')} </Link>
                         <Link to={`/groups/${group?.id}/tip`} className={`${menuElementStyle} mb-1`} key='tip'><TiPencil /> {t('groupDetailsMenu.tip')} </Link>
                         <Link to={`/groups/${group?.id}/standing`} className={`${menuElementStyle} mb-1`} key='standing'><AiOutlineTrophy /> {t('groupDetailsMenu.standing')} </Link>
                         <Link to={`/groups/${group?.id}/members`} className={`${menuElementStyle} mb-1`} key='members'><GrGroup /> {t('groupDetailsMenu.members')} </Link>

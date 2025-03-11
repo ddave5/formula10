@@ -6,12 +6,14 @@ interface AuthState {
     token: string | null;
     user: { id: number; username: string; role: string } | null;
     error: string | null;
+    loading: boolean
 }
 
 const initialState: AuthState = {
     token: null,
     user: null,
     error: null,
+    loading: true
 };
 
 export const loginUser = createAsyncThunk(
@@ -26,10 +28,9 @@ export const loginUser = createAsyncThunk(
 
             const { token, userDTO: user} = response.data; // JWT token
 
-            // Token tárolása a "Remember Me" alapján
             setToken(token, credentials.rememberMe);
 
-            return { token, user }; // Ebből a JWT token jön vissza
+            return { token, user }; 
         } catch (error: any) {
             if (error.response && error.response.data) {
                 return rejectWithValue(error.response.data);
@@ -68,6 +69,7 @@ const authSlice = createSlice({
         logout: (state) => {
             state.token = null;
             state.user = null;
+            state.loading = false
             localStorage.removeItem('token');
             sessionStorage.removeItem('token');
         },
@@ -78,16 +80,23 @@ const authSlice = createSlice({
                 state.token = action.payload.token;
                 state.user = action.payload.user; // A felhasználói adatok mentése a Redux állapotba
                 state.error = null;
+                state.loading = false;
             })
             .addCase(loginUser.rejected, (state, action) => {
                 state.error = action.payload as string;
+                state.loading = false;
             })
             .addCase(loadUserFromStorage.fulfilled, (state, action) => {
                 state.token = action.payload.token;
                 state.user = action.payload.user;
+                state.loading = false;
+                state.error = null;
             })
             .addCase(loadUserFromStorage.rejected, (state, action) => {
                 state.error = action.payload as string;
+                state.loading = false; // Betöltés befejeződött, de hiba történt
+                state.token = null;
+                state.user = null;
             });
     },
 });

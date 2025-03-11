@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { currentSeasonConstuctorStanding, currentSeasonStanding } from '../../../services/seasonDataService';
 import DateCard from './dateCard/DateCard';
 import Loading from '../../../components/Loading/Loading';
@@ -23,6 +23,9 @@ const GroupsHome = () => {
   const [raceLoading, setRaceLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
+  const driverStandingsRef = useRef<{style: string, value: string}[][] | null>(null);
+  const constructorStandingsRef = useRef<{style: string, value: string}[][] | null>(null);
+
   useEffect(() => {
     const getRaceData = async () => {
       try {
@@ -37,22 +40,30 @@ const GroupsHome = () => {
         const comparisonDate = new Date('2025-03-17T00:00:00');
         const seasonYear = new Date() < comparisonDate ? 2024 : nextRace.seasonYear;
 
-        const driverStandings = await currentSeasonStanding(seasonYear);
-        const constructorStandings = await currentSeasonConstuctorStanding(seasonYear);
+        if (!driverStandingsRef.current || !constructorStandingsRef.current) {
+          const driverStandings = await currentSeasonStanding(seasonYear);
+          const constructorStandings = await currentSeasonConstuctorStanding(seasonYear);
+          
+          const styles = ['font-medium dark:text-[--color-font]', 'dark:text-[--color-font]', 'text-right dark:text-[--color-font]'];
+          const driverStructuredData = driverStandings.map(row => [
+            { style: styles[0], value: row.position.toString() },
+            { style: styles[1], value: row.driver },
+            { style: styles[2], value: row.points.toString() }
+          ]);
 
-        const styles = ['font-medium dark:text-[--color-font]', 'dark:text-[--color-font]', 'text-right dark:text-[--color-font]'];
-        const driverStructuredData = driverStandings.map(row => [
-          { style: styles[0], value: row.position.toString() },
-          { style: styles[1], value: row.driver },
-          { style: styles[2], value: row.points.toString() }
-        ]);
-        setDriverStandingBody(driverStructuredData);
-        const constructorStructuredData = constructorStandings.map(row => [
-          { style: styles[0], value: row.position.toString() },
-          { style: styles[1], value: row.constructor },
-          { style: styles[2], value: row.points.toString() }
-        ]);
-        setConstructorStandingBody(constructorStructuredData);
+          const constructorStructuredData = constructorStandings.map(row => [
+            { style: styles[0], value: row.position.toString() },
+            { style: styles[1], value: row.constructor },
+            { style: styles[2], value: row.points.toString() }
+          ]);
+
+          driverStandingsRef.current = driverStructuredData;
+          constructorStandingsRef.current = constructorStructuredData;
+        }
+        
+        setDriverStandingBody(driverStandingsRef.current || []);
+        
+        setConstructorStandingBody(constructorStandingsRef.current || []);
 
       } catch (error) {
         console.error('Error fetching data:', error);

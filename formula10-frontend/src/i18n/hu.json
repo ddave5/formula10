@@ -129,6 +129,7 @@
     "newPasswordAgain": "Új jelszó újra"
   },
   "groupDetailsMenu": {
+    "backToGroup": "Vissza a csoportokhoz",
     "tip": "Tipp leadás",
     "standing": "Tabella",
     "members": "Tagok",

@@ -129,6 +129,7 @@
     "newPasswordAgain": "New password again"
   },
   "groupDetailsMenu": {
+    "backToGroup": "Back to groups",
     "tip": "Tip",
     "standing": "Standing",
     "members": "Members",
