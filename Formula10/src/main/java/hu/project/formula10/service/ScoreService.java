@@ -4,11 +4,9 @@ import hu.project.formula10.dto.ScoreDTO;
 import hu.project.formula10.model.*;
 import hu.project.formula10.repository.*;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -22,7 +20,6 @@ public class ScoreService {
 
     private static final int[] POINTS_ARRAY = new int[] {1, 2, 4, 6, 8, 10, 12, 15, 18, 25, 18, 15, 12, 10, 8, 6, 4, 2, 1, 0};
 
-    @Autowired
     public ScoreService(ScoreRepository scoreRepository, TipRepository tipRepository, ResultsRepository resultsRepository, GroupRepository groupRepository, SeasonRepository seasonRepository) {
         this.scoreRepository = scoreRepository;
         this.tipRepository = tipRepository;

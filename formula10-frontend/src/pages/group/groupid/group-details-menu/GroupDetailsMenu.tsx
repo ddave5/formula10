@@ -62,13 +62,13 @@ const GroupDetailsMenu = () => {
           <Menu containerStyle='bg-gray-200 dark:bg-gray-500 w-1/2 sm:w-1/3 h-[100vh]' group={group} leaveGroup={() => setShowMenu(false)} deleteGroup={() => setShowMenu(false)} />
         </div>
       )}
-      <div className='grid grid-cols-1 md:grid-cols-[25%_75%] xl:grid-cols-[20%_80%] 2xl:grid-cols-[15%_85%] h-full relative'>
+      <div className='grid grid-cols-1 lg:grid-cols-[25%_75%] xl:grid-cols-[20%_80%] 2xl:grid-cols-[15%_85%] h-full relative'>
         {/* Ipad and PC menu */}
-        {width > 768 && 
+        {width > 1024 && 
           <Menu containerStyle='bg-gray-200 dark:bg-gray-500 h-full relative' group={group} leaveGroup={() => setShowMenu(false)} deleteGroup={() => setShowMenu(false)} />
         }
         {/* Mobile menu */}
-        {width < 768 && 
+        {width < 1024 && 
           <>
             <div className='bg-gray-200 dark:bg-gray-500 flex justify-between items-center py-4 pl-4 h-fit'>
               <p className='text-2xl font-bold title-font whitespace-nowrap dark:text-white text-center'>{group?.name}</p>

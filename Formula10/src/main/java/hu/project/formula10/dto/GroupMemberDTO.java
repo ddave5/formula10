@@ -1,6 +1,5 @@
 package hu.project.formula10.dto;
 
-import hu.project.formula10.enums.GroupRole;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -3,7 +3,6 @@ package hu.project.formula10.service;
 import hu.project.formula10.config.jwt.JwtAuthenticationResponse;
 import hu.project.formula10.config.jwt.JwtTokenProvider;
 import hu.project.formula10.dto.LoginRequestDTO;
-import hu.project.formula10.dto.UserDTO;
 import hu.project.formula10.model.User;
 import hu.project.formula10.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -13,8 +12,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-@Service
 @Slf4j
+@Service
 public class AuthService {
 
     private final UserRepository userRepository;

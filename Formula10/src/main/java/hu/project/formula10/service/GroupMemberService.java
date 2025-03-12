@@ -1,6 +1,6 @@
 package hu.project.formula10.service;
 
-import hu.project.formula10.enums.GroupRole;
+import hu.project.formula10.dto.GroupMemberDTO;
 import hu.project.formula10.model.Group;
 import hu.project.formula10.model.GroupMember;
 import hu.project.formula10.model.User;
@@ -10,7 +10,6 @@ import hu.project.formula10.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -40,5 +39,13 @@ public class GroupMemberService {
                 .orElseThrow(() -> new RuntimeException("Member not found"));
 
         groupMemberRepository.delete(groupMember);
+    }
+
+    public List<GroupMemberDTO> getGroupMemberDTOByGroupId(Long groupId) {
+        log.info("Fetching group members for group with id: {}", groupId);
+        Group group = groupRepository.findById(groupId).orElseThrow(() -> new RuntimeException("Group not found"));
+        List<GroupMember> groupMembers = groupMemberRepository.findByGroup(group);
+
+        return groupMembers.stream().map(GroupMember::toDTO).toList();
     }
 }

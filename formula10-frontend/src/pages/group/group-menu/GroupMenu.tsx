@@ -13,9 +13,9 @@ import Menu from '../../../components/Menu/Menu';
 const GroupMenu = () => {
 
   const user = useSelector((state: RootState) => state.auth.user);
-  const groups = useSelector((state: RootState) => state.groups.groups); // Redux store-ból olvassuk a csoportokat
-  const loading = useSelector((state: RootState) => state.groups.loading); // Betöltési állapot
-  const error = useSelector((state: RootState) => state.groups.error); // Hibaüzenet
+  const groups = useSelector((state: RootState) => state.groups.groups);
+  const loading = useSelector((state: RootState) => state.groups.loading);
+  const error = useSelector((state: RootState) => state.groups.error);
 
   const [showMenu, setShowMenu] = useState(false);
 
@@ -57,13 +57,13 @@ const GroupMenu = () => {
           <Menu containerStyle='bg-gray-200 dark:bg-gray-500 w-1/2 sm:w-1/3 h-[100vh] border-r-2 border-gray-300 dark:border-gray-700 border-solid' groupList={groups} />
         </div>
       )}
-      <div className='grid grid-cols-1 md:grid-cols-[25%_75%] xl:grid-cols-[20%_80%] 2xl:grid-cols-[15%_85%] h-full'>
+      <div className='grid grid-cols-1 lg:grid-cols-[25%_75%] xl:grid-cols-[20%_80%] 2xl:grid-cols-[15%_85%] h-full'>
         {/* Ipad and PC menu */}
-        {width > 768 && 
+        {width > 1024 && 
           <Menu containerStyle='bg-gray-200 dark:bg-gray-500 border-r-2 border-gray-300 dark:border-gray-700 border-solid h-full' groupList={groups} />
         }
         {/* Mobile menu */}
-        {width < 768 && 
+        {width < 1024 && 
           <>
             <div className='bg-gray-200 dark:bg-gray-700 flex justify-between items-center py-4 pl-4'>
               <p className='text-2xl font-bold title-font whitespace-nowrap dark:text-white text-center'>{t('groupMenu.group')}</p>

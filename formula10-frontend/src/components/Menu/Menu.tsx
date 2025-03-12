@@ -24,7 +24,7 @@ const Menu = (
 
 
     return (
-        <div className={containerStyle}>
+        <div className={`${containerStyle} overflow-y-scroll`}>
             <div className='p-4 flex flex-col border-t-2 border-gray-300 dark:border-gray-700 border-solid'>
                 {group && (
                     <p className='text-2xl title-font whitespace-nowrap dark:text-white flex items-center'>{group?.name}</p>
@@ -36,15 +36,13 @@ const Menu = (
                     </>
                 )}
             </div>
-            <div className='p-4 flex flex-col border-t-2 border-gray-300 dark:border-gray-700 border-solid max-h-[500px] overflow-y-scroll'>
+            <div className='p-4 flex flex-col border-t-2 border-gray-300 dark:border-gray-700 border-solid max-h-[500px] '>
                 {groupList && (
                     groupList.map(
                         (group) => ( 
                             <>
                                 <Link to={`/groups/${group.id}`} className={`${menuElementStyle} mb-1`} key={group.id}><FaFlagCheckered /> {group.name} </Link>
                             </>
-                            
-                            
                         ))
                 )}
                 { !groupList && (
@@ -55,7 +53,7 @@ const Menu = (
                         <Link to={`/groups/${group?.id}/members`} className={`${menuElementStyle} mb-1`} key='members'><GrGroup /> {t('groupDetailsMenu.members')} </Link>
                         <Link to={`/groups/${group?.id}/archive`} className={`${menuElementStyle} mb-1`} key='archive'><FaBoxArchive /> {t('groupDetailsMenu.archive')} </Link>
                         <Link to={`/groups/${group?.id}/manage`} className={`${menuElementStyle} mb-1`} key='manage'><IoMdSettings /> {t('groupDetailsMenu.manageGroup')} </Link>
-                        <div className='flex flex-col absolute bottom-4 justify-center md:w-[calc(100%-4rem)]'>
+                        <div className='flex flex-col absolute bottom-4 justify-center w-[calc(50%-2rem)] sm:w-[calc(34%-2rem)] lg:w-[calc(100%-2rem)]'>
                             <Button variant="contained" onClick={leaveGroup} sx={{ mb: 1 , color: 'var(--color-font)', backgroundColor: 'var(--color-primary)', width: 'calc(100% - 1rem)'}}>{t('groupDetailsMenu.leaveGroup')}</Button>
                             <Button variant="contained" onClick={deleteGroup} sx={{color: 'var(--color-font)', backgroundColor: 'var(--color-primary)', width: 'calc(100% - 1rem)' }}>{t('groupDetailsMenu.deleteGroup')}</Button>
                         </div>

@@ -1,12 +1,10 @@
 package hu.project.formula10.model;
 
 import hu.project.formula10.dto.SeasonDTO;
-import hu.project.formula10.enums.SeasonStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 

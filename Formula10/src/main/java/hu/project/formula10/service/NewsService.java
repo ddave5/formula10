@@ -5,7 +5,6 @@ import hu.project.formula10.dto.NewsDTO;
 import hu.project.formula10.model.News;
 import hu.project.formula10.repository.NewsRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -23,7 +22,6 @@ public class NewsService {
     private final NewsScraper newsScraper;
     private final TransactionalService transactionalService;
 
-    @Autowired
     public NewsService(NewsRepository newsRepository, NewsScraper newsScraper, TransactionalService transactionalService) {
         this.newsRepository = newsRepository;
         this.newsScraper = newsScraper;

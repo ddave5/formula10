@@ -1,12 +1,14 @@
 package hu.project.formula10.controller;
 
-import hu.project.formula10.enums.GroupRole;
-import hu.project.formula10.model.GroupMember;
+import hu.project.formula10.dto.GroupMemberDTO;
 import hu.project.formula10.service.GroupMemberService;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 @RestController
 @RequestMapping("/api/groupMembers")
@@ -17,6 +19,12 @@ public class GroupMemberController {
     public GroupMemberController(GroupMemberService groupMemberService) {
         this.groupMemberService = groupMemberService;
     }
+
+    @GetMapping("/{groupId}")
+    public ResponseEntity<List<GroupMemberDTO>> getGroupMemberDTOByGroupId(@PathVariable Long groupId) {
+        return ResponseEntity.ok(groupMemberService.getGroupMemberDTOByGroupId(groupId));
+    }
+    
 
     @DeleteMapping("/{groupId}/members/{userId}")
     public ResponseEntity<Void> removeMemberFromGroup(@PathVariable Long groupId, @PathVariable Long userId) {

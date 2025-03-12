@@ -3,12 +3,10 @@ package hu.project.formula10.controller;
 import hu.project.formula10.dto.NewsDTO;
 import hu.project.formula10.service.NewsService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @Slf4j
@@ -17,7 +15,6 @@ public class NewsController {
 
     private final NewsService newsService;
 
-    @Autowired
     public NewsController(NewsService newsService) {
         this.newsService = newsService;
     }

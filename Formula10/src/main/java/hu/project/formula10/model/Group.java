@@ -2,7 +2,6 @@ package hu.project.formula10.model;
 
 import hu.project.formula10.dto.GroupDTO;
 import hu.project.formula10.enums.GroupAvailability;
-import hu.project.formula10.enums.RoleName;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
