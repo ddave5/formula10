@@ -7,6 +7,7 @@ import Error from '../../../components/Error/Error';
 import { darkInputStyle, lightInputStyle } from '../../../components/TextInput/InputStyle'
 import { useTheme } from '../../../layout/navbar/Theme/ThemeContext'
 import { changePassword } from '../../../services/userService'
+import { CharacterValidator, EmailValidator, PasswordValidator } from '../../../utils/Validator'
 
 const PasswordChange = () => {
 
@@ -23,6 +24,7 @@ const PasswordChange = () => {
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
+  const [invalidCharacterError, setInvalidCharacterError] = useState(false);
 
   useEffect(() => {
     setEmailError(false);
@@ -39,15 +41,20 @@ const PasswordChange = () => {
   const validation = () => {
     let isValid = true;
 
-    if (!validateEmail(email)) {
+    if (!EmailValidator(email)) {
       isValid = false;
       setEmailError(true);
     }
-  
-    if (!validatePassword(password)) {
+
+    if (!CharacterValidator(password)) {
       isValid = false;
-      setPasswordError(true);
-    } 
+      setInvalidCharacterError(true);
+    } else {
+      if (!PasswordValidator(password)) {
+        isValid = false;
+        setPasswordError(true);
+      } 
+    }
   
     if (password !== confirmPassword || confirmPassword === "") {
       isValid = false;
@@ -56,16 +63,6 @@ const PasswordChange = () => {
 
     return isValid; 
   }
-
-  const validateEmail = (email: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email) && email !== "";
-  };
-  
-  const validatePassword = (password: string) => {
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&~`#^()-+=|:;/_])[A-Za-z\d@$!%*?&]{8,}$/;
-    return passwordRegex.test(password) && password !== "";
-  };
 
   const changePwd = () => {
         if (validation()) {
@@ -106,6 +103,7 @@ const PasswordChange = () => {
                                             sx={ theme === "dark" ? darkInputStyle : lightInputStyle }/>
                 { emailError && <span className='text-red-500 text-sm mb-2'>{t('passwordChange.invalidEmail')}</span>} 
                 <PasswordInput password={password} setPassword={setPassword} label='newPassword' />
+                { invalidCharacterError && <span className='text-red-500 text-sm mb-2'>{t('passwordChange.invalidCharacter')}</span>}     
                 { passwordError && <span className='text-red-500 text-sm mb-2'>{t('passwordChange.invalidPassword')}</span>}     
                 <PasswordInput password={confirmPassword} setPassword={setConfirmPassword} label='newPasswordAgain' />
                 { confirmPasswordError && <span className='text-red-500 text-sm mb-2'>{t('passwordChange.passwordsDontMatch')}</span>}          

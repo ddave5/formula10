@@ -9,7 +9,8 @@ import { useTranslation } from 'react-i18next';
 import SuccessPanel from '../../../components/SuccessPanel/SuccessPanel';
 import { MdOutlineVisibility, MdOutlineVisibilityOff } from 'react-icons/md';
 import { useTheme } from '../../../layout/navbar/Theme/ThemeContext';
-import { addGroup, fetchGroupList } from '../../../redux/slices/GroupSlice';
+import { addGroup } from '../../../redux/slices/GroupSlice';
+import { darkInputStyle, lightInputStyle } from '../../../components/TextInput/InputStyle';
 
 const JoinGroup = () => {
 
@@ -38,20 +39,6 @@ const JoinGroup = () => {
 
   const { t } = useTranslation();
   const { theme } = useTheme();
-
-  const darkInputStyle = {
-    '.css-1pzfmz2-MuiInputBase-input-MuiOutlinedInput-input' : {color: 'var(--color-font)'}, 
-    '.MuiInputLabel-root': {color: 'var(--color-font)'}, 
-    '.MuiOutlinedInput-notchedOutline' : {borderColor: 'var(--color-font)'}, 
-    '&:hover .MuiOutlinedInput-notchedOutline' : {borderColor: 'var(--color-font)'}
-  } 
-
-  const lightInputStyle = {
-    '.css-1pzfmz2-MuiInputBase-input-MuiOutlinedInput-input' : {color: 'var(--color-gray)'}, 
-    '.MuiInputLabel-root': {color: 'var(--color-gray)'}, 
-    '.MuiOutlinedInput-notchedOutline' : {borderColor: 'var(--color-gray)'}, 
-    '&:hover .MuiOutlinedInput-notchedOutline' : {borderColor: 'var(--color-gray)'}
-  }  
 
   const availabilityChecker = (group: GroupDTO) => {
     if (group.availability === 'PUBLIC') {
@@ -116,14 +103,6 @@ const JoinGroup = () => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setCurrentPage(0); // reset to the first page
   };
-
-
-  useEffect(() => {
-    if (user && groups.length === 0) {
-      dispatch(fetchGroupList(user.id));
-    }
-  }, [user, groups.length, dispatch]); 
-
 
   if (loading || allGroupsLoading) {
       return <Loading isLoading={loading} />;

@@ -10,6 +10,7 @@ import { useTheme } from '../../layout/navbar/Theme/ThemeContext';
 import SuccessPanel from '../../components/SuccessPanel/SuccessPanel';
 import PasswordInput from '../../components/passwordInput/PasswordInput';
 import TextInput from '../../components/TextInput/TextInput';
+import { CharacterValidator, EmailValidator, PasswordValidator } from '../../utils/Validator';
 
 const Registration = () => {
   const { t } = useTranslation();
@@ -25,15 +26,18 @@ const Registration = () => {
 
   const [error, setError] = useState('');
   const [emailError, setEmailError] = useState(false);
+  const [invalidCharacterError, setInvalidCharacterError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
 
   const { theme } = useTheme();
 
   const checkUsername = debounce(async (username: string) => {
-    if (username) {
+    if (username.trim()) {
       const isAvailable = await checkUsernameAvailability(username);
       setUsernameAvailable(isAvailable);
+    } else {
+      setUsernameAvailable(true);
     }
   }, 500);
 
@@ -79,15 +83,20 @@ const Registration = () => {
   const validation = () => {
     let isValid = true;
 
-    if (!validateEmail(email)) {
+    if (!EmailValidator(email)) {
       isValid = false;
       setEmailError(true);
     }
-  
-    if (!validatePassword(password)) {
-      isValid = false;
-      setPasswordError(true);
-    } 
+
+    if (!CharacterValidator(password)) {
+          isValid = false;
+          setInvalidCharacterError(true);
+        } else {
+          if (!PasswordValidator(password)) {
+            isValid = false;
+            setPasswordError(true);
+          } 
+        }
   
     if (password !== confirmPassword || confirmPassword === "") {
       isValid = false;
@@ -99,30 +108,6 @@ const Registration = () => {
     }
     
     return isValid; 
-  }
-
-  const validateEmail = (email: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email) && email !== "";
-  };
-  
-  const validatePassword = (password: string) => {
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&~`#^()-+=|:;/_])[A-Za-z\d@$!%*?&]{8,}$/;
-    return passwordRegex.test(password) && password !== "";
-  };
-
-  const darkInputStyle = {
-    '.css-1pzfmz2-MuiInputBase-input-MuiOutlinedInput-input' : {color: 'var(--color-font)'}, 
-    '.MuiInputLabel-root': {color: 'var(--color-font)'}, 
-    '.MuiOutlinedInput-notchedOutline' : {borderColor: 'var(--color-font)'}, 
-    '&:hover .MuiOutlinedInput-notchedOutline' : {borderColor: 'var(--color-font)'}
-}
-
-  const lightInputStyle = {
-    '.css-1pzfmz2-MuiInputBase-input-MuiOutlinedInput-input' : {color: 'var(--color-gray)'}, 
-    '.MuiInputLabel-root': {color: 'var(--color-gray)'}, 
-    '.MuiOutlinedInput-notchedOutline' : {borderColor: 'var(--color-gray)'}, 
-    '&:hover .MuiOutlinedInput-notchedOutline' : {borderColor: 'var(--color-gray)'}
   }
 
   const darkCheckBoxStyle = {
@@ -162,9 +147,10 @@ const Registration = () => {
               {error && <Error errorMessage={error} />}
               
               <FormControl sx={{ '& .MuiTextField-root': { marginBottom: '.5rem'}}}>
-                <TextInput props={{id: 'username', isRequired: true, type: 'text', i18n: 'registration.username', errori18n: 'registration.usernameAlreadyTaken', variant: 'outlined', value: username, setValue: setUsername, error: usernameAvailable}}/>
+                <TextInput props={{id: 'username', isRequired: true, type: 'text', i18n: 'registration.username', errori18n: 'registration.usernameAlreadyTaken', variant: 'outlined', value: username, setValue: setUsername, error: !usernameAvailable}}/>
                 <TextInput props={{id: 'email', isRequired: true,  type: 'text', i18n: 'registration.email', errori18n: 'registration.invalidEmail', variant: 'outlined', value: email, setValue: setEmail, error: emailError}}/>
                 <PasswordInput password={password} setPassword={setPassword} label='password'/>
+                          { invalidCharacterError && <span className='text-red-500 text-sm mb-2'>{t('registration.invalidCharacter')}</span>} 
                           { passwordError && <span className='text-red-500 text-sm mb-2'>{t('registration.invalidPassword')}</span>} 
                 <PasswordInput password={confirmPassword} setPassword={setConfirmPassword}  label='passwordAgain'/>
                           { confirmPasswordError && <span className='text-red-500 text-sm mb-2'>{t('registration.passwordsDontMatch')}</span>}          

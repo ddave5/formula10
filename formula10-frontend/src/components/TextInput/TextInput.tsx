@@ -14,7 +14,7 @@ const TextInput = ({props} : {props: TextInputInterface}) => {
     <>
       <TextField id={props.id} required={props.isRequired} placeholder={t(props.i18n)} variant={props.variant} label={t(props.i18n)} size='small' className='sm:text-sm' value={props.value} onChange={(e) => props.setValue(e.target.value)} autoComplete='off'
                               sx={ theme === "dark" ? darkInputStyle : lightInputStyle}/>
-      {!props.error && <span className='text-red-500 text-sm mb-2'>{t(props.errori18n)}</span>} 
+      {props.error && <span className='text-red-500 text-sm mb-2'>{t(props.errori18n)}</span>} 
     </>
   )
 }
