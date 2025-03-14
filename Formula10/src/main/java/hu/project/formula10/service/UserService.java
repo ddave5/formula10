@@ -11,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.Optional;
 
 @Slf4j
@@ -41,7 +40,7 @@ public class UserService {
         User newUser = new User(createUserDTO.getUsername(), createUserDTO.getEmail(), encodedPassword);
         Role userRole = roleRepository.findByName(RoleName.USER)
                 .orElseThrow(() -> new RuntimeException("Felhasználói szerepkör nem található."));
-        newUser.setRoles(Collections.singleton(userRole));
+        newUser.setRole(userRole);
         userRepository.save(newUser);
         return true;
     }

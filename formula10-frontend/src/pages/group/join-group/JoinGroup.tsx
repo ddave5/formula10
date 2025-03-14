@@ -82,6 +82,11 @@ const JoinGroup = () => {
     event.preventDefault();
   };
 
+  const closeDialog = () => {
+    setPasswordCheck(false);
+    setPassword('');
+  }
+
   useEffect(() => {
     const fetchAllGroups = async () => {
       try {
@@ -204,7 +209,7 @@ const JoinGroup = () => {
           {/* Password dialog */}
           <Dialog
             open={passwordCheck}
-            onClose={() => setPasswordCheck(false)}
+            onClose={closeDialog}
             slotProps={{
               paper: {
                 component: 'form',

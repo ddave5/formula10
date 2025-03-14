@@ -170,5 +170,11 @@
     "position": "Helyezés",
     "racePoints": "Futam pontszámok",
     "sprintRacePoints": "Sprintfutam pontszámok"
+  },
+  "groupMember": {
+    "username": "Név",
+    "joinedAt": "Csatlakozás ideje",
+    "role": "Szerep",
+    "members": "Tagok"
   }
 }

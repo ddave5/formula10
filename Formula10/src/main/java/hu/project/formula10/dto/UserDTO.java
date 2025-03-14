@@ -1,12 +1,10 @@
 package hu.project.formula10.dto;
 
-import hu.project.formula10.model.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @Setter
@@ -18,5 +16,5 @@ public class UserDTO {
     private String email;
     private Boolean isVerified;
     private LocalDateTime createdAt;
-    private List<Role> role;
+    private String role;
 }

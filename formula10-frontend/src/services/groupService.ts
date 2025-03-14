@@ -67,3 +67,12 @@ export const getGroupById = async (groupId: number): Promise<GroupDTO> => {
     throw error;
   }
 }
+
+export const deleteGroup = async (groupId: number) => {
+  try {
+    await apiClient.delete(`/api/groups/${groupId}`);
+    return true;
+  } catch (error) {
+    console.error('Failed to delete group:', error);
+  }
+}

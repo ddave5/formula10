@@ -6,14 +6,14 @@ const TableComponent = ({title, header, body } : {title: string, header: {text: 
     const { t } = useTranslation();
     const {theme:appTheme} = useTheme();
 
-    const StyledTableHeaderRow = styled(TableRow)(({ theme }) => ({
+    const StyledTableHeaderRow = styled(TableRow)(( ) => ({
         '&:nth-of-type(odd)': {
           backgroundColor: `${appTheme === "dark" ? 'rgb(55 65 81 / var(--tw-bg-opacity, 1))' : 'rgb(229 231 235 / var(--tw-bg-opacity, 1))'}`,
           borderTop: '1px solid rgba(224, 224, 224, 1)'
         }
     }))
 
-    const StyledTableRow = styled(TableRow)(({ theme }) => ({
+    const StyledTableRow = styled(TableRow)(() => ({
         '&:nth-of-type(even)': {
           backgroundColor: `${appTheme === "dark" ? 'rgb(55 65 81 / var(--tw-bg-opacity, 1))' : 'rgb(229 231 235 / var(--tw-bg-opacity, 1))'}`,
         }

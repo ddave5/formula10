@@ -123,4 +123,13 @@ public class GroupService {
                 .map(Group::toDTO)
                 .toList();
     }
+
+    public void deleteGroup(Long groupId) {
+        try {
+            log.info("Delete group with id: {}", groupId);
+            groupRepository.deleteById(groupId);
+        } catch (Exception e) {
+            throw new RuntimeException("Group not found");
+        }
+    }
 }

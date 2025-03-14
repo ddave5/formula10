@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import TableComponent from '../../../../components/table/TableComponent'
 import { getGroupMemberListByGroupId } from '../../../../services/groupMemberService';
-import { GroupMemberDTO } from '../../../../dto/groupMember.dto';
 import { useLocation } from 'react-router-dom';
 import Loading from '../../../../components/Loading/Loading';
 
 const Members = () => {
 
-  const [groupMemberList, setGroupMemberList] = useState<GroupMemberDTO[]>([]);
   const [groupMembersBody, setGroupMembersBody] = React.useState<{style: string, value: string}[][]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -24,8 +22,6 @@ const Members = () => {
           setError('Failed to fetch race data');
           return;
         }
-
-        setGroupMemberList(groupMembers);
         
         const styles = ['font-medium dark:text-[--color-font]', 'dark:text-[--color-font]', 'text-right dark:text-[--color-font]'];
         const groupMembersStructuredData = groupMembers.map(row => [
@@ -58,18 +54,19 @@ const Members = () => {
   }
 
   return (
-    <div>
-      <h1>Members</h1>
-      <TableComponent 
-      title={'groupMember.memberList'}
-      header={[
-        {text: 'groupMember.username', style: 'w-[100px] dark:text-[--color-font]'}, 
-        {text: 'groupMember.joinedAt', style: 'dark:text-[--color-font]'}, 
-        {text: 'groupMember.role', style: 'text-right dark:text-[--color-font]'}
-      ]}
-      body = {
-        groupMembersBody
-      }/>
+    <div className='flex flex-col items-center mt-4'>
+      <div className='w-3/4'>
+        <TableComponent 
+        title={'groupMember.members'}
+        header={[
+          {text: 'groupMember.username', style: 'w-[100px] dark:text-[--color-font]'}, 
+          {text: 'groupMember.joinedAt', style: 'dark:text-[--color-font]'}, 
+          {text: 'groupMember.role', style: 'text-right dark:text-[--color-font]'}
+        ]}
+        body = {
+          groupMembersBody
+        }/>
+      </div>
     </div>
   )
 }

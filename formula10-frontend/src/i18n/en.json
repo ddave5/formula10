@@ -163,5 +163,18 @@
     "las-vegas": "USA / Las Vegas",
     "qatar": "Qatar / Doha",
     "UAE": "United Arab Emirates / Abu Dhabi"
+  },
+  "points": {
+    "pointsTitle": "Points",
+    "points": "Points",
+    "position": "Position",
+    "racePoints": "Race points",
+    "sprintRacePoints": "Sprint race points"
+  },
+  "groupMember": {
+    "username": "Username",
+    "joinedAt": "Joined at",
+    "role": "Role",
+    "members": "Members"
   }
 }

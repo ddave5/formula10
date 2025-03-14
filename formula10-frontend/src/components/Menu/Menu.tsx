@@ -13,21 +13,20 @@ import { IoArrowBackCircleOutline } from "react-icons/io5";
 
 const Menu = (
     {
-        containerStyle, group, groupList, leaveGroup, deleteGroup
+        containerStyle, group, groupList, leaveGroup, deleteGroup, authority
     } : {
-        containerStyle: string, group?: GroupDTO, groupList?: GroupDTO[], leaveGroup?: () => void, deleteGroup?: () => void
+        containerStyle: string, group?: GroupDTO, groupList?: GroupDTO[], leaveGroup?: () => void, deleteGroup?: () => void, authority?: string
     }) => {
-
+    
     const { t } = useTranslation();
 
     const menuElementStyle= 'p-2 rounded-md bg-gray-200 hover:bg-gray-100 before:h-0 text-gray-600 dark:bg-gray-600 dark:hover:bg-gray-400 dark:text-gray-200';
 
-
     return (
         <div className={`${containerStyle} overflow-y-scroll`}>
-            <div className='p-4 flex flex-col border-t-2 border-gray-300 dark:border-gray-700 border-solid'>
+            <div className='p-4 flex flex-col'>
                 {group && (
-                    <p className='text-2xl title-font whitespace-nowrap dark:text-white flex items-center'>{group?.name}</p>
+                    <p className='text-2xl title-font w-full text-center whitespace-nowrap dark:text-white'>{group?.name}</p>
                 )}
                 { !group && (
                     <>
@@ -36,7 +35,7 @@ const Menu = (
                     </>
                 )}
             </div>
-            <div className='p-4 flex flex-col border-t-2 border-gray-300 dark:border-gray-700 border-solid max-h-[500px] '>
+            <div className='p-4 flex flex-col border-t-2 border-gray-300 dark:border-gray-600 border-solid max-h-[500px] '>
                 {groupList && (
                     groupList.map(
                         (group) => ( 
@@ -52,10 +51,14 @@ const Menu = (
                         <Link to={`/groups/${group?.id}/standing`} className={`${menuElementStyle} mb-1`} key='standing'><AiOutlineTrophy /> {t('groupDetailsMenu.standing')} </Link>
                         <Link to={`/groups/${group?.id}/members`} className={`${menuElementStyle} mb-1`} key='members'><GrGroup /> {t('groupDetailsMenu.members')} </Link>
                         <Link to={`/groups/${group?.id}/archive`} className={`${menuElementStyle} mb-1`} key='archive'><FaBoxArchive /> {t('groupDetailsMenu.archive')} </Link>
-                        <Link to={`/groups/${group?.id}/manage`} className={`${menuElementStyle} mb-1`} key='manage'><IoMdSettings /> {t('groupDetailsMenu.manageGroup')} </Link>
+                        { authority && authority === 'ADMIN' && (
+                            <Link to={`/groups/${group?.id}/manage`} className={`${menuElementStyle} mb-1`} key='manage'><IoMdSettings /> {t('groupDetailsMenu.manageGroup')} </Link>
+                        )}
                         <div className='flex flex-col absolute bottom-4 justify-center w-[calc(50%-2rem)] sm:w-[calc(34%-2rem)] lg:w-[calc(100%-2rem)]'>
                             <Button variant="contained" onClick={leaveGroup} sx={{ mb: 1 , color: 'var(--color-font)', backgroundColor: 'var(--color-primary)', width: 'calc(100% - 1rem)'}}>{t('groupDetailsMenu.leaveGroup')}</Button>
-                            <Button variant="contained" onClick={deleteGroup} sx={{color: 'var(--color-font)', backgroundColor: 'var(--color-primary)', width: 'calc(100% - 1rem)' }}>{t('groupDetailsMenu.deleteGroup')}</Button>
+                            { authority && authority === 'ADMIN' && (
+                                <Button variant="contained" onClick={deleteGroup} sx={{color: 'var(--color-font)', backgroundColor: 'var(--color-primary)', width: 'calc(100% - 1rem)' }}>{t('groupDetailsMenu.deleteGroup')}</Button>
+                            )}
                         </div>
                     </>
                 )}

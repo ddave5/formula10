@@ -1,6 +1,7 @@
 package hu.project.formula10.service;
 
 import hu.project.formula10.dto.GroupMemberDTO;
+import hu.project.formula10.enums.GroupRole;
 import hu.project.formula10.model.Group;
 import hu.project.formula10.model.GroupMember;
 import hu.project.formula10.model.User;
@@ -39,6 +40,16 @@ public class GroupMemberService {
                 .orElseThrow(() -> new RuntimeException("Member not found"));
 
         groupMemberRepository.delete(groupMember);
+
+        group.getMembers().remove(groupMember);
+
+        if (group.getMembers().isEmpty()) {
+            groupRepository.delete(group);
+            return;
+        } 
+
+        group.getMembers().getFirst().setRole(GroupRole.ADMIN);
+        groupRepository.save(group);
     }
 
     public List<GroupMemberDTO> getGroupMemberDTOByGroupId(Long groupId) {
@@ -48,4 +59,6 @@ public class GroupMemberService {
 
         return groupMembers.stream().map(GroupMember::toDTO).toList();
     }
+
+
 }

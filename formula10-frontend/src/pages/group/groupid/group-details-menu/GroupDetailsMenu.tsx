@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import {Outlet, useLocation } from 'react-router-dom'
+import {Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { useWindowWidth } from '@react-hook/window-size';
 import Loading from '../../../../components/Loading/Loading';
 import { Button } from '@mui/material';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { GroupDTO } from '../../../../dto/group.dto';
-import { getGroupById } from '../../../../services/groupService';
+import { deleteGroup, getGroupById } from '../../../../services/groupService';
 import Menu from '../../../../components/Menu/Menu';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../../../redux/Store';
+import { leaveGroup } from '../../../../services/groupMemberService';
+import { removeGroup } from '../../../../redux/slices/GroupSlice';
 
 const GroupDetailsMenu = () => {
 
@@ -14,9 +18,35 @@ const GroupDetailsMenu = () => {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [showMenu, setShowMenu] = useState(false);
+  const [authority, setAuthority] = useState('');
+
+  const user = useSelector((state: RootState) => state.auth.user);
+  const userLoading = useSelector((state: RootState) => state.auth.loading);
 
   const width = useWindowWidth();
   const location = useLocation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  
+  const leaveGroupFn = async () => {
+    const groupId = location.pathname.split('/')[2];
+    const response = await leaveGroup(+groupId, user?.id || 0);
+
+    if (response) {
+      dispatch(removeGroup(+groupId));
+      navigate('/groups');
+    }
+  }
+
+  const deleteGroupFn = async () => {
+    const groupId = location.pathname.split('/')[2];
+    const response = await deleteGroup(+groupId);
+
+    if (response) {
+      dispatch(removeGroup(+groupId));
+      navigate('/groups');
+    }
+  }
 
   useEffect(() => {
     if (showMenu) {
@@ -36,6 +66,8 @@ const GroupDetailsMenu = () => {
         const groupId = location.pathname.split('/')[2];
         const group = await getGroupById(+groupId);
         setGroup(group);
+
+        setAuthority( group.members.find(member => member.username === user?.username)?.role || '');
       } catch (err) {
         console.log(err);
         setError('Failed to load group');
@@ -45,10 +77,10 @@ const GroupDetailsMenu = () => {
     }
 
     loadGroupById();
-  }, [location.pathname]);
+  }, [location.pathname, user?.username]);
 
-  if (loading) {
-      return <Loading isLoading={loading} />;
+  if (loading || userLoading) {
+      return <Loading isLoading={loading || userLoading} />;
   }
 
   if (error) {
@@ -59,13 +91,21 @@ const GroupDetailsMenu = () => {
     <>
       {showMenu && (
         <div className='h-[100vh] w-full fixed top-0 z-50 flex flex-row-reverse backdrop-blur-sm ' onClick={() => setShowMenu(false)}>
-          <Menu containerStyle='bg-gray-200 dark:bg-gray-500 w-1/2 sm:w-1/3 h-[100vh]' group={group} leaveGroup={() => setShowMenu(false)} deleteGroup={() => setShowMenu(false)} />
+          <Menu containerStyle='bg-gray-200 dark:bg-gray-500 w-1/2 sm:w-1/3 h-[100vh]' 
+          group={group} 
+          leaveGroup={() => leaveGroupFn()} 
+          deleteGroup={() => deleteGroupFn()} 
+          authority={authority}/>
         </div>
       )}
       <div className='grid grid-cols-1 lg:grid-cols-[25%_75%] xl:grid-cols-[20%_80%] 2xl:grid-cols-[15%_85%] h-full relative'>
         {/* Ipad and PC menu */}
         {width > 1024 && 
-          <Menu containerStyle='bg-gray-200 dark:bg-gray-500 h-full relative' group={group} leaveGroup={() => setShowMenu(false)} deleteGroup={() => setShowMenu(false)} />
+          <Menu containerStyle='bg-gray-200 dark:bg-gray-500 h-full relative' 
+          group={group} 
+          leaveGroup={() => leaveGroupFn()} 
+          deleteGroup={() => deleteGroupFn()} 
+          authority={authority}/>
         }
         {/* Mobile menu */}
         {width < 1024 && 
