@@ -97,8 +97,6 @@
   "createGroup": {
     "createGroup": "Create a group",
     "name": "Group name",
-    "password": "Password",
-    "confirmPassword": "Confirm password",
     "nameIsEmpty": "Name has to be filled!",
     "nameTaken": "Name already taken!",
     "passwordsDontMatch": "Passwords don't match!",
@@ -128,7 +126,9 @@
     "password": "Password",
     "passwordAgain": "Password again",
     "newPassword": "New password",
-    "newPasswordAgain": "New password again"
+    "newPasswordAgain": "New password again",
+    "passwordOptional": "Password (opcional)",
+    "passwordAgainOptional": "Confirm password (opcional)"
   },
   "groupDetailsMenu": {
     "backToGroup": "Back to groups",
@@ -138,7 +138,9 @@
     "archive": "Archive",
     "manageGroup": "Manage group",
     "leaveGroup": "Leave group",
-    "deleteGroup": "Delete group"
+    "deleteGroup": "Delete group",
+    "leaveSuccess": "You leave from the group successfully!",
+    "deleteSuccess": "You delete the group successfully!"
   },
   "location": {
     "australia": "Australia / Melburne",

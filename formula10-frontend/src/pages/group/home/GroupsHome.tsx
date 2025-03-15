@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { currentSeasonConstuctorStanding, currentSeasonStanding } from '../../../services/seasonDataService';
+import { currentSeasonConstuctorStanding, currentSeasonStanding } from '../../../services/season-data.service';
 import DateCard from './dateCard/DateCard';
 import Loading from '../../../components/Loading/Loading';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../redux/Store';
-import { getNextRace } from '../../../services/raceService';
+import { getNextRace } from '../../../services/race.service';
 import { RaceDTO } from '../../../dto/race.dto';
 import { useTranslation } from 'react-i18next';
 import TableComponent from '../../../components/table/TableComponent';

@@ -4,7 +4,7 @@ import { useTheme } from '../../../layout/navbar/Theme/ThemeContext';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, FormControl, TextField } from '@mui/material';
 import { AppDispatch, RootState } from '../../../redux/Store';
-import { checkGroupName, createGroup } from '../../../services/groupService';
+import { checkGroupName, createGroup } from '../../../services/group.service';
 import Error from '../../../components/Error/Error';
 import SuccessPanel from '../../../components/SuccessPanel/SuccessPanel';
 import { addGroup } from '../../../redux/slices/GroupSlice';
@@ -106,8 +106,8 @@ const CreateGroup = () => {
                             sx={ theme === "dark" ? darkInputStyle : lightInputStyle }/>          
                 {nameError && <span className='text-red-500 text-sm mb-2'>{t('createGroup.nameIsEmpty')}</span>} 
                 {nameTaken && <span className='text-red-500 text-sm mb-2'>{t('createGroup.nameTaken')}</span>} 
-                <PasswordInput password={password} setPassword={setPassword} label='password' />
-                <PasswordInput password={confirmPassword} setPassword={setConfirmPassword} label='passwordAgain' />
+                <PasswordInput password={password} setPassword={setPassword} label='passwordOptional' />
+                <PasswordInput password={confirmPassword} setPassword={setConfirmPassword} label='passwordAgainOptional' />
                           { confirmPasswordError && <span className='text-red-500 text-sm mb-2'>{t('createGroup.passwordsDontMatch')}</span>}          
 
                 <Button onClick={create} className='dark:text-[--color-font]'

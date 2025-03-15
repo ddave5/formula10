@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import apiClient from '../../services/axios';
-import { getToken, setToken } from '../../services/tokenService';
+import { getToken, setToken } from '../../services/token.service';
 
 interface AuthState {
     token: string | null;

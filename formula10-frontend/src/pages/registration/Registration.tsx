@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { FcGoogle } from 'react-icons/fc';
 import { Link } from 'react-router-dom';
 import {debounce} from 'lodash';
-import { checkUsernameAvailability, registerUser } from '../../services/userService';
+import { checkUsernameAvailability, registerUser } from '../../services/user.service';
 import Error from '../../components/Error/Error';
 import { useTheme } from '../../layout/navbar/Theme/ThemeContext';
 import SuccessPanel from '../../components/SuccessPanel/SuccessPanel';

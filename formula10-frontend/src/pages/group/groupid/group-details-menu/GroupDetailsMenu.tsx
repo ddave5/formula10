@@ -5,12 +5,13 @@ import Loading from '../../../../components/Loading/Loading';
 import { Button } from '@mui/material';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { GroupDTO } from '../../../../dto/group.dto';
-import { deleteGroup, getGroupById } from '../../../../services/groupService';
+import { deleteGroup, getGroupById } from '../../../../services/group.service';
 import Menu from '../../../../components/Menu/Menu';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../../redux/Store';
-import { leaveGroup } from '../../../../services/groupMemberService';
+import { leaveGroup } from '../../../../services/groupmember.service';
 import { removeGroup } from '../../../../redux/slices/GroupSlice';
+import { useTranslation } from 'react-i18next';
 
 const GroupDetailsMenu = () => {
 
@@ -27,6 +28,8 @@ const GroupDetailsMenu = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { t } = useTranslation();
   
   const leaveGroupFn = async () => {
     const groupId = location.pathname.split('/')[2];
@@ -34,7 +37,12 @@ const GroupDetailsMenu = () => {
 
     if (response) {
       dispatch(removeGroup(+groupId));
-      navigate('/groups');
+      navigate('/groups', {
+        state: {
+          snackbarMessage: t('groupDetailsMenu.leaveSuccess'), 
+          snackbarOpen: true 
+        }
+      });
     }
   }
 
@@ -44,7 +52,12 @@ const GroupDetailsMenu = () => {
 
     if (response) {
       dispatch(removeGroup(+groupId));
-      navigate('/groups');
+      navigate('/groups', { 
+        state: { 
+          snackbarMessage: t('groupDetailsMenu.deleteSuccess'), 
+          snackbarOpen: true 
+        } 
+      });
     }
   }
 

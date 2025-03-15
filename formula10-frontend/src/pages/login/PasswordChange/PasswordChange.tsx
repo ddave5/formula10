@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 import Error from '../../../components/Error/Error';
 import { darkInputStyle, lightInputStyle } from '../../../components/TextInput/InputStyle'
 import { useTheme } from '../../../layout/navbar/Theme/ThemeContext'
-import { changePassword } from '../../../services/userService'
+import { changePassword } from '../../../services/user.service'
 import { CharacterValidator, EmailValidator, PasswordValidator } from '../../../utils/Validator'
 
 const PasswordChange = () => {

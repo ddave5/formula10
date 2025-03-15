@@ -1,6 +1,7 @@
 package hu.project.formula10.model;
 
 import hu.project.formula10.dto.TipDTO;
+import hu.project.formula10.enums.TipType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,36 +23,42 @@ public class Tip {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "userid", referencedColumnName = "id")
+    @JoinColumn(name = "userid", referencedColumnName = "id", nullable = false)
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "raceid", referencedColumnName = "id")
+    @JoinColumn(name = "raceid", referencedColumnName = "id", nullable = false)
     private Race race;
 
     @ManyToOne
-    @JoinColumn(name = "driverid", referencedColumnName = "id")
-    private Driver predictedTenthPlaceDriver;
+    @JoinColumn(name = "driverid", referencedColumnName = "id", nullable = false)
+    private Driver predictedDriver;
 
     @ManyToOne
-    @JoinColumn(name = "groupid", referencedColumnName = "id")
+    @JoinColumn(name = "groupid", referencedColumnName = "id", nullable = false)
     private Group group;
 
     @ManyToOne
-    @JoinColumn(name = "seasonid", referencedColumnName = "id")
+    @JoinColumn(name = "seasonid", referencedColumnName = "id", nullable = false)
     private Season season;
 
     @Column(name = "tipdate")
     private LocalDateTime createdAt;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tip_type", nullable = false)
+    private TipType tipType;
+
     public TipDTO toDTO() {
-        return  new TipDTO(
+        return new TipDTO(
                 this.getId(),
                 this.getUser().getId(),
                 this.group.getId(),
                 this.season.getId(),
                 this.race.getId(),
-                this.predictedTenthPlaceDriver.getId()
+                this.predictedDriver.getId(),
+                this.createdAt,
+                this.tipType
         );
     }
 }

@@ -1,5 +1,5 @@
 import { CurrentSeasonConstructorStainding, CurrentSeasonDriverStanding } from "../interfaces/groupHome/currentSeason";
-import ergastClient from "./ergastAxios";
+import ergastClient from "./ergast-axios";
 
 export const currentSeasonStanding = async (season: number): Promise<CurrentSeasonDriverStanding[]> => {
     try {

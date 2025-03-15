@@ -1,6 +1,6 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, InputAdornment, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react'
-import { getGroupList, joinGroup } from '../../../services/groupService';
+import { getGroupList, joinGroup } from '../../../services/group.service';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../redux/Store';
 import { GroupDTO } from '../../../dto/group.dto';

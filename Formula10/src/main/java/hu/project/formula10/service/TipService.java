@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,6 +37,13 @@ public class TipService {
     }
 
     public TipDTO createTip(TipDTO tipDTO) {
+
+        try {
+            validateTipTimeWindow(tipDTO);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
         log.info("Fetching user with id: {}", tipDTO.getUserId());
         User user = userRepository.findById(tipDTO.getUserId()).orElseThrow(() -> new RuntimeException("User not found"));
         log.info("Fetching group with id: {}", tipDTO.getGroupId());
@@ -53,24 +61,63 @@ public class TipService {
         tip.setGroup(group);
         tip.setSeason(season);
         tip.setRace(race);
-        tip.setPredictedTenthPlaceDriver(driver);
+        tip.setPredictedDriver(driver);
         tip.setCreatedAt(LocalDateTime.now());
+        tip.setTipType(tipDTO.getTipType());
 
         tipRepository.save(tip);
 
-        return new TipDTO(tip.getId(), user.getId(), group.getId(), season.getId(), race.getId(), driver.getId());
+        return tipRepository.save(tip).toDTO();
     }
 
-    public List<TipDTO> getTipsForUserAndRace(Long userId, Long raceId) {
-        log.info("Fetching user with id: {}", userId);
-        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-        log.info("Fetching race with id: {}", raceId);
-        Race race = raceRepository.findById(raceId).orElseThrow(() -> new RuntimeException("Race not found"));
-        List<Tip> tips = tipRepository.findByUserAndRace(user, race);
+    public List<TipDTO> getTipsForGroupSeasonAndRace(Long groupId, Long seasonId, Long raceId) {
+        List <Tip> tips = tipRepository.findByGroupIdAndSeasonIdAndRaceId(groupId, seasonId, raceId);
 
-        return tips.stream().map(tip -> new TipDTO(
-                        tip.getId(), tip.getUser().getId(), tip.getGroup().getId(),
-                        tip.getSeason().getId(), tip.getRace().getId(), tip.getPredictedTenthPlaceDriver().getId()))
-                .collect(Collectors.toList());
+        return tips.stream().map(Tip::toDTO).collect(Collectors.toList());
     }
+
+    public TipDTO getUserTip(Long userId, Long groupId, Long seasonId, Long raceId) {
+        Tip tip = tipRepository.findByUserIdAndGroupIdAndSeasonIdAndRaceId(userId, groupId, seasonId, raceId).orElseThrow(
+                () -> new RuntimeException("Tip not found")
+        );
+        return tip.toDTO();
+    }
+
+    public Tip updateTip(TipDTO tipDTO) throws Exception {
+        validateTipTimeWindow(tipDTO);
+
+        Tip existingTip = tipRepository.findById(tipDTO.getId()).orElseThrow(() -> new RuntimeException("Tip not found"));
+        log.info("Fetching driver with id: {}", tipDTO.getDriverId());
+        Driver driver = driverRepository.findById(tipDTO.getDriverId()).orElseThrow(() -> new RuntimeException("Driver not found"));
+        
+        existingTip.setPredictedDriver(driver);
+
+
+        return tipRepository.save(existingTip);
+    }
+
+    public void deleteTip(Long id) {
+        tipRepository.deleteById(id);
+    }
+
+
+    private void validateTipTimeWindow(TipDTO TipDTO) throws Exception {
+        Race race = raceRepository.findById(TipDTO.getRaceId())
+                              .orElseThrow(() -> new Exception("Race not found"));
+
+        ZonedDateTime now = ZonedDateTime.now();
+
+        if (race.getSprintQualifyingStart() == null && race.getSprintRaceStart() == null) {
+            // Nincs sprint futam
+            if (now.isAfter(race.getQualifyingStart()) && now.isBefore(race.getRaceStart().plusHours(4))) {
+                throw new Exception("Tips are closed for this race.");
+            }
+        } else {
+            // Sprint futam van
+            if (now.isAfter(race.getSprintQualifyingStart()) && now.isBefore(race.getRaceStart().plusHours(4))) {
+                throw new Exception("Tips are closed for this race.");
+            }
+        }
+    }
+    
 }

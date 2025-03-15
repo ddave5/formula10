@@ -97,8 +97,6 @@
   "createGroup": {
     "createGroup": "Csoport készítése",
     "name": "Csoport neve",
-    "password": "Jelszó",
-    "confirmPassword": "Jelszó mégegyszer",
     "nameIsEmpty": "Csoportnév megadása kötelező!",
     "nameTaken": "A csoportnév már foglalt!",
     "passwordsDontMatch": "A jelszavak nem egyeznek!",
@@ -128,7 +126,9 @@
     "password": "Jelszó",
     "passwordAgain": "Jelszó újra",
     "newPassword": "Új jelszó",
-    "newPasswordAgain": "Új jelszó újra"
+    "newPasswordAgain": "Új jelszó újra",
+    "passwordOptional": "Jelszó (opcionális)",
+    "passwordAgainOptional": "Jelszó mégegyszer (opcionális)"
   },
   "groupDetailsMenu": {
     "backToGroup": "Vissza a csoportokhoz",
@@ -138,7 +138,9 @@
     "archive": "Archívum",
     "manageGroup": "Csoport kezelése",
     "leaveGroup": "Csoport elhagyása",
-    "deleteGroup": "Csoport törlése"
+    "deleteGroup": "Csoport törlése",
+    "leaveSuccess": "Sikeresen kiléptél a csoportból!",
+    "deleteSuccess": "Sikeresen törölted a csoportot!"
   },
   "location": {
     "australia": "Ausztrália / Melburne",

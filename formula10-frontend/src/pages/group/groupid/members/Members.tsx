@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import TableComponent from '../../../../components/table/TableComponent'
-import { getGroupMemberListByGroupId } from '../../../../services/groupMemberService';
+import { getGroupMemberListByGroupId } from '../../../../services/groupmember.service';
 import { useLocation } from 'react-router-dom';
 import Loading from '../../../../components/Loading/Loading';
 

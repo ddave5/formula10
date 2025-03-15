@@ -1,5 +1,8 @@
 package hu.project.formula10.dto;
 
+import java.time.LocalDateTime;
+
+import hu.project.formula10.enums.TipType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,4 +20,10 @@ public class TipDTO {
     private Long seasonId;
     private Long raceId;
     private Long driverId;
+    private LocalDateTime createdAt;
+    private TipType tipType;
+    public Object map(Object object) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'map'");
+    }
 }

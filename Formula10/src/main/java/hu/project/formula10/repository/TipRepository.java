@@ -5,11 +5,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface TipRepository extends JpaRepository<Tip, Long> {
 
-    List<Tip> findByUserAndRace(User user, Race race);
-    List<Tip> findByUserAndSeason(User user, Season season);
-    List<Tip> findByGroupAndSeason(Group group, Season season);
+    List<Tip> findByGroupIdAndSeasonIdAndRaceId(Long groupId, Long seasonId, Long raceId);
+    Optional<Tip> findByUserIdAndGroupIdAndSeasonIdAndRaceId(Long userId, Long groupId, Long seasonId, Long raceId);
 }

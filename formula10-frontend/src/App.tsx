@@ -13,7 +13,7 @@ import { AppDispatch } from './redux/Store';
 import { loadUserFromStorage } from './redux/slices/AuthSlice';
 import eventBus from './services/eventBus';
 import { showError } from './redux/slices/ErrorSlice';
-import { getToken } from './services/tokenService';
+import { getToken } from './services/token.service';
 import Footer from './layout/footer/Footer';
 import PrivacyPolicy from './layout/footer/PrivacyPolicy/PrivacyPolicy';
 import TermsOfUse from './layout/footer/TermsOfUse/TermsOfUse';
@@ -37,7 +37,6 @@ import Points from './pages/points/Points';
 import NewsManagement from './pages/admin/newsManagement/NewsManagement';
 import ProtectedRoute from './ProtectedRoute';
 import ManageGroup from './pages/group/groupid/manage/ManageGroup';
-
 function App() {
   
   const dispatch = useDispatch<AppDispatch>();

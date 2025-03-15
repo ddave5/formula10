@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../redux/Store';
@@ -7,7 +7,7 @@ import Loading from '../../../components/Loading/Loading';
 import { fetchGroupList } from '../../../redux/slices/GroupSlice';
 import { useWindowWidth } from '@react-hook/window-size';
 import { RxHamburgerMenu } from "react-icons/rx";
-import { Button } from '@mui/material';
+import { Alert, Button, Snackbar } from '@mui/material';
 import Menu from '../../../components/Menu/Menu';
 
 const GroupMenu = () => {
@@ -17,12 +17,27 @@ const GroupMenu = () => {
   const loading = useSelector((state: RootState) => state.groups.loading);
   const error = useSelector((state: RootState) => state.groups.error);
 
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const location = useLocation();
+
   const [showMenu, setShowMenu] = useState(false);
 
   const dispatch = useDispatch<AppDispatch>();
   const { t } = useTranslation();
 
   const width = useWindowWidth();
+
+  useEffect(() => {
+    if (location.state?.snackbarOpen) {
+        setSnackbarMessage(location.state.snackbarMessage);
+        setSnackbarOpen(true);
+    }
+  }, [location.state]);
+
+const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
+};
 
   useEffect(() => {
     if (showMenu) {
@@ -71,6 +86,15 @@ const GroupMenu = () => {
             </div>
           </>
         }
+        <Snackbar
+            open={snackbarOpen}
+            autoHideDuration={3000}
+            onClose={handleSnackbarClose}
+        >
+            <Alert onClose={handleSnackbarClose} severity="success" sx={{ width: '100%' }}>
+                {snackbarMessage}
+            </Alert>
+        </Snackbar>
         <Outlet/>
       </div>
     </>

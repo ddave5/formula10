@@ -1,6 +1,6 @@
 import axios from 'axios';
 import i18n from '../i18n/i18n';
-import { getToken } from './tokenService';
+import { getToken } from './token.service';
 import eventBus from './eventBus';
 
 // Axios instance létrehozása

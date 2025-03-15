@@ -33,7 +33,7 @@ public class ScoreService {
         log.info("Fetching tip with id: {}", tipId);
         Tip tip = tipRepository.findById(tipId).orElseThrow(() -> new RuntimeException("Tip not found"));
         Race race = tip.getRace();
-        Driver predictedDriver = tip.getPredictedTenthPlaceDriver();
+        Driver predictedDriver = tip.getPredictedDriver();
 
         // Futam eredményének lekérdezése
         log.info("Fetching race with id: {}", race.getId());
