@@ -1,6 +1,7 @@
 package hu.project.formula10.service;
 
 import hu.project.formula10.dto.TipDTO;
+import hu.project.formula10.enums.TipType;
 import hu.project.formula10.model.*;
 import hu.project.formula10.repository.*;
 import lombok.extern.slf4j.Slf4j;
@@ -63,7 +64,7 @@ public class TipService {
         tip.setRace(race);
         tip.setPredictedDriver(driver);
         tip.setCreatedAt(LocalDateTime.now());
-        tip.setTipType(tipDTO.getTipType());
+        tip.setTipType(tipDTO.getTipType().equals("race") ? TipType.RACE : TipType.SPRINT);
 
         tipRepository.save(tip);
 
@@ -77,10 +78,7 @@ public class TipService {
     }
 
     public TipDTO getUserTip(Long userId, Long groupId, Long seasonId, Long raceId) {
-        Tip tip = tipRepository.findByUserIdAndGroupIdAndSeasonIdAndRaceId(userId, groupId, seasonId, raceId).orElseThrow(
-                () -> new RuntimeException("Tip not found")
-        );
-        return tip.toDTO();
+        return tipRepository.findByUserIdAndGroupIdAndSeasonIdAndRaceId(userId, groupId, seasonId, raceId).map(Tip::toDTO).orElse( null);
     }
 
     public Tip updateTip(TipDTO tipDTO) throws Exception {

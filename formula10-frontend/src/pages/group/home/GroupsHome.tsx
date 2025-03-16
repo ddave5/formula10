@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { currentSeasonConstuctorStanding, currentSeasonStanding } from '../../../services/season-data.service';
-import DateCard from './dateCard/DateCard';
+import DateCard from '../../../components/dateCard/DateCard';
 import Loading from '../../../components/Loading/Loading';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../redux/Store';

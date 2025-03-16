@@ -58,7 +58,7 @@ public class Tip {
                 this.race.getId(),
                 this.predictedDriver.getId(),
                 this.createdAt,
-                this.tipType
+                this.tipType.name()
         );
     }
 }

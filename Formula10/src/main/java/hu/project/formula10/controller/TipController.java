@@ -34,7 +34,7 @@ public class TipController {
         }
     }
 
-    @PostMapping
+    @PostMapping("")
     public ResponseEntity<TipDTO> createTip(@RequestBody TipDTO tipDTO) {
         try {
             return ResponseEntity.ok(tipService.createTip(tipDTO));

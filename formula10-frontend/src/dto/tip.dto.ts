@@ -1,4 +1,4 @@
-export interface GroupDTO {
+export interface TipDTO {
   id: number;
   userId: number;
   groupId: number;

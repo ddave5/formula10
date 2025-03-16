@@ -17,7 +17,7 @@ public class DriverController {
         this.driverService = driverService;
     }
 
-    @GetMapping
+    @GetMapping("/")
     public ResponseEntity<List<DriverDTO>> getAllDrivers() {
         return ResponseEntity.ok(driverService.getAllDrivers());
     }

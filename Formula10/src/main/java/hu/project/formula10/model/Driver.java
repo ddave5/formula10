@@ -21,10 +21,14 @@ public class Driver {
     @Column(unique = true, name = "name")
     private String name;
 
-    @ManyToMany(mappedBy = "drivers")
-    private Set<Season> seasons = new HashSet<>();
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "constructor_id", referencedColumnName = "id", nullable = false)
+    private Constructor constructor;
+
+    @Column(name = "race_number")
+    private Integer raceNumber;
 
     public DriverDTO toDTO() {
-        return new DriverDTO(this.getId(), this.getName());
+        return new DriverDTO(this.getId(), this.getName(), this.getConstructor().getId(), this.getConstructor().getName(), this.getRaceNumber());
     }
 }

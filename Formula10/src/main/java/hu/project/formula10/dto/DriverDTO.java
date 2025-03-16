@@ -11,6 +11,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class DriverDTO {
 
-    private Long driverId;
+    private Long id;
     private String name;
+    private Long constructorId;
+    private String constructorName;
+    private Integer raceNumber;
 }
