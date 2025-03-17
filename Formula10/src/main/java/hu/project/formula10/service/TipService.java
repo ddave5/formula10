@@ -80,7 +80,7 @@ public class TipService {
     }
 
     public List<TipDTO> getUserTips(Long userId, Long groupId, Long seasonId, Long raceId) {
-       List<Tip> tips = tipRepository.findAllByGroupIdAndSeasonIdAndRaceIdAndUserId(userId, groupId, seasonId, raceId);
+        List<Tip> tips = tipRepository.findAllByGroupIdAndSeasonIdAndRaceIdAndUserId(userId, groupId, seasonId, raceId);
 
         return tips.stream().map(Tip::toDTO).collect(Collectors.toList());
     }

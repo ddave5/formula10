@@ -5,7 +5,9 @@ const DriverCard = ({driver, selected = false, selectFn} : {driver: DriverDTO, s
 
 
     return (
-        <div className={`bg-gradient-to-b from-white from-40% ${selected ? 'to-red-500' : 'to-black'} to-black p-1 select-none`} onClick={() => selectFn()}>
+        <div 
+            className={`bg-gradient-to-b from-white from-40% ${selected ? 'to-red-500' : 'to-black'} to-black p-1 select-none`} 
+            onClick={() => selectFn()}>
             <div className='bg-white h-[150px] grid grid-cols-5 gap-2'>
                 <div className='col-span-2 max-h-[150px] flex items-center'>
                     <img src={`/assets/drivers/${driver.name}.avif`} alt={`${driver.name}`} className='h-full'/> 

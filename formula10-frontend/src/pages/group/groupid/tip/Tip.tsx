@@ -34,16 +34,17 @@ const Tip = () => {
         const tips = await getUserTips(user?.id || 0, +location.pathname.split('/')[2], nextRace?.seasonId || 0, nextRace?.id || 0);
         setDrivers(driverList);
         setRace(nextRace);
+        setPreviousTips(tips);
         if (tips.length > 0) {
           tips.map( (tip: TipDTO) => {
-            const tipDriver = drivers.find(driver => driver.id === tip.driverId);
-            setPreviousTips([...previousTips, tip]);
-            if (tip.tipType === 'sprint') {
+            const tipDriver = driverList.find((driver: DriverDTO) => driver.id === tip.driverId);
+            
+            if (tip.tipType === 'SPRINT') {
               setSelectedDriverForSprint(tipDriver ? tipDriver : null);
             } else {
               setSelectedDriverForRace(tipDriver ? tipDriver : null);
             }
-          })
+          });
         }
         setPageLoading(false);
       } catch (error) {
@@ -54,7 +55,7 @@ const Tip = () => {
   }, []);
 
   const selectDriver = (driver: DriverDTO) => {
-    if (selectedRaceType === 'sprint') {
+    if (selectedRaceType === 'SPRINT') {
       setSelectedDriverForSprint(driver);
     } else {
       setSelectedDriverForRace(driver);
@@ -87,13 +88,7 @@ const Tip = () => {
 
       setPreviousTips(prevTips);
       console.log('Successfully saved tip');
-
-      if (selectedRaceType === 'sprint') {
-        setSelectedDriverForSprint(null);
-      } else {
-        setSelectedDriverForRace(null);
-      }
-
+      setSelectedRaceType('');
       setPageLoading(false);
     } catch (error) {
       console.error('Error saving tip:', error);
@@ -108,7 +103,7 @@ const Tip = () => {
       groupId: prevTip?.groupId,
       seasonId: prevTip?.seasonId ,
       raceId: prevTip?.raceId,
-      driverId: selectedRaceType === 'sprint' ? selectedDriverForSprint?.id || 0 : selectedDriverForRace?.id || 0,
+      driverId: selectedRaceType === 'SPRINT' ? selectedDriverForSprint?.id || 0 : selectedDriverForRace?.id || 0,
       createdAt: new Date().toISOString(),
       tipType: selectedRaceType ? selectedRaceType : 'race'
     }
@@ -119,11 +114,11 @@ const Tip = () => {
   const createNewTip = async () => {
     const tip =  {
       id: 0,
-      userId: 0,
+      userId: user?.id || 0,
       groupId: +location.pathname.split('/')[2],
       seasonId: race?.seasonId || 0,
       raceId: race?.id || 0,
-      driverId: selectedRaceType === 'sprint' ? selectedDriverForSprint?.id || 0 : selectedDriverForRace?.id || 0,
+      driverId: selectedRaceType === 'SPRINT' ? selectedDriverForSprint?.id || 0 : selectedDriverForRace?.id || 0,
       createdAt: new Date().toISOString(),
       tipType: selectedRaceType ? selectedRaceType : 'race'
     }
@@ -142,8 +137,22 @@ const Tip = () => {
           <div className='w-full flex flex-col justify-center items-center my-4'>
             <h2 className='text-2xl'> Válasszon verseny típust!</h2>
             <div className='mt-4'>
-              <Button onClick={() => setSelectedRaceType('sprint')}>Sprint</Button>
-              <Button onClick={() => setSelectedRaceType('race')}>Race</Button>
+              <Button 
+                variant={selectedRaceType === 'SPRINT' ? 'contained' : 'outlined'} 
+                onClick={() => setSelectedRaceType('SPRINT')}
+                sx={{
+                  marginRight: '2rem', 
+                  backgroundColor: selectedRaceType === 'SPRINT' ? '#1976d2' : '#fff', 
+                  color: selectedRaceType === 'SPRINT' ? '#fff' : '#1976d2'
+                }}>Sprint</Button>
+              <Button 
+                variant={selectedRaceType === 'RACE' ? 'contained' : 'outlined'}
+                onClick={() => setSelectedRaceType('RACE')}
+                sx={{
+                  marginRight: '2rem', 
+                  backgroundColor: selectedRaceType === 'RACE' ? '#1976d2' : '#fff', 
+                  color: selectedRaceType === 'RACE' ? '#fff' : '#1976d2'
+                }}>Race</Button>
             </div>
           </div>
         )
@@ -153,20 +162,28 @@ const Tip = () => {
           <>
             <div className='mb-8'>
               {Array.from({ length: (drivers.length / 2) }, (_, index) => (index * 2)).map((_, index) => (
-                <div className='flex justify-center h-[200px]'>
+                <div className='flex justify-center h-[200px]' key={'line' + index}>
                   <div className='grid grid-cols-2 gap-4 w-2/3 relative'>
-                    <div className='w-[calc(50%-8px)] absolute top-0' key={drivers[_].id}>
-                      <DriverCard driver={drivers[_]} selected={selectedRaceType === 'sprint' ? selectedDriverForSprint?.name === drivers[_].name : selectedDriverForRace?.name === drivers[_].name} selectFn={() => selectDriver(drivers[_])}/>
+                    <div className='w-[calc(50%-8px)] absolute top-0'>
+                      <DriverCard 
+                        key={index + 30}
+                        driver={drivers[_]} 
+                        selected={selectedRaceType === 'SPRINT' ? selectedDriverForSprint?.name === drivers[_].name : selectedDriverForRace?.name === drivers[_].name} 
+                        selectFn={() => selectDriver(drivers[_])}/>
                     </div>
                     <div className='w-[calc(50%-8px)] absolute bottom-0 right-0' key={drivers[_].id}>
-                      <DriverCard driver={drivers[_ + 1]} selected={selectedRaceType === 'sprint' ? selectedDriverForSprint?.name === drivers[_+1].name : selectedDriverForRace?.name === drivers[_+1].name} selectFn={() => selectDriver(drivers[_ + 1])}/>
+                      <DriverCard 
+                        key={index}
+                        driver={drivers[_ + 1]} 
+                        selected={selectedRaceType === 'SPRINT' ? selectedDriverForSprint?.name === drivers[_+1].name : selectedDriverForRace?.name === drivers[_+1].name} 
+                        selectFn={() => selectDriver(drivers[_ + 1])}/>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
             <div className='flex justify-center mb-8'>
-              <Button variant="contained" onClick={saveTip} disabled={selectedRaceType === 'sprint' ? !selectedDriverForSprint : !selectedDriverForRace}>Tipp leadása</Button>
+              <Button variant="contained" onClick={saveTip} disabled={selectedRaceType === 'SPRINT' ? !selectedDriverForSprint : !selectedDriverForRace}>Tipp leadása</Button>
             </div>
           </>
         )
