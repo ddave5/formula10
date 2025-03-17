@@ -37,7 +37,7 @@ const GroupsHome = () => {
         }
 
         setRace(nextRace);
-        const comparisonDate = new Date('2025-03-17T00:00:00');
+        const comparisonDate = new Date('2025-04-17T00:00:00');
         const seasonYear = new Date() < comparisonDate ? 2024 : nextRace.seasonYear;
 
         if (!driverStandingsRef.current || !constructorStandingsRef.current) {

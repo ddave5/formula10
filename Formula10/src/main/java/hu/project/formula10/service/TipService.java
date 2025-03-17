@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -77,8 +79,10 @@ public class TipService {
         return tips.stream().map(Tip::toDTO).collect(Collectors.toList());
     }
 
-    public TipDTO getUserTip(Long userId, Long groupId, Long seasonId, Long raceId) {
-        return tipRepository.findByUserIdAndGroupIdAndSeasonIdAndRaceId(userId, groupId, seasonId, raceId).map(Tip::toDTO).orElse( null);
+    public List<TipDTO> getUserTips(Long userId, Long groupId, Long seasonId, Long raceId) {
+       List<Tip> tips = tipRepository.findAllByGroupIdAndSeasonIdAndRaceIdAndUserId(userId, groupId, seasonId, raceId);
+
+        return tips.stream().map(Tip::toDTO).collect(Collectors.toList());
     }
 
     public Tip updateTip(TipDTO tipDTO) throws Exception {

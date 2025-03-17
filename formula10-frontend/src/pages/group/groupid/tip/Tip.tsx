@@ -6,7 +6,7 @@ import DriverCard from './driver-card/DriverCard';
 import Loading from '../../../../components/Loading/Loading';
 import { DriverDTO } from '../../../../dto/drivers.dto';
 import { Button } from '@mui/material';
-import { createTip, getUserTip, updateTip } from '../../../../services/tip.service';
+import { createTip, getUserTips, updateTip } from '../../../../services/tip.service';
 import { RootState } from '../../../../redux/Store';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
@@ -17,8 +17,9 @@ const Tip = () => {
   const [drivers, setDrivers] = useState<DriverDTO[]>([]);
   const [race, setRace] = useState<RaceDTO | null>(null);
   const [selectedRaceType, setSelectedRaceType] = useState('');
-  const [selectedDriver, setSelectedDriver] = useState<DriverDTO | null>(null);
-  const [previousTip, setPreviousTip] = useState<TipDTO | null>(null);
+  const [selectedDriverForSprint, setSelectedDriverForSprint] = useState<DriverDTO | null>(null);
+  const [selectedDriverForRace, setSelectedDriverForRace] = useState<DriverDTO | null>(null);
+  const [previousTips, setPreviousTips] = useState<TipDTO[]>([]);
 
   const [pageLoading, setPageLoading] = useState(true);
 
@@ -26,68 +27,108 @@ const Tip = () => {
   const location = useLocation();
 
   useEffect(() => {
-    const fetchDrivers = async () => {
+    const fetchDatas = async () => {
       try {
         const driverList = await getDriverList();
         const nextRace = await getNextRace();
-        const tip = await getUserTip(user?.id || 0, +location.pathname.split('/')[2], nextRace?.seasonId || 0, nextRace?.id || 0);
+        const tips = await getUserTips(user?.id || 0, +location.pathname.split('/')[2], nextRace?.seasonId || 0, nextRace?.id || 0);
         setDrivers(driverList);
         setRace(nextRace);
-        if (tip) {
-          const tipDriver = drivers.find(driver => driver.id === tip.driverId);
-          setPreviousTip(tip);
-          setSelectedDriver(tipDriver ? tipDriver : null);
+        if (tips.length > 0) {
+          tips.map( (tip: TipDTO) => {
+            const tipDriver = drivers.find(driver => driver.id === tip.driverId);
+            setPreviousTips([...previousTips, tip]);
+            if (tip.tipType === 'sprint') {
+              setSelectedDriverForSprint(tipDriver ? tipDriver : null);
+            } else {
+              setSelectedDriverForRace(tipDriver ? tipDriver : null);
+            }
+          })
         }
         setPageLoading(false);
       } catch (error) {
         console.error('Error fetching drivers:', error);
       }
     };
-    fetchDrivers();
+    fetchDatas();
   }, []);
 
   const selectDriver = (driver: DriverDTO) => {
-    setSelectedDriver(driver);
+    if (selectedRaceType === 'sprint') {
+      setSelectedDriverForSprint(driver);
+    } else {
+      setSelectedDriverForRace(driver);
+    }
   } 
 
   const saveTip = async () => {
     try {
       setPageLoading(true);
 
-      if (previousTip) {
-        const tip =  {
-          id: previousTip?.id,
-          userId: previousTip?.userId ,
-          groupId: previousTip?.groupId,
-          seasonId: previousTip?.seasonId ,
-          raceId: previousTip?.raceId,
-          driverId: selectedDriver?.id || 0,
-          createdAt: new Date().toISOString(),
-          tipType: selectedRaceType ? selectedRaceType : 'race'
-        }
-        await updateTip(previousTip?.id, tip);
+      let isSaved = false;
+      let prevTips: TipDTO[] = [];
 
-      } else {
-        const tip =  {
-          id: 0,
-          userId: 0,
-          groupId: +location.pathname.split('/')[2],
-          seasonId: race?.seasonId || 0,
-          raceId: race?.id || 0,
-          driverId: selectedDriver?.id || 0,
-          createdAt: new Date().toISOString(),
-          tipType: selectedRaceType ? selectedRaceType : 'race'
-        }
-        const savedTip = await createTip(tip);
-        setPreviousTip(savedTip);
+      if (previousTips.length > 0) {
+
+        previousTips.map( async (tip) => {
+          if (tip.tipType === selectedRaceType) {
+            isSaved = true;
+            let savedTip = await modifyTip(tip);
+            prevTips.push(savedTip);
+          } else {
+            prevTips.push(tip);
+          }
+        });
       }
+
+      if (!isSaved) {
+        await createNewTip();
+      }
+
+      setPreviousTips(prevTips);
       console.log('Successfully saved tip');
-      setSelectedDriver(null);
+
+      if (selectedRaceType === 'sprint') {
+        setSelectedDriverForSprint(null);
+      } else {
+        setSelectedDriverForRace(null);
+      }
+
       setPageLoading(false);
     } catch (error) {
       console.error('Error saving tip:', error);
     }
     
+  }
+
+  const modifyTip = async (prevTip: TipDTO) => {
+    const tip =  {
+      id: prevTip?.id,
+      userId: prevTip?.userId ,
+      groupId: prevTip?.groupId,
+      seasonId: prevTip?.seasonId ,
+      raceId: prevTip?.raceId,
+      driverId: selectedRaceType === 'sprint' ? selectedDriverForSprint?.id || 0 : selectedDriverForRace?.id || 0,
+      createdAt: new Date().toISOString(),
+      tipType: selectedRaceType ? selectedRaceType : 'race'
+    }
+    const savedTip = await updateTip(prevTip?.id, tip);
+    return savedTip;
+  }
+
+  const createNewTip = async () => {
+    const tip =  {
+      id: 0,
+      userId: 0,
+      groupId: +location.pathname.split('/')[2],
+      seasonId: race?.seasonId || 0,
+      raceId: race?.id || 0,
+      driverId: selectedRaceType === 'sprint' ? selectedDriverForSprint?.id || 0 : selectedDriverForRace?.id || 0,
+      createdAt: new Date().toISOString(),
+      tipType: selectedRaceType ? selectedRaceType : 'race'
+    }
+    const savedTip = await createTip(tip);
+    return savedTip;
   }
 
   if (pageLoading) {
@@ -115,17 +156,17 @@ const Tip = () => {
                 <div className='flex justify-center h-[200px]'>
                   <div className='grid grid-cols-2 gap-4 w-2/3 relative'>
                     <div className='w-[calc(50%-8px)] absolute top-0' key={drivers[_].id}>
-                      <DriverCard driver={drivers[_]} selected={selectedDriver?.name === drivers[_].name} selectFn={() => selectDriver(drivers[_])}/>
+                      <DriverCard driver={drivers[_]} selected={selectedRaceType === 'sprint' ? selectedDriverForSprint?.name === drivers[_].name : selectedDriverForRace?.name === drivers[_].name} selectFn={() => selectDriver(drivers[_])}/>
                     </div>
                     <div className='w-[calc(50%-8px)] absolute bottom-0 right-0' key={drivers[_].id}>
-                      <DriverCard driver={drivers[_ + 1]} selected={selectedDriver?.name === drivers[_ + 1].name} selectFn={() => selectDriver(drivers[_ + 1])}/>
+                      <DriverCard driver={drivers[_ + 1]} selected={selectedRaceType === 'sprint' ? selectedDriverForSprint?.name === drivers[_+1].name : selectedDriverForRace?.name === drivers[_+1].name} selectFn={() => selectDriver(drivers[_ + 1])}/>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
             <div className='flex justify-center mb-8'>
-              <Button variant="contained" onClick={saveTip} disabled={!selectedDriver}>Tipp leadása</Button>
+              <Button variant="contained" onClick={saveTip} disabled={selectedRaceType === 'sprint' ? !selectedDriverForSprint : !selectedDriverForRace}>Tipp leadása</Button>
             </div>
           </>
         )

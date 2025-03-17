@@ -6,7 +6,7 @@ export const getTipsForGroupSeasonAndRace = async (groupId: number, seasonId: nu
     return response.data;
   };
   
-  export const getUserTip = async (userId: number, groupId: number, seasonId: number, raceId: number) => {
+  export const getUserTips = async (userId: number, groupId: number, seasonId: number, raceId: number) => {
     const response = await apiClient.get(`/api/tips/${groupId}/${seasonId}/${raceId}/user/${userId}`);
     return response.data;
   };

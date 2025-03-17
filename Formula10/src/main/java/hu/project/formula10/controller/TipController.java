@@ -26,9 +26,9 @@ public class TipController {
     }
 
     @GetMapping("/{groupId}/{seasonId}/{raceId}/user/{userId}")
-    public ResponseEntity<TipDTO> getUserTip(@PathVariable Long userId, @PathVariable Long groupId, @PathVariable Long seasonId, @PathVariable Long raceId) {
+    public ResponseEntity<List<TipDTO>> getUserTips(@PathVariable Long userId, @PathVariable Long groupId, @PathVariable Long seasonId, @PathVariable Long raceId) {
         try {
-            return ResponseEntity.ok(tipService.getUserTip(userId, groupId, seasonId, raceId));
+            return ResponseEntity.ok(tipService.getUserTips(userId, groupId, seasonId, raceId));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }

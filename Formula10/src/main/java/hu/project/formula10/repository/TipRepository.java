@@ -11,5 +11,5 @@ import java.util.Optional;
 public interface TipRepository extends JpaRepository<Tip, Long> {
 
     List<Tip> findByGroupIdAndSeasonIdAndRaceId(Long groupId, Long seasonId, Long raceId);
-    Optional<Tip> findByUserIdAndGroupIdAndSeasonIdAndRaceId(Long userId, Long groupId, Long seasonId, Long raceId);
+    List<Tip> findAllByGroupIdAndSeasonIdAndRaceIdAndUserId(Long userId, Long groupId, Long seasonId, Long raceId);
 }
