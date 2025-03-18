@@ -7,6 +7,7 @@ import './i18n/i18n';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './redux/Store';
+import ErrorHandler from './handler/ErrorHandler';
 
 
 const root = ReactDOM.createRoot(
@@ -14,10 +15,12 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <ThemeProvider>
-    <BrowserRouter>
-      <Provider store={store}>
-      <App />
-      </Provider>
-    </BrowserRouter>
+    <ErrorHandler>
+      <BrowserRouter>
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </BrowserRouter>
+    </ErrorHandler>
   </ThemeProvider>
 );

@@ -29,16 +29,19 @@ apiClient.interceptors.request.use(
 
 // Hibakezelés interceptor
 apiClient.interceptors.response.use(
-  (response) => response,
-  (error) => {
-
-    //TODO HANDLE 
-    if (error.response && error.response.status > 400) {
-      const message = error.response.data || 'Error :('
-      eventBus.emit('error', message); 
+  (response) => {
+    if (response.status === 200) {
+      const message = response.data?.message || 'Success!';
+      eventBus.emit('success', { message });
     }
-
-    return Promise.reject(error); 
+    return response;
+  },
+  (error) => {
+    if (error.response && error.response.status > 400) {
+      const message = error.response.data?.message || 'Error :(';
+      eventBus.emit('error', { message, isDialog: error.response.data?.isDialog || false });
+    }
+    return Promise.reject(error);
   }
 );
 

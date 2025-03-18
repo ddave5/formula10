@@ -21,7 +21,7 @@ public class DriverService {
     public List<DriverDTO> getAllDrivers() {
         log.info("Fetching all drivers");
         return driverRepository.findAll().stream()
-                .map(Driver::toDTO).toList();
+                .map(Driver::toDTO).sorted((o1, o2) -> o1.getName().compareTo(o2.getName())).toList();
     }
 
     public DriverDTO getDriverById(Long id) {

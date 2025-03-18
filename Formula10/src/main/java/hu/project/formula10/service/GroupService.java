@@ -105,7 +105,7 @@ public class GroupService {
 
     public List<GroupMemberDTO> getGroupMembers(Long groupId) {
         log.info("Fetching group with id: {}", groupId);
-        Group group = groupRepository.findById(groupId).orElseThrow();
+        Group group = groupRepository.findById(groupId).orElseThrow( () -> new RuntimeException("Group not found"));
         List<GroupMember> members = groupMemberRepository.findByGroup(group);
         return members.stream().map(GroupMember::toDTO).collect(Collectors.toList());
     }
@@ -128,7 +128,7 @@ public class GroupService {
         try {
             log.info("Delete group with id: {}", groupId);
             groupRepository.deleteById(groupId);
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             throw new RuntimeException("Group not found");
         }
     }

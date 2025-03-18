@@ -6,8 +6,6 @@ import Menu from './layout/navbar/Menu/Menu';
 import Navbar from './layout/navbar/Navbar';
 import Login from './pages/login/Login';
 import Registration from './pages/registration/Registration';
-import { ErrorProvider } from './layout/ErrorContext/ErrorContext';
-import ErrorDialog from './layout/ErrorContext/ErrorDialog';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from './redux/Store';
 import { loadUserFromStorage } from './redux/slices/AuthSlice';
@@ -37,6 +35,7 @@ import Points from './pages/points/Points';
 import NewsManagement from './pages/admin/newsManagement/NewsManagement';
 import ProtectedRoute from './ProtectedRoute';
 import ManageGroup from './pages/group/groupid/manage/ManageGroup';
+import ErrorHandler from './handler/ErrorHandler';
 function App() {
   
   const dispatch = useDispatch<AppDispatch>();
@@ -67,8 +66,7 @@ function App() {
 
   return (
     <>
-      <ErrorProvider>
-        <ErrorDialog />
+      <ErrorHandler>
         <Navbar />
         <main>
           <Routes>
@@ -113,7 +111,7 @@ function App() {
           </Routes>
         </main>
         <Footer />
-      </ErrorProvider>
+      </ErrorHandler>
     </>
   );
 }

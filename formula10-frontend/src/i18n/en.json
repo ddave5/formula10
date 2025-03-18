@@ -180,5 +180,11 @@
     "joinedAt": "Joined at",
     "role": "Role",
     "members": "Members"
+  },
+  "tip": {
+    "chooseType": "Choose a type",
+    "sprint": "Sprint",
+    "race": "Race",
+    "saveTip": "Submit tip"
   }
 }

@@ -5,11 +5,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button, FormControl, TextField } from '@mui/material';
 import { AppDispatch, RootState } from '../../../redux/Store';
 import { checkGroupName, createGroup } from '../../../services/group.service';
-import Error from '../../../components/Error/Error';
 import SuccessPanel from '../../../components/SuccessPanel/SuccessPanel';
 import { addGroup } from '../../../redux/slices/GroupSlice';
 import PasswordInput from '../../../components/passwordInput/PasswordInput';
 import { darkInputStyle, lightInputStyle } from '../../../components/TextInput/InputStyle';
+import eventBus from '../../../services/eventBus';
 
 const CreateGroup = () => {
 
@@ -21,7 +21,6 @@ const CreateGroup = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const [error, setError] = useState('');
   const [nameError, setNameError] = useState(false);
   const [nameTaken, setNameTaken] = useState(false);
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
@@ -47,11 +46,13 @@ const CreateGroup = () => {
       try {
         const newGroup = await createGroup(name, password, (user ? user.id : 0));
         if (newGroup && user) {
+          eventBus.emit('success', { message: 'Group created successfully!' });
           dispatch(addGroup(newGroup));
           setCreateDone(true);
         }
       } catch (err) {
-        setError('Something Went Wrong!');
+        eventBus.emit('error', { message: 'Failed to create group.', isDialog: false });
+        console.error('Something Went Wrong!');
       }
     }
   };
@@ -84,6 +85,7 @@ const CreateGroup = () => {
         setNameTaken(response); 
         return response;
       } catch (err) {
+        eventBus.emit('error', { message: 'Failed to check group name.', isDialog: false });
         console.error(err);
         return true; 
       }
@@ -100,7 +102,6 @@ const CreateGroup = () => {
           <div className='flex flex-col p-8 xl:w-2/3 sm:w-1/2 lg:w-1/3'>
             <p className="text-4xl title-font whitespace-nowrap dark:text-white mb-16 text-center">{t('createGroup.createGroup')}</p>
             <div className='flex flex-col space-y-4'>
-              {error && <Error errorMessage={error} />}
               <FormControl sx={{ '& .MuiTextField-root': { marginBottom: '.5rem'}}}>
                 <TextField id='name' required placeholder={t('createGroup.name')} variant='outlined' label={t('createGroup.name')} size='small' className='sm:text-sm' value={name} onChange={(e) => setName(e.target.value)} autoComplete='off'
                             sx={ theme === "dark" ? darkInputStyle : lightInputStyle }/>          

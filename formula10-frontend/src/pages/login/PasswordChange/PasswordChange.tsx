@@ -3,7 +3,6 @@ import SuccessPanel from '../../../components/SuccessPanel/SuccessPanel'
 import { Button, FormControl, TextField } from '@mui/material'
 import PasswordInput from '../../../components/passwordInput/PasswordInput'
 import { useTranslation } from 'react-i18next'
-import Error from '../../../components/Error/Error';
 import { darkInputStyle, lightInputStyle } from '../../../components/TextInput/InputStyle'
 import { useTheme } from '../../../layout/navbar/Theme/ThemeContext'
 import { changePassword } from '../../../services/user.service'
@@ -20,7 +19,6 @@ const PasswordChange = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const [error, setError] = useState('');
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
@@ -73,12 +71,12 @@ const PasswordChange = () => {
                 setChangeDone(true);
               }
             }).catch( (err) => {
-              setError('Error, sorry. :(');
+              console.log(err)
             });
           } catch (err) {
-            setError('Error again, sorry. :(');
-          }
+            console.log(err);
         }
+      }
   }
   
   return (
@@ -90,7 +88,6 @@ const PasswordChange = () => {
           <div className='flex flex-col p-8 xl:w-2/3 sm:w-1/2 lg:w-1/3'>
             <p className="text-4xl title-font whitespace-nowrap dark:text-white mb-16 text-center">{t('passwordChange.passwordChange')}</p>
             <div className='flex flex-col space-y-4'>
-              {error && <Error errorMessage={error} />}
               <FormControl sx={{ '& .MuiTextField-root': { marginBottom: '.5rem'}}}>
                 <TextField id='email' 
                 type='email'

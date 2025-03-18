@@ -180,5 +180,11 @@
     "joinedAt": "Csatlakozás ideje",
     "role": "Szerep",
     "members": "Tagok"
+  },
+  "tip": {
+    "chooseType": "Válasszon verseny típust!",
+    "sprint": "Sprint",
+    "race": "Futam",
+    "saveTip": "Tipp leadás"
   }
 }

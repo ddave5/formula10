@@ -1,11 +1,10 @@
-import { Button, Checkbox, Divider, FormControl, FormControlLabel, TextField } from '@mui/material';
+import { Button, Checkbox, Divider, FormControl, FormControlLabel } from '@mui/material';
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next';
 import { FcGoogle } from 'react-icons/fc';
 import { Link } from 'react-router-dom';
 import {debounce} from 'lodash';
 import { checkUsernameAvailability, registerUser } from '../../services/user.service';
-import Error from '../../components/Error/Error';
 import { useTheme } from '../../layout/navbar/Theme/ThemeContext';
 import SuccessPanel from '../../components/SuccessPanel/SuccessPanel';
 import PasswordInput from '../../components/passwordInput/PasswordInput';
@@ -24,7 +23,6 @@ const Registration = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [acceptTerms, setAcceptTerms] = useState(false);
 
-  const [error, setError] = useState('');
   const [emailError, setEmailError] = useState(false);
   const [invalidCharacterError, setInvalidCharacterError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
@@ -72,10 +70,10 @@ const Registration = () => {
             setRegistrationDone(true);
           }
         }).catch( (err) => {
-          setError('Email is already taken!');
+          console.log('Email is already taken!');
         });
       } catch (err) {
-        setError('Email is already taken!');
+        console.log('Email is already taken!');
       }
     }
   };
@@ -144,7 +142,6 @@ const Registration = () => {
             <p className="text-2xl title-font whitespace-nowrap dark:text-white mb-4">Formula 10</p>
             <h2 className='text-3xl whitespace-nowrap dark:text-white mb-8'>{t('registration.login')}</h2>
             <div className='flex flex-col space-y-4'>
-              {error && <Error errorMessage={error} />}
               
               <FormControl sx={{ '& .MuiTextField-root': { marginBottom: '.5rem'}}}>
                 <TextInput props={{id: 'username', isRequired: true, type: 'text', i18n: 'registration.username', errori18n: 'registration.usernameAlreadyTaken', variant: 'outlined', value: username, setValue: setUsername, error: !usernameAvailable}}/>

@@ -8,9 +8,12 @@ import hu.project.formula10.model.User;
 import hu.project.formula10.repository.RoleRepository;
 import hu.project.formula10.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.Optional;
 
 @Slf4j
@@ -65,7 +68,7 @@ public class UserService {
         log.info("Fetching user by email: {}", email);
         User user = userRepository
                 .findByEmail(email)
-                .orElseThrow( () -> new Exception("No user with this email address"));
+                .orElseThrow( () -> new SQLException("No user with this email address"));
 
         user.setPassword(passwordEncoder.encode(password));
 

@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../redux/Store';
 import { loginUser } from '../../redux/slices/AuthSlice';
-import Error from '../../components/Error/Error';
 import { useTheme } from '../../layout/navbar/Theme/ThemeContext';
 import PasswordInput from '../../components/passwordInput/PasswordInput';
 import { darkInputStyle, lightInputStyle } from '../../components/TextInput/InputStyle';
@@ -19,7 +18,6 @@ const Login = () => {
   const [usernameOrEmail, setUsernameOrEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
 
   const navigate = useNavigate();
 
@@ -33,10 +31,10 @@ const Login = () => {
       if (loginUser.fulfilled.match(resultAction)) {
         navigate('/');
       } else {
-        setErrorMessage('Login failed.');
+        console.log('Login failed.');
       }
     } catch (error) {
-      setErrorMessage('An error occurred.');
+      console.log('An error occurred.');
     }
   }
 
@@ -54,7 +52,6 @@ const Login = () => {
         <p className="text-2xl title-font whitespace-nowrap dark:text-white mb-4">Formula 10</p>
         <h2 className='text-3xl whitespace-nowrap dark:text-white mb-8'>{t('login.login')}</h2>
         <div className='flex flex-col space-y-4'>
-          {errorMessage && <Error errorMessage={errorMessage} />}
           <FormControl sx={{ '& .MuiTextField-root': { marginBottom: '.5rem'}}}>
             <TextField id='username' placeholder={t('login.username')} variant='outlined' label={t('login.username')} size='small' className='sm:text-sm' value={usernameOrEmail} onChange={(e) => setUsernameOrEmail(e.target.value)} autoComplete='off'
                        sx={ theme === "dark" ? darkInputStyle : lightInputStyle}/>
