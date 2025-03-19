@@ -12,6 +12,7 @@ import { useLocation } from 'react-router-dom';
 import { TipDTO } from '../../../../dto/tip.dto';
 import { Button } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import eventBus from '../../../../services/eventBus';
 
 const Tip = () => {
 
@@ -55,6 +56,7 @@ const Tip = () => {
         setPageLoading(false);
       } catch (error) {
         console.error('Error fetching drivers:', error);
+        setPageLoading(false);
       }
     };
     fetchDatas();
@@ -93,11 +95,11 @@ const Tip = () => {
       }
 
       setPreviousTips(prevTips);
-      console.log('Successfully saved tip');
+      eventBus.emit('success', { message: t('tip.success') });
       setSelectedRaceType('');
       setPageLoading(false);
     } catch (error) {
-      console.error('Error saving tip:', error);
+      eventBus.emit('error', {message: t('messages.unknownError')})
     }
     
   }

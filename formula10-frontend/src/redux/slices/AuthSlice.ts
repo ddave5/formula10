@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import apiClient from '../../services/axios';
 import { getToken, setToken } from '../../services/token.service';
+import eventBus from '../../services/eventBus';
+import { useTranslation } from 'react-i18next';
 
 interface AuthState {
     token: string | null;
@@ -32,6 +34,7 @@ export const loginUser = createAsyncThunk(
 
             return { token, user }; 
         } catch (error: any) {
+            eventBus.emit('error', {message: 'Login Failed!'});
             if (error.response && error.response.data) {
                 return rejectWithValue(error.response.data);
             } else {

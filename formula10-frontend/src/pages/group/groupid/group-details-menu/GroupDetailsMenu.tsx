@@ -12,6 +12,7 @@ import { RootState } from '../../../../redux/Store';
 import { leaveGroup } from '../../../../services/groupmember.service';
 import { removeGroup } from '../../../../redux/slices/GroupSlice';
 import { useTranslation } from 'react-i18next';
+import eventBus from '../../../../services/eventBus';
 
 const GroupDetailsMenu = () => {
 
@@ -82,7 +83,7 @@ const GroupDetailsMenu = () => {
 
         setAuthority( group.members.find(member => member.username === user?.username)?.role || '');
       } catch (err) {
-        console.log(err);
+        eventBus.emit('error', {message: t('messages.errorFetching')});
         setError('Failed to load group');
       } finally {
         setLoading(false);

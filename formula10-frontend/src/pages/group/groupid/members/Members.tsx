@@ -3,6 +3,8 @@ import TableComponent from '../../../../components/table/TableComponent'
 import { getGroupMemberListByGroupId } from '../../../../services/groupmember.service';
 import { useLocation } from 'react-router-dom';
 import Loading from '../../../../components/Loading/Loading';
+import eventBus from '../../../../services/eventBus';
+import { useTranslation } from 'react-i18next';
 
 const Members = () => {
 
@@ -11,6 +13,7 @@ const Members = () => {
   const [loading, setLoading] = useState<boolean>(true);
 
   const location = useLocation();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const getGroupMembers = async () => {
@@ -33,7 +36,7 @@ const Members = () => {
         setGroupMembersBody(groupMembersStructuredData || []);
         
       } catch (error) {
-        console.error('Error fetching data:', error);
+        eventBus.emit('error', {message: t('messages.errorFetching')})
         setError(
           error instanceof Error ? error.message : 'Failed to fetch data'
         );

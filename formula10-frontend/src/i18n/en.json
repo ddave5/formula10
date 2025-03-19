@@ -120,7 +120,10 @@
     "cancel": "Cancel",
     "confirm": "Join",
     "rowsPerPage": "Rows per page:",
-    "of": "of"
+    "of": "of",
+    "errorJoining": "Error while joining to a group!",
+    "successJoining": "You joined to the group successfully!",
+    "addPassword": "Please add a password!"
   },
   "passwordInput": {
     "password": "Password",
@@ -179,12 +182,19 @@
     "username": "Username",
     "joinedAt": "Joined at",
     "role": "Role",
-    "members": "Members"
+    "members": "Members",
+    "error": "Error while fetching members!"
   },
   "tip": {
     "chooseType": "Choose a type",
     "sprint": "Sprint",
     "race": "Race",
-    "saveTip": "Submit tip"
+    "saveTip": "Submit tip",
+    "success": "Tip saved successfully!"
+  },
+  "messages": {
+    "errorFetching": "Error while fetching data!",
+    "unknownError": "Something went wrong!",
+    "loginError": "Login failed!"
   }
 }

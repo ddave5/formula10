@@ -9,6 +9,7 @@ import { loginUser } from '../../redux/slices/AuthSlice';
 import { useTheme } from '../../layout/navbar/Theme/ThemeContext';
 import PasswordInput from '../../components/passwordInput/PasswordInput';
 import { darkInputStyle, lightInputStyle } from '../../components/TextInput/InputStyle';
+import eventBus from '../../services/eventBus';
 
 const Login = () => {
   const { t } = useTranslation();
@@ -31,10 +32,10 @@ const Login = () => {
       if (loginUser.fulfilled.match(resultAction)) {
         navigate('/');
       } else {
-        console.log('Login failed.');
+        eventBus.emit('error', {message: t('messages.loginFailed')});
       }
     } catch (error) {
-      console.log('An error occurred.');
+      eventBus.emit('error', {message: t('messages.unknownError')});
     }
   }
 

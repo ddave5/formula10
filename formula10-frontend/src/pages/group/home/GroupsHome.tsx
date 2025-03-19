@@ -8,6 +8,7 @@ import { getNextRace } from '../../../services/race.service';
 import { RaceDTO } from '../../../dto/race.dto';
 import { useTranslation } from 'react-i18next';
 import TableComponent from '../../../components/table/TableComponent';
+import eventBus from '../../../services/eventBus';
 
 
 const GroupsHome = () => {
@@ -66,7 +67,7 @@ const GroupsHome = () => {
         setConstructorStandingBody(constructorStandingsRef.current || []);
 
       } catch (error) {
-        console.error('Error fetching data:', error);
+        eventBus.emit('error', {message: t('messages.errorFetching')})
         setError(
           error instanceof Error ? error.message : 'Failed to fetch data'
         );

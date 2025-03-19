@@ -11,6 +11,7 @@ import { MdOutlineVisibility, MdOutlineVisibilityOff } from 'react-icons/md';
 import { useTheme } from '../../../layout/navbar/Theme/ThemeContext';
 import { addGroup } from '../../../redux/slices/GroupSlice';
 import { darkInputStyle, lightInputStyle } from '../../../components/TextInput/InputStyle';
+import eventBus from '../../../services/eventBus';
 
 const JoinGroup = () => {
 
@@ -51,13 +52,20 @@ const JoinGroup = () => {
 
   const join = async (groupId: number = selectedGroup?.id || 0) => {
     try {
+      
+      if (password === '') {
+        eventBus.emit('error', {message: t('joinGroup.addPassword'), isDialog: false });
+        return;
+      }
+
       const data = await joinGroup(user?.id || 0, groupId, password);
       if (data) {
+        eventBus.emit('success', {message: t('joinGroup.successJoining'), isDialog: false })
         setJoinDone(true);
         dispatch(addGroup(data));
       }
     } catch (err) {
-      console.log('Failed to join group');
+      eventBus.emit('error', {message: 'Failed' , isDialog: false });
     }
   };
 
@@ -80,7 +88,7 @@ const JoinGroup = () => {
         const data = await getGroupList();
         setAllGroups(data);
       } catch (err) {
-        console.log(err);
+        eventBus.emit('error', {message: t('messages.errorFetching')});
       } finally {
         setAllGroupsLoading(false);
       }
