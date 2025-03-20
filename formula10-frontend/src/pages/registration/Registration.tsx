@@ -23,6 +23,8 @@ const Registration = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [acceptTerms, setAcceptTerms] = useState(false);
 
+  const [usernameLengthError, setUsernameLengthError] = useState(false);
+  const [usernameEmptyError, setUsernameEmptyError] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [invalidCharacterError, setInvalidCharacterError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
@@ -81,25 +83,46 @@ const Registration = () => {
   const validation = () => {
     let isValid = true;
 
+    if (username.length === 0) {
+      isValid = false;
+      setUsernameEmptyError(true);
+    } else {
+      setUsernameEmptyError(false);
+    }
+
+    if (username.length > 50) {
+      isValid = false;
+      setUsernameLengthError(true);
+    } else {
+      setUsernameLengthError(false);
+    }
+
     if (!EmailValidator(email)) {
       isValid = false;
       setEmailError(true);
+    } else {
+      setEmailError(false);
     }
 
     if (!CharacterValidator(password)) {
           isValid = false;
           setInvalidCharacterError(true);
         } else {
+          setInvalidCharacterError(false);
           if (!PasswordValidator(password)) {
             isValid = false;
             setPasswordError(true);
-          } 
+          } else {
+            setPasswordError(false);
+          }
         }
   
     if (password !== confirmPassword || confirmPassword === "") {
       isValid = false;
       setConfirmPasswordError(true);
-    } 
+    } else {
+      setConfirmPasswordError(false);
+    }
 
     if (!usernameAvailable) {
       isValid = false;
@@ -145,6 +168,8 @@ const Registration = () => {
               
               <FormControl sx={{ '& .MuiTextField-root': { marginBottom: '.5rem'}}}>
                 <TextInput props={{id: 'username', isRequired: true, type: 'text', i18n: 'registration.username', errori18n: 'registration.usernameAlreadyTaken', variant: 'outlined', value: username, setValue: setUsername, error: !usernameAvailable}}/>
+                          {usernameLengthError && <span className='text-red-500 text-sm mb-2'>Túl hosszú</span>}
+                          {usernameEmptyError && <span className='text-red-500 text-sm mb-2'>Adj meg valamit!</span>}
                 <TextInput props={{id: 'email', isRequired: true,  type: 'text', i18n: 'registration.email', errori18n: 'registration.invalidEmail', variant: 'outlined', value: email, setValue: setEmail, error: emailError}}/>
                 <PasswordInput password={password} setPassword={setPassword} label='password'/>
                           { invalidCharacterError && <span className='text-red-500 text-sm mb-2'>{t('registration.invalidCharacter')}</span>} 

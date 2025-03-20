@@ -9,18 +9,17 @@ const Home: React.FC = () => {
     const [news, setNews] = useState<NewsDTO[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-    const [page, setPage] = useState<number>(0); // Kezdő oldal
-    const [hasMoreNews, setHasMoreNews] = useState<boolean>(true); // Jelzi, van-e még több hír
+    const [page, setPage] = useState<number>(0); 
+    const [hasMoreNews, setHasMoreNews] = useState<boolean>(true); 
 
-    // Hírek lekérése az oldal és méret alapján
     const fetchNews = useCallback(async (page: number) => {
         setLoading(true);
         try {
-            const data = await getAllNews(page, 9); // Lekérjük a 9 hírt
+            const data = await getAllNews(page, 9);
             if (data.length < 9) {
-                setHasMoreNews(false); // Ha kevesebb mint 9 hír jön, nincs több betöltendő
+                setHasMoreNews(false);
             }
-            setNews((prevNews) => [...prevNews, ...data]); // Hírek hozzáadása a meglévőkhöz
+            setNews((prevNews) => [...prevNews, ...data]); 
         } catch (err) {
             setError('Failed to fetch news');
         } finally {
@@ -37,22 +36,21 @@ const Home: React.FC = () => {
     const handleScroll = useCallback(
         _.throttle(() => {
             if (
-              window.innerHeight + window.scrollY >= document.body.offsetHeight - 500 && // Az aljától 500px-re
-              !loading && hasMoreNews
+                window.innerHeight + window.scrollY >= document.body.offsetHeight - 300 &&
+                !loading && hasMoreNews
             ) {
-              setPage((prevPage) => prevPage + 1); // Következő oldal lekérdezése
+                setPage((prevPage) => prevPage + 1);
             }
-        }, 200), [loading, hasMoreNews]); // Loading és hasMoreNews függőségek figyelése
+        }, 200), [loading, hasMoreNews]);
 
     useEffect(() => {
-        // Eseményfigyelő hozzáadása a scroll eseményhez
+
         window.addEventListener('scroll', handleScroll);
     
-        // Tisztítás a komponens leszerelésekor
         return () => {
           window.removeEventListener('scroll', handleScroll);
         };
-      }, [handleScroll]); // `handleScroll` függőségek frissítése
+      }, [handleScroll]); 
 
 
     if (error) {
