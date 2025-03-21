@@ -1,5 +1,6 @@
 import { TextFieldVariants } from "@mui/material"
 import { HTMLInputTypeAttribute } from "react"
+import { ValidationInterface } from "../utils/Validator"
 
 export interface TextInputInterface {
     id: string,
@@ -9,6 +10,6 @@ export interface TextInputInterface {
     variant: TextFieldVariants,
     value: any,
     setValue: Function,
-    error: boolean,
-    errori18n: string
+    validation?: ValidationInterface[],
+    isValid?: Function
 }

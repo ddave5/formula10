@@ -1,17 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import SuccessPanel from '../../../components/SuccessPanel/SuccessPanel'
-import { Button, FormControl, TextField } from '@mui/material'
+import { Button, FormControl } from '@mui/material'
 import PasswordInput from '../../../components/passwordInput/PasswordInput'
 import { useTranslation } from 'react-i18next'
-import { darkInputStyle, lightInputStyle } from '../../../components/TextInput/InputStyle'
-import { useTheme } from '../../../layout/navbar/Theme/ThemeContext'
 import { changePassword } from '../../../services/user.service'
 import { CharacterValidator, EmailValidator, PasswordValidator } from '../../../utils/Validator'
+import TextInput from '../../../components/TextInput/TextInput'
 
 const PasswordChange = () => {
 
   const { t } = useTranslation();
-  const { theme } = useTheme();
   
   const [changeDone, setChangeDone] = useState(false); 
 
@@ -19,64 +17,26 @@ const PasswordChange = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const [emailError, setEmailError] = useState(false);
-  const [passwordError, setPasswordError] = useState(false);
-  const [confirmPasswordError, setConfirmPasswordError] = useState(false);
-  const [invalidCharacterError, setInvalidCharacterError] = useState(false);
+  const [isEmailValid, setIsEmailValid] = useState(true);
+  const [isPasswordValid, setIsPasswordValid] = useState(true);
+  const [isConfirmPasswordValid, setIsConfirmPasswordValid] = useState(true);
 
-  useEffect(() => {
-    setEmailError(false);
-  }, [email]);
-
-  useEffect(() => {
-    setPasswordError(false);
-  }, [password]);
-
-  useEffect(() => {
-    setConfirmPasswordError(false);
-  }, [confirmPassword]);
-
-  const validation = () => {
-    let isValid = true;
-
-    if (!EmailValidator(email)) {
-      isValid = false;
-      setEmailError(true);
-    }
-
-    if (!CharacterValidator(password)) {
-      isValid = false;
-      setInvalidCharacterError(true);
-    } else {
-      if (!PasswordValidator(password)) {
-        isValid = false;
-        setPasswordError(true);
-      } 
-    }
-  
-    if (password !== confirmPassword || confirmPassword === "") {
-      isValid = false;
-      setConfirmPasswordError(true);
-    } 
-
-    return isValid; 
-  }
 
   const changePwd = () => {
-        if (validation()) {
-          try {
-            changePassword(email, password).then((response) => {
-              const data = response;
-              if (data) {
-                setChangeDone(true);
-              }
-            }).catch( (err) => {
-              console.log(err)
-            });
-          } catch (err) {
-            console.log(err);
-        }
+    if (isEmailValid && isPasswordValid && isConfirmPasswordValid) {
+      try {
+        changePassword(email, password).then((response) => {
+          const data = response;
+          if (data) {
+            setChangeDone(true);
+          }
+        }).catch( (err) => {
+          console.log(err)
+        });
+      } catch (err) {
+        console.log(err);
       }
+    }
   }
   
   return (
@@ -89,21 +49,43 @@ const PasswordChange = () => {
             <p className="text-4xl title-font whitespace-nowrap dark:text-white mb-16 text-center">{t('passwordChange.passwordChange')}</p>
             <div className='flex flex-col space-y-4'>
               <FormControl sx={{ '& .MuiTextField-root': { marginBottom: '.5rem'}}}>
-                <TextField id='email' 
-                type='email'
-                required 
-                placeholder={t('passwordChange.email')} 
-                variant='outlined' 
-                label={t('passwordChange.email')} 
-                size='small' 
-                className='sm:text-sm' value={email} onChange={(e) => setEmail(e.target.value)} autoComplete='off'
-                                            sx={ theme === "dark" ? darkInputStyle : lightInputStyle }/>
-                { emailError && <span className='text-red-500 text-sm mb-2'>{t('passwordChange.invalidEmail')}</span>} 
-                <PasswordInput password={password} setPassword={setPassword} label='newPassword' />
-                { invalidCharacterError && <span className='text-red-500 text-sm mb-2'>{t('passwordChange.invalidCharacter')}</span>}     
-                { passwordError && <span className='text-red-500 text-sm mb-2'>{t('passwordChange.invalidPassword')}</span>}     
-                <PasswordInput password={confirmPassword} setPassword={setConfirmPassword} label='newPasswordAgain' />
-                { confirmPasswordError && <span className='text-red-500 text-sm mb-2'>{t('passwordChange.passwordsDontMatch')}</span>}          
+                <TextInput props={
+                    {
+                      id: 'email',
+                      isRequired: true,  
+                      type: 'text', 
+                      i18n: 'registration.email', 
+                      variant: 'outlined', 
+                      value: email, setValue: setEmail,
+                      validation: [
+                        {error: email.length === 0, errori18n: 'registration.emailEmpty'}, 
+                        {error: email.length > 100 , errori18n: 'registration.emailLength'},
+                        {error: !EmailValidator(email), errori18n: 'registration.invalidEmail'}
+                      ],
+                      isValid: setIsEmailValid
+                    }}
+                />
+                <PasswordInput props={{
+                    password: password, 
+                    setPassword: setPassword, 
+                    label: 'newPassword',
+                    validation: [
+                      {error: !CharacterValidator(password), errori18n: 'passwordChange.invalidCharacter'},
+                      {error: !PasswordValidator(password), errori18n: 'passwordChange.invalidPassword'}
+                    ],
+                    isValid: setIsPasswordValid
+                  }}
+                />
+                <PasswordInput props={{
+                    password: confirmPassword,
+                    setPassword: setConfirmPassword, 
+                    label: 'newPasswordAgain',
+                    validation: [
+                      {error: (password !== confirmPassword || confirmPassword === ""), errori18n: 'registration.passwordsDontMatch'}
+                    ],
+                    isValid: setIsConfirmPasswordValid
+                  }}
+                /> 
                 <Button onClick={changePwd} className='dark:text-[--color-font]'
                         sx={{borderStyle: 'solid', borderColor: 'var(--color-blue)', borderWidth: '2px', color: 'var(--color-gray)'}}>
                           {t('passwordChange.change')}

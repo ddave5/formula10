@@ -23,12 +23,10 @@ const Registration = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [acceptTerms, setAcceptTerms] = useState(false);
 
-  const [usernameLengthError, setUsernameLengthError] = useState(false);
-  const [usernameEmptyError, setUsernameEmptyError] = useState(false);
-  const [emailError, setEmailError] = useState(false);
-  const [invalidCharacterError, setInvalidCharacterError] = useState(false);
-  const [passwordError, setPasswordError] = useState(false);
-  const [confirmPasswordError, setConfirmPasswordError] = useState(false);
+  const [isUsernameValid, setIsUsernameValid] = useState(true);
+  const [isEmailValid, setIsEmailValid] = useState(true); 
+  const [isPasswordValid, setIsPasswordValid] = useState(true);
+  const [isConfirmPasswordValid, setIsConfirmPasswordValid] = useState(true);
 
   const { theme } = useTheme();
 
@@ -45,22 +43,9 @@ const Registration = () => {
     checkUsername(username);
   }, [checkUsername, username]);
 
-  useEffect(() => {
-    setEmailError(false);
-  }, [email]);
-
-  useEffect(() => {
-    setPasswordError(false);
-  }, [password]);
-
-  useEffect(() => {
-    setConfirmPasswordError(false);
-  }, [confirmPassword]);
-
-
   const register = async () => {
 
-    if (validation()) {
+    if (isUsernameValid && isEmailValid && isPasswordValid && isConfirmPasswordValid && acceptTerms) {
       try {
         registerUser({
           username: username,
@@ -80,56 +65,7 @@ const Registration = () => {
     }
   };
 
-  const validation = () => {
-    let isValid = true;
-
-    if (username.length === 0) {
-      isValid = false;
-      setUsernameEmptyError(true);
-    } else {
-      setUsernameEmptyError(false);
-    }
-
-    if (username.length > 50) {
-      isValid = false;
-      setUsernameLengthError(true);
-    } else {
-      setUsernameLengthError(false);
-    }
-
-    if (!EmailValidator(email)) {
-      isValid = false;
-      setEmailError(true);
-    } else {
-      setEmailError(false);
-    }
-
-    if (!CharacterValidator(password)) {
-          isValid = false;
-          setInvalidCharacterError(true);
-        } else {
-          setInvalidCharacterError(false);
-          if (!PasswordValidator(password)) {
-            isValid = false;
-            setPasswordError(true);
-          } else {
-            setPasswordError(false);
-          }
-        }
-  
-    if (password !== confirmPassword || confirmPassword === "") {
-      isValid = false;
-      setConfirmPasswordError(true);
-    } else {
-      setConfirmPasswordError(false);
-    }
-
-    if (!usernameAvailable) {
-      isValid = false;
-    }
-    
-    return isValid; 
-  }
+ 
 
   const darkCheckBoxStyle = {
     '.css-1umw9bq-MuiSvgIcon-root': {color: 'var(--color-font)'},
@@ -167,15 +103,58 @@ const Registration = () => {
             <div className='flex flex-col space-y-4'>
               
               <FormControl sx={{ '& .MuiTextField-root': { marginBottom: '.5rem'}}}>
-                <TextInput props={{id: 'username', isRequired: true, type: 'text', i18n: 'registration.username', errori18n: 'registration.usernameAlreadyTaken', variant: 'outlined', value: username, setValue: setUsername, error: !usernameAvailable}}/>
-                          {usernameLengthError && <span className='text-red-500 text-sm mb-2'>Túl hosszú</span>}
-                          {usernameEmptyError && <span className='text-red-500 text-sm mb-2'>Adj meg valamit!</span>}
-                <TextInput props={{id: 'email', isRequired: true,  type: 'text', i18n: 'registration.email', errori18n: 'registration.invalidEmail', variant: 'outlined', value: email, setValue: setEmail, error: emailError}}/>
-                <PasswordInput password={password} setPassword={setPassword} label='password'/>
-                          { invalidCharacterError && <span className='text-red-500 text-sm mb-2'>{t('registration.invalidCharacter')}</span>} 
-                          { passwordError && <span className='text-red-500 text-sm mb-2'>{t('registration.invalidPassword')}</span>} 
-                <PasswordInput password={confirmPassword} setPassword={setConfirmPassword}  label='passwordAgain'/>
-                          { confirmPasswordError && <span className='text-red-500 text-sm mb-2'>{t('registration.passwordsDontMatch')}</span>}          
+                <TextInput props={
+                  {
+                    id: 'username',
+                    isRequired: true,
+                    type: 'text', 
+                    i18n: 'registration.username', 
+                    variant: 'outlined', 
+                    value: username, setValue: setUsername,
+                    validation: [
+                      {error: username.length === 0, errori18n: 'registration.usernameEmpty'}, 
+                      {error: (username.length > 50 || username.length < 5), errori18n: 'registration.usernameLength'},
+                      {error: usernameAvailable, errori18n: 'registration.usernameTaken'}
+                    ],
+                    isValid: setIsUsernameValid
+                  }}/>
+                <TextInput props={
+                  {
+                    id: 'email',
+                    isRequired: true,  
+                    type: 'text', 
+                    i18n: 'registration.email', 
+                    variant: 'outlined', 
+                    value: email, setValue: setEmail,
+                    validation: [
+                      {error: email.length === 0, errori18n: 'registration.emailEmpty'}, 
+                      {error: email.length > 100 , errori18n: 'registration.emailLength'},
+                      {error: !EmailValidator(email), errori18n: 'registration.invalidEmail'}
+                    ],
+                    isValid: setIsEmailValid
+                  }}
+                />
+                <PasswordInput props={{
+                    password: password,
+                    setPassword: setPassword,
+                    label:'password',
+                    validation: [
+                      {error: !CharacterValidator(password), errori18n: 'registration.invalidCharacter'},
+                      {error: !PasswordValidator(password), errori18n: 'registration.invalidPassword'}
+                    ],
+                    isValid: setIsPasswordValid
+                  }}
+                />
+                <PasswordInput props={{
+                    password: confirmPassword,
+                    setPassword: setConfirmPassword, 
+                    label: 'passwordAgain',
+                    validation: [
+                      {error: (password !== confirmPassword || confirmPassword === ""), errori18n: 'registration.passwordsDontMatch'}
+                    ],
+                    isValid: setIsConfirmPasswordValid
+                  }}
+                />       
                 <div className='my-4'>
                   <FormControlLabel 
                     label={termsAndConditions()}

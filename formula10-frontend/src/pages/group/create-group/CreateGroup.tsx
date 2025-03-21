@@ -10,6 +10,7 @@ import { addGroup } from '../../../redux/slices/GroupSlice';
 import PasswordInput from '../../../components/passwordInput/PasswordInput';
 import { darkInputStyle, lightInputStyle } from '../../../components/TextInput/InputStyle';
 import eventBus from '../../../services/eventBus';
+import { CharacterValidator } from '../../../utils/Validator';
 
 const CreateGroup = () => {
 
@@ -18,12 +19,12 @@ const CreateGroup = () => {
   const [createDone, setCreateDone] = useState(false);
 
   const [name, setName] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [groupPassword, setGroupPassword] = useState('');
 
   const [nameError, setNameError] = useState(false);
   const [nameTaken, setNameTaken] = useState(false);
-  const [confirmPasswordError, setConfirmPasswordError] = useState(false);
+
+  const [isPasswordValid, setIsPasswordValid] = useState(true);
 
   const user = useSelector((state: RootState) => state.auth.user);
 
@@ -35,16 +36,11 @@ const CreateGroup = () => {
     setNameError(false);
   }, [name]);
 
-  useEffect(() => {
-    setConfirmPasswordError(false);
-  }, [confirmPassword]);
-
-
   const create = async () => {
-
+    if (!isPasswordValid) return;
     if (await validation()) {
       try {
-        const newGroup = await createGroup(name, password, (user ? user.id : 0));
+        const newGroup = await createGroup(name, groupPassword, (user ? user.id : 0));
         if (newGroup && user) {
           eventBus.emit('success', { message: 'Group created successfully!' });
           dispatch(addGroup(newGroup));
@@ -69,11 +65,7 @@ const CreateGroup = () => {
         isValid = false;
       }
     }
-  
-    if (password !== confirmPassword ) {
-      isValid = false;
-      setConfirmPasswordError(true);
-    } 
+
     
     return isValid; 
   }
@@ -107,10 +99,16 @@ const CreateGroup = () => {
                             sx={ theme === "dark" ? darkInputStyle : lightInputStyle }/>          
                 {nameError && <span className='text-red-500 text-sm mb-2'>{t('createGroup.nameIsEmpty')}</span>} 
                 {nameTaken && <span className='text-red-500 text-sm mb-2'>{t('createGroup.nameTaken')}</span>} 
-                <PasswordInput password={password} setPassword={setPassword} label='passwordOptional' />
-                <PasswordInput password={confirmPassword} setPassword={setConfirmPassword} label='passwordAgainOptional' />
-                          { confirmPasswordError && <span className='text-red-500 text-sm mb-2'>{t('createGroup.passwordsDontMatch')}</span>}          
-
+                <PasswordInput props={{
+                    password: groupPassword,
+                    setPassword: setGroupPassword,
+                    label:'passwordOptional',
+                    validation: [
+                      {error: !CharacterValidator(groupPassword), errori18n: 'createGroup.invalidCharacter'},
+                    ],
+                    isValid: setIsPasswordValid
+                  }}
+                />    
                 <Button onClick={create} className='dark:text-[--color-font]'
                         sx={{borderStyle: 'solid', borderColor: 'var(--color-blue)', borderWidth: '2px', color: 'var(--color-gray)'}}>
                           {t('createGroup.create')}

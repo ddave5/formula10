@@ -10,6 +10,7 @@ import { useTheme } from '../../layout/navbar/Theme/ThemeContext';
 import PasswordInput from '../../components/passwordInput/PasswordInput';
 import { darkInputStyle, lightInputStyle } from '../../components/TextInput/InputStyle';
 import eventBus from '../../services/eventBus';
+import TextInput from '../../components/TextInput/TextInput';
 
 const Login = () => {
   const { t } = useTranslation();
@@ -17,8 +18,10 @@ const Login = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const [usernameOrEmail, setUsernameOrEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
+
+  const [isPasswordValid, setIsPasswordValid] = useState(true);
 
   const navigate = useNavigate();
 
@@ -26,8 +29,9 @@ const Login = () => {
 
   const login = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!isPasswordValid) return;
     try {
-      const resultAction = await dispatch(loginUser({ usernameOrEmail, password, rememberMe }));
+      const resultAction = await dispatch(loginUser({ usernameOrEmail, password :loginPassword, rememberMe }));
 
       if (loginUser.fulfilled.match(resultAction)) {
         navigate('/');
@@ -54,9 +58,27 @@ const Login = () => {
         <h2 className='text-3xl whitespace-nowrap dark:text-white mb-8'>{t('login.login')}</h2>
         <div className='flex flex-col space-y-4'>
           <FormControl sx={{ '& .MuiTextField-root': { marginBottom: '.5rem'}}}>
-            <TextField id='username' placeholder={t('login.username')} variant='outlined' label={t('login.username')} size='small' className='sm:text-sm' value={usernameOrEmail} onChange={(e) => setUsernameOrEmail(e.target.value)} autoComplete='off'
-                       sx={ theme === "dark" ? darkInputStyle : lightInputStyle}/>
-            <PasswordInput password={password} setPassword={setPassword} label='password'/>
+            <TextInput props={
+              {
+                id: 'username',
+                isRequired: true,
+                type: 'text', 
+                i18n: 'login.username', 
+                variant: 'outlined', 
+                value: usernameOrEmail, setValue: setUsernameOrEmail
+              }}
+            />
+            <PasswordInput props={
+              {
+                password: loginPassword,
+                setPassword: setLoginPassword,
+                label:'password',
+                validation: [
+                  {error: loginPassword.length === 0, errori18n: 'login.passwordEmpty'},
+                ],
+                isValid: setIsPasswordValid
+              }}
+            />
             <FormControlLabel label={t('login.remember')} control={<Checkbox onChange={() => setRememberMe(!rememberMe)}/>} value={rememberMe} sx={ theme === "dark" ? darkCheckBoxStyle : lightCheckBoxStyle}/>
             <Button onClick={login} className='dark:text-[--color-font]'
                     sx={{borderStyle: 'solid', borderColor: 'var(--color-blue)', borderWidth: '2px', color: 'var(--color-gray)'}}>
