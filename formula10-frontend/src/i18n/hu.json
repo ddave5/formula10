@@ -71,7 +71,11 @@
     "alreadyHaveAccount": "Már van fiókod?",
     "login": "Jelentkezz be!",
     "successTitle": "Sikeres Regisztráció",
-    "successDetails": "Sikeres regisztráció! Kérlek ellenőrizd az e-mail fiókodat, hogy aktiváld a fiókod!"
+    "successDetails": "Sikeres regisztráció! Kérlek ellenőrizd az e-mail fiókodat, hogy aktiváld a fiókod!",
+    "usernameEmpty": "A felhasználónév megadása kötelező!",
+    "usernameLength": "A felhasználónév 5 és 50 karakter között kell lennie!",
+    "emailEmpty": "Az e-mail cím megadása kötelező!",
+    "emailLength": "Az e-mail cím maximum 100 karakter hosszú lehet."
   },
   "successPanel": {
     "continue": "Tovább"

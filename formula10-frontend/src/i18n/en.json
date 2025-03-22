@@ -71,7 +71,11 @@
     "alreadyHaveAccount": "Already have an account?",
     "login": "Sign in!",
     "successTitle": "Success",
-    "successDetails": "You have successfully registered! Please check your e-mail address to verify your account."
+    "successDetails": "You have successfully registered! Please check your e-mail address to verify your account.",
+    "usernameEmpty": "The username has to be filled!",
+    "usernameLength": "The username must be between 5 and 50 characters long!",
+    "emailEmpty": "The e-mail address has to be filled!",
+    "emailLength": "The e-mail address must be maximum 100 characters long."
   },
   "successPanel": {
     "continue": "Continue"

@@ -66,52 +66,50 @@ function App() {
 
   return (
     <>
-      <ErrorHandler>
-        <Navbar />
-        <main>
-          <Routes>
-            <Route index path="/" Component={Home} />
-            <Route path='/menu' Component={Menu} />
-            <Route path='/login' Component={Login} />
-            <Route path='/register' Component={Registration} />
-            <Route path='/passwordChange' Component={PasswordChange} />
+      <Navbar />
+      <main>
+        <Routes>
+          <Route index path="/" Component={Home} />
+          <Route path='/menu' Component={Menu} />
+          <Route path='/login' Component={Login} />
+          <Route path='/register' Component={Registration} />
+          <Route path='/passwordChange' Component={PasswordChange} />
 
-            <Route element={<ProtectedRoute />}>
-              <Route path='/groups' Component={GroupMenu} >
-                <Route index Component={GroupsHome} />
-                <Route path='create' Component={CreateGroup} />
-                <Route path='join' Component={JoinGroup} />
-              </Route>
-
-              <Route path='groups/:groupId' Component={GroupDetailsMenu} >
-                  <Route index Component={GroupDetails} />
-                  <Route path='standing' Component={Standing} />
-                  <Route path='tip' Component={Tip} />
-                  <Route path='members' Component={Members} />
-                  <Route path='archive' Component={Archive} />
-                  <Route path='manage' Component={ManageGroup} />
-              </Route>
+          <Route element={<ProtectedRoute />}>
+            <Route path='/groups' Component={GroupMenu} >
+              <Route index Component={GroupsHome} />
+              <Route path='create' Component={CreateGroup} />
+              <Route path='join' Component={JoinGroup} />
             </Route>
 
-            <Route element={<ProtectedRoute roleRequired='ADMIN'/>}>
-              <Route path='admin'>
-                <Route path='newsManagement' Component={NewsManagement} />
-              </Route>
+            <Route path='groups/:groupId' Component={GroupDetailsMenu} >
+                <Route index Component={GroupDetails} />
+                <Route path='standing' Component={Standing} />
+                <Route path='tip' Component={Tip} />
+                <Route path='members' Component={Members} />
+                <Route path='archive' Component={Archive} />
+                <Route path='manage' Component={ManageGroup} />
             </Route>
-            
-            <Route path='/rules' Component={Rules} />
-            <Route path='/points' Component={Points} />
-            <Route path='/privacyPolicy' Component={PrivacyPolicy} />
-            <Route path='/termsOfUse' Component={TermsOfUse} />
-            <Route path='/copyrightNotice' Component={CopyrightNotice} />
-            <Route path='/legalNotice' Component={LegalNotice} />
-            <Route path='/emailNotice' Component={EmailNotice} />
+          </Route>
 
-            <Route path='*' element={<Error404 />} />
-          </Routes>
-        </main>
-        <Footer />
-      </ErrorHandler>
+          <Route element={<ProtectedRoute roleRequired='ADMIN'/>}>
+            <Route path='admin'>
+              <Route path='newsManagement' Component={NewsManagement} />
+            </Route>
+          </Route>
+          
+          <Route path='/rules' Component={Rules} />
+          <Route path='/points' Component={Points} />
+          <Route path='/privacyPolicy' Component={PrivacyPolicy} />
+          <Route path='/termsOfUse' Component={TermsOfUse} />
+          <Route path='/copyrightNotice' Component={CopyrightNotice} />
+          <Route path='/legalNotice' Component={LegalNotice} />
+          <Route path='/emailNotice' Component={EmailNotice} />
+
+          <Route path='*' element={<Error404 />} />
+        </Routes>
+      </main>
+      <Footer />
     </>
   );
 }

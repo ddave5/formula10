@@ -75,7 +75,7 @@ const PasswordInput = (
                     }
                 }}
             />
-            {props.validation?.map((item, index) => {
+            {props.showError && props.validation?.map((item, index) => {
                 return (
                     <>
                         { item.error && <span className='text-red-500 text-sm mb-2' key={index}>{t(item.errori18n)}</span>} 

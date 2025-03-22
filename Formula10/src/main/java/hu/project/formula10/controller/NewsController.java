@@ -31,6 +31,7 @@ public class NewsController {
     }
 
 
+
     @PostMapping
     public ResponseEntity<NewsDTO> createNews(@RequestBody NewsDTO newsDTO) {
         log.info("Entering method: createNews with news title: {}", newsDTO.getTitle());

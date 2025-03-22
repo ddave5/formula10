@@ -1,9 +1,8 @@
 import { Button, Checkbox, Divider, FormControl, FormControlLabel } from '@mui/material';
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next';
 import { FcGoogle } from 'react-icons/fc';
 import { Link } from 'react-router-dom';
-import {debounce} from 'lodash';
 import { checkUsernameAvailability, registerUser } from '../../services/user.service';
 import { useTheme } from '../../layout/navbar/Theme/ThemeContext';
 import SuccessPanel from '../../components/SuccessPanel/SuccessPanel';
@@ -28,26 +27,28 @@ const Registration = () => {
   const [isPasswordValid, setIsPasswordValid] = useState(true);
   const [isConfirmPasswordValid, setIsConfirmPasswordValid] = useState(true);
 
+  const [showErrors, setShowErrors] = useState(false);
+
   const { theme } = useTheme();
 
-  const checkUsername = debounce(async (username: string) => {
+  const checkUsername = async (username: string) => {
     if (username.trim()) {
       const isAvailable = await checkUsernameAvailability(username);
       setUsernameAvailable(isAvailable);
     } else {
       setUsernameAvailable(true);
     }
-  }, 500);
-
-  useEffect(() => {
-    checkUsername(username);
-  }, [checkUsername, username]);
+  };
 
   const register = async () => {
 
+    checkUsername(username);
+
+    setShowErrors(true);
+
     if (isUsernameValid && isEmailValid && isPasswordValid && isConfirmPasswordValid && acceptTerms) {
       try {
-        registerUser({
+        await registerUser({
           username: username,
           email: email,
           password: password
@@ -57,15 +58,13 @@ const Registration = () => {
             setRegistrationDone(true);
           }
         }).catch( (err) => {
-          console.log('Email is already taken!');
+          throw err;
         });
       } catch (err) {
-        console.log('Email is already taken!');
+        throw err;
       }
     }
   };
-
- 
 
   const darkCheckBoxStyle = {
     '.css-1umw9bq-MuiSvgIcon-root': {color: 'var(--color-font)'},
@@ -114,9 +113,10 @@ const Registration = () => {
                     validation: [
                       {error: username.length === 0, errori18n: 'registration.usernameEmpty'}, 
                       {error: (username.length > 50 || username.length < 5), errori18n: 'registration.usernameLength'},
-                      {error: usernameAvailable, errori18n: 'registration.usernameTaken'}
+                      {error: !usernameAvailable, errori18n: 'registration.usernameAlreadyTaken'}
                     ],
-                    isValid: setIsUsernameValid
+                    isValid: setIsUsernameValid,
+                    showError: showErrors
                   }}/>
                 <TextInput props={
                   {
@@ -131,7 +131,8 @@ const Registration = () => {
                       {error: email.length > 100 , errori18n: 'registration.emailLength'},
                       {error: !EmailValidator(email), errori18n: 'registration.invalidEmail'}
                     ],
-                    isValid: setIsEmailValid
+                    isValid: setIsEmailValid,
+                    showError: showErrors
                   }}
                 />
                 <PasswordInput props={{
@@ -142,7 +143,8 @@ const Registration = () => {
                       {error: !CharacterValidator(password), errori18n: 'registration.invalidCharacter'},
                       {error: !PasswordValidator(password), errori18n: 'registration.invalidPassword'}
                     ],
-                    isValid: setIsPasswordValid
+                    isValid: setIsPasswordValid,
+                    showError: showErrors
                   }}
                 />
                 <PasswordInput props={{
@@ -152,7 +154,8 @@ const Registration = () => {
                     validation: [
                       {error: (password !== confirmPassword || confirmPassword === ""), errori18n: 'registration.passwordsDontMatch'}
                     ],
-                    isValid: setIsConfirmPasswordValid
+                    isValid: setIsConfirmPasswordValid,
+                    showError: showErrors
                   }}
                 />       
                 <div className='my-4'>

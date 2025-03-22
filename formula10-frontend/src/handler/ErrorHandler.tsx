@@ -28,7 +28,7 @@ const ErrorHandler: React.FC<ErrorHandlerProps> = ({ children }) => {
     const handleError = (error: any) => {
       const { message, isDialog } = error;
 
-      setSeverity('error'); // Set severity to error for errors
+      setSeverity('error');
       setIsDialog(isDialog);
       setMessage(message);
 
@@ -41,7 +41,7 @@ const ErrorHandler: React.FC<ErrorHandlerProps> = ({ children }) => {
 
     const handleSuccess = (success: any) => {
       const { message } = success;
-      setSeverity('success'); // Set severity to success for successful requests
+      setSeverity('success');
       setSuccessMessage(message);
       setOpenSnackbar(true);
     };
@@ -52,7 +52,7 @@ const ErrorHandler: React.FC<ErrorHandlerProps> = ({ children }) => {
 
     return () => {
       eventBus.off('error', handleError);
-      eventBus.on('success', handleSuccess);
+      eventBus.off('success', handleSuccess);
 
     };
   }, []);

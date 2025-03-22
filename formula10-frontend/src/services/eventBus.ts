@@ -17,9 +17,8 @@ class EventBus {
   }
 
   off(event: string, callback: EventCallback) {
-    if (this.events[event]) {
-      this.events[event] = this.events[event].filter(cb => cb !== callback);
-    }
+    if (!this.events[event]) return;
+    this.events[event] = this.events[event].filter(cb => cb !== callback);
   }
 }
 
