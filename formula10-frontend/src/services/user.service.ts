@@ -20,6 +20,16 @@ export const checkUsernameAvailability = async (username: string) => {
   }
 };
 
+export const checkEmailAvailability = async (email: string) => {
+  try {
+    const response = await apiClient.get(`/api/users/check-email?email=${email}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
 export const changePassword = async (email: string, password: string) => {
   try {
     const response = await apiClient.put(`/api/users/changePassword`, { email, newPassword: password });

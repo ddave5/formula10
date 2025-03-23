@@ -39,11 +39,17 @@ public class UserController {
         return ResponseEntity.ok(isAvailable);
     }
 
+    @GetMapping("/check-email")
+    public ResponseEntity<Boolean> checkEmaileAvailability(@RequestParam String email) {
+        boolean isAvailable = userService.isEmailAvailable(email);
+        return ResponseEntity.ok(isAvailable);
+    }
+
     @PostMapping
     public ResponseEntity<?> createUser(@RequestBody CreateUserDTO createUserDTO, @RequestHeader("Accept-Language") Locale locale) {
         try {
             if (!userService.isEmailAvailable(createUserDTO.getEmail())) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(messageSource.getMessage("email.used", null, locale));
+                throw new IllegalArgumentException(messageSource.getMessage("registration.email.taken", null, locale));
             }
 
             boolean isRegistered = userService.createUser(createUserDTO);
@@ -51,7 +57,7 @@ public class UserController {
             response.put("success", isRegistered);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(messageSource.getMessage("registration.fail", null, locale));
+            throw new RuntimeException(e);
        }
     }
 

@@ -1,9 +1,9 @@
 import { Button, Checkbox, Divider, FormControl, FormControlLabel } from '@mui/material';
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next';
 import { FcGoogle } from 'react-icons/fc';
 import { Link } from 'react-router-dom';
-import { checkUsernameAvailability, registerUser } from '../../services/user.service';
+import { checkEmailAvailability, checkUsernameAvailability, registerUser } from '../../services/user.service';
 import { useTheme } from '../../layout/navbar/Theme/ThemeContext';
 import SuccessPanel from '../../components/SuccessPanel/SuccessPanel';
 import PasswordInput from '../../components/passwordInput/PasswordInput';
@@ -18,6 +18,7 @@ const Registration = () => {
   const [username, setUsername] = useState('');
   const [usernameAvailable, setUsernameAvailable] = useState(true);
   const [email, setEmail] = useState('');
+  const [emailAvailable, setEmailAvailable] = useState(true);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [acceptTerms, setAcceptTerms] = useState(false);
@@ -31,22 +32,58 @@ const Registration = () => {
 
   const { theme } = useTheme();
 
+  useEffect(() => {
+    setUsernameAvailable(true);
+  }, [username]);
+
+  useEffect(() => {
+    setEmailAvailable(true);
+  }, [email]);
+
   const checkUsername = async (username: string) => {
     if (username.trim()) {
       const isAvailable = await checkUsernameAvailability(username);
       setUsernameAvailable(isAvailable);
+      return isAvailable;
     } else {
       setUsernameAvailable(true);
+      return true;
     }
+  };
+
+  const checkEmail = async (email: string) => {
+    if (email.trim()) {
+      const isAvailable = await checkEmailAvailability(email);
+      setEmailAvailable(isAvailable);
+      return isAvailable;
+    } else {
+      setEmailAvailable(true);
+      return true;
+    }
+  };
+
+  const validateForm = async () => {
+    const usernameValid = await checkUsername(username);
+    const emailValid = await checkEmail(email);
+    
+    // Ellenőrizd az összes mező validitását
+    const isValid = (
+      usernameValid && 
+      emailValid && 
+      isPasswordValid && 
+      isConfirmPasswordValid && 
+      acceptTerms
+    );
+    return isValid;
   };
 
   const register = async () => {
 
-    checkUsername(username);
-
     setShowErrors(true);
 
-    if (isUsernameValid && isEmailValid && isPasswordValid && isConfirmPasswordValid && acceptTerms) {
+    const isValid = await validateForm();
+    
+    if (isValid) {
       try {
         await registerUser({
           username: username,
@@ -129,7 +166,8 @@ const Registration = () => {
                     validation: [
                       {error: email.length === 0, errori18n: 'registration.emailEmpty'}, 
                       {error: email.length > 100 , errori18n: 'registration.emailLength'},
-                      {error: !EmailValidator(email), errori18n: 'registration.invalidEmail'}
+                      {error: !EmailValidator(email), errori18n: 'registration.invalidEmail'},
+                      {error: !emailAvailable, errori18n: 'registration.emailAlreadyTaken'}
                     ],
                     isValid: setIsEmailValid,
                     showError: showErrors
@@ -165,7 +203,7 @@ const Registration = () => {
                     value={acceptTerms} sx={ theme === "dark" ? darkCheckBoxStyle : lightCheckBoxStyle}/>
                 </div>
 
-                <Button onClick={register} className='dark:text-[--color-font]' disabled={!acceptTerms}
+                <Button onClick={register} className='dark:text-[--color-font]' disabled={!acceptTerms || ((!isUsernameValid || !isEmailValid || !isPasswordValid || !isConfirmPasswordValid) && showErrors) }
                         sx={{borderStyle: 'solid', borderColor: 'var(--color-blue)', borderWidth: '2px', color: 'var(--color-gray)'}}>
                           {t('registration.signUp')}
                 </Button>
