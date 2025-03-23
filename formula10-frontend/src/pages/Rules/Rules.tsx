@@ -37,7 +37,7 @@ const Rules = () => {
   return (
     <div className='p-6 flex justify-center'>
       {rulesContent && (
-        <div className='w-2/3'>
+        <div className='lg:w-2/3 w-full'>
           <h1 className='text-2xl font-bold mb-8 text-center'>{rulesContent.title}</h1>
           <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4'>
             {rulesContent.listElements.map((listElement, index) => { return(

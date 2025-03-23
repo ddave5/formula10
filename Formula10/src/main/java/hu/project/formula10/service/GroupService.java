@@ -110,9 +110,9 @@ public class GroupService {
         return members.stream().map(GroupMember::toDTO).collect(Collectors.toList());
     }
 
-    public boolean isGroupNameTaken(String name) {
+    public boolean isGroupNameAvailable(String name) {
         log.info("Checking group with name ({}) exists", name);
-        return groupRepository.existsByName(name);
+        return !groupRepository.existsByName(name);
     }
 
     public List<GroupDTO> getGroupListByUserId(Long userId) {

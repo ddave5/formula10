@@ -38,12 +38,8 @@ const GroupDetailsMenu = () => {
 
     if (response) {
       dispatch(removeGroup(+groupId));
-      navigate('/groups', {
-        state: {
-          snackbarMessage: t('groupDetailsMenu.leaveSuccess'), 
-          snackbarOpen: true 
-        }
-      });
+      eventBus.emit('success', {message: t('groupDetailsMenu.leaveSuccess'), isDialog: false });
+      navigate('/groups');
     }
   }
 
@@ -53,12 +49,8 @@ const GroupDetailsMenu = () => {
 
     if (response) {
       dispatch(removeGroup(+groupId));
-      navigate('/groups', { 
-        state: { 
-          snackbarMessage: t('groupDetailsMenu.deleteSuccess'), 
-          snackbarOpen: true 
-        } 
-      });
+      eventBus.emit('success', {message: t('groupDetailsMenu.deleteSuccess'), isDialog: false });
+      navigate('/groups');
     }
   }
 

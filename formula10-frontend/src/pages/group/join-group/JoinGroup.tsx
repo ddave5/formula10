@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, InputAdornment, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TextField } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import { getGroupList, joinGroup } from '../../../services/group.service';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,11 +7,12 @@ import { GroupDTO } from '../../../dto/group.dto';
 import Loading from '../../../components/Loading/Loading';
 import { useTranslation } from 'react-i18next';
 import SuccessPanel from '../../../components/SuccessPanel/SuccessPanel';
-import { MdOutlineVisibility, MdOutlineVisibilityOff } from 'react-icons/md';
 import { useTheme } from '../../../layout/navbar/Theme/ThemeContext';
 import { addGroup } from '../../../redux/slices/GroupSlice';
 import { darkInputStyle, lightInputStyle } from '../../../components/TextInput/InputStyle';
 import eventBus from '../../../services/eventBus';
+import PasswordInput from '../../../components/passwordInput/PasswordInput';
+import { useWindowWidth } from '@react-hook/window-size';
 
 const JoinGroup = () => {
 
@@ -29,7 +30,6 @@ const JoinGroup = () => {
   const [joinDone, setJoinDone] = useState(false);
 
   const [selectedGroup, setSelectedGroup] = useState<GroupDTO | null>(null);
-  const [showPassword, setShowPassword] = useState(false);
   
   const [allGroupsLoading, setAllGroupsLoading] = useState(true);
 
@@ -40,6 +40,7 @@ const JoinGroup = () => {
 
   const { t } = useTranslation();
   const { theme } = useTheme();
+  const width = useWindowWidth();
 
   const availabilityChecker = (group: GroupDTO) => {
     if (group.availability === 'PUBLIC') {
@@ -65,16 +66,8 @@ const JoinGroup = () => {
         dispatch(addGroup(data));
       }
     } catch (err) {
-      eventBus.emit('error', {message: 'Failed' , isDialog: false });
+      eventBus.emit('error', {message: t('joinGroup.wrongPassword') , isDialog: false });
     }
-  };
-
-  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-  };
-
-  const handleMouseUpPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
   };
 
   const closeDialog = () => {
@@ -109,16 +102,19 @@ const JoinGroup = () => {
 
   const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRowsPerPage(parseInt(event.target.value, 10));
-    setCurrentPage(0); // reset to the first page
+    setCurrentPage(0); 
   };
 
   if (loading || allGroupsLoading) {
-      return <Loading isLoading={loading} />;
+      return <Loading isLoading={loading || allGroupsLoading} />;
   }
 
   if (error) {
       return <div>{error}</div>;
   }
+
+  const pc = { padding: '1rem', border: '1px solid #ccc', width: '66%', margin: '1rem auto', backgroundColor: theme === 'dark' ? 'var(--color-gray)' : 'white' }
+  const mobile = {border: '1px solid #ccc', width: 'calc(100% - .2rem)', margin: '1rem .1rem', overflow: 'hidden', backgroundColor: theme === 'dark' ? 'var(--color-gray)' : 'white' }
 
   return (
     <>
@@ -126,7 +122,7 @@ const JoinGroup = () => {
         joinDone ? <SuccessPanel title={t('joinGroup.successTitle')} details={t('joinGroup.successDetails')} url={'/groups'} /> :
         <>
           <div className='flex flex-col mt-8'>
-            <p className="text-4xl title-font whitespace-nowrap dark:text-white mb-12 text-center">{t('joinGroup.joinGroup')}</p>
+            <p className="text-2xl xl:text-4xl title-font whitespace-nowrap dark:text-white mb-12 text-center">{t('joinGroup.joinGroup')}</p>
             <TextField 
               label={t('joinGroup.searchGroup')}
               variant="outlined"
@@ -136,12 +132,12 @@ const JoinGroup = () => {
               onChange={(e) => setFilterText(e.target.value)}
               sx={{ margin: '1rem', maxWidth: '400px', alignSelf: 'center', ...theme === 'dark' ? darkInputStyle : lightInputStyle }}
             />
-            <TableContainer component={Paper} sx={{ padding: '1rem', border: '1px solid #ccc', width: '66%', margin: '1rem auto', backgroundColor: theme === 'dark' ? 'var(--color-gray)' : 'white' }}>
-              <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableContainer component={Paper} sx={width > 600 ? pc : mobile}>
+              <Table  aria-label="simple table">
                 <TableHead>
                   <TableRow>
                     <TableCell className='dark:text-[--color-font]'>{t('joinGroup.groupName')}</TableCell>
-                    <TableCell align="center" className='dark:text-[--color-font]'>{t('joinGroup.availability')}</TableCell>
+                    {width > 600 && (<TableCell align="center" className='dark:text-[--color-font]'>{t('joinGroup.availability')}</TableCell>) }
                     <TableCell align="center" className='dark:text-[--color-font]'>{t('joinGroup.numberOfMembers')}</TableCell>
                     <TableCell align="right"></TableCell>
                   </TableRow>
@@ -155,7 +151,7 @@ const JoinGroup = () => {
                       <TableCell component="th" scope="row" className='dark:text-[--color-font]'>
                         {group.name}
                       </TableCell>
-                      <TableCell align="center" className='dark:text-[--color-font]'>{group.availability}</TableCell>
+                      {width > 600 && (<TableCell align="center" className='dark:text-[--color-font]'>{group.availability}</TableCell>)}
                       <TableCell align="center" className='dark:text-[--color-font]'>{group.members.length}</TableCell>
                       <TableCell align="right" className='dark:text-[--color-font]'>
                         {groups.some((g) => g.id === group.id) ? 
@@ -187,6 +183,8 @@ const JoinGroup = () => {
                   '.MuiTablePagination-actions .MuiIconButton-root': {
                     color: theme === 'dark' ? 'var(--color-font)' : 'inherit',
                   }, 
+                  maxWidth: '100%',
+                  overflowX: 'hidden'
                   }}
                 labelDisplayedRows={({ from, to, count }) => `${from}-${to} ${t('joinGroup.of')} ${count !== -1 ? count : `more than ${to}`}`}
               />
@@ -197,6 +195,9 @@ const JoinGroup = () => {
           <Dialog
             open={passwordCheck}
             onClose={closeDialog}
+            sx={{
+              backdropFilter: 'blur(4px)'
+            }}
             slotProps={{
               paper: {
                 component: 'form',
@@ -204,39 +205,28 @@ const JoinGroup = () => {
                   event.preventDefault();
                   setPasswordCheck(false);
                 },
+                sx: {
+                  backgroundColor: theme === 'dark' ? 'var(--color-gray)' : 'white',
+                  color: theme === 'dark' ? 'var(--color-font)' : 'inherit',
+                }
               },
             }}
           >
             <DialogTitle>{t('joinGroup.dialogTitle')}</DialogTitle>
             <DialogContent>
-              <DialogContentText sx={{ marginBottom: '1rem' }}>
+              <DialogContentText sx={{ marginBottom: '1rem', color: theme === 'dark' ? 'var(--color-font)' : 'inherit' }}>
                 {t('joinGroup.dialogDetails')}
               </DialogContentText>
-              <TextField id='password' type={showPassword ? 'text' : 'password'} placeholder={t('joinGroup.password')} label={t('joinGroup.password')} size='small' className='text-2xl w-full' value={password} onChange={(e) => setPassword(e.target.value)} autoComplete='off'
-                       sx={ theme === "dark" ? darkInputStyle : lightInputStyle}
-                       slotProps={{
-                        "input": {
-                          endAdornment: (
-                            <InputAdornment position="end">
-                              <IconButton
-                                aria-label={
-                                  showPassword ? 'hide the password' : 'display the password'
-                                }
-                                onClick={() => setShowPassword((show) => !show)}
-                                onMouseDown={handleMouseDownPassword}
-                                onMouseUp={handleMouseUpPassword}
-                                edge="end"
-                              >
-                                {showPassword ? <MdOutlineVisibilityOff /> : <MdOutlineVisibility />}
-                              </IconButton>
-                            </InputAdornment>
-                          )
-                        }
-                       }}
-            />
+              <PasswordInput props={{
+                    password: password,
+                    setPassword: setPassword,
+                    label:'password',
+                    sx: {width: '100%'}
+                  }}
+                />
             </DialogContent>
             <DialogActions>
-              <Button onClick={() => setPasswordCheck(false)}>{t('joinGroup.cancel')}</Button>
+              <Button onClick={() => closeDialog()}>{t('joinGroup.cancel')}</Button>
               <Button onClick={() => join()}>{t('joinGroup.join')}</Button>
             </DialogActions>
           </Dialog>

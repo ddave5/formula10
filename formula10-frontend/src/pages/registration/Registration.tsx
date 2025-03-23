@@ -70,8 +70,10 @@ const Registration = () => {
     const isValid = (
       usernameValid && 
       emailValid && 
-      isPasswordValid && 
-      isConfirmPasswordValid && 
+      !(username.length > 50 || username.length < 5) &&
+      email.length <= 100 && email.length > 0 && EmailValidator(email) &&
+      CharacterValidator(password) && PasswordValidator(password) &&
+      !(password !== confirmPassword || confirmPassword === "") && 
       acceptTerms
     );
     return isValid;

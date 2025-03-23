@@ -6,5 +6,6 @@ export interface PasswordInputInterface {
     label: string,
     validation?: ValidationInterface[],
     isValid?: Function,
-    showError?: boolean
+    showError?: boolean,
+    sx?: object
 }

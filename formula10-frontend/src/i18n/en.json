@@ -127,7 +127,8 @@
     "of": "of",
     "errorJoining": "Error while joining to a group!",
     "successJoining": "You joined to the group successfully!",
-    "addPassword": "Please add a password!"
+    "addPassword": "Please add a password!",
+    "wrongPassword": "Wrong password!"
   },
   "passwordInput": {
     "password": "Password",

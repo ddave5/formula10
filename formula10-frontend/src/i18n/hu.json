@@ -124,10 +124,11 @@
     "cancel": "Mégse",
     "confirm": "Csatlakozás",
     "rowsPerPage": "Sorok száma:",
-    "of": "összesen",
+    "of": "össz",
     "errorJoining": "Hiba a csoporthoz való csatlakozáskor!",
     "successJoining": "Sikeresen csatlakozás a csoporthoz!",
-    "addPassword": "Kérlek adj meg egy jelszót!"
+    "addPassword": "Kérlek adj meg egy jelszót!",
+    "wrongPassword": "A megadott jelszó helytelen!"
   },
   "passwordInput": {
     "password": "Jelszó",

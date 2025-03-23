@@ -1,5 +1,5 @@
 import { IconButton, InputAdornment, TextField } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, {useState } from 'react'
 import { useTheme } from '../../layout/navbar/Theme/ThemeContext';
 import { MdOutlineVisibility, MdOutlineVisibilityOff } from 'react-icons/md';
 import { useTranslation } from 'react-i18next';
@@ -36,16 +36,15 @@ const PasswordInput = (
         '.css-13meb6w-MuiInputBase-input-MuiOutlinedInput-input': {color: 'var(--color-font)'}
     }
 
-    useEffect(() => {
-        if (props.validation === undefined || props.validation === null) return;
-        if (props.isValid === undefined || props.isValid === null) return;
-        props.validation?.filter((validator) => validator.error).length === 0 ? props.isValid(true) : props.isValid(false);
-    }, [props]);
+    const mergedsx = {
+        ...(theme === "dark" ? passwordDarkInputStyle : passwordLightInputStyle),
+        ...props.sx
+    }
     
     return (
         <>
             <TextField 
-                id={props.label} 
+                id={props.label} key={props.label}
                 type={showPassword ? 'text' : 'password'} 
                 placeholder={t(`passwordInput.${props.label}`)} 
                 label={t(`passwordInput.${props.label}`)} 
@@ -54,7 +53,7 @@ const PasswordInput = (
                 value={props.password} 
                 onChange={(e) => props.setPassword(e.target.value)} 
                 autoComplete='off'
-                sx={ theme === "dark" ? passwordDarkInputStyle : passwordLightInputStyle}
+                sx={mergedsx}
                 slotProps={{
                     "input": {
                     endAdornment: (
@@ -77,13 +76,10 @@ const PasswordInput = (
             />
             {props.showError && props.validation?.map((item, index) => {
                 return (
-                    <>
-                        { item.error && <span className='text-red-500 text-sm mb-2' key={index}>{t(item.errori18n)}</span>} 
-                    </>
+                    item.error && <span className='text-red-500 text-sm mb-2' key={index}>{t(item.errori18n)}</span>
                 )
             })}
         </>
-        
     )
 }
 

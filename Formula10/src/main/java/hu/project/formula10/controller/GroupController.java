@@ -58,8 +58,8 @@ public class GroupController {
 
     @GetMapping("/checkGroupName")
     public ResponseEntity<Boolean> checkGroupName(@RequestParam String name) {
-        boolean isTaken = groupService.isGroupNameTaken(name);
-        return ResponseEntity.ok(isTaken);
+        boolean isAvailable = groupService.isGroupNameAvailable(name);
+        return ResponseEntity.ok(isAvailable);
     }
 
     @GetMapping("/getGroupListByUserId/{userId}")

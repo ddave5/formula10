@@ -9,6 +9,7 @@ import { useWindowWidth } from '@react-hook/window-size';
 import { RxHamburgerMenu } from "react-icons/rx";
 import { Alert, Button, Snackbar } from '@mui/material';
 import Menu from '../../../components/Menu/Menu';
+import { useTheme } from '../../../layout/navbar/Theme/ThemeContext';
 
 const GroupMenu = () => {
 
@@ -17,10 +18,6 @@ const GroupMenu = () => {
   const loading = useSelector((state: RootState) => state.groups.loading);
   const error = useSelector((state: RootState) => state.groups.error);
 
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState('');
-  const location = useLocation();
-
   const [showMenu, setShowMenu] = useState(false);
 
   const dispatch = useDispatch<AppDispatch>();
@@ -28,16 +25,8 @@ const GroupMenu = () => {
 
   const width = useWindowWidth();
 
-  useEffect(() => {
-    if (location.state?.snackbarOpen) {
-        setSnackbarMessage(location.state.snackbarMessage);
-        setSnackbarOpen(true);
-    }
-  }, [location.state]);
+  const {theme} = useTheme();
 
-const handleSnackbarClose = () => {
-    setSnackbarOpen(false);
-};
 
   useEffect(() => {
     if (showMenu) {
@@ -82,19 +71,10 @@ const handleSnackbarClose = () => {
           <>
             <div className='bg-gray-200 dark:bg-gray-700 flex justify-between items-center py-4 pl-4'>
               <p className='text-2xl font-bold title-font whitespace-nowrap dark:text-white text-center'>{t('groupMenu.group')}</p>
-              <Button onClick={() => setShowMenu(!showMenu)}><RxHamburgerMenu /></Button>
+              <Button onClick={() => setShowMenu(!showMenu)} sx={{ color: theme === 'dark' ? 'var(--color-font)' : 'var(--color-primary)', fontSize: '1.5rem' }}><RxHamburgerMenu /></Button>
             </div>
           </>
         }
-        <Snackbar
-            open={snackbarOpen}
-            autoHideDuration={3000}
-            onClose={handleSnackbarClose}
-        >
-            <Alert onClose={handleSnackbarClose} severity="success" sx={{ width: '100%' }}>
-                {snackbarMessage}
-            </Alert>
-        </Snackbar>
         <Outlet/>
       </div>
     </>

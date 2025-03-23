@@ -39,9 +39,7 @@ const Menu = (
                 {groupList && (
                     groupList.map(
                         (group) => ( 
-                            <>
-                                <Link to={`/groups/${group.id}`} className={`${menuElementStyle} mb-1`} key={group.id}><FaFlagCheckered /> {group.name} </Link>
-                            </>
+                            <Link to={`/groups/${group.id}`} className={`${menuElementStyle} mb-1`} key={group.id}><FaFlagCheckered /> {group.name} </Link>
                         ))
                 )}
                 { !groupList && (
