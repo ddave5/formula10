@@ -1,4 +1,4 @@
-import { Button, Checkbox, Divider, FormControl, FormControlLabel, TextField } from '@mui/material'
+import { Button, Checkbox, Divider, FormControl, FormControlLabel } from '@mui/material'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { FcGoogle } from "react-icons/fc";
@@ -8,8 +8,6 @@ import { AppDispatch } from '../../redux/Store';
 import { loginUser } from '../../redux/slices/AuthSlice';
 import { useTheme } from '../../layout/navbar/Theme/ThemeContext';
 import PasswordInput from '../../components/passwordInput/PasswordInput';
-import { darkInputStyle, lightInputStyle } from '../../components/TextInput/InputStyle';
-import eventBus from '../../services/eventBus';
 import TextInput from '../../components/TextInput/TextInput';
 
 const Login = () => {
@@ -35,11 +33,9 @@ const Login = () => {
 
       if (loginUser.fulfilled.match(resultAction)) {
         navigate('/');
-      } else {
-        eventBus.emit('error', {message: t('messages.loginFailed')});
-      }
+      } 
     } catch (error) {
-      eventBus.emit('error', {message: t('messages.unknownError')});
+      throw error;
     }
   }
 

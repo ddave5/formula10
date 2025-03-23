@@ -60,7 +60,7 @@ const ErrorHandler: React.FC<ErrorHandlerProps> = ({ children }) => {
   return (
     <>
       <ErrorDialog open={openDialog} onClose={handleCloseDialog} message={message} />
-      <SnackbarComponent open={openSnackbar} onClose={handleCloseSnackbar} message={isDialog ? message : successMessage} severity={severity}  />
+      <SnackbarComponent open={openSnackbar} onClose={handleCloseSnackbar} message={severity === 'error' ? message : successMessage} severity={severity}  />
       {children}
     </>
   );
