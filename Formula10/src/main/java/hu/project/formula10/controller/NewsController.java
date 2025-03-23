@@ -26,8 +26,7 @@ public class NewsController {
     ) {
         log.info("Fetching page {} with size {}", page, size);
         Page<NewsDTO> newsPage = newsService.getAllNews(page, size);
-        Page<NewsDTO> emptyPage = Page.empty();
-        return ResponseEntity.ok(emptyPage);
+        return ResponseEntity.ok(newsPage);
     }
 
 
