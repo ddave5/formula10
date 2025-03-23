@@ -10,7 +10,6 @@ interface ErrorHandlerProps {
 
 const ErrorHandler: React.FC<ErrorHandlerProps> = ({ children }) => {
   const [message, setMessage] = useState<string>('');
-  const [isDialog, setIsDialog] = useState<boolean>(false);
   const [openSnackbar, setOpenSnackbar] = useState<boolean>(false);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<string>('');
@@ -29,7 +28,6 @@ const ErrorHandler: React.FC<ErrorHandlerProps> = ({ children }) => {
       const { message, isDialog } = error;
 
       setSeverity('error');
-      setIsDialog(isDialog);
       setMessage(message);
 
       if (isDialog) {
