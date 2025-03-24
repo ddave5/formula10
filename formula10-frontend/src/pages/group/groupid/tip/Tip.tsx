@@ -54,13 +54,17 @@ const Tip = () => {
           });
         }
         setPageLoading(false);
+
+        if (race?.sprintQualifyingStart === undefined) setSelectedRaceType(RACE);
       } catch (error) {
-        console.error('Error fetching drivers:', error);
+        eventBus.emit('error', {message: t('messages.unknownError')});
         setPageLoading(false);
       }
     };
     fetchDatas();
   }, []);
+
+  
 
   const selectDriver = (driver: DriverDTO) => {
     if (selectedRaceType === SPRINT) {
@@ -165,9 +169,10 @@ const Tip = () => {
         )
       }
       {
-        ( (race?.sprintQualifyingStart && selectedRaceType !== '') || (race?.qualifyingStart == null) ) && (
+        ( (race?.sprintQualifyingStart && selectedRaceType !== '') || (race?.sprintQualifyingStart == null) ) && (
           <>
             <div className='mb-8'>
+              <p className='text-2xl xl:text-4xl title-font w-full text-center whitespace-nowrap dark:text-white my-8'>{t('tip.chooseDriver')}</p>
               {Array.from({ length: (drivers.length / 2) }, (_, index) => (index * 2)).map((_, index) => (
                 <div className='flex justify-center lg:h-[200px]' key={'line' + index}>
                   <div className='grid grid-cols-1 lg:grid-cols-2 gap-4 w-5/6 md:w-2/3 lg:w-5/6 2xl:w-2/3 lg:relative'>

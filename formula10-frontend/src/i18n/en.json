@@ -192,6 +192,7 @@
   },
   "tip": {
     "chooseType": "Choose a type",
+    "chooseDriver": "Choose Driver!",
     "sprint": "Sprint",
     "race": "Race",
     "saveTip": "Submit tip",

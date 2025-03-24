@@ -191,7 +191,8 @@
     "error": "Hiba a tagok betöltésekor!"
   },
   "tip": {
-    "chooseType": "Válasszon verseny típust!",
+    "chooseType": "Válassz verseny típust!",
+    "chooseDriver": "Válassz pilótát!",
     "sprint": "Sprint",
     "race": "Futam",
     "saveTip": "Tipp leadás",

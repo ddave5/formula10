@@ -9,9 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -66,7 +64,7 @@ public class TipService {
         tip.setRace(race);
         tip.setPredictedDriver(driver);
         tip.setCreatedAt(LocalDateTime.now());
-        tip.setTipType(tipDTO.getTipType().equals("race") ? TipType.RACE : TipType.SPRINT);
+        tip.setTipType(tipDTO.getTipType().equals("RACE") ? TipType.RACE : TipType.SPRINT);
 
         tipRepository.save(tip);
 
