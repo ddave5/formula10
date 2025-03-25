@@ -22,4 +22,10 @@ public class RaceService {
         Optional<Race> nextRace = raceRepository.findNextRace();
         return nextRace.map(Race::toDTO);
     }
+
+    public Optional<RaceDTO> getPreviousRace() {
+        log.info("Fetching previous race");
+        Optional<Race> nextRace = raceRepository.findPreviousRace();
+        return nextRace.map(Race::toDTO);
+    }
 }

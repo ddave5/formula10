@@ -12,4 +12,7 @@ public interface RaceRepository extends JpaRepository<Race, Long> {
 
     @Query("SELECT r FROM Race r WHERE r.raceStart > CURRENT_TIMESTAMP ORDER BY r.raceStart ASC limit 1")
     Optional<Race> findNextRace();
+
+    @Query("SELECT r FROM Race r WHERE r.raceStart < CURRENT_TIMESTAMP ORDER BY r.raceStart DESC limit 1")
+    Optional<Race> findPreviousRace();
 }
