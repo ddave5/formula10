@@ -7,7 +7,6 @@ import lombok.Setter;
 @Setter
 public class DriverStandingDTO {
     private String driverName;
-    private int driverNumber;
     private int position;
     private int point;
 }

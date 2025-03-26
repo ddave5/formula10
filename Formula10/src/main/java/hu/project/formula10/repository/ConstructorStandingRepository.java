@@ -11,7 +11,8 @@ import hu.project.formula10.model.ConstructorStanding;
 
 @Repository
 public interface ConstructorStandingRepository extends JpaRepository<ConstructorStanding, Long> {
-    Optional<List<ConstructorStanding>> findAllBySeasonId(Long seasonId);
+    @Query("SELECT cs FROM ConstructorStanding cs WHERE cs.season.year = :seasonYear ORDER BY cs.point DESC")
+    Optional<List<ConstructorStanding>> findAllBySeasonYear(Long seasonYear);
 
     @Query("SELECT cs FROM ConstructorStanding cs WHERE cs.constructor.name = :constructorName")
     Optional<ConstructorStanding> findByConstructorName(String constructorName);

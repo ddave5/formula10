@@ -13,7 +13,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface DriverStandingRepository extends JpaRepository<DriverStanding, Long> {
 
-    Optional<List<DriverStanding>> findAllBySeasonId(Long seasonId);
+    @Query("SELECT ds FROM DriverStanding ds WHERE ds.season.year = :seasonYear ORDER BY ds.point DESC")
+    Optional<List<DriverStanding>> findAllBySeasonYear(Long seasonYear);
 
     @Query("SELECT ds FROM DriverStanding ds WHERE ds.driver.name = :driverName")
     Optional<DriverStanding> findByDriverName(String driverName);

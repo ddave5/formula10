@@ -1,5 +1,6 @@
 package hu.project.formula10.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,11 +23,9 @@ public class ConstructorStandingService {
     
     public List<ConstructorStandingDTO> getConstructorStanding(Long seasonId) {
         List<ConstructorStanding> constructorStandings = 
-        constructorStandingRepository.findAllBySeasonId(seasonId).orElseThrow(
+        constructorStandingRepository.findAllBySeasonYear(seasonId).orElseThrow(
             () -> new RuntimeException("ConstructorStandings not found")
         );
-
-        constructorStandings.sort((o1, o2) -> o1.getPoint() - o2.getPoint());
 
         List<ConstructorStandingDTO> constructorStandingsDTO = new ArrayList<>();
         
@@ -35,7 +34,7 @@ public class ConstructorStandingService {
         return constructorStandingsDTO;
     }
 
-    public void updateConstructorStanding() {
+    public void updateConstructorStanding() throws IOException {
 
         List<ConstructorStandingDTO> constructorStandingsDTO = standingScraper.getConstructorStandings();
 

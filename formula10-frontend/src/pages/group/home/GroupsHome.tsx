@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { currentSeasonConstuctorStanding, currentSeasonStanding } from '../../../services/season-data.service';
 import DateCard from '../../../components/dateCard/DateCard';
 import Loading from '../../../components/Loading/Loading';
 import { useSelector } from 'react-redux';
@@ -9,6 +8,7 @@ import { RaceDTO } from '../../../dto/race.dto';
 import { useTranslation } from 'react-i18next';
 import TableComponent from '../../../components/table/TableComponent';
 import eventBus from '../../../services/eventBus';
+import { getConstructorStanding, getDriverStanding } from '../../../services/standing.service';
 
 
 const GroupsHome = () => {
@@ -38,24 +38,24 @@ const GroupsHome = () => {
         }
 
         setRace(nextRace);
-        const comparisonDate = new Date('2025-04-17T00:00:00');
+        const comparisonDate = new Date('2025-03-17T00:00:00');
         const seasonYear = new Date() < comparisonDate ? 2024 : nextRace.seasonYear;
 
         if (!driverStandingsRef.current || !constructorStandingsRef.current) {
-          const driverStandings = await currentSeasonStanding(seasonYear);
-          const constructorStandings = await currentSeasonConstuctorStanding(seasonYear);
+          const driverStandings = await getDriverStanding(seasonYear) || [];
+          const constructorStandings = await getConstructorStanding(seasonYear) || [];
           
           const styles = ['font-medium dark:text-[--color-font]', 'dark:text-[--color-font]', 'text-right dark:text-[--color-font]'];
           const driverStructuredData = driverStandings.map(row => [
             { style: styles[0], value: row.position.toString() },
-            { style: styles[1], value: row.driver },
-            { style: styles[2], value: row.points.toString() }
+            { style: styles[1], value: row.driverName },
+            { style: styles[2], value: row.point.toString() }
           ]);
 
           const constructorStructuredData = constructorStandings.map(row => [
             { style: styles[0], value: row.position.toString() },
-            { style: styles[1], value: row.constructor },
-            { style: styles[2], value: row.points.toString() }
+            { style: styles[1], value: row.constructorName },
+            { style: styles[2], value: row.point.toString() }
           ]);
 
           driverStandingsRef.current = driverStructuredData;

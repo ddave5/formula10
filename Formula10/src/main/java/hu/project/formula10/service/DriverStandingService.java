@@ -1,5 +1,6 @@
 package hu.project.formula10.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,11 +24,9 @@ public class DriverStandingService {
     
     public List<DriverStandingDTO> getDriverStandings(Long seasonId) {
         List<DriverStanding> driverStandings = 
-        driverStandingRepository.findAllBySeasonId(seasonId).orElseThrow(
+        driverStandingRepository.findAllBySeasonYear(seasonId).orElseThrow(
             () -> new RuntimeException("DriverStandings not found")
         );
-
-        driverStandings.sort((o1, o2) -> o1.getPoint() - o2.getPoint());
 
         List<DriverStandingDTO> driverStandingsDTO = new ArrayList<>();
         
@@ -36,7 +35,7 @@ public class DriverStandingService {
         return driverStandingsDTO;
     }
 
-    public void updateDriverStanding() {
+    public void updateDriverStanding() throws IOException {
 
         List<DriverStandingDTO> driverStandingsDTO = standingScraper.getDriverStandings();
 

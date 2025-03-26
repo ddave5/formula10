@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.time.ZonedDateTime;
-
 @Service
 @EnableScheduling
 public class ScheduledTask {
@@ -27,7 +26,8 @@ public class ScheduledTask {
         NewsService newsService, 
         DriverStandingService driverStandingService, 
         ConstructorStandingService constructorStandingService,
-        RaceService raceService
+        RaceService raceService,
+        StandingScraper standingScraper
     ) {
         this.newsService = newsService;
         this.driverStandingService = driverStandingService;
@@ -40,7 +40,7 @@ public class ScheduledTask {
         newsService.checkForNewNews();
     }
 
-    @Scheduled(cron = "0 8 * * * *", zone = "Europe/Budapest")
+    @Scheduled(cron = "0 0 8 * * 1", zone = "Europe/Budapest")
     public void updateStandings() throws IOException {
 
         RaceDTO prevRace = raceService.getPreviousRace().orElse(null);

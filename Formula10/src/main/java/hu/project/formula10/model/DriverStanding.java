@@ -36,7 +36,6 @@ public class DriverStanding {
     public DriverStandingDTO toDTO(int position) {
         DriverStandingDTO dto = new DriverStandingDTO();
         dto.setDriverName(driver.getName());
-        dto.setDriverNumber(driver.getRaceNumber());
         dto.setPosition(position);
         dto.setPoint(point);
         return dto;

@@ -21,7 +21,7 @@ public class AuthService {
     private final JwtTokenProvider jwtTokenProvider;
 
     @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+    BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
