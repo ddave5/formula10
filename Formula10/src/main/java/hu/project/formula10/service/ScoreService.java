@@ -1,5 +1,6 @@
 package hu.project.formula10.service;
 
+import hu.project.formula10.dto.RaceDTO;
 import hu.project.formula10.dto.ScoreDTO;
 import hu.project.formula10.model.*;
 import hu.project.formula10.repository.*;
@@ -29,33 +30,34 @@ public class ScoreService {
     }
 
     // Pontszámítás egy adott tipphez a futam eredményei alapján
-    public ScoreDTO calculatePoints(Long tipId) {
-        log.info("Fetching tip with id: {}", tipId);
-        Tip tip = tipRepository.findById(tipId).orElseThrow(() -> new RuntimeException("Tip not found"));
+    public void calculatePoints(RaceDTO race) {
+
+        /*log.info("Fetching tips with race: {}", tipId);
+        Tip tip = tipRepository.find(tipId).orElseThrow(() -> new RuntimeException("Tip not found"));
         Race race = tip.getRace();
         Driver predictedDriver = tip.getPredictedDriver();
 
-        // Futam eredményének lekérdezése
+        //Futam eredményének lekérdezése
         log.info("Fetching race with id: {}", race.getId());
         List<Results> results = resultsRepository.findByRace(race);
         int points = 0;
 
-        // Pontszámítás - pl. ha a felhasználó eltalálta a 10. helyezettet, akkor kap 10 pontot
+        //Pontszámítás - pl. ha a felhasználó eltalálta a 10. helyezettet, akkor kap 10 pontot
         for (Results result : results) {
             if (result.getDriver().equals(predictedDriver)) {
-                // Ellenőrizzük, hogy van-e a helyezéshez tartozó pontszám
+                //Ellenőrizzük, hogy van-e a helyezéshez tartozó pontszám
                 points = POINTS_ARRAY[result.getPosition() - 1];
                 break;
             }
         }
 
-        // Mentjük a pontszámot
+        //Mentjük a pontszámot
         log.info("Create score");
         Score pointEntry = new Score();
         pointEntry.setTip(tip);
         pointEntry.setPoint(points);
         scoreRepository.save(pointEntry);
 
-        return new ScoreDTO(pointEntry.getId(), pointEntry.getTip().getId(), pointEntry.getPoint());
+        return new ScoreDTO(pointEntry.getId(), pointEntry.getTip().getId(), pointEntry.getPoint());*/
     }
 }

@@ -5,6 +5,7 @@ import hu.project.formula10.service.ConstructorStandingService;
 import hu.project.formula10.service.DriverStandingService;
 import hu.project.formula10.service.NewsService;
 import hu.project.formula10.service.RaceService;
+import hu.project.formula10.service.ScoreService;
 
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -20,6 +21,7 @@ public class ScheduledTask {
     private final DriverStandingService driverStandingService;
     private final ConstructorStandingService constructorStandingService;
     private final RaceService raceService;
+    private final ScoreService scoreService;
 
 
     public ScheduledTask(
@@ -27,12 +29,14 @@ public class ScheduledTask {
         DriverStandingService driverStandingService, 
         ConstructorStandingService constructorStandingService,
         RaceService raceService,
-        StandingScraper standingScraper
+        StandingScraper standingScraper,
+        ScoreService scoreService
     ) {
         this.newsService = newsService;
         this.driverStandingService = driverStandingService;
         this.constructorStandingService = constructorStandingService;
         this.raceService = raceService;
+        this.scoreService = scoreService;
     }
 
     @Scheduled(fixedRate = 3600000) // Minden órában fut 
@@ -50,6 +54,20 @@ public class ScheduledTask {
             if (nextDay == ZonedDateTime.now().getDayOfYear()) {
                 driverStandingService.updateDriverStanding();
                 constructorStandingService.updateConstructorStanding();
+            }
+        }
+        
+    }
+
+    @Scheduled(cron = "0 0 4 * * 1", zone = "Europe/Budapest")
+    public void calculatePoints() throws IOException {
+
+        RaceDTO prevRace = raceService.getPreviousRace().orElse(null);
+
+        if (prevRace != null) {
+            int nextDay = prevRace.getRaceStart().plusDays(1).getDayOfYear();
+            if (nextDay == ZonedDateTime.now().getDayOfYear()) {
+                scoreService.calculatePoints(prevRace);
             }
         }
         
