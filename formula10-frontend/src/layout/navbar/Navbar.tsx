@@ -9,10 +9,14 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/Store';
 import Logout from './LogoutButton/LogoutButton';
 import SignUpButton from './SignUpButton/SignUpButton';
+import { useWindowWidth } from '@react-hook/window-size';
+import UserMenu from './Menu/UserMenu';
 
 const Navbar = () => {
 
     const { t } = useTranslation();
+
+    const width = useWindowWidth();
 
     const user = useSelector((state: RootState) => state.auth.user);
 
@@ -23,11 +27,10 @@ const Navbar = () => {
                     <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
                         <span className="self-center text-2xl title-font whitespace-nowrap dark:text-white">Formula 10</span>
                     </Link>
-                    <div className="flex items-center space-x-6 rtl:space-x-reverse">
+                    <div className="flex items-center justify-center space-x-6 rtl:space-x-reverse">
                         <LanguageSelector />
                         <ThemeToggle />
-                        {!user && <SignUpButton />}
-                        {user ? <Logout /> : <Login /> }
+                        <UserMenu />
                     </div>
                 </div>
             </nav>

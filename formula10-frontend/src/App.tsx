@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import Home from './pages/home/Home';
 import { Route, Routes } from 'react-router-dom';
 import i18n from 'i18next';
-import Menu from './layout/navbar/Menu/Menu';
+import Menu from './layout/navbar/Menu/UserMenu';
 import Navbar from './layout/navbar/Navbar';
 import Login from './pages/login/Login';
 import Registration from './pages/registration/Registration';

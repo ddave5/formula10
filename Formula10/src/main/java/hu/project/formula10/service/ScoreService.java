@@ -31,8 +31,8 @@ public class ScoreService {
 
     // Pontszámítás egy adott tipphez a futam eredményei alapján
     public void calculatePoints(RaceDTO race) {
-
-        /*log.info("Fetching tips with race: {}", tipId);
+        /* 
+        log.info("Fetching tips with race: {}", tipId);
         Tip tip = tipRepository.find(tipId).orElseThrow(() -> new RuntimeException("Tip not found"));
         Race race = tip.getRace();
         Driver predictedDriver = tip.getPredictedDriver();
@@ -58,6 +58,7 @@ public class ScoreService {
         pointEntry.setPoint(points);
         scoreRepository.save(pointEntry);
 
-        return new ScoreDTO(pointEntry.getId(), pointEntry.getTip().getId(), pointEntry.getPoint());*/
+        return new ScoreDTO(pointEntry.getId(), pointEntry.getTip().getId(), pointEntry.getPoint());
+        */
     }
 }
