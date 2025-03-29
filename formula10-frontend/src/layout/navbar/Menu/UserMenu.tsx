@@ -1,17 +1,38 @@
-import { IconButton, MenuItem, Menu } from '@mui/material'
+import { IconButton, MenuItem, Menu, Divider, MenuList } from '@mui/material'
 import React from 'react'
+import { useTranslation } from 'react-i18next';
 import { FaUser } from "react-icons/fa";
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { logout } from '../../../redux/slices/AuthSlice';
+import { clearGroups } from '../../../redux/slices/GroupSlice';
 
 
 const UserMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+
+  const user = useSelector((state: any) => state.auth.user);
+  const {t} = useTranslation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
+  const handleClose = (url: string) => {
     setAnchorEl(null);
+    if (url) {
+      navigate(url);
+    }
   };
+
+  const logOut = () => {
+      dispatch(logout());
+      dispatch(clearGroups());
+      navigate('/');
+    }
+
   return (
     <div className='flex items-center'>
       <IconButton onClick={handleClick} sx={{ color: 'var(--color-font)', padding: 0, fontSize: '1.2rem'}}>
@@ -21,14 +42,25 @@ const UserMenu = () => {
         id="basic-menu"
         anchorEl={anchorEl}
         open={open}
-        onClose={handleClose}
+        onClose={() => handleClose('')}
         MenuListProps={{
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        {user && (
+          <MenuList>
+            <MenuItem disabled>{user.username}</MenuItem>
+            <Divider />
+            <MenuItem onClick={() => handleClose('/profile')}>{t('navbar.profile')}</MenuItem>
+            <MenuItem onClick={logOut}>{t('navbar.logout')}</MenuItem>
+          </MenuList>
+        )}
+        {!user && (
+          <MenuList>
+            <MenuItem onClick={() => handleClose('/login')}>{t('navbar.login')}</MenuItem>
+            <MenuItem onClick={() => handleClose('/register')}>{t('navbar.register')}</MenuItem>
+          </MenuList>
+        )}
       </Menu>
     </div>
   )

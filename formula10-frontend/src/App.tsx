@@ -36,6 +36,7 @@ import NewsManagement from './pages/admin/newsManagement/NewsManagement';
 import ProtectedRoute from './ProtectedRoute';
 import ManageGroup from './pages/group/groupid/manage/ManageGroup';
 import ErrorHandler from './handler/ErrorHandler';
+import Profile from './pages/Profile/Profile';
 function App() {
   
   const dispatch = useDispatch<AppDispatch>();
@@ -74,6 +75,7 @@ function App() {
           <Route path='/login' Component={Login} />
           <Route path='/register' Component={Registration} />
           <Route path='/passwordChange' Component={PasswordChange} />
+          <Route path='/profile' Component={Profile} />
 
           <Route element={<ProtectedRoute />}>
             <Route path='/groups' Component={GroupMenu} >

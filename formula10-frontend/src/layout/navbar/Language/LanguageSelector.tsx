@@ -1,17 +1,10 @@
-import { Divider, FormControl, MenuItem, Select, SelectChangeEvent } from '@mui/material';
+import { Divider} from '@mui/material';
 import ReactCountryFlag from "react-country-flag";
 import { useTranslation } from 'react-i18next';
 
 const LanguageSelector = () => {
 
-    const { t, i18n } = useTranslation();
-
-    const language = i18n.language;
-    let languages = [
-        {'hu': <ReactCountryFlag countryCode="HU" svg />} ,
-        {'en': <ReactCountryFlag countryCode="GB" svg />}
-    ]; 
-
+    const { i18n } = useTranslation();
     const changeLanguage = (value: string) => {
         i18n.changeLanguage(value);
         localStorage.setItem('language', value);

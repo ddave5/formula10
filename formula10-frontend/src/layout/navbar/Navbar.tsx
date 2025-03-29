@@ -2,21 +2,15 @@ import { Suspense } from 'react';
 import ThemeToggle from './Theme/ThemeToggle';
 import { useTranslation } from 'react-i18next';
 import LanguageSelector from './Language/LanguageSelector';
-import Login from './LoginButton/LoginButton';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/Store';
-import Logout from './LogoutButton/LogoutButton';
-import SignUpButton from './SignUpButton/SignUpButton';
-import { useWindowWidth } from '@react-hook/window-size';
 import UserMenu from './Menu/UserMenu';
 
 const Navbar = () => {
 
     const { t } = useTranslation();
-
-    const width = useWindowWidth();
 
     const user = useSelector((state: RootState) => state.auth.user);
 
