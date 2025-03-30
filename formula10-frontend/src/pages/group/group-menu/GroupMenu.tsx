@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Outlet, useLocation } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../redux/Store';
@@ -7,9 +7,9 @@ import Loading from '../../../components/Loading/Loading';
 import { fetchGroupList } from '../../../redux/slices/GroupSlice';
 import { useWindowWidth } from '@react-hook/window-size';
 import { RxHamburgerMenu } from "react-icons/rx";
-import { Alert, Button, Snackbar } from '@mui/material';
 import Menu from '../../../components/Menu/Menu';
 import { useTheme } from '../../../layout/navbar/Theme/ThemeContext';
+import { Button } from '@mui/material';
 
 const GroupMenu = () => {
 

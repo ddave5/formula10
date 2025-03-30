@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import TableComponent from '../../../../components/table/TableComponent'
 import { getGroupMemberListByGroupId } from '../../../../services/groupmember.service';
 import { useLocation } from 'react-router-dom';
@@ -15,10 +15,11 @@ const Members = () => {
   const location = useLocation();
   const { t } = useTranslation();
 
+  const tRef = useRef(t);
+
   useEffect(() => {
-    const getGroupMembers = async () => {
+    const getGroupMembers = async (groupId: string) => {
       try {
-        const groupId = location.pathname.split('/')[2];
         const groupMembers = await getGroupMemberListByGroupId(+groupId);
 
         if (!groupMembers) {
@@ -36,7 +37,7 @@ const Members = () => {
         setGroupMembersBody(groupMembersStructuredData || []);
         
       } catch (error) {
-        eventBus.emit('error', {message: t('messages.errorFetching')})
+        eventBus.emit('error', {message: tRef.current('messages.errorFetching')})
         setError(
           error instanceof Error ? error.message : 'Failed to fetch data'
         );
@@ -45,7 +46,7 @@ const Members = () => {
       }
     };
 
-    getGroupMembers();
+    getGroupMembers(location.pathname.split('/')[2]);
   }, []);
 
   if (loading) {

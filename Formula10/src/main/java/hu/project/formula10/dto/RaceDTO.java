@@ -21,4 +21,5 @@ public class RaceDTO {
     private ZonedDateTime raceStart;
     private ZonedDateTime sprintQualifyingStart;
     private ZonedDateTime sprintRaceStart;
+    private int allTimeNumber;
 }

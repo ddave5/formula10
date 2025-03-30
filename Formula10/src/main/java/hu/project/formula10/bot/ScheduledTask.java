@@ -1,6 +1,7 @@
 package hu.project.formula10.bot;
 
 import hu.project.formula10.dto.RaceDTO;
+import hu.project.formula10.model.Race;
 import hu.project.formula10.service.ConstructorStandingService;
 import hu.project.formula10.service.DriverStandingService;
 import hu.project.formula10.service.NewsService;
@@ -29,7 +30,6 @@ public class ScheduledTask {
         DriverStandingService driverStandingService, 
         ConstructorStandingService constructorStandingService,
         RaceService raceService,
-        StandingScraper standingScraper,
         ScoreService scoreService
     ) {
         this.newsService = newsService;
@@ -47,7 +47,7 @@ public class ScheduledTask {
     @Scheduled(cron = "0 0 8 * * 1", zone = "Europe/Budapest")
     public void updateStandings() throws IOException {
 
-        RaceDTO prevRace = raceService.getPreviousRace().orElse(null);
+        Race prevRace = raceService.getPreviousRace().orElse(null);
 
         if (prevRace != null) {
             int nextDay = prevRace.getRaceStart().plusDays(1).getDayOfYear();
@@ -62,7 +62,7 @@ public class ScheduledTask {
     @Scheduled(cron = "0 0 4 * * 1", zone = "Europe/Budapest")
     public void calculatePoints() throws IOException {
 
-        RaceDTO prevRace = raceService.getPreviousRace().orElse(null);
+        Race prevRace = raceService.getPreviousRace().orElse(null);
 
         if (prevRace != null) {
             int nextDay = prevRace.getRaceStart().plusDays(1).getDayOfYear();

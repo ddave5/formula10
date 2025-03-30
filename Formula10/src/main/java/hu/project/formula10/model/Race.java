@@ -35,6 +35,9 @@ public class Race {
     @Column(name="sprint_race_start")
     private ZonedDateTime sprintRaceStart;
 
+    @Column(name="all_time_number")
+    private Integer allTimeNumber;
+
     public RaceDTO toDTO() {
         return new RaceDTO(
                 this.getId(),
@@ -44,7 +47,8 @@ public class Race {
                 this.getQualifyingStart(),
                 this.getRaceStart(),
                 this.getSprintQualifyingStart(),
-                this.getSprintRaceStart()
+                this.getSprintRaceStart(),
+                this.getAllTimeNumber()
         );
     }
 

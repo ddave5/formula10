@@ -10,8 +10,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ResultsDTO {
-    private Long id;
     private Long raceId;
-    private Long driverId;
-    private Integer position;  // Pilóta helyezése
+    private String driverName;
+    private String driverNumber;
+    private Integer position; 
 }

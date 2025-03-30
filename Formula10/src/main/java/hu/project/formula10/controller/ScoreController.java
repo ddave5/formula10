@@ -16,11 +16,10 @@ public class ScoreController {
     }
 
     // Pontszámítás egy adott tipphez
-    @PostMapping("/calculate/{tipId}")
-    public ResponseEntity<ScoreDTO> calculatePoints(@PathVariable Long tipId) {
-        //ScoreDTO points = scoreService.calculatePoints(tipId);
-        //return ResponseEntity.ok(points);
-        return null;
+    @PostMapping("/calculate/{seasonId}")
+    public ResponseEntity<ScoreDTO> calculatePoints(@PathVariable Long seasonId) {
+        scoreService.calculatePointsPerSeason(seasonId);
+        return ResponseEntity.ok().build();
     }
 
 }
