@@ -1,6 +1,5 @@
 package hu.project.formula10.bot;
 
-import hu.project.formula10.dto.RaceDTO;
 import hu.project.formula10.model.Race;
 import hu.project.formula10.service.ConstructorStandingService;
 import hu.project.formula10.service.DriverStandingService;
