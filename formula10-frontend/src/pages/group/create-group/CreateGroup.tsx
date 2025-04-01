@@ -30,15 +30,15 @@ const CreateGroup = () => {
   const navigate = useNavigate();
 
   const checkName = async (name: string) => {
-      if (name.trim()) {
-        const isAvailable = await checkGroupName(name);
-        setNameAvailable(isAvailable);
-        return isAvailable;
-      } else {
-        setNameAvailable(true);
-        return true;
-      }
-    };
+    if (name.trim()) {
+      const isAvailable = await checkGroupName(name);
+      setNameAvailable(isAvailable);
+      return isAvailable;
+    } else {
+      setNameAvailable(true);
+      return true;
+    }
+  };
   
 
   const validateForm = async () => {

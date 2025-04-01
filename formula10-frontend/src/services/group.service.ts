@@ -76,3 +76,12 @@ export const deleteGroup = async (groupId: number) => {
     console.error('Failed to delete group:', error);
   }
 }
+
+export const renameGroupDB = async (groupId: number, newName: string) => {
+  try {
+    await apiClient.put(`/api/groups/${groupId}/rename`, { newName });
+    return true;
+  } catch (error) {
+    console.error('Failed to rename group:', error);
+  }
+}

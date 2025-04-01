@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { getGroupListByUserId } from '../../services/group.service';
 import { GroupDTO } from '../../dto/group.dto';
+import { rename } from 'fs';
 
 export const fetchGroupList = createAsyncThunk(
   'groups/fetchGroupList',
@@ -39,6 +40,13 @@ const groupSlice = createSlice({
     clearGroups: (state) => {
       state.groups = [];
     },
+    renameGroup: (state, action: PayloadAction<{ groupId: number; newName: string }>) => {
+      const { groupId, newName } = action.payload;
+      const group = state.groups.find(group => group.id === groupId);
+      if (group) {
+        group.name = newName;
+      }
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -57,6 +65,6 @@ const groupSlice = createSlice({
   },
 });
 
-export const { setGroups, addGroup, removeGroup, clearGroups } = groupSlice.actions;
+export const { setGroups, addGroup, removeGroup, clearGroups, renameGroup } = groupSlice.actions;
 
 export default groupSlice.reducer;

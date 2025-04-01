@@ -17,6 +17,7 @@ public class ScoreService {
     private final TipRepository tipRepository;
     private final RaceResultScraper raceResultScraper;
     private final RaceRepository raceRepository;
+    private final GroupRepository groupRepository;
 
     private static final int[] POINTS_ARRAY = new int[] {1, 2, 4, 6, 8, 10, 12, 15, 18, 25, 18, 15, 12, 10, 8, 6, 4, 2, 1, 0};
 
@@ -24,12 +25,14 @@ public class ScoreService {
             ScoreRepository scoreRepository, 
             TipRepository tipRepository, 
             RaceResultScraper raceResultScraper,
-            RaceRepository raceRepository
+            RaceRepository raceRepository,
+            GroupRepository groupRepository
         ) {
             this.scoreRepository = scoreRepository;
             this.tipRepository = tipRepository;
             this.raceResultScraper = raceResultScraper;
             this.raceRepository = raceRepository;
+            this.groupRepository = groupRepository;
     }
 
     // Pontszámítás egy adott tipphez a futam eredményei alapján
@@ -41,14 +44,7 @@ public class ScoreService {
         log.info("Fetching race with id: {}", race.getId());
         Map<String, Integer> results = raceResultScraper.getResult(race);
 
-        //Pontszámítás
-        for (Tip tip : tips) {
-            Score score = new Score();
-            score.setTip(tip);
-            score.setPoint(POINTS_ARRAY[results.get(tip.getPredictedDriver().getName()) - 1]);
-            scoreRepository.save(score);
-        }
-    
+        saveScore(tips, results);
     }
 
     public void calculatePointsPerSeason(Long seasonId) {
@@ -63,6 +59,22 @@ public class ScoreService {
         }
     }
 
+    public void calculatePointsForGroup(Long groupId) throws IOException {
+        Race race = raceRepository.findPreviousRace().orElseThrow(() -> new RuntimeException("Race not found"));
+        Group group = groupRepository.findById(groupId).orElseThrow(() -> new RuntimeException("Group not found"));
+        List<Tip> tips = tipRepository.findByGroupIdAndSeasonIdAndRaceId(group.getId(),race.getSeason().getId(), race.getId());
+        Map<String, Integer> results = raceResultScraper.getResult(race);
 
+        saveScore(tips, results);
+    }
+
+    private void saveScore(List<Tip> tips, Map<String, Integer> results) {
+        for (Tip tip : tips) {
+            Score score = new Score();
+            score.setTip(tip);
+            score.setPoint(POINTS_ARRAY[results.get(tip.getPredictedDriver().getName()) - 1]);
+            scoreRepository.save(score);
+        }
+    }
 
 }
