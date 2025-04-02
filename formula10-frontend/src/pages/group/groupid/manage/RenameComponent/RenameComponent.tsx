@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
 import { checkGroupName, renameGroupDB } from '../../../../../services/group.service';
 import { renameGroup } from '../../../../../redux/slices/GroupSlice';
 import eventBus from '../../../../../services/eventBus';
 import TextInput from '../../../../../components/TextInput/TextInput';
 import { GroupDTO } from '../../../../../dto/group.dto';
+import { Button } from '@mui/material';
 
 const RenameComponent = ({ group }: { group: GroupDTO}) => {
 
@@ -13,7 +13,6 @@ const RenameComponent = ({ group }: { group: GroupDTO}) => {
     const [newName, setNewName] = useState('');
     
     const [isNameValid, setIsNameValid] = useState(true);
-    const [nameAvailable, setNameAvailable] = useState(true);
 
     const [showErrors, setShowErrors] = useState(false);
     const dispatch = useDispatch();
@@ -26,10 +25,8 @@ const RenameComponent = ({ group }: { group: GroupDTO}) => {
     const checkName = async (name: string) => {
         if (name.trim()) {
         const isAvailable = await checkGroupName(name);
-        setNameAvailable(isAvailable);
         return isAvailable;
         } else {
-        setNameAvailable(true);
         return true;
         }
     };
@@ -61,11 +58,8 @@ const RenameComponent = ({ group }: { group: GroupDTO}) => {
         }
     };
 
-
     return (
-        <div>
-        {isRenameActive && (
-            <div>
+        <div className='flex flex-row justify-center'>
             <TextInput props = 
                 {{
                     id : 'newName',
@@ -76,28 +70,27 @@ const RenameComponent = ({ group }: { group: GroupDTO}) => {
                     value: newName,
                     setValue: setNewName,
                     validation: [
-                    {error: newName.length === 0, errori18n: 'manageGroup.nameEmpty'}, 
-                    {error: (newName.length > 50 || newName.length < 5), errori18n: 'manageGroup.nameLength'},
-                    {error: !isNameValid, errori18n: 'manageGroup.nameAlreadyTaken'}
+                        {error: newName.length === 0, errori18n: 'manageGroup.nameEmpty'}, 
+                        {error: (newName.length > 50 || newName.length < 5), errori18n: 'manageGroup.nameLength'},
+                        {error: !isNameValid, errori18n: 'manageGroup.nameAlreadyTaken'}
                     ],
                     isValid: setIsNameValid,
-                    showError: showErrors
+                    showError: showErrors,
+                    disabled : !isRenameActive
                 }}
             />
-            <div>
-                <button onClick={() => setIsRenameActive(false)}>Cancel</button>
-                <button onClick={() => rename()}>Save</button>
+            <div className='ml-4'>
+                {isRenameActive && (
+                    <>
+                        <Button onClick={() => setIsRenameActive(false)} variant='contained' sx={{mr: '1rem'}}>Cancel</Button>
+                        <Button onClick={() => rename()} variant='contained'>Save</Button>
+                    </>
+                    
+                )}
+                {!isRenameActive && (
+                    <Button onClick={() => activateRename()} variant='contained'>Rename</Button>
+                )}
             </div>
-            </div>
-            
-        )}
-        {!isRenameActive && (
-            <div>
-            <p>{group.name}</p>
-            <button onClick={() => activateRename()}>Rename</button>
-            </div>
-            )}
-
         </div>
     )
 }

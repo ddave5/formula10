@@ -17,7 +17,7 @@ const TextInput = ({props} : {props: TextInputInterface}) => {
         placeholder={t(props.i18n)} 
         variant={props.variant} 
         label={t(props.i18n)} 
-        size='small' 
+        size='small' disabled={props.disabled}
         className='sm:text-sm' 
         value={props.value} 
         onChange={(e) => props.setValue(e.target.value)} 

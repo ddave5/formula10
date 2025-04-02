@@ -13,4 +13,5 @@ export interface TextInputInterface {
     validation?: ValidationInterface[],
     isValid?: Function,
     showError?: boolean
+    disabled?: boolean
 }
