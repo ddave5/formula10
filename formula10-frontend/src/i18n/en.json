@@ -202,5 +202,16 @@
     "errorFetching": "Error while fetching data!",
     "unknownError": "Something went wrong!",
     "loginError": "Login failed!"
+  },
+  "manageGroup": {
+    "manageGroup": "Manage group",
+    "renameGroup": "Rename group",
+    "newName": "New name",
+    "nameEmpty": "Name has to be filled!",
+    "nameLength": "Name must be between 5 and 50 characters long!",
+    "nameAlreadyTaken": "Name already taken!",
+    "cancel": "Cancel",
+    "save": "Save",
+    "successMessage": "Group renamed successfully!"
   }
 }

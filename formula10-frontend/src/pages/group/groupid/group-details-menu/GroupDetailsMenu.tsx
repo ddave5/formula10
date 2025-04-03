@@ -4,7 +4,6 @@ import { useWindowWidth } from '@react-hook/window-size';
 import Loading from '../../../../components/Loading/Loading';
 import { Button } from '@mui/material';
 import { RxHamburgerMenu } from 'react-icons/rx';
-import { GroupDTO } from '../../../../dto/group.dto';
 import { deleteGroup, getGroupById } from '../../../../services/group.service';
 import Menu from '../../../../components/Menu/Menu';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,10 +12,11 @@ import { leaveGroup } from '../../../../services/groupmember.service';
 import { removeGroup } from '../../../../redux/slices/GroupSlice';
 import { useTranslation } from 'react-i18next';
 import eventBus from '../../../../services/eventBus';
+import { useGroup } from '../../../../context/GroupContext';
 
 const GroupDetailsMenu = () => {
 
-  const [group, setGroup] = useState<GroupDTO>();
+  const { group } = useGroup();
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [showMenu, setShowMenu] = useState(false);
@@ -70,10 +70,8 @@ const GroupDetailsMenu = () => {
     const loadGroupById = async () => {
       try {
         const groupId = location.pathname.split('/')[2];
-        const group = await getGroupById(+groupId);
-        setGroup(group);
-
-        setAuthority( group.members.find(member => member.username === user?.username)?.role || '');
+        const fetchedGroup = await getGroupById(+groupId);
+        setAuthority( fetchedGroup.members.find(member => member.username === user?.username)?.role || '');
       } catch (err) {
         eventBus.emit('error', {message: t('messages.errorFetching')});
         setError('Failed to load group');

@@ -132,4 +132,16 @@ public class GroupService {
             throw new RuntimeException("Group not found");
         }
     }
+
+    public GroupDTO modifyGroupAttr(Long groupId, String value, boolean isRename) {
+        log.info("Fetching group with id: {}", groupId);
+        Group group = groupRepository.findById(groupId).orElseThrow(() -> new RuntimeException("Group not found"));
+        if (isRename) {
+            group.setName(value);
+        } else {
+            group.setPassword(passwordEncoder.encode(value));
+            group.setAvailability(GroupAvailability.PRIVATE);
+        }
+        return groupRepository.save(group).toDTO();
+    }
 }

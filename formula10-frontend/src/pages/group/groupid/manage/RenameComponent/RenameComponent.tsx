@@ -1,26 +1,28 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { checkGroupName, renameGroupDB } from '../../../../../services/group.service';
 import { renameGroup } from '../../../../../redux/slices/GroupSlice';
 import eventBus from '../../../../../services/eventBus';
 import TextInput from '../../../../../components/TextInput/TextInput';
-import { GroupDTO } from '../../../../../dto/group.dto';
-import { Button } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
+import { useGroup } from '../../../../../context/GroupContext';
+import { t } from 'i18next';
 
-const RenameComponent = ({ group }: { group: GroupDTO}) => {
+const RenameComponent = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
 
-    const [isRenameActive, setIsRenameActive] = useState(false);
-    const [newName, setNewName] = useState('');
+    const { group, setGroup } = useGroup();
+    const [newName, setNewName] = useState(group?.name || '');
     
     const [isNameValid, setIsNameValid] = useState(true);
 
     const [showErrors, setShowErrors] = useState(false);
     const dispatch = useDispatch();
 
-    const activateRename = () => {
-        setIsRenameActive(true);
-        setNewName(group.name);
-    }
+    useEffect(() => {
+        if (open) {
+          setNewName(group?.name || '');
+        }
+    }, [open, group?.name]);
 
     const checkName = async (name: string) => {
         if (name.trim()) {
@@ -47,10 +49,15 @@ const RenameComponent = ({ group }: { group: GroupDTO}) => {
 
         if (isValid) {
             try {
-                const newGroup = await renameGroupDB(group.id, newName);
+                const newGroup = await renameGroupDB(group?.id || 0, newName);
                 if (newGroup) {
-                eventBus.emit('success', { message: 'Group renamed successfully!' });
-                dispatch(renameGroup({ groupId: group.id, newName: newName } ));
+                    eventBus.emit('success', { message: t('manageGroup.successMessage') });
+                    setGroup({
+                        ...(group || { id: 0, name: '', members: [], availability: 'PUBLIC' }),
+                        name: newGroup.name
+                    });
+                    dispatch(renameGroup({ groupId: group?.id || 0, newName: newName } ));
+                    onClose();
                 }
             } catch (err) {
                 throw err;
@@ -59,39 +66,38 @@ const RenameComponent = ({ group }: { group: GroupDTO}) => {
     };
 
     return (
-        <div className='flex flex-row justify-center'>
-            <TextInput props = 
-                {{
-                    id : 'newName',
-                    isRequired: true,
-                    i18n: 'manageGroup.newName',
-                    type: 'text',
-                    variant: 'outlined',
-                    value: newName,
-                    setValue: setNewName,
-                    validation: [
-                        {error: newName.length === 0, errori18n: 'manageGroup.nameEmpty'}, 
-                        {error: (newName.length > 50 || newName.length < 5), errori18n: 'manageGroup.nameLength'},
-                        {error: !isNameValid, errori18n: 'manageGroup.nameAlreadyTaken'}
-                    ],
-                    isValid: setIsNameValid,
-                    showError: showErrors,
-                    disabled : !isRenameActive
-                }}
-            />
-            <div className='ml-4'>
-                {isRenameActive && (
-                    <>
-                        <Button onClick={() => setIsRenameActive(false)} variant='contained' sx={{mr: '1rem'}}>Cancel</Button>
-                        <Button onClick={() => rename()} variant='contained'>Save</Button>
-                    </>
-                    
-                )}
-                {!isRenameActive && (
-                    <Button onClick={() => activateRename()} variant='contained'>Rename</Button>
-                )}
-            </div>
-        </div>
+        <Dialog open={open} onClose={onClose} sx={{'.css-10d30g3-MuiPaper-root-MuiDialog-paper': {width: '100%'}}}>
+            <DialogTitle>{t('manageGroup.renameGroup')}</DialogTitle>
+            <DialogContent sx={{minHeight: '100px', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                <TextInput props = 
+                    {{
+                        id : 'newName',
+                        isRequired: true,
+                        i18n: 'manageGroup.newName',
+                        type: 'text',
+                        variant: 'outlined',
+                        value: newName,
+                        setValue: setNewName,
+                        validation: [
+                            {error: newName.length === 0, errori18n: 'manageGroup.nameEmpty'}, 
+                            {error: (newName.length > 50 || newName.length < 5), errori18n: 'manageGroup.nameLength'},
+                            {error: !isNameValid, errori18n: 'manageGroup.nameAlreadyTaken'}
+                        ],
+                        isValid: setIsNameValid,
+                        showError: showErrors,
+                        sx:{width: '100%'}
+                    }}
+                />
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={onClose} color='primary'>
+                    Cancel
+                </Button>
+                <Button onClick={rename} color='primary' variant='contained'>
+                    Save
+                </Button>
+            </DialogActions>
+        </Dialog>
     )
 }
 

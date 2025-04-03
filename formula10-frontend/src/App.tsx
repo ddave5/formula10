@@ -37,6 +37,7 @@ import ProtectedRoute from './ProtectedRoute';
 import ManageGroup from './pages/group/groupid/manage/ManageGroup';
 import ErrorHandler from './handler/ErrorHandler';
 import Profile from './pages/Profile/Profile';
+import { GroupProvider } from './context/GroupContext';
 function App() {
   
   const dispatch = useDispatch<AppDispatch>();
@@ -84,7 +85,11 @@ function App() {
               <Route path='join' Component={JoinGroup} />
             </Route>
 
-            <Route path='groups/:groupId' Component={GroupDetailsMenu} >
+            <Route path='groups/:groupId' element={
+              <GroupProvider>
+                <GroupDetailsMenu />
+              </GroupProvider>
+            }>
                 <Route index Component={GroupDetails} />
                 <Route path='standing' Component={Standing} />
                 <Route path='tip' Component={Tip} />

@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 @RestController
 @RequestMapping("/api/groups")
@@ -76,5 +80,19 @@ public class GroupController {
     public ResponseEntity<Void> deleteGroup(@PathVariable Long groupId) {
         groupService.deleteGroup(groupId);
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{groupId}/rename")
+    public ResponseEntity<GroupDTO> renameGroup(@PathVariable Long groupId, @RequestBody String value) {
+        GroupDTO entity = groupService.modifyGroupAttr(groupId, value, true);
+        
+        return ResponseEntity.ok(entity);
+    }
+
+    @PutMapping("/{groupId}/changePassword")
+    public ResponseEntity<GroupDTO> changePassword(@PathVariable Long groupId, @RequestBody String value) {
+        GroupDTO entity = groupService.modifyGroupAttr(groupId, value, false);
+        
+        return ResponseEntity.ok(entity);
     }
 }

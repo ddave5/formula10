@@ -9,6 +9,11 @@ const TextInput = ({props} : {props: TextInputInterface}) => {
   const { t } = useTranslation();
   const {theme} = useTheme();
 
+  const mergedsx = {
+    ...(theme === "dark" ? darkInputStyle : lightInputStyle),
+    ...props.sx
+}
+
   return (
     <>
       <TextField 
@@ -22,7 +27,7 @@ const TextInput = ({props} : {props: TextInputInterface}) => {
         value={props.value} 
         onChange={(e) => props.setValue(e.target.value)} 
         autoComplete='off'
-        sx={ theme === "dark" ? darkInputStyle : lightInputStyle}/>
+        sx={mergedsx}/>
       {props.showError && props.validation?.map((validator, index) => validator.error && <span className='text-red-500 text-sm mb-2' key={index}>{t(validator.errori18n)}</span>)}
     </>
   )

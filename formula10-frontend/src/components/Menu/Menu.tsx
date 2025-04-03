@@ -15,7 +15,7 @@ const Menu = (
     {
         containerStyle, group, groupList, leaveGroup, deleteGroup, authority
     } : {
-        containerStyle: string, group?: GroupDTO, groupList?: GroupDTO[], leaveGroup?: () => void, deleteGroup?: () => void, authority?: string
+        containerStyle: string, group?: GroupDTO | null, groupList?: GroupDTO[], leaveGroup?: () => void, deleteGroup?: () => void, authority?: string
     }) => {
     
     const { t } = useTranslation();

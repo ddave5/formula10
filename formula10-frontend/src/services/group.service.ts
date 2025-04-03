@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { GroupDTO } from '../dto/group.dto';
 import apiClient from './axios';
 
@@ -79,8 +80,33 @@ export const deleteGroup = async (groupId: number) => {
 
 export const renameGroupDB = async (groupId: number, newName: string) => {
   try {
-    await apiClient.put(`/api/groups/${groupId}/rename`, { newName });
-    return true;
+    const response = await axios.put(
+      `${process.env.REACT_APP_API_URL || 'http://localhost:8080'}/api/groups/${groupId}/rename`,
+      newName,
+      {
+        headers: {
+          'Content-Type': 'text/plain',
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Failed to rename group:', error);
+  }
+}
+
+export const changePasswordDB = async (groupId: number, password: string) => {
+  try {
+    const response = await axios.put(
+      `${process.env.REACT_APP_API_URL || 'http://localhost:8080'}/api/groups/${groupId}/changePassword`,
+      password, // Közvetlenül a stringet küldjük
+      {
+        headers: {
+          'Content-Type': 'text/plain',
+        },
+      }
+    );
+    return response.data;
   } catch (error) {
     console.error('Failed to rename group:', error);
   }

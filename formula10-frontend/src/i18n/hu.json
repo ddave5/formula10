@@ -203,5 +203,16 @@
     "errorFetching": "Hiba az adatok betöltésekor!",
     "unknownError": "Valamilyen hiba történt!",
     "loginFailed": "Sikertelen bejelentkezés!"
+  },
+  "manageGroup": {
+    "manageGroup": "Csoport kezelése",
+    "renameGroup": "Csoport átnevezése",
+    "newName": "Új név",
+    "nameEmpty": "A csoportnév megadása kötelező!",
+    "nameLength": "A csoportnév 5 és 50 karakter között kell lennie!",
+    "nameAlreadyTaken": "A csoportnév már foglalt!",
+    "cancel": "Mégse",
+    "save": "Mentés",
+    "successMessage": "Sikeresen megváltoztattad a csoport nevét!"
   }
 }
