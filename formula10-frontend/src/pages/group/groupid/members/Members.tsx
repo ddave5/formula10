@@ -4,7 +4,7 @@ import { getGroupMemberListByGroupId } from '../../../../services/groupmember.se
 import { useLocation } from 'react-router-dom';
 import Loading from '../../../../components/Loading/Loading';
 import eventBus from '../../../../services/eventBus';
-import { useTranslation } from 'react-i18next';
+import { t } from 'i18next';
 
 const Members = () => {
 
@@ -13,7 +13,6 @@ const Members = () => {
   const [loading, setLoading] = useState<boolean>(true);
 
   const location = useLocation();
-  const { t } = useTranslation();
 
   const tRef = useRef(t);
 

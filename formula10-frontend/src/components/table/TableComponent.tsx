@@ -2,7 +2,7 @@ import { Card, CardContent, styled, Table, TableBody, TableCell, TableHead, Tabl
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../layout/navbar/Theme/ThemeContext';
 
-const TableComponent = ({title, header, body } : {title: string, header: {text: string, style: string}[], body: {style: string, value: string}[][]}) => {
+const TableComponent = ({title, header, body } : {title: string, header: {text?: string, style?: string}[], body: {style: string, value: string}[][]}) => {
     const { t } = useTranslation();
     const {theme:appTheme} = useTheme();
 
@@ -27,7 +27,7 @@ const TableComponent = ({title, header, body } : {title: string, header: {text: 
                     <TableHead>
                         <StyledTableHeaderRow >
                             {header.map((header, index) => (
-                                <TableCell className={`${header.style}`} key={index}>{t(header.text)}</TableCell>
+                                <TableCell className={`${header.style}`} key={index}>{header ? t(header.text || ""): ""}</TableCell>
                             ))}
                         </StyledTableHeaderRow>
                     </TableHead>

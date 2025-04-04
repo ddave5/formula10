@@ -51,7 +51,7 @@ const RenameComponent = ({ open, onClose }: { open: boolean; onClose: () => void
             try {
                 const newGroup = await renameGroupDB(group?.id || 0, newName);
                 if (newGroup) {
-                    eventBus.emit('success', { message: t('manageGroup.successMessage') });
+                    eventBus.emit('success', { message: t('manageGroup.successRename') });
                     setGroup({
                         ...(group || { id: 0, name: '', members: [], availability: 'PUBLIC' }),
                         name: newGroup.name

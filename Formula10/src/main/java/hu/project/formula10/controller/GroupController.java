@@ -90,7 +90,7 @@ public class GroupController {
     }
 
     @PutMapping("/{groupId}/changePassword")
-    public ResponseEntity<GroupDTO> changePassword(@PathVariable Long groupId, @RequestBody String value) {
+    public ResponseEntity<GroupDTO> changePassword(@PathVariable Long groupId, @RequestBody(required = false) String value) {
         GroupDTO entity = groupService.modifyGroupAttr(groupId, value, false);
         
         return ResponseEntity.ok(entity);

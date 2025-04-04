@@ -139,8 +139,8 @@ public class GroupService {
         if (isRename) {
             group.setName(value);
         } else {
-            group.setPassword(passwordEncoder.encode(value));
-            group.setAvailability(GroupAvailability.PRIVATE);
+            group.setPassword(value == null ? null : passwordEncoder.encode(value));
+            group.setAvailability(value == null ? GroupAvailability.PUBLIC : GroupAvailability.PRIVATE);
         }
         return groupRepository.save(group).toDTO();
     }
