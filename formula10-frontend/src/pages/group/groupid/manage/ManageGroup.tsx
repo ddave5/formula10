@@ -4,8 +4,11 @@ import { useState } from 'react';
 import { Button } from '@mui/material';
 import ChangePasswordComponent from './ChangePasswordComponent/ChangePasswordComponent';
 import ModifyMembersComponent from './ModifyMembersComponent/ModifyMembersComponent';
+import { useGroup } from '../../../../context/GroupContext';
 
 const ManageGroup = () => {
+
+  const { group } = useGroup();
 
   const { t } = useTranslation();
   const [renameOpen, setRenameOpen] = useState(false);
@@ -28,7 +31,7 @@ const ManageGroup = () => {
         </div>
       </div>
 
-      <ModifyMembersComponent />
+      <ModifyMembersComponent groupId={group?.id || 0}/>
       
       <RenameComponent open={renameOpen} onClose={() => setRenameOpen(false)} />
       <ChangePasswordComponent open={changePasswordOpen} onClose={() => setChangePasswordOpen(false)} />

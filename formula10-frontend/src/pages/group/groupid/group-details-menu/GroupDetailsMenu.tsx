@@ -4,7 +4,7 @@ import { useWindowWidth } from '@react-hook/window-size';
 import Loading from '../../../../components/Loading/Loading';
 import { Button } from '@mui/material';
 import { RxHamburgerMenu } from 'react-icons/rx';
-import { deleteGroup, getGroupById } from '../../../../services/group.service';
+import { deleteGroup } from '../../../../services/group.service';
 import Menu from '../../../../components/Menu/Menu';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../../redux/Store';
@@ -69,9 +69,7 @@ const GroupDetailsMenu = () => {
   useEffect(() => {
     const loadGroupById = async () => {
       try {
-        const groupId = location.pathname.split('/')[2];
-        const fetchedGroup = await getGroupById(+groupId);
-        setAuthority( fetchedGroup.members.find(member => member.username === user?.username)?.role || '');
+        setAuthority( group?.members.find(member => member.username === user?.username)?.role || '');
       } catch (err) {
         eventBus.emit('error', {message: t('messages.errorFetching')});
         setError('Failed to load group');

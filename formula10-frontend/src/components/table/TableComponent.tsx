@@ -1,8 +1,9 @@
 import { Card, CardContent, styled, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material'
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../layout/navbar/Theme/ThemeContext';
+import { ReactNode } from 'react';
 
-const TableComponent = ({title, header, body } : {title: string, header: {text?: string, style?: string}[], body: {style: string, value: string}[][]}) => {
+const TableComponent = ({title, header, body } : {title: string, header: {text?: string, style?: string}[], body: {style: string, value: string | ReactNode}[][]}) => {
     const { t } = useTranslation();
     const {theme:appTheme} = useTheme();
 

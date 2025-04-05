@@ -212,6 +212,12 @@
     "nameAlreadyTaken": "Name already taken!",
     "cancel": "Cancel",
     "save": "Save",
-    "successMessage": "Group renamed successfully!"
+    "changePassword": "Change password",
+    "calculatePoints": "Calculate points",
+    "renameSuccess": "Group renamed successfully!",
+    "promoteSuccess": "User promoted successfully!",
+    "kickSuccess": "User kicked successfully!",
+    "promote": "Promote to admin",
+    "kick": "Kick from group"
   }
 }
