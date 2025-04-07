@@ -218,6 +218,8 @@
     "promoteSuccess": "User promoted successfully!",
     "kickSuccess": "User kicked successfully!",
     "promote": "Promote to admin",
-    "kick": "Kick from group"
+    "kick": "Kick from group",
+    "successRename": "Name changed successfully!",
+    "successPasswordChange": "Password changed successfully!"
   }
 }

@@ -69,6 +69,7 @@ const GroupDetailsMenu = () => {
   useEffect(() => {
     const loadGroupById = async () => {
       try {
+        setLoading(true);
         setAuthority( group?.members.find(member => member.username === user?.username)?.role || '');
       } catch (err) {
         eventBus.emit('error', {message: t('messages.errorFetching')});
@@ -79,7 +80,7 @@ const GroupDetailsMenu = () => {
     }
 
     loadGroupById();
-  }, [location.pathname, user?.username]);
+  }, [group?.members, location.pathname, t, user?.username]);
 
   if (loading || userLoading) {
       return <Loading isLoading={loading || userLoading} />;

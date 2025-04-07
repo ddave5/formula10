@@ -60,5 +60,12 @@ public class GroupMemberService {
         return groupMembers.stream().map(GroupMember::toDTO).toList();
     }
 
+    public GroupMemberDTO promoteMember(Long groupMemberId) {
+        log.info("Fetching group member with id: {}", groupMemberId);
+        GroupMember groupMember = groupMemberRepository.findById(groupMemberId).orElseThrow(() -> new RuntimeException("Group member not found"));
+        groupMember.setRole(GroupRole.ADMIN);
 
+        return groupMemberRepository.save(groupMember).toDTO();
+    }
+        
 }

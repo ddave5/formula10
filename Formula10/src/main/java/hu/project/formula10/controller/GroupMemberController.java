@@ -8,6 +8,10 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 
 @RestController
@@ -30,5 +34,11 @@ public class GroupMemberController {
     public ResponseEntity<Void> removeMemberFromGroup(@PathVariable Long groupId, @PathVariable Long userId) {
         groupMemberService.removeMemberFromGroup(groupId, userId);
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{groupMemberId}/promote")
+    public ResponseEntity<GroupMemberDTO> promoteMember( @PathVariable Long groupMemberId) {
+        GroupMemberDTO member = groupMemberService.promoteMember(groupMemberId);
+        return ResponseEntity.ok(member);
     }
 }

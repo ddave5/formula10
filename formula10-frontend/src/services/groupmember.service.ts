@@ -20,9 +20,9 @@ export const leaveGroup = async (groupId: number, userId: number) => {
   }
 };
 
-export const promoteMember = async (groupId: number, userId: number) => {
+export const promoteMember = async (groupMemberId: number) => {
   try {
-    await apiClient.put(`/api/groupMembers/${groupId}/${userId}/promote`);
+    await apiClient.put(`/api/groupMembers/${groupMemberId}/promote`);
     return true;
   } catch (error) {
     console.error('Failed to promote member:', error);

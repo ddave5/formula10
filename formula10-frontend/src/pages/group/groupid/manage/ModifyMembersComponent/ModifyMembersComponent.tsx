@@ -4,89 +4,95 @@ import Loading from '../../../../../components/Loading/Loading';
 import eventBus from '../../../../../services/eventBus';
 import { getGroupMemberListByGroupId, leaveGroup, promoteMember } from '../../../../../services/groupmember.service';
 import { t } from 'i18next';
-import { useLocation } from 'react-router-dom';
 import { Button } from '@mui/material';
+import { GroupMemberDTO } from '../../../../../dto/groupMember.dto';
 
 const ModifyMembersComponent = ({groupId} : {groupId: number}) => {
+
+    const groupMembers = useRef<GroupMemberDTO[]>([]);
   
     const [groupMembersBody, setGroupMembersBody] = React.useState<{style: string, value: string | ReactNode}[][]>([]);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
-  
-    const location = useLocation();
 
-    const promote = async (userId: number) => {
+    const promote = async (groupMemberId: number) => {
       try {
         if (groupId === 0 ) {
           throw new Error('Invalid group ID');
         }
 
-        const response = await promoteMember(groupId, userId);
+        const response = await promoteMember(groupMemberId);
         if (response) {
-          eventBus.emit('success', {message: t('groupMember.promoteSuccess'), isDialog: false });
-        }
-      } catch (error) {
-        console.error('Failed to leave group:', error);
-      }
-    }
-
-    const kick = async (userId: number) => {
-      try {
-        if (groupId === 0 ) {
-          throw new Error('Invalid group ID');
-        }
-
-        const response = await leaveGroup(groupId, userId);
-        if (response) {
-          eventBus.emit('success', {message: t('groupMember.kickSuccess'), isDialog: false });
-        }
-      } catch (error) {
-        console.error('Failed to leave group:', error);
-      }
-    }
-  
-    const tRef = useRef(t);
-    useEffect(() => {
-      const getGroupMembers = async (groupId: string) => {
-        try {
-          const groupMembers = await getGroupMemberListByGroupId(+groupId);
-  
-          if (!groupMembers) {
-            setError('Failed to fetch race data');
-            return;
-          }
-          
-          const styles = ['font-medium dark:text-[--color-font]', 'dark:text-[--color-font]', 'text-right dark:text-[--color-font]'];
-          const groupMembersStructuredData = groupMembers.map(row => [
-            { style: styles[0], value: row.username.toString() },
-            { style: styles[1], value: row.joinDate },
-            { style: styles[2], value: row.role.toString() },
-            { style: 'max-w-[100px]', value: (
-              <>
-                {row.role === 'MEMBER' && (
-                  <div className='flex gap-2'>
-                    <Button variant='contained' onClick={() => promote(row.id)}>{t('manageGroup.promote')}</Button>
-                    <Button variant='contained' color='error' onClick={() => kick(row.id)}>{t('manageGroup.kick')}</Button>
-                  </div>
-                )}
-              </>
-            )},
-          ]);
-          
-          setGroupMembersBody(groupMembersStructuredData || []);
-          
-        } catch (error) {
-          eventBus.emit('error', {message: tRef.current('messages.errorFetching')})
-          setError(
-            error instanceof Error ? error.message : 'Failed to fetch data'
+          groupMembers.current = groupMembers.current.map(member =>
+            member.id === groupMemberId ? { ...member, role: 'ADMIN' } : member
           );
+          eventBus.emit('success', {message: t('manageGroup.promoteSuccess'), isDialog: false });
+          makeGroupMemberBody();
+        }
+      } catch (error) {
+        console.error('Failed to leave group:', error);
+      }
+    }
+
+    const kick = async (groupMemberId: number) => {
+      try {
+        if (groupId === 0 ) {
+          throw new Error('Invalid group ID');
+        }
+
+        const response = await leaveGroup(groupId, groupMemberId);
+        if (response) {
+          groupMembers.current = groupMembers.current.filter(member => member.id !== groupMemberId);
+          eventBus.emit('success', {message: t('manageGroup.kickSuccess'), isDialog: false });
+          makeGroupMemberBody();
+        }
+      } catch (error) {
+        console.error('Failed to leave group:', error);
+      }
+    }
+
+    const makeGroupMemberBody = () => {
+      if (!groupMembers) {
+        setError('Failed to fetch race data');
+        return;
+      }
+      
+      const styles = ['font-medium dark:text-[--color-font]', 'dark:text-[--color-font]', 'text-right dark:text-[--color-font]'];
+      const groupMembersStructuredData = groupMembers.current.map(row => [
+        { style: styles[0], value: row.username.toString() },
+        { style: styles[1], value: row.joinDate },
+        { style: styles[2], value: row.role.toString() },
+        { style: 'max-w-[100px]', value: (
+          <>
+            {row.role === 'MEMBER' && (
+              <div className='flex gap-2'>
+                <Button variant='contained' onClick={() => promote(row.id)}>{t('manageGroup.promote')}</Button>
+                <Button variant='contained' color='error' onClick={() => kick(row.id)}>{t('manageGroup.kick')}</Button>
+              </div>
+            )}
+          </>
+        )},
+      ]);
+      
+      setGroupMembersBody(groupMembersStructuredData || []);
+    }
+
+    useEffect(() => {
+      const fetchGroupMembers = async () => {
+        try {
+          groupMembers.current = await getGroupMemberListByGroupId(groupId);
+          makeGroupMemberBody();
+        } catch (error) {
+          console.error('Failed to fetch group member data:', error);
+          setError('Failed to fetch group member data');
         } finally {
           setLoading(false);
         }
       };
-  
-      getGroupMembers(location.pathname.split('/')[2]);
-    }, []);
+    
+      fetchGroupMembers();
+    }, [groupId]);
+
   
     if (loading) {
       return <Loading isLoading={loading} />;
