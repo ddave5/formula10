@@ -2,10 +2,17 @@ import { Card, CardContent, styled, Table, TableBody, TableCell, TableHead, Tabl
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../layout/navbar/Theme/ThemeContext';
 import { ReactNode } from 'react';
+import { useWindowWidth } from '@react-hook/window-size';
 
-const TableComponent = ({title, header, body } : {title: string, header: {text?: string, style?: string}[], body: {style: string, value: string | ReactNode}[][]}) => {
+const TableComponent = ({title, header, body } : {
+    title: string, 
+    header: {text?: string, style?: string, hideIfMobileMode?: boolean}[], 
+    body: {style: string, value: string | ReactNode, hideIfMobileMode?: boolean}[][]
+}) => {
     const { t } = useTranslation();
     const {theme:appTheme} = useTheme();
+
+    const width = useWindowWidth();
 
     const StyledTableHeaderRow = styled(TableRow)(( ) => ({
         '&:nth-of-type(odd)': {
@@ -28,6 +35,7 @@ const TableComponent = ({title, header, body } : {title: string, header: {text?:
                     <TableHead>
                         <StyledTableHeaderRow >
                             {header.map((header, index) => (
+                                header.hideIfMobileMode && width < 1024 ? null :
                                 <TableCell className={`${header.style}`} key={index}>{header ? t(header.text || ""): ""}</TableCell>
                             ))}
                         </StyledTableHeaderRow>
@@ -36,6 +44,7 @@ const TableComponent = ({title, header, body } : {title: string, header: {text?:
                         {body.map((row, rowIndex) => (
                             <StyledTableRow key={rowIndex}>
                                 {row.map((cell, cellIndex) => (
+                                    cell.hideIfMobileMode && width < 1024 ? null :
                                     <TableCell className={`${cell.style}`} key={cellIndex}>{cell.value}</TableCell>
                                 ))}
                             </StyledTableRow>

@@ -60,12 +60,12 @@ const ModifyMembersComponent = ({groupId} : {groupId: number}) => {
       const styles = ['font-medium dark:text-[--color-font]', 'dark:text-[--color-font]', 'text-right dark:text-[--color-font]'];
       const groupMembersStructuredData = groupMembers.current.map(row => [
         { style: styles[0], value: row.username.toString() },
-        { style: styles[1], value: row.joinDate },
+        { style: styles[1], value: row.joinDate, hideIfMobileMode: true },
         { style: styles[2], value: row.role.toString() },
         { style: 'max-w-[100px]', value: (
           <>
             {row.role === 'MEMBER' && (
-              <div className='flex gap-2'>
+              <div className='flex gap-2 flex-col'>
                 <Button variant='contained' onClick={() => promote(row.id)}>{t('manageGroup.promote')}</Button>
                 <Button variant='contained' color='error' onClick={() => kick(row.id)}>{t('manageGroup.kick')}</Button>
               </div>
@@ -109,7 +109,7 @@ const ModifyMembersComponent = ({groupId} : {groupId: number}) => {
           title={'groupMember.members'}
           header={[
             {text: 'groupMember.username', style: 'w-[100px] dark:text-[--color-font]'}, 
-            {text: 'groupMember.joinedAt', style: 'dark:text-[--color-font]'}, 
+            {text: 'groupMember.joinedAt', style: 'dark:text-[--color-font]', hideIfMobileMode: true}, 
             {text: 'groupMember.role', style: 'text-right dark:text-[--color-font]'},
             {style: 'max-w-[100px]'} 
           ]}

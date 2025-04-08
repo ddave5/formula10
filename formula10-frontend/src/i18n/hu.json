@@ -220,6 +220,7 @@
     "promoteSuccess": "Felhasználó sikeresen admin lett!",
     "kickSuccess": "Felhasználó sikeresen eltávolítva!",
     "promote": "Kinevezés adminná",
-    "kick": "Eltávolítás a csoportból"
+    "kick": "Eltávolítás a csoportból",
+    "calculateSuccess": "Pontszámítás sikeresen megtörtént!"
   }
 }

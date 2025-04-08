@@ -35,14 +35,13 @@ public class ScoreService {
             this.groupRepository = groupRepository;
     }
 
-    // Pontszámítás egy adott tipphez a futam eredményei alapján
     public void calculatePoints(Race race) throws IOException {
          
         List<Tip> tips = tipRepository.findAllByRaceId(race.getId()).orElseThrow(() -> new RuntimeException("Tip not found"));
 
         //Futam eredményének lekérdezése
         log.info("Fetching race with id: {}", race.getId());
-        Map<String, Integer> results = raceResultScraper.getResult(race);
+        Map<Integer, Integer> results = raceResultScraper.getResult(race);
 
         saveScore(tips, results);
     }
@@ -63,16 +62,16 @@ public class ScoreService {
         Race race = raceRepository.findPreviousRace().orElseThrow(() -> new RuntimeException("Race not found"));
         Group group = groupRepository.findById(groupId).orElseThrow(() -> new RuntimeException("Group not found"));
         List<Tip> tips = tipRepository.findByGroupIdAndSeasonIdAndRaceId(group.getId(),race.getSeason().getId(), race.getId());
-        Map<String, Integer> results = raceResultScraper.getResult(race);
+        Map<Integer, Integer> results = raceResultScraper.getResult(race);
 
         saveScore(tips, results);
     }
 
-    private void saveScore(List<Tip> tips, Map<String, Integer> results) {
+    private void saveScore(List<Tip> tips, Map<Integer, Integer> results) {
         for (Tip tip : tips) {
             Score score = new Score();
             score.setTip(tip);
-            score.setPoint(POINTS_ARRAY[results.get(tip.getPredictedDriver().getName()) - 1]);
+            score.setPoint(POINTS_ARRAY[results.get(tip.getPredictedDriver().getRaceNumber()) - 1]);
             scoreRepository.save(score);
         }
     }

@@ -1,6 +1,9 @@
 package hu.project.formula10.controller;
 
 import hu.project.formula10.service.ScoreService;
+
+import java.io.IOException;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,8 +24,8 @@ public class ScoreController {
     }
 
     @GetMapping("/calculateforGroup/{groupId}")
-    public ResponseEntity<Void> calculatePointsForGroup(@PathVariable Long groupId) {
-        calculatePointsForGroup(groupId);
+    public ResponseEntity<Void> calculatePointsForGroup(@PathVariable Long groupId) throws IOException {
+        scoreService.calculatePointsForGroup(groupId);
         return ResponseEntity.ok().build();
     }
     
