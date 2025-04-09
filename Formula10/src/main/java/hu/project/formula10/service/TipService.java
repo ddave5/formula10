@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,19 +23,23 @@ public class TipService {
     private final RaceRepository raceRepository;
     private final GroupRepository groupRepository;
     private final SeasonRepository seasonRepository;
+    private final GroupMemberRepository groupMemberRepository;
 
     public TipService(
             TipRepository tipRepository,
             UserRepository userRepository,
             DriverRepository driverRepository,
             RaceRepository raceRepository,
-            GroupRepository groupRepository, SeasonRepository seasonRepository) {
+            GroupRepository groupRepository, 
+            SeasonRepository seasonRepository, 
+            GroupMemberRepository groupMemberRepository) {
         this.tipRepository = tipRepository;
         this.userRepository = userRepository;
         this.driverRepository = driverRepository;
         this.raceRepository = raceRepository;
         this.groupRepository = groupRepository;
         this.seasonRepository = seasonRepository;
+        this.groupMemberRepository = groupMemberRepository;
     }
 
     public TipDTO createTip(TipDTO tipDTO) {
@@ -98,6 +103,17 @@ public class TipService {
 
     public void deleteTip(Long id) {
         tipRepository.deleteById(id);
+    }
+
+    public Map<String, Boolean> getTipsFromGroup(Long groupId) {
+        Race race = raceRepository.findNextRace().orElseThrow(() -> new RuntimeException("Race not found"));
+        List<Tip> tips = tipRepository.findByGroupIdAndSeasonIdAndRaceId(groupId, race.getSeason().getId(), race.getId());
+        List<GroupMember> groupMembers = groupMemberRepository.findByGroup(groupRepository.findById(groupId).orElseThrow(() -> new RuntimeException("Group not found")));
+
+        return groupMembers.stream().map(groupMember -> {
+            boolean hasTip = tips.stream().anyMatch(tip -> tip.getUser().getId().equals(groupMember.getUser().getId()));
+            return Map.entry(groupMember.getUser().getUsername(), hasTip);
+        }).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
 

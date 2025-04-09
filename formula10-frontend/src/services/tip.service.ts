@@ -25,3 +25,8 @@ export const deleteTip = async (id: number) => {
   const response = await apiClient.delete(`/api/tips/${id}`);
   return response.data;
 };
+
+export const getGroupMembersTipExist = async (groupId: number) => {
+  const response = await apiClient.get(`/api/tips/tipsFromGroup/${groupId}`);
+  return response.data;
+}

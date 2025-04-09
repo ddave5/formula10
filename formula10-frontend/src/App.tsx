@@ -35,7 +35,6 @@ import Points from './pages/points/Points';
 import NewsManagement from './pages/admin/newsManagement/NewsManagement';
 import ProtectedRoute from './ProtectedRoute';
 import ManageGroup from './pages/group/groupid/manage/ManageGroup';
-import ErrorHandler from './handler/ErrorHandler';
 import Profile from './pages/Profile/Profile';
 import { GroupProvider } from './context/GroupContext';
 function App() {

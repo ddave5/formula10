@@ -5,6 +5,7 @@ import hu.project.formula10.model.Tip;
 import hu.project.formula10.service.TipService;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -58,5 +59,9 @@ public class TipController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/tipsFromGroup/{groupId}")
+    public ResponseEntity<Map<String, Boolean>> getGroupMembersTipExist(@PathVariable Long groupId) {
+        return ResponseEntity.ok().body(tipService.getTipsFromGroup(groupId));
+    }
     
 }
