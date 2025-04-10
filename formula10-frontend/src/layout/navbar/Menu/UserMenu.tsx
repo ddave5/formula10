@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../../../redux/slices/AuthSlice';
 import { clearGroups } from '../../../redux/slices/GroupSlice';
+import Player from './Player/Player';
 
 
 const UserMenu = () => {
@@ -36,7 +37,7 @@ const UserMenu = () => {
   return (
     <div className='flex items-center'>
       <IconButton onClick={handleClick} sx={{ color: 'var(--color-font)', padding: 0, fontSize: '1.2rem'}}>
-        <FaUser />
+        {user ? <Player /> : <FaUser /> }
       </IconButton>
       <Menu
         id="basic-menu"
@@ -58,7 +59,7 @@ const UserMenu = () => {
         {!user && (
           <MenuList>
             <MenuItem onClick={() => handleClose('/login')}>{t('navbar.login')}</MenuItem>
-            <MenuItem onClick={() => handleClose('/register')}>{t('navbar.register')}</MenuItem>
+            <MenuItem onClick={() => handleClose('/register')}>{t('navbar.signUp')}</MenuItem>
           </MenuList>
         )}
       </Menu>
