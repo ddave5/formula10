@@ -39,3 +39,13 @@ export const changePassword = async (email: string, password: string) => {
     throw error;
   }
 }
+
+export const checkOldPassword = async(password: string) => {
+  try {
+    const response = await apiClient.get('/api/users/checkOldPassword', { params: { password } });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}

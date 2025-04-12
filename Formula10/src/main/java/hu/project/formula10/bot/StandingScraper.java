@@ -14,32 +14,35 @@ import hu.project.formula10.dto.DriverStandingDTO;
 
 @Component
 public class StandingScraper {
-    
-    private static final String BASE_URL = "https://www.nemzetisport.hu/f1/2025/01/f1-2025-adatbank";
-    public List<DriverStandingDTO> getDriverStandings() throws IOException {
+
+    private static String BASE_URL(Integer year, String category) {
+        return "https://www.formula1.com/en/results/" + year + "/" + category;
+    }
+
+    public List<DriverStandingDTO> getDriverStandings(Integer year) throws IOException {
         List<DriverStandingDTO> driverStandingDTOs = new ArrayList<>();
         
-        List<Element> driverStandingList = getTable(true);
-
-        driverStandingList.remove(0);
-        
+        List<Element> driverStandingList = getTable("drivers", year);
+  
         int i = 1;
         for (Element driverStanding : driverStandingList) {
             DriverStandingDTO driverStandingDTO = new DriverStandingDTO();
-            driverStandingDTO.setDriverName(driverStanding.select("td").get(1).text());
+            driverStandingDTO.setDriverName(
+                driverStanding.select("td").get(1).select("span").get(0).text() + " " +
+                driverStanding.select("td").get(1).select("span").get(1).text());
             driverStandingDTO.setPosition(i++);
-            driverStandingDTO.setPoint(Integer.parseInt(driverStanding.select("td").get(5).text()));
+            driverStandingDTO.setPoint(Integer.parseInt(driverStanding.select("td").get(4).text()));
             driverStandingDTOs.add(driverStandingDTO);
         }        
 
         return driverStandingDTOs;
     }
 
-    public List<ConstructorStandingDTO> getConstructorStandings() throws IOException {
+    public List<ConstructorStandingDTO> getConstructorStandings(Integer year) throws IOException {
 
         List<ConstructorStandingDTO> constructorStandingDTOs = new ArrayList<>();
 
-        List<Element> constructorStandingList = getTable(false);
+        List<Element> constructorStandingList = getTable("team", year);
 
         int i = 1;
         for (Element constructorStanding : constructorStandingList) {
@@ -53,26 +56,16 @@ public class StandingScraper {
         return constructorStandingDTOs;
     }
 
-    private List<Element> getTable(boolean isDriver) throws IOException {
-        Document doc = Jsoup.connect(BASE_URL).get();
-        Element table = null;
-        if (isDriver) {
-            table = doc
-                .select("div.table-wrapper")
-                .first();
-        } else {
-            table = doc
-                .select("div.table-wrapper")
-                .get(1);
-        }
+    private List<Element> getTable(String category, Integer year) throws IOException {
+        Document doc = Jsoup.connect(BASE_URL(year, category)).get();
 
         List<Element> standingList = 
-                table
+                doc
+                .select("table")
+                .first()
                 .select("tbody")
                 .first()
-                .select("tr");
-            
-        standingList.remove(0);        
+                .select("tr");   
 
         return standingList;
     }

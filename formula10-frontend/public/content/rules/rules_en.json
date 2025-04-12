@@ -7,27 +7,15 @@
     },
     {
         "title": "Scoring",
-        "list": [
-            "Each player earns points based on the final race position of their predicted driver, according to the Points Table in the 'Points' section.", 
-            "Detailed scoring can be found in the Points, Current Standings table.",
-            "For sprint races, players must also predict the 5th-place finisher in the sprint race. Scoring for this is based on the Points, Current Standings Sprint Race table."
-        ]
+        "context": "Each player receives points for the final race position of their predicted driver based on the table in the Points menu. The scoring can be found in detail in the Points, current positions table. In the case of sprint races, the 5th place of the sprint race must also be predicted. This is scored based on the Points, current positions Sprint race table."
     },
     {
         "title": "Prediction Rules",
-        "list": [
-            "Players must submit their predictions before the qualifying session.",
-            "If the race weekend includes a sprint race, players must submit both predictions (for the main race 10th-place finisher and the sprint race 5th-place finisher) before the sprint race qualifying session.",
-            "Predictions can be modified until the start of the qualifying session.",
-            "Players can only submit predictions for the next race after the previous race has ended."
-        ]
+        "context": "Each player must submit their tip(s) before the qualifying time of the current race. If there is a sprint race on the weekend, the player must submit both tips (for the 10th place finisher in the main race and the 5th place finisher in the sprint race) before the qualifying time of the sprint race. The tips submitted can be modified up until the qualifying time. Each player can only submit a tip for the next race after the previous race has been completed."
     },
     {
         "title": "Penalties",
-        "list": [
-            "If a player does not submit a prediction for a race, they will automatically receive the prediction from the previous race and incur a -5 point penalty.",
-            "If the selected driver does not participate in the race, the replacement driver will automatically become the new prediction."
-        ]
+        "context": "A játékot az a játékos nyeri, aki a szezon végén a legtöbb pontot gyűjtötte. A pontszámok a Pontszámok, aktuális helyezések táblázatban követhetők."
     },
     {
         "title": "Winning the Game",
@@ -35,11 +23,7 @@
     },
     {
         "title": "Additional Rules",
-        "list": [
-            "Registration is required to participate in the game.",
-            "In the event of technical issues, the Operator reserves the right to modify or delete predictions.",
-            "The Operator may modify the game rules at any time. Players will be notified of changes via email."
-        ]
+        "context": "Registration is required to participate in the game. In the event of technical errors during the game, the Operator reserves the right to modify or delete the tips. The Operator may modify the rules of the game at any time. Players will be notified of any changes by e-mail."
     },
     {
         "title": "Contact",

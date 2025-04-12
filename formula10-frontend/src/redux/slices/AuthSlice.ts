@@ -2,11 +2,10 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import apiClient from '../../services/axios';
 import { getToken, setToken } from '../../services/token.service';
 import eventBus from '../../services/eventBus';
-import { useTranslation } from 'react-i18next';
 
 interface AuthState {
     token: string | null;
-    user: { id: number; username: string; role: string } | null;
+    user: { id: number; username: string; email: string; role: string; } | null;
     error: string | null;
     loading: boolean
 }

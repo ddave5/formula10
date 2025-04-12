@@ -4,12 +4,14 @@ import { FaCheck } from "react-icons/fa";
 import { FaTimes } from "react-icons/fa";
 import { getGroupMembersTipExist } from '../../../../services/tip.service';
 import eventBus from '../../../../services/eventBus';
-import { t } from 'i18next';
 import { useGroup } from '../../../../context/GroupContext';
 import { useLocation } from 'react-router-dom';
 import Loading from '../../../../components/Loading/Loading';
+import { useTranslation } from 'react-i18next';
 
 const GroupDetails = () => {
+
+  const {t} = useTranslation();
 
   const { group } = useGroup();
   const [error, setError] = useState<string | null>(null);
@@ -18,7 +20,6 @@ const GroupDetails = () => {
   const [driverSelections, setDriverSelections] = useState<Record<string, boolean>>({});
 
   const location = useLocation();
-
   useEffect(() => {
     const getGroupMembers = async () => {
       try {
@@ -61,19 +62,19 @@ const GroupDetails = () => {
       <Card className="border-2 border-red-600/20 shadow-lg">
         <CardHeader 
           className="bg-gradient-to-r from-red-600/10 to-red-600/5" 
-          title="F1 Driver Selection Status"
-          subheader="Group members who have picked a Formula 1 driver"> 
+          title={t('groupDetails.title')}
+          subheader={t('groupDetails.description')}> 
         </CardHeader>
         <CardContent>
           <div className="flex gap-2 my-2">
             <Chip 
               variant="outlined" 
               sx={{backgroundColor: '#e8f5e9', borderColor: '#a5d6a7', color: '#388e3c'}}
-              label={`Selected: ${selectedCount}`} />
+              label={`${t('groupDetails.selected')}: ${selectedCount}`} />
             <Chip 
               variant="outlined" 
               sx={{backgroundColor: '#ffebee', borderColor: '#ef9a9a', color: '#d32f2f'}}
-              label={`Not Selected: ${notSelectedCount}`} />
+              label={`${t('groupDetails.notSelected')}: ${notSelectedCount}`} />
           </div>
           <div className="grid gap-4 md:grid-cols-2">
             {Object.entries(driverSelections).map(([username, hasSelected]) => (

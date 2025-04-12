@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import hu.project.formula10.dto.ConstructorStandingDTO;
@@ -30,14 +29,14 @@ public class StandingController {
         this.standingService = standingService;
     }
 
-    @GetMapping("/driverStanding/{seasonId}")
-    public ResponseEntity<List<DriverStandingDTO>> getDriverStandingDTO(@PathVariable Long seasonId) {
-        return ResponseEntity.ok().body(driverStandingService.getDriverStandings(seasonId));
+    @GetMapping("/driverStanding/{year}")
+    public ResponseEntity<List<DriverStandingDTO>> getDriverStandingDTO(@PathVariable Integer year) {
+        return ResponseEntity.ok().body(driverStandingService.getDriverStandings(year));
     }
 
-    @GetMapping("/constructorStanding/{seasonId}")
-    public ResponseEntity<List<ConstructorStandingDTO>> getConstructorStandingDTO(@PathVariable Long seasonId) {
-        return ResponseEntity.ok().body(constructorStandingService.getConstructorStanding(seasonId));
+    @GetMapping("/constructorStanding/{year}")
+    public ResponseEntity<List<ConstructorStandingDTO>> getConstructorStandingDTO(@PathVariable Integer year) {
+        return ResponseEntity.ok().body(constructorStandingService.getConstructorStanding(year));
     }
 
     @GetMapping("/{groupId}/{seasonId}")

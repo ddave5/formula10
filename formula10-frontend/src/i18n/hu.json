@@ -136,7 +136,8 @@
     "newPassword": "Új jelszó",
     "newPasswordAgain": "Új jelszó újra",
     "passwordOptional": "Jelszó (opcionális)",
-    "passwordAgainOptional": "Jelszó mégegyszer (opcionális)"
+    "passwordAgainOptional": "Jelszó mégegyszer (opcionális)",
+    "oldPassword": "Korábbi jelszó"
   },
   "groupDetailsMenu": {
     "backToGroup": "Vissza a csoportokhoz",
@@ -222,5 +223,11 @@
     "promote": "Kinevezés adminná",
     "kick": "Eltávolítás a csoportból",
     "calculateSuccess": "Pontszámítás sikeresen megtörtént!"
+  },
+  "groupDetails": {
+    "title": "Pilótára leadott tippek",
+    "description": "Csoporttagok, akik már leadtak tippet",
+    "selected": "Adott le tippet",
+    "notSelected": "Nem adott le tippet"
   }
 }

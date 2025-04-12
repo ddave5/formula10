@@ -11,6 +11,7 @@ import hu.project.formula10.dto.DriverStandingDTO;
 import hu.project.formula10.model.DriverStanding;
 import hu.project.formula10.repository.DriverStandingRepository;
 
+
 @Service
 public class DriverStandingService {
 
@@ -22,9 +23,9 @@ public class DriverStandingService {
         this.standingScraper = standingScraper;
     }
     
-    public List<DriverStandingDTO> getDriverStandings(Long seasonId) {
+    public List<DriverStandingDTO> getDriverStandings(Integer year) {
         List<DriverStanding> driverStandings = 
-        driverStandingRepository.findAllBySeasonYear(seasonId).orElseThrow(
+        driverStandingRepository.findAllBySeasonYear(year).orElseThrow(
             () -> new RuntimeException("DriverStandings not found")
         );
 
@@ -35,12 +36,21 @@ public class DriverStandingService {
         return driverStandingsDTO;
     }
 
-    public void updateDriverStanding() throws IOException {
+    public void updateDriverStanding(Integer year) throws IOException {
 
-        List<DriverStandingDTO> driverStandingsDTO = standingScraper.getDriverStandings();
+        List<DriverStandingDTO> driverStandingsDTO = standingScraper.getDriverStandings(year);
+        List<DriverStanding> driverStandingsDB = driverStandingRepository.findAllBySeasonYear(year).orElseThrow(() -> new RuntimeException("DriverStandings not found"));
 
         driverStandingsDTO.forEach(driverStandingDTO -> {
-            DriverStanding driverStanding = driverStandingRepository.findByDriverName(driverStandingDTO.getDriverName()).orElseThrow(() -> new RuntimeException("DriverStanding not found"));
+            DriverStanding driverStanding = driverStandingsDB
+                                            .stream()
+                                            .filter(d -> d
+                                                .getDriver()
+                                                .getName()
+                                                .contains(driverStandingDTO.getDriverName())
+                                            )
+                                            .findFirst()
+                                            .orElseThrow(() -> new RuntimeException("DriverStanding not found with driver:" + driverStandingDTO.getDriverName()));
             driverStanding.setPoint(driverStandingDTO.getPoint());
             driverStandingRepository.save(driverStanding);
         });

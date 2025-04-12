@@ -51,8 +51,8 @@ public class ScheduledTask {
         if (prevRace != null) {
             int nextDay = prevRace.getRaceStart().plusDays(1).getDayOfYear();
             if (nextDay == ZonedDateTime.now().getDayOfYear()) {
-                driverStandingService.updateDriverStanding();
-                constructorStandingService.updateConstructorStanding();
+                driverStandingService.updateDriverStanding(prevRace.getSeason().getYear());
+                constructorStandingService.updateConstructorStanding(prevRace.getSeason().getYear());
             }
         }
         

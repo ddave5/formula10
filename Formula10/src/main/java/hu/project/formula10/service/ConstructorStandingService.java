@@ -11,19 +11,21 @@ import hu.project.formula10.dto.ConstructorStandingDTO;
 import hu.project.formula10.model.ConstructorStanding;
 import hu.project.formula10.repository.ConstructorStandingRepository;
 
+
 @Service
 public class ConstructorStandingService {
     private final ConstructorStandingRepository constructorStandingRepository;
     private final StandingScraper standingScraper;
 
-    public ConstructorStandingService(ConstructorStandingRepository constructorStandingRepository, StandingScraper standingScraper) {
+    public ConstructorStandingService(ConstructorStandingRepository constructorStandingRepository, StandingScraper standingScraper
+    ) {
         this.constructorStandingRepository = constructorStandingRepository;
         this.standingScraper = standingScraper;
     }
     
-    public List<ConstructorStandingDTO> getConstructorStanding(Long seasonId) {
+    public List<ConstructorStandingDTO> getConstructorStanding(Integer year) {
         List<ConstructorStanding> constructorStandings = 
-        constructorStandingRepository.findAllBySeasonYear(seasonId).orElseThrow(
+        constructorStandingRepository.findAllBySeasonYear(year).orElseThrow(
             () -> new RuntimeException("ConstructorStandings not found")
         );
 
@@ -34,14 +36,23 @@ public class ConstructorStandingService {
         return constructorStandingsDTO;
     }
 
-    public void updateConstructorStanding() throws IOException {
+    public void updateConstructorStanding( Integer year) throws IOException {
 
-        List<ConstructorStandingDTO> constructorStandingsDTO = standingScraper.getConstructorStandings();
+        List<ConstructorStandingDTO> constructorStandingsDTO = standingScraper.getConstructorStandings(year);
+        List<ConstructorStanding> constructorStandingsDB = constructorStandingRepository.findAllBySeasonYear(year).orElseThrow(() -> new RuntimeException("ConstructorStandings not found"));
 
         constructorStandingsDTO.forEach(constructorStandingDTO -> {
-            ConstructorStanding standing = constructorStandingRepository.findByConstructorName(constructorStandingDTO.getConstructorName()).orElseThrow(() -> new RuntimeException("ConstructorStanding not found"));
-            standing.setPoint(constructorStandingDTO.getPoint());
-            constructorStandingRepository.save(standing);
+            ConstructorStanding constructorStanding = constructorStandingsDB
+                                            .stream()
+                                            .filter(d -> d
+                                                .getConstructor()
+                                                .getName()
+                                                .contains(constructorStandingDTO.getConstructorName())
+                                            )
+                                            .findFirst()
+                                            .orElseThrow(() -> new RuntimeException("ConstructorStanding not found"));
+            constructorStanding.setPoint(constructorStandingDTO.getPoint());
+            constructorStandingRepository.save(constructorStanding);
         });
 
         

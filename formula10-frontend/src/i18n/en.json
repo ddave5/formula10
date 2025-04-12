@@ -136,7 +136,8 @@
     "newPassword": "New password",
     "newPasswordAgain": "New password again",
     "passwordOptional": "Password (opcional)",
-    "passwordAgainOptional": "Confirm password (opcional)"
+    "passwordAgainOptional": "Confirm password (opcional)",
+    "oldPassword": "Old password"
   },
   "groupDetailsMenu": {
     "backToGroup": "Back to groups",
@@ -222,5 +223,11 @@
     "successRename": "Name changed successfully!",
     "successPasswordChange": "Password changed successfully!",
     "calculateSuccess": "Points calculated successfully!"
+  },
+  "groupDetails": {
+    "title": "F1 Driver Selection Status",
+    "description": "Group members who have picked a Formula 1 driver",
+    "selected": "Selected",
+    "notSelected": "Not selected"
   }
 }
