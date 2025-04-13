@@ -3,7 +3,7 @@ import SuccessPanel from '../../../components/SuccessPanel/SuccessPanel'
 import { Button, FormControl } from '@mui/material'
 import PasswordInput from '../../../components/passwordInput/PasswordInput'
 import { useTranslation } from 'react-i18next'
-import { changePassword } from '../../../services/user.service'
+import { changePasswordForUser } from '../../../services/user.service'
 import { CharacterValidator, EmailValidator, PasswordValidator } from '../../../utils/Validator'
 import TextInput from '../../../components/TextInput/TextInput'
 
@@ -25,7 +25,7 @@ const PasswordChange = () => {
   const changePwd = () => {
     if (isEmailValid && isPasswordValid && isConfirmPasswordValid) {
       try {
-        changePassword(email, password).then((response) => {
+        changePasswordForUser(email, password).then((response) => {
           const data = response;
           if (data) {
             setChangeDone(true);

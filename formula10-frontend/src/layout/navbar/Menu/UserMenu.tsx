@@ -1,12 +1,13 @@
 import { IconButton, MenuItem, Menu, Divider, MenuList } from '@mui/material'
 import React from 'react'
 import { useTranslation } from 'react-i18next';
-import { FaUser } from "react-icons/fa";
+import { FaUser, FaUserPlus } from "react-icons/fa";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../../../redux/slices/AuthSlice';
 import { clearGroups } from '../../../redux/slices/GroupSlice';
 import Player from './Player/Player';
+import { MdOutlineLogout, MdOutlineLogin } from "react-icons/md";
 
 
 const UserMenu = () => {
@@ -50,16 +51,24 @@ const UserMenu = () => {
       >
         {user && (
           <MenuList>
-            <MenuItem disabled>{user.username}</MenuItem>
+            <MenuItem disabled sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', }}>
+              <p className='text-sm font-medium leading-none'>{t('navbar.welcome')}, {user.username}</p>
+              <p className="text-xs leading-none text-muted-foreground mt-2">{user.email}</p>
+            </MenuItem>
             <Divider />
-            <MenuItem onClick={() => handleClose('/profile')}>{t('navbar.profile')}</MenuItem>
-            <MenuItem onClick={logOut}>{t('navbar.logout')}</MenuItem>
+            <MenuItem onClick={() => handleClose('/profile')}>
+              <p className='flex items-center gap-2 '><FaUser /> {t('navbar.profile')}</p></MenuItem>
+            <MenuItem onClick={logOut}>
+              <p className='flex items-center gap-2 '><MdOutlineLogout />{t('navbar.logout')}</p>
+            </MenuItem>
           </MenuList>
         )}
         {!user && (
           <MenuList>
-            <MenuItem onClick={() => handleClose('/login')}>{t('navbar.login')}</MenuItem>
-            <MenuItem onClick={() => handleClose('/register')}>{t('navbar.signUp')}</MenuItem>
+            <MenuItem onClick={() => handleClose('/login')}>
+            <p className='flex items-center gap-2 '><MdOutlineLogin /> {t('navbar.login')}</p></MenuItem>
+            <MenuItem onClick={() => handleClose('/register')}>
+            <p className='flex items-center gap-2 '><FaUserPlus /> {t('navbar.signUp')}</p></MenuItem>
           </MenuList>
         )}
       </Menu>

@@ -6,10 +6,12 @@ import { IoIosLock } from "react-icons/io";
 import PasswordInput from '../../components/passwordInput/PasswordInput';
 import { FiAlertTriangle } from "react-icons/fi";
 import { CharacterValidator, EmailValidator, PasswordValidator } from '../../utils/Validator';
-import { checkEmailAvailability, checkOldPassword } from '../../services/user.service';
-import { useSelector } from 'react-redux';
+import { changeEmail, changePasswordForUser, checkEmailAvailability, checkOldPassword } from '../../services/user.service';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/Store';
 import { t } from 'i18next';
+import eventBus from '../../services/eventBus';
+import { changeEmailInStore } from '../../redux/slices/AuthSlice';
 
 
 const Profile = () => {
@@ -25,6 +27,8 @@ const Profile = () => {
 
   const [showEmailErrors, setShowEmailErrors] = useState(false);
   const [showPasswordErrors, setShowPasswordErrors] = useState(false);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const getUserInformations = async () => {
@@ -62,19 +66,24 @@ const Profile = () => {
     return isValid;
   };
 
-  const changeEmail = async () => {
+  const changeEmailAddress = async () => {
     setShowEmailErrors(true);
 
     const isValid = await validateEmail();
     
     if (isValid) {
-      console.log('valid');
+      const response = await changeEmail(newEmail, user?.id || 0);
+
+      if (response) {
+        eventBus.emit('success', { message: t('profile.successEmailChange') });
+        dispatch(changeEmailInStore(newEmail));
+      }
     }
   }
 
   const validatePassword = async () => {
 
-    const isValidOldPassword = await checkOldPassword(oldPassword);
+    const isValidOldPassword = await checkOldPassword(oldPassword, user?.id || 0);
     
     // Ellenőrizd az összes mező validitását
     const isValid = (
@@ -91,7 +100,11 @@ const Profile = () => {
     const isValid = await validatePassword();
     
     if (isValid) {
-      console.log('valid');
+      const response = await changePasswordForUser(user?.email || '', newPassword);
+
+      if (response) {
+        eventBus.emit('success', { message: t('profile.successPasswordChange') });
+      }
     }
   }
 
@@ -101,9 +114,7 @@ const Profile = () => {
         <div className='w-full'>
           <h2 className="text-3xl font-bold mb-6">{t('profile.title')}</h2>
         </div>
-        
-
-        {/* Email Update Section */}
+      
         <Card className="mb-8">
           <CardHeader 
             avatar={
@@ -129,7 +140,7 @@ const Profile = () => {
                 showError: showEmailErrors
               }}
             />
-            <Button onClick={changeEmail} variant='contained'>
+            <Button onClick={changeEmailAddress} variant='contained'>
               {t('profile.updateEmail')}
             </Button>
         

@@ -7,5 +7,6 @@ export interface PasswordInputInterface {
     validation?: ValidationInterface[],
     isValid?: Function,
     showError?: boolean,
-    sx?: object
+    sx?: object,
+    keyUpEvent?: Function
 }

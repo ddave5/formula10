@@ -73,6 +73,7 @@ const PasswordInput = (
                     )
                     }
                 }}
+                onKeyUp={(e) => props.keyUpEvent ? props.keyUpEvent(e) : null}
             />
             {props.showError && props.validation?.map((item, index) => {
                 return (

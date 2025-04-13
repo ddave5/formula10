@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { changePasswordDB } from '../../../../../services/group.service';
+import { changePasswordForGroup } from '../../../../../services/group.service';
 import { t } from 'i18next';
 import eventBus from '../../../../../services/eventBus';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
@@ -15,7 +15,7 @@ const ChangePasswordComponent = ({ open, onClose }: { open: boolean; onClose: ()
 
   const changePassword = async () => {
     try {
-      const newGroup = await changePasswordDB(group?.id || 0, newPassword);
+      const newGroup = await changePasswordForGroup(group?.id || 0, newPassword);
       if (newGroup) {
           eventBus.emit('success', { message: t('manageGroup.successPasswordChange') });
           onClose();

@@ -104,6 +104,8 @@ const Tip = () => {
       setPageLoading(false);
     } catch (error) {
       eventBus.emit('error', {message: t('messages.unknownError')})
+    } finally {
+      setPageLoading(false);
     }
     
   }

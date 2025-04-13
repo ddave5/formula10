@@ -95,7 +95,7 @@ export const renameGroupDB = async (groupId: number, newName: string) => {
   }
 }
 
-export const changePasswordDB = async (groupId: number, password: string) => {
+export const changePasswordForGroup = async (groupId: number, password: string) => {
   try {
     const response = await axios.put(
       `${process.env.REACT_APP_API_URL || 'http://localhost:8080'}/api/groups/${groupId}/changePassword`,

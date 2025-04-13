@@ -75,4 +75,21 @@ public class UserService {
         return userRepository.save(user).toDTO();
     }
 
+    public UserDTO changeEmail(String email, Long userId) throws Exception {
+        log.info("Fetching user by email: {}", email);
+        User user = userRepository.findById(userId).orElseThrow( () -> new SQLException("No user with this id"));
+
+        user.setEmail(email);
+
+        log.info("Save user with the new email");
+        return userRepository.save(user).toDTO();
+    }
+
+    public Boolean checkOldPassword(String oldPassword, Long userId) throws SQLException {
+        log.info("Fetching user by id: {}", userId);
+        User user = userRepository.findById(userId).orElseThrow( () -> new SQLException("No user with this id"));
+
+        return passwordEncoder.matches(oldPassword, user.getPassword());        
+    }
+
 }

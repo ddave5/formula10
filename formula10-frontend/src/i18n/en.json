@@ -18,7 +18,8 @@
     "profile": "Profile",
     "language": "Language",
     "hu": "Hungarian",
-    "en": "English"
+    "en": "English",
+    "welcome": "Welcome"
   },
   "footer" : {
     "contact": "Contact",
@@ -229,5 +230,27 @@
     "description": "Group members who have picked a Formula 1 driver",
     "selected": "Selected",
     "notSelected": "Not selected"
+  },
+  "profile": {
+    "title": "Profile",
+    "emailTitle": "Update Email Address",
+    "subTitle": "Change the email address associated with your account!",
+    "email": "E-mail address",
+    "updateEmail": "Update email",
+    "passwordTitle":"Change Password",
+    "passwordSubTitle": "Update your password to keep your account secure!",
+    "updatePassword": "Update password",
+    "deleteTitle": "Delete Account",
+    "deleteSubTitle": "Permanently delete your account and all associated data!",
+    "deleteDescription": "This action cannot be undone. Once you delete your account, all of your data will be permanently removed.",
+    "deleteAccount": "Delete Account",
+    "successEmailChange": "E-mail address updated successfully!",
+    "successPasswordChange": "Password changed successfully!",
+    "emailEmpty": "The e-mail address has to be filled!",
+    "emailLength": "The e-mail address must be maximum 100 characters long.",
+    "invalidEmail": "Invalid e-mail address!",
+    "emailAlreadyTaken": "The e-mail address is already taken!",
+    "invalidCharacter": "Password must not contain any not hungarian or english characters!",
+    "invalidPassword": "Password must be at least 8 characters long, must contain at least one uppercase letter, one lowercase letter, one number and one special character!"
   }
 }

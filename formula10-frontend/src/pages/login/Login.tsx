@@ -9,6 +9,7 @@ import { loginUser } from '../../redux/slices/AuthSlice';
 import { useTheme } from '../../layout/navbar/Theme/ThemeContext';
 import PasswordInput from '../../components/passwordInput/PasswordInput';
 import TextInput from '../../components/TextInput/TextInput';
+import { ClipLoader } from 'react-spinners';
 
 const Login = () => {
   const { t } = useTranslation();
@@ -21,12 +22,14 @@ const Login = () => {
 
   const [isPasswordValid, setIsPasswordValid] = useState(true);
 
+  const [loginLoading, setLoginLoading] = useState(false);
+
   const navigate = useNavigate();
 
   const {theme} = useTheme();
 
-  const login = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const login = async () => {
+    setLoginLoading(true);
     if (!isPasswordValid) return;
     try {
       const resultAction = await dispatch(loginUser({ usernameOrEmail, password :loginPassword, rememberMe }));
@@ -36,6 +39,14 @@ const Login = () => {
       } 
     } catch (error) {
       throw error;
+    } finally {
+      setLoginLoading(false);
+    }
+  }
+
+  const enterEvent = (keyupEvent: React.KeyboardEvent) => {
+    if (keyupEvent.key === 'Enter') {
+      login();
     }
   }
 
@@ -72,13 +83,16 @@ const Login = () => {
                 validation: [
                   {error: loginPassword.length === 0, errori18n: 'login.passwordEmpty'},
                 ],
-                isValid: setIsPasswordValid
+                isValid: setIsPasswordValid,
+                keyUpEvent: enterEvent
               }}
             />
             <FormControlLabel label={t('login.remember')} control={<Checkbox onChange={() => setRememberMe(!rememberMe)}/>} value={rememberMe} sx={ theme === "dark" ? darkCheckBoxStyle : lightCheckBoxStyle}/>
-            <Button onClick={login} className='dark:text-[--color-font]'
+            <Button onClick={login} className='dark:text-[--color-font]' disabled={loginLoading}
                     sx={{borderStyle: 'solid', borderColor: 'var(--color-blue)', borderWidth: '2px', color: 'var(--color-gray)'}}>
-                      {t('login.login')}
+                      <p className='flex justify-center items-center gap-4'>{loginLoading && 
+                        <ClipLoader color={theme === 'dark' ? 'var(--color-blue)' : 'var(--color-primary)'}
+                      />} {t('login.login')}</p>
             </Button>
           </FormControl>
           <Link to="/passwordChange" className='w-fit text-[--color-blue] before:bg-[--color-blue]'> {t('login.forgotPassword')} </Link>

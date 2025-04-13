@@ -44,22 +44,22 @@ const JoinGroup = () => {
 
   const availabilityChecker = (group: GroupDTO) => {
     if (group.availability === 'PUBLIC') {
-      join(group.id);
+      join(group);
     } else {
       setSelectedGroup(group);
       setPasswordCheck(true);
     }
   }
 
-  const join = async (groupId: number = selectedGroup?.id || 0) => {
+  const join = async (group: GroupDTO) => {
     try {
       
-      if (password === '') {
+      if (password === '' && group?.availability === 'PRIVATE') {
         eventBus.emit('error', {message: t('joinGroup.addPassword'), isDialog: false });
         return;
       }
 
-      const data = await joinGroup(user?.id || 0, groupId, password);
+      const data = await joinGroup(user?.id || 0, group.id, password);
       if (data) {
         eventBus.emit('success', {message: t('joinGroup.successJoining'), isDialog: false })
         setJoinDone(true);
@@ -227,7 +227,7 @@ const JoinGroup = () => {
             </DialogContent>
             <DialogActions>
               <Button onClick={() => closeDialog()}>{t('joinGroup.cancel')}</Button>
-              <Button onClick={() => join()}>{t('joinGroup.join')}</Button>
+              <Button onClick={() => join(selectedGroup as GroupDTO)}>{t('joinGroup.join')}</Button>
             </DialogActions>
           </Dialog>
         </>  

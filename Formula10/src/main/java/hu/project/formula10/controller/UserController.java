@@ -14,10 +14,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/api/users")
@@ -98,4 +100,21 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
+
+    @PutMapping("/changeEmail")
+    public ResponseEntity<UserDTO> changeEmail(@RequestBody Map<String, String> datas) {
+        try {
+            UserDTO userDTO = userService.changeEmail(datas.get("email"), Long.valueOf(datas.get("userId")));
+            return ResponseEntity.ok(userDTO);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    @GetMapping("/{userId}/checkOldPassword")
+    public ResponseEntity<Boolean> checkOldPassword(@PathVariable Long userId, @RequestParam String oldPassword) throws SQLException {
+        boolean isCorrect = userService.checkOldPassword(oldPassword, userId);
+        return ResponseEntity.ok(isCorrect);
+    }
+    
 }

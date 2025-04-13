@@ -139,7 +139,7 @@ public class GroupService {
         if (isRename) {
             group.setName(value);
         } else {
-            group.setPassword(value == null ? null : passwordEncoder.encode(value));
+            group.setPassword(passwordEncoder.encode(value == null ? "" : value));
             group.setAvailability(value == null ? GroupAvailability.PUBLIC : GroupAvailability.PRIVATE);
         }
         return groupRepository.save(group).toDTO();

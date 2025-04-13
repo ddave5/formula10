@@ -30,7 +30,7 @@ export const checkEmailAvailability = async (email: string) => {
   }
 };
 
-export const changePassword = async (email: string, password: string) => {
+export const changePasswordForUser = async (email: string, password: string) => {
   try {
     const response = await apiClient.put(`/api/users/changePassword`, { email, newPassword: password });
     return response.data;
@@ -40,9 +40,19 @@ export const changePassword = async (email: string, password: string) => {
   }
 }
 
-export const checkOldPassword = async(password: string) => {
+export const changeEmail = async (email: string, userId: number) => {
   try {
-    const response = await apiClient.get('/api/users/checkOldPassword', { params: { password } });
+    const response = await apiClient.put(`/api/users/changeEmail`, { email, userId: userId });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+export const checkOldPassword = async(oldPassword: string, userId: number) => {
+  try {
+    const response = await apiClient.get(`/api/users/${userId}/checkOldPassword?oldPassword=${oldPassword}`);
     return response.data;
   } catch (error) {
     console.error(error);
