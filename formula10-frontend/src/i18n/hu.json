@@ -251,6 +251,11 @@
     "invalidEmail": "Érvénytelen e-mail cím!",
     "emailAlreadyTaken": "Az e-mail cím már használatban van!",
     "invalidCharacter": "A jelszó nem tartalmazhat nem angol vagy magyar karaktert!",
-    "invalidPassword": "A jelszónak legalább 8 karakter hosszúnak kell lennie, tartalmaznia kell legalább egy nagybetűt, egy kisbetűt, egy számot és egy speciális karaktert!"
+    "invalidPassword": "A jelszónak legalább 8 karakter hosszúnak kell lennie, tartalmaznia kell legalább egy nagybetűt, egy kisbetűt, egy számot és egy speciális karaktert!",
+    "deleteDialogTitle":"Biztosan törli a felhasználót?",
+    "deleteDialogDescription":"Ez a művelet nem vonható vissza. A felhasználó törlese után minden adata véglegesen törlődik. Adja meg a jelszavát a folyamat befejezéséhez.",
+    "cancel": "Mégse",
+    "errorDeleteAccount": "A megadott jelszó helytelen!",
+    "successDeleteAccount": "A felhasználó sikeresen törölve!"
   }
 }

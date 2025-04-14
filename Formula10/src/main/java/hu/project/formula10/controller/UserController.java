@@ -116,5 +116,11 @@ public class UserController {
         boolean isCorrect = userService.checkOldPassword(oldPassword, userId);
         return ResponseEntity.ok(isCorrect);
     }
+
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long userId) throws SQLException {
+        userService.deleteUser(userId);
+        return ResponseEntity.noContent().build();
+    }
     
 }

@@ -92,4 +92,10 @@ public class UserService {
         return passwordEncoder.matches(oldPassword, user.getPassword());        
     }
 
+    public void deleteUser (Long userId) throws SQLException {
+        log.info("Delete user by id: {}", userId);
+        User user = userRepository.findById(userId).orElseThrow( () -> new SQLException("No user with this id"));
+        userRepository.delete(user);
+    }
+
 }

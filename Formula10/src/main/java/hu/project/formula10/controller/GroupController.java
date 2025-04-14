@@ -5,11 +5,9 @@ import hu.project.formula10.dto.GroupDTO;
 import hu.project.formula10.dto.GroupMemberDTO;
 import hu.project.formula10.dto.JoinGroupRequest;
 import hu.project.formula10.service.GroupService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,12 +44,8 @@ public class GroupController {
 
     @PostMapping("/joinGroup")
     public ResponseEntity<GroupDTO> joinGroup(@RequestBody JoinGroupRequest joinGroupRequest) {
-        try {
-            GroupDTO groupDTO = groupService.joinGroup(joinGroupRequest.getUserId(), joinGroupRequest.getGroupId(), joinGroupRequest.getPassword());
-            return ResponseEntity.ok(groupDTO);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        }
+        GroupDTO groupDTO = groupService.joinGroup(joinGroupRequest.getUserId(), joinGroupRequest.getGroupId(), joinGroupRequest.getPassword());
+        return ResponseEntity.ok(groupDTO);
     }
 
     @GetMapping("/{groupId}/members")
@@ -68,12 +62,8 @@ public class GroupController {
 
     @GetMapping("/getGroupListByUserId/{userId}")
     public ResponseEntity<List<GroupDTO>> getGroupListByUserId(@PathVariable Long userId) {
-        try {
-            List<GroupDTO> groupDTOList = groupService.getGroupListByUserId(userId);
-            return ResponseEntity.ok(groupDTOList);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ArrayList<>());
-        }
+        List<GroupDTO> groupDTOList = groupService.getGroupListByUserId(userId);
+        return ResponseEntity.ok(groupDTOList);
     }
 
     @DeleteMapping("/{groupId}")

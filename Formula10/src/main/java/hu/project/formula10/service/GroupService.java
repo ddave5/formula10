@@ -82,7 +82,7 @@ public class GroupService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
-        if (!passwordEncoder.matches(password, group.getPassword())) {
+        if (group.getAvailability() == GroupAvailability.PRIVATE && !passwordEncoder.matches(password, group.getPassword())) {
             throw new IllegalArgumentException("Incorrect password for the group");
         }
 

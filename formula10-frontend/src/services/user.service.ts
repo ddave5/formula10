@@ -59,3 +59,13 @@ export const checkOldPassword = async(oldPassword: string, userId: number) => {
     throw error;
   }
 }
+
+export const deleteUserAccount = async (userId: number) => {
+  try {
+    await apiClient.delete(`/api/users/${userId}`);
+    return true;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
