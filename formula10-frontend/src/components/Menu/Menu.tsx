@@ -9,6 +9,7 @@ import { GrGroup } from 'react-icons/gr'
 import { FaBoxArchive, FaFlagCheckered } from 'react-icons/fa6'
 import { useTranslation } from 'react-i18next'
 import { IoArrowBackCircleOutline } from "react-icons/io5";
+import { FaHome } from "react-icons/fa";
 
 
 const Menu = (
@@ -45,6 +46,7 @@ const Menu = (
                 { !groupList && (
                     <>
                         <Link to={`/groups`} className={`${menuElementStyle} mb-1`} key='back'><IoArrowBackCircleOutline /> {t('groupDetailsMenu.backToGroup')} </Link>
+                        <Link to={`/groups/${group?.id}`} className={`${menuElementStyle} mb-1`} key='back'><FaHome /> {t('groupDetailsMenu.home')} </Link>
                         <Link to={`/groups/${group?.id}/tip`} className={`${menuElementStyle} mb-1`} key='tip'><TiPencil /> {t('groupDetailsMenu.tip')} </Link>
                         <Link to={`/groups/${group?.id}/standing`} className={`${menuElementStyle} mb-1`} key='standing'><AiOutlineTrophy /> {t('groupDetailsMenu.standing')} </Link>
                         <Link to={`/groups/${group?.id}/members`} className={`${menuElementStyle} mb-1`} key='members'><GrGroup /> {t('groupDetailsMenu.members')} </Link>
