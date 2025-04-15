@@ -13,6 +13,7 @@ import { t } from 'i18next';
 import eventBus from '../../services/eventBus';
 import { changeEmailInStore, logout } from '../../redux/slices/AuthSlice';
 import { useNavigate } from 'react-router-dom';
+import { useTheme } from '../../layout/navbar/Theme/ThemeContext';
 
 
 const Profile = () => {
@@ -34,6 +35,7 @@ const Profile = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const {theme} = useTheme();
 
   useEffect(() => {
     const getUserInformations = async () => {
@@ -146,11 +148,12 @@ const Profile = () => {
           <h2 className="text-3xl font-bold mb-6 pl-4">{t('profile.title')}</h2>
         </div>
       
-        <Card className="mb-8">
+        <Card className="mb-8 dark:bg-gray-800 dark:text-white">
           <CardHeader 
             avatar={
               <IoMdMail />
             }
+            sx={{".MuiCardHeader-subheader": {color: theme === 'dark' ? 'var(--color-text)' : 'bg-gray-800'}}}
             title={t('profile.emailTitle')}
             subheader={t('profile.subTitle')}/>
           <CardContent sx={{display: 'flex', flexDirection: 'column', gap: 2}}>
@@ -179,11 +182,12 @@ const Profile = () => {
         </Card>
 
         {/* Password Update Section */}
-        <Card className="mb-8">
+        <Card className="mb-8 dark:bg-gray-800 dark:text-white">
           <CardHeader
             className="flex items-center"
             avatar={<IoIosLock />}
             title={t('profile.passwordTitle')}
+            sx={{".MuiCardHeader-subheader": {color: theme === 'dark' ? 'var(--color-text)' : 'bg-gray-800'}}}
             subheader={t('profile.subTitle')}/>
           <CardContent sx={{display: 'flex', flexDirection: 'column', gap: 2}}>
             <PasswordInput props={{
@@ -220,11 +224,12 @@ const Profile = () => {
         </Card>
 
       {/* Delete Account Section */}
-        <Card className="border-destructive">
+        <Card className="border-destructive dark:bg-gray-800 dark:text-white">
           <CardHeader
             className='flex items-center text-destructive'
             avatar={<FiAlertTriangle />}
             title={t('profile.deleteTitle')}
+            sx={{".MuiCardHeader-subheader": {color: theme === 'dark' ? 'var(--color-text)' : 'bg-gray-800'}}}
             subheader={t('profile.deleteSubTitle')}
           />
           <CardContent>
@@ -253,9 +258,19 @@ const Profile = () => {
             },
           }}
         >
-          <DialogTitle>{t('profile.deleteDialogTitle')}</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
+          <DialogTitle
+            sx={{backgroundColor: theme === 'dark' ? 'var(--color-gray)' : 'var(--color-font)',
+                color: theme === 'dark' ? 'var(--color-font)' : 'var(--color-black)'}}
+          >{t('profile.deleteDialogTitle')}</DialogTitle>
+          <DialogContent 
+            sx={{
+              backgroundColor: theme === 'dark' ? 'var(--color-gray)' : 'var(--color-font)',
+            }}
+              >
+            <DialogContentText
+              sx={{
+                color: theme === 'dark' ? 'var(--color-font)' : 'var(--color-black)'
+              }}>
               {t('profile.deleteDialogDescription')}
             </DialogContentText>
             <PasswordInput props={{
@@ -265,9 +280,12 @@ const Profile = () => {
                 sx:{width: '100%', marginTop: '1rem'}
             }} />
           </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose}>{t('profile.cancel')}</Button>
-            <Button onClick={deleteAccount} color='error'>{t('profile.deleteAccount')}</Button>
+          <DialogActions
+            sx={{
+              backgroundColor: theme === 'dark' ? 'var(--color-gray)' : 'var(--color-font)',
+            }}>
+            <Button onClick={handleClose} variant='contained'>{t('profile.cancel')}</Button>
+            <Button onClick={deleteAccount} color='error' variant='contained'>{t('profile.deleteAccount')}</Button>
           </DialogActions>
         </Dialog>
       </div>
