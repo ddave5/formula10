@@ -258,5 +258,11 @@
     "cancel": "Mégse",
     "errorDeleteAccount": "A megadott jelszó helytelen!",
     "successDeleteAccount": "A felhasználó sikeresen törölve!"
+  },
+  "standing": {
+    "title": "Tabella",
+    "position": "Helyezés",
+    "username": "Felhasználónév",
+    "totalPoints": "Pontok"
   }
 }

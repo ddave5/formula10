@@ -1,27 +1,27 @@
 package hu.project.formula10.service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
 import hu.project.formula10.dto.StandingDTO;
-import hu.project.formula10.model.Standing;
-import hu.project.formula10.repository.StandingRepository;
+import hu.project.formula10.model.Season;
+import hu.project.formula10.repository.SeasonRepository;
+import hu.project.formula10.repository.StandingRepositoryImpl;
 
 @Service
 public class StandingService {
 
-    private final StandingRepository standingRepository;
+    private final StandingRepositoryImpl standingRepository;
+    private final SeasonRepository seasonRepository;
 
-    public StandingService(StandingRepository standingRepository) {
+    public StandingService(StandingRepositoryImpl standingRepository, SeasonRepository seasonRepository) {
         this.standingRepository = standingRepository;
+        this.seasonRepository = seasonRepository;
     }
 
-    public List<StandingDTO> getStandingByGroupAndSeason(Long groupId, Long seasonId) {
-        return standingRepository.findByGroupIdAndSeasonId(groupId, seasonId)
-                .stream()
-                .map(Standing::toDTO)
-                .collect(Collectors.toList());
+    public List<StandingDTO> getStandingByGroupAndSeason(Long groupId) {
+        Season season = seasonRepository.findCurrentSeason();
+        return standingRepository.findByGroupIdAndSeasonId(groupId, season.getId());
     }
 }

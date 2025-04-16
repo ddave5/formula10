@@ -39,11 +39,11 @@ public class StandingController {
         return ResponseEntity.ok().body(constructorStandingService.getConstructorStanding(year));
     }
 
-    @GetMapping("/{groupId}/{seasonId}")
+    @GetMapping("/{groupId}")
     public ResponseEntity<List<StandingDTO>> getGroupStanding(
-            @PathVariable Long groupId,
-            @PathVariable Long seasonId) {
-        List<StandingDTO> standings = standingService.getStandingByGroupAndSeason(groupId, seasonId);
+            @PathVariable Long groupId
+            ) {
+        List<StandingDTO> standings = standingService.getStandingByGroupAndSeason(groupId);
         return ResponseEntity.ok(standings);
     }
 }

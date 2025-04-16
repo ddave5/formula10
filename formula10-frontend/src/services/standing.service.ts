@@ -1,3 +1,4 @@
+import { StandingDTO } from "../dto/standing.dto";
 import { ConstructorStanding, DriverStanding } from "../interfaces/currentSeason";
 import apiClient from "./axios";
 
@@ -20,3 +21,14 @@ export const getConstructorStanding = async (seasonId: number): Promise<Construc
       throw error;
     }
 };
+
+export const getGroupAndSeasonStanding = async (groupId: number): Promise<StandingDTO[] | null> => {
+  try {
+    const response = await apiClient.get<StandingDTO[]>(`/api/standings/${groupId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Failed to fetch the driver standing:", error);
+    throw error;
+  }
+  
+}

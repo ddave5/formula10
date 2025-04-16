@@ -22,7 +22,7 @@ const Members = () => {
         const groupMembers = await getGroupMemberListByGroupId(+groupId);
 
         if (!groupMembers) {
-          setError('Failed to fetch race data');
+          setError('Failed to fetch members');
           return;
         }
         
