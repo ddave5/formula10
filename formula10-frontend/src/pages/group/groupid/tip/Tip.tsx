@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { getDriverList } from '../../../../services/driver.service';
 import { getNextRace } from '../../../../services/race.service';
-import { RaceDTO } from '../../../../dto/race.dto';
+import type { RaceDTO } from '../../../../dto/race.dto';
 import DriverCard from './driver-card/DriverCard';
 import Loading from '../../../../components/Loading/Loading';
-import { DriverDTO } from '../../../../dto/drivers.dto';
+import type { DriverDTO } from '../../../../dto/drivers.dto';
 import { createTip, getUserTips, updateTip } from '../../../../services/tip.service';
-import { RootState } from '../../../../redux/Store';
+import type { RootState } from '../../../../redux/Store';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { TipDTO } from '../../../../dto/tip.dto';
+import type { TipDTO } from '../../../../dto/tip.dto';
 import { Button } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import eventBus from '../../../../services/eventBus';
@@ -43,15 +43,15 @@ const Tip = () => {
         setRace(nextRace);
         setPreviousTips(tips);
         if (tips.length > 0) {
-          tips.map( (tip: TipDTO) => {
+          for (const tip of tips) {
             const tipDriver = driverList.find((driver: DriverDTO) => driver.id === tip.driverId);
-            
+        
             if (tip.tipType === SPRINT) {
-              setSelectedDriverForSprint(tipDriver ? tipDriver : null);
+              setSelectedDriverForSprint(tipDriver ?? null);
             } else {
-              setSelectedDriverForRace(tipDriver ? tipDriver : null);
+              setSelectedDriverForRace(tipDriver ?? null);
             }
-          });
+          }
         }
         setPageLoading(false);
 
@@ -62,7 +62,7 @@ const Tip = () => {
       }
     };
     fetchDatas();
-  }, []);
+  }, [location.pathname, race?.sprintQualifyingStart, user?.id, t]);
 
   
 
@@ -79,14 +79,14 @@ const Tip = () => {
       setPageLoading(true);
 
       let isSaved = false;
-      let prevTips: TipDTO[] = [];
+      const prevTips: TipDTO[] = [];
 
       if (previousTips.length > 0) {
 
         previousTips.map( async (tip) => {
           if (tip.tipType === selectedRaceType) {
             isSaved = true;
-            let savedTip = await modifyTip(tip);
+            const savedTip = await modifyTip(tip);
             prevTips.push(savedTip);
           } else {
             prevTips.push(tip);
@@ -175,26 +175,30 @@ const Tip = () => {
           <>
             <div className='mb-8'>
               <p className='text-2xl xl:text-4xl title-font w-full text-center whitespace-nowrap dark:text-white my-8'>{t('tip.chooseDriver')}</p>
-              {Array.from({ length: (drivers.length / 2) }, (_, index) => (index * 2)).map((_, index) => (
-                <div className='flex justify-center lg:h-[200px]' key={'line' + index}>
-                  <div className='grid grid-cols-1 lg:grid-cols-2 gap-4 w-5/6 md:w-2/3 lg:w-5/6 2xl:w-2/3 lg:relative'>
-                    <div className='lg:w-[calc(50%-8px)] lg:absolute lg:top-0'>
-                      <DriverCard 
-                        key={index + 30}
-                        driver={drivers[_]} 
-                        selected={selectedRaceType === SPRINT ? selectedDriverForSprint?.name === drivers[_].name : selectedDriverForRace?.name === drivers[_].name} 
-                        selectFn={() => selectDriver(drivers[_])}/>
-                    </div>
-                    <div className='lg:w-[calc(50%-8px)] lg:absolute lg:bottom-0 lg:right-0' key={drivers[_].id}>
-                      <DriverCard 
-                        key={index}
-                        driver={drivers[_ + 1]} 
-                        selected={selectedRaceType === SPRINT ? selectedDriverForSprint?.name === drivers[_+1].name : selectedDriverForRace?.name === drivers[_+1].name} 
-                        selectFn={() => selectDriver(drivers[_ + 1])}/>
+              {Array.from({ length: (drivers.length / 2) }, (_, index) => (index * 2)).map((_, index) => {
+                const firstDriver = drivers[index * 2];
+                const secondDriver = drivers[index * 2 + 1];
+
+                return (
+                  <div className='flex justify-center lg:h-[200px]'key={`pair-${firstDriver?.id}-${secondDriver?.id}`}>
+                    <div className='grid grid-cols-1 lg:grid-cols-2 gap-4 w-5/6 md:w-2/3 lg:w-5/6 2xl:w-2/3 lg:relative'>
+                      <div className='lg:w-[calc(50%-8px)] lg:absolute lg:top-0'>
+                        <DriverCard 
+                          key={firstDriver.id}
+                          driver={drivers[_]} 
+                          selected={selectedRaceType === SPRINT ? selectedDriverForSprint?.name === drivers[_].name : selectedDriverForRace?.name === drivers[_].name} 
+                          selectFn={() => selectDriver(drivers[_])}/>
+                      </div>
+                      <div className='lg:w-[calc(50%-8px)] lg:absolute lg:bottom-0 lg:right-0' key={drivers[_].id}>
+                        <DriverCard 
+                          key={secondDriver.id}
+                          driver={drivers[_ + 1]} 
+                          selected={selectedRaceType === SPRINT ? selectedDriverForSprint?.name === drivers[_+1].name : selectedDriverForRace?.name === drivers[_+1].name} 
+                          selectFn={() => selectDriver(drivers[_ + 1])}/>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                )})}
             </div>
             <div className='flex justify-center mb-8'>
               <Button variant="contained" onClick={saveTip} disabled={selectedRaceType === SPRINT ? !selectedDriverForSprint : !selectedDriverForRace}>{t('tip.saveTip')}</Button>

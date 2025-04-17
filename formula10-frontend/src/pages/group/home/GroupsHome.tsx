@@ -2,9 +2,9 @@ import React, { useEffect, useRef, useState } from 'react'
 import DateCard from '../../../components/dateCard/DateCard';
 import Loading from '../../../components/Loading/Loading';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../../redux/Store';
+import type { RootState } from '../../../redux/Store';
 import { getNextRace } from '../../../services/race.service';
-import { RaceDTO } from '../../../dto/race.dto';
+import type { RaceDTO } from '../../../dto/race.dto';
 import { useTranslation } from 'react-i18next';
 import TableComponent from '../../../components/table/TableComponent';
 import eventBus from '../../../services/eventBus';
@@ -78,7 +78,7 @@ const GroupsHome = () => {
     };
 
     getRaceData();
-  }, []);
+  }, [t]);
 
   if (ergastLoading || loading || raceLoading) {
     return <Loading isLoading={ergastLoading || loading || raceLoading } />;

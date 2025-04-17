@@ -34,21 +34,20 @@ const Registration = () => {
 
   useEffect(() => {
     setUsernameAvailable(true);
-  }, [username]);
+  }, []);
 
   useEffect(() => {
     setEmailAvailable(true);
-  }, [email]);
+  }, []);
 
   const checkUsername = async (username: string) => {
     if (username.trim()) {
       const isAvailable = await checkUsernameAvailability(username);
       setUsernameAvailable(isAvailable);
       return isAvailable;
-    } else {
-      setUsernameAvailable(true);
-      return true;
     }
+    setUsernameAvailable(true);
+    return true;
   };
 
   const checkEmail = async (email: string) => {
@@ -56,10 +55,9 @@ const Registration = () => {
       const isAvailable = await checkEmailAvailability(email);
       setEmailAvailable(isAvailable);
       return isAvailable;
-    } else {
-      setEmailAvailable(true);
-      return true;
     }
+    setEmailAvailable(true);
+    return true;
   };
 
   const validateForm = async () => {
@@ -86,22 +84,18 @@ const Registration = () => {
     const isValid = await validateForm();
     
     if (isValid) {
-      try {
-        await registerUser({
-          username: username,
-          email: email,
-          password: password
-        }).then((response) => {
-          const data = response.success;
-          if (data) {
-            setRegistrationDone(true);
-          }
-        }).catch( (err) => {
-          throw err;
-        });
-      } catch (err) {
+      await registerUser({
+        username: username,
+        email: email,
+        password: password
+      }).then((response) => {
+        const data = response.success;
+        if (data) {
+          setRegistrationDone(true);
+        }
+      }).catch( (err) => {
         throw err;
-      }
+      });
     }
   };
 

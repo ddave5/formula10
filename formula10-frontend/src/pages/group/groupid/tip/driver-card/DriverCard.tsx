@@ -1,15 +1,22 @@
 import { Divider } from '@mui/material'
-import { DriverDTO } from '../../../../../dto/drivers.dto'
+import type { DriverDTO } from '../../../../../dto/drivers.dto'
 import { useTheme } from '../../../../../layout/navbar/Theme/ThemeContext'
 
-const DriverCard = ({driver, selected = false, selectFn} : {driver: DriverDTO, selected?: boolean, selectFn: Function}) => {
+const DriverCard = ({driver, selected = false, selectFn} : {driver: DriverDTO, selected?: boolean, selectFn: () => void}) => {
 
     const {theme} = useTheme();
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          selectFn();
+        }
+      };
 
     return (
         <div 
             className={`bg-gradient-to-b from-white dark:from-black from-40% ${selected ? 'to-red-500 dark:to-red-500' : (theme === "dark" ? 'to-white' : 'to-black')} p-1 select-none`} 
-            onClick={() => selectFn()}>
+            onClick={() => selectFn()} onKeyDown={handleKeyDown}>
             <div className='bg-white dark:bg-gray-500 xl:h-[150px] grid grid-cols-5 gap-2'>
                 <div className='col-span-2 max-h-[150px] flex items-center'>
                     <img src={`/assets/drivers/${driver.name}.avif`} alt={`${driver.name}`} className='h-full'/> 

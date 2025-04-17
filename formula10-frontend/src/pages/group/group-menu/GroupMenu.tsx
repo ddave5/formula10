@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../../../redux/Store';
+import type { AppDispatch, RootState } from '../../../redux/Store';
 import Loading from '../../../components/Loading/Loading';
 import { fetchGroupList } from '../../../redux/slices/GroupSlice';
 import { useWindowWidth } from '@react-hook/window-size';
@@ -54,10 +54,16 @@ const GroupMenu = () => {
       return <div>{error}</div>;
   }
 
+  const hideMenu = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Escape') {
+      setShowMenu(false);
+    }
+  }
+
   return (
     <>
       {showMenu && (
-        <div className='h-[100vh] w-full fixed top-0 z-50 flex flex-row-reverse backdrop-blur-sm ' onClick={() => setShowMenu(false)}>
+        <div className='h-[100vh] w-full fixed top-0 z-50 flex flex-row-reverse backdrop-blur-sm' onClick={() => setShowMenu(false)} onKeyUp={(event) => hideMenu(event)} >
           <Menu containerStyle='bg-gray-200 dark:bg-gray-500 w-1/2 sm:w-1/3 h-[100vh] border-r-2 border-gray-300 dark:border-gray-700 border-solid' groupList={groups} />
         </div>
       )}
@@ -68,12 +74,10 @@ const GroupMenu = () => {
         }
         {/* Mobile menu */}
         {width < 1024 && 
-          <>
-            <div className='bg-gray-200 dark:bg-gray-700 flex justify-between items-center py-4 pl-4'>
-              <p className='text-2xl font-bold title-font whitespace-nowrap dark:text-white text-center'>{t('groupMenu.group')}</p>
-              <Button onClick={() => setShowMenu(!showMenu)} sx={{ color: theme === 'dark' ? 'var(--color-font)' : 'var(--color-primary)', fontSize: '1.5rem' }}><RxHamburgerMenu /></Button>
-            </div>
-          </>
+          <div className='bg-gray-200 dark:bg-gray-700 flex justify-between items-center py-4 pl-4'>
+            <p className='text-2xl font-bold title-font whitespace-nowrap dark:text-white text-center'>{t('groupMenu.group')}</p>
+            <Button onClick={() => setShowMenu(!showMenu)} sx={{ color: theme === 'dark' ? 'var(--color-font)' : 'var(--color-primary)', fontSize: '1.5rem' }}><RxHamburgerMenu /></Button>
+          </div>
         }
         <Outlet/>
       </div>

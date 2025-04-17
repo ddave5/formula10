@@ -1,4 +1,5 @@
 import axios from 'axios';
+// biome-ignore lint/style/useImportType: <explanation>
 import { GroupDTO } from '../dto/group.dto';
 import apiClient from './axios';
 
@@ -19,7 +20,7 @@ export const createGroup = async (groupName: string, password: string, userId: n
 
 export const checkGroupName = async (name: string): Promise<boolean> => {
   try {
-    const response = await apiClient.get<boolean>(`/api/groups/checkGroupName`, {
+    const response = await apiClient.get<boolean>("/api/groups/checkGroupName", {
       params: { name }
     });
     return response.data;
@@ -41,7 +42,7 @@ export const getGroupListByUserId = async (userId: number): Promise<GroupDTO[]> 
 
 export const getGroupList = async (): Promise<GroupDTO[]> => {
   try {
-    const response = await apiClient.get<GroupDTO[]>(`/api/groups`);
+    const response = await apiClient.get<GroupDTO[]>("/api/groups");
     return response.data;
   } catch (error) {
     console.error('Error getting group list:', error);
@@ -51,7 +52,7 @@ export const getGroupList = async (): Promise<GroupDTO[]> => {
 
 export const joinGroup = async (userId: number, groupId: number, password: string): Promise<GroupDTO> => {
   try {
-    const response = await apiClient.post(`/api/groups/joinGroup`, { userId, groupId, password });
+    const response = await apiClient.post("/api/groups/joinGroup", { userId, groupId, password });
     return response.data;
   } catch (error) {
     console.error('Error joining group:', error);

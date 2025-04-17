@@ -1,6 +1,6 @@
 import apiClient from './axios';
 
-export const registerUser = async (userData: any) :Promise<any> => {
+export const registerUser = async (userData: { username: string, email: string, password: string }) :Promise< Map<string, boolean>> => {
   try {
     const response = await apiClient.post('/api/users', userData);
     return response.data;
@@ -32,7 +32,7 @@ export const checkEmailAvailability = async (email: string) => {
 
 export const changePasswordForUser = async (email: string, password: string) => {
   try {
-    const response = await apiClient.put(`/api/users/changePassword`, { email, newPassword: password });
+    const response = await apiClient.put("/api/users/changePassword", { email, newPassword: password });
     return response.data;
   } catch (error) {
     console.error(error);
@@ -42,7 +42,7 @@ export const changePasswordForUser = async (email: string, password: string) => 
 
 export const changeEmail = async (email: string, userId: number) => {
   try {
-    const response = await apiClient.put(`/api/users/changeEmail`, { email, userId: userId });
+    const response = await apiClient.put("/api/users/changeEmail", { email, userId: userId });
     return response.data;
   } catch (error) {
     console.error(error);

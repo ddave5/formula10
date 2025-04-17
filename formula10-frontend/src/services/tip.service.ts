@@ -1,4 +1,4 @@
-import { TipDTO } from "../dto/tip.dto";
+import type { TipDTO } from "../dto/tip.dto";
 import apiClient from "./axios";
 
 export const getTipsForGroupSeasonAndRace = async (groupId: number, seasonId: number, raceId: number) => {
@@ -17,7 +17,7 @@ export const createTip = async (tip: TipDTO) => {
 };
 
 export const updateTip = async (id: number, tip: TipDTO) => {
-  const response = await apiClient.put(`/api/tips`, tip);
+  const response = await apiClient.put("/api/tips", tip);
   return response.data;
 };
 

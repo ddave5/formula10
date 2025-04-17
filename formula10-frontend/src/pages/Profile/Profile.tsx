@@ -8,7 +8,7 @@ import { FiAlertTriangle } from "react-icons/fi";
 import { CharacterValidator, EmailValidator, PasswordValidator } from '../../utils/Validator';
 import { changeEmail, changePasswordForUser, checkEmailAvailability, checkOldPassword, deleteUserAccount } from '../../services/user.service';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../redux/Store';
+import type { RootState } from '../../redux/Store';
 import { t } from 'i18next';
 import eventBus from '../../services/eventBus';
 import { changeEmailInStore, logout } from '../../redux/slices/AuthSlice';
@@ -48,7 +48,7 @@ const Profile = () => {
     }
 
     getUserInformations();
-  }, []);
+  }, [user]);
 
   const validateEmail = async () => {
 
@@ -57,10 +57,9 @@ const Profile = () => {
         const isAvailable = await checkEmailAvailability(email);
         setEmailAvailable(isAvailable);
         return isAvailable;
-      } else {
-        setEmailAvailable(true);
-        return true;
       }
+      setEmailAvailable(true);
+      return true;
     };
 
     const emailValid = await checkEmail(newEmail);
@@ -250,8 +249,8 @@ const Profile = () => {
               onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
                 event.preventDefault();
                 const formData = new FormData(event.currentTarget);
-                const formJson = Object.fromEntries((formData as any).entries());
-                const email = formJson.email;
+                const formJson = Object.fromEntries(formData.entries()) as { [key: string]: FormDataEntryValue };
+                const email = formJson.email?.toString();
                 console.log(email);
                 handleClose();
               },

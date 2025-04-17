@@ -1,10 +1,11 @@
 import { Button, Checkbox, Divider, FormControl, FormControlLabel } from '@mui/material'
-import React, { useState } from 'react'
+import type React from 'react'
+import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { FcGoogle } from "react-icons/fc";
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../redux/Store';
+import type { AppDispatch } from '../../redux/Store';
 import { loginUser } from '../../redux/slices/AuthSlice';
 import { useTheme } from '../../layout/navbar/Theme/ThemeContext';
 import PasswordInput from '../../components/passwordInput/PasswordInput';
@@ -37,8 +38,6 @@ const Login = () => {
       if (loginUser.fulfilled.match(resultAction)) {
         navigate('/');
       } 
-    } catch (error) {
-      throw error;
     } finally {
       setLoginLoading(false);
     }

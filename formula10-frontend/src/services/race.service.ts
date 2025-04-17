@@ -1,4 +1,4 @@
-import { RaceDTO } from "../dto/race.dto";
+import type { RaceDTO } from "../dto/race.dto";
 import apiClient from "./axios";
 
 export const getNextRace = async (): Promise<RaceDTO | null> => {

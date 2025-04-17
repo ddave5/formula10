@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import type React from 'react'
+import { useEffect, useState } from 'react'
 import {Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { useWindowWidth } from '@react-hook/window-size';
 import Loading from '../../../../components/Loading/Loading';
@@ -7,7 +8,7 @@ import { RxHamburgerMenu } from 'react-icons/rx';
 import { deleteGroup } from '../../../../services/group.service';
 import Menu from '../../../../components/Menu/Menu';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../../../redux/Store';
+import type { RootState } from '../../../../redux/Store';
 import { leaveGroup } from '../../../../services/groupmember.service';
 import { removeGroup } from '../../../../redux/slices/GroupSlice';
 import { useTranslation } from 'react-i18next';
@@ -80,7 +81,7 @@ const GroupDetailsMenu = () => {
     }
 
     loadGroupById();
-  }, [group?.members, location.pathname, t, user?.username]);
+  }, [group?.members, t, user?.username]);
 
   if (loading || userLoading) {
       return <Loading isLoading={loading || userLoading} />;
@@ -90,10 +91,16 @@ const GroupDetailsMenu = () => {
       return <div>{error}</div>;
   }
 
+  const hideMenu = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Escape') {
+      setShowMenu(false);
+    }
+  }
+
   return (
     <>
       {showMenu && (
-        <div className='h-[100vh] w-full fixed top-0 z-50 flex flex-row-reverse backdrop-blur-sm ' onClick={() => setShowMenu(false)}>
+        <div className='h-[100vh] w-full fixed top-0 z-50 flex flex-row-reverse backdrop-blur-sm ' onClick={() => setShowMenu(false)} onKeyUp={(event) => hideMenu(event)}>
           <Menu containerStyle='bg-gray-200 dark:bg-gray-500 w-1/2 sm:w-1/3 h-[100vh]' 
           group={group} 
           leaveGroup={() => leaveGroupFn()} 
@@ -112,12 +119,10 @@ const GroupDetailsMenu = () => {
         }
         {/* Mobile menu */}
         {width < 1024 && 
-          <>
-            <div className='bg-gray-200 dark:bg-gray-500 flex justify-between items-center py-4 pl-4 h-fit'>
-              <p className='text-2xl font-bold title-font whitespace-nowrap dark:text-white text-center'>{group?.name}</p>
-              <Button onClick={() => setShowMenu(!showMenu)}><RxHamburgerMenu /></Button>
-            </div>
-          </>
+          <div className='bg-gray-200 dark:bg-gray-500 flex justify-between items-center py-4 pl-4 h-fit'>
+            <p className='text-2xl font-bold title-font whitespace-nowrap dark:text-white text-center'>{group?.name}</p>
+            <Button onClick={() => setShowMenu(!showMenu)}><RxHamburgerMenu /></Button>
+          </div>
         }
         <Outlet/>
       </div>

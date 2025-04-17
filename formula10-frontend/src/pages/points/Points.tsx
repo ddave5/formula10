@@ -29,7 +29,7 @@ const Points = () => {
       { value: row[1].toString(), style: 'dark:text-[--color-font]' },
     ]);
     setSprintRaceBody(newSprintRaceBody);
-  }, []);
+  }, [racePosition, sprintRacePosition]);
 
   return (
     <> 

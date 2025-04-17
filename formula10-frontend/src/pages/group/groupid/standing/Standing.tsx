@@ -43,7 +43,7 @@ const Standing = () => {
     };
 
     getGroupMembers(location.pathname.split('/')[2]);
-  }, []);
+  }, [location.pathname]);
 
   if (loading) {
     return <Loading isLoading={loading} />;

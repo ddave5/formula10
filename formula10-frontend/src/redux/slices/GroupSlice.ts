@@ -1,7 +1,6 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit';
 import { getGroupListByUserId } from '../../services/group.service';
-import { GroupDTO } from '../../dto/group.dto';
-import { rename } from 'fs';
+import type { GroupDTO } from '../../dto/group.dto';
 
 export const fetchGroupList = createAsyncThunk(
   'groups/fetchGroupList',

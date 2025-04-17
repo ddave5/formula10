@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, FormControl } from '@mui/material';
-import { AppDispatch, RootState } from '../../../redux/Store';
+import type { AppDispatch, RootState } from '../../../redux/Store';
 import { checkGroupName, createGroup } from '../../../services/group.service';
 import { addGroup } from '../../../redux/slices/GroupSlice';
 import PasswordInput from '../../../components/passwordInput/PasswordInput';
@@ -34,10 +34,9 @@ const CreateGroup = () => {
       const isAvailable = await checkGroupName(name);
       setNameAvailable(isAvailable);
       return isAvailable;
-    } else {
-      setNameAvailable(true);
-      return true;
     }
+    setNameAvailable(true);
+    return true;
   };
   
 
@@ -57,16 +56,12 @@ const CreateGroup = () => {
     const isValid = await validateForm();
 
     if (isValid) {
-      try {
         const newGroup = await createGroup(name, groupPassword, (user ? user.id : 0));
         if (newGroup && user) {
           eventBus.emit('success', { message: 'Group created successfully!' });
           dispatch(addGroup(newGroup));
           navigate('/groups');
         }
-      } catch (err) {
-        throw err;
-      }
     }
   };
 

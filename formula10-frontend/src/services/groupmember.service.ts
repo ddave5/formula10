@@ -1,4 +1,4 @@
-import { GroupMemberDTO } from '../dto/groupMember.dto';
+import type { GroupMemberDTO } from '../dto/groupMember.dto';
 import apiClient from './axios';
 
 export const getGroupMemberListByGroupId = async (groupId: number): Promise<GroupMemberDTO[]> => {

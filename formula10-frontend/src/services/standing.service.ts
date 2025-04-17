@@ -1,5 +1,5 @@
-import { StandingDTO } from "../dto/standing.dto";
-import { ConstructorStanding, DriverStanding } from "../interfaces/currentSeason";
+import type { StandingDTO } from "../dto/standing.dto";
+import type { ConstructorStanding, DriverStanding } from "../interfaces/currentSeason";
 import apiClient from "./axios";
 
 export const getDriverStanding = async (seasonId: number): Promise<DriverStanding[] | null> => {

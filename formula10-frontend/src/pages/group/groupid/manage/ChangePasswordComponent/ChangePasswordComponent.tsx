@@ -14,14 +14,10 @@ const ChangePasswordComponent = ({ open, onClose }: { open: boolean; onClose: ()
 
 
   const changePassword = async () => {
-    try {
-      const newGroup = await changePasswordForGroup(group?.id || 0, newPassword);
-      if (newGroup) {
-          eventBus.emit('success', { message: t('manageGroup.successPasswordChange') });
-          onClose();
-      }
-    } catch (err) {
-        throw err;
+    const newGroup = await changePasswordForGroup(group?.id || 0, newPassword);
+    if (newGroup) {
+        eventBus.emit('success', { message: t('manageGroup.successPasswordChange') });
+        onClose();
     }
   };
 

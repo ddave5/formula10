@@ -34,11 +34,10 @@ export const loginUser = createAsyncThunk(
             return { token, user }; 
         } catch (error: any) {
             eventBus.emit('error', {message: 'Login Failed!'});
-            if (error.response && error.response.data) {
+            if (error.response?.data) {
                 return rejectWithValue(error.response.data);
-            } else {
-                return rejectWithValue('Unexpected error occurred.');
             }
+            return rejectWithValue('Unexpected error occurred.');
         }
     }
 );
@@ -55,9 +54,8 @@ export const loadUserFromStorage = createAsyncThunk(
                     },
                 });
                 return { token, user: response.data };
-            } else {
-                return rejectWithValue('No token found');
             }
+            return rejectWithValue('No token found');
         } catch (error: any) {
             return rejectWithValue('Failed to load user');
         }

@@ -1,9 +1,10 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TextField } from '@mui/material';
-import React, { useEffect, useState } from 'react'
+import type React from 'react'
+import { useEffect, useState } from 'react'
 import { getGroupList, joinGroup } from '../../../services/group.service';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../../../redux/Store';
-import { GroupDTO } from '../../../dto/group.dto';
+import type { AppDispatch, RootState } from '../../../redux/Store';
+import type { GroupDTO } from '../../../dto/group.dto';
 import Loading from '../../../components/Loading/Loading';
 import { useTranslation } from 'react-i18next';
 import SuccessPanel from '../../../components/SuccessPanel/SuccessPanel';
@@ -88,7 +89,7 @@ const JoinGroup = () => {
     };
 
     fetchAllGroups();
-  }, [user]);
+  }, [t]);
 
   const filteredGroups = allGroups.filter(group =>
     group.name.toLowerCase().includes(filterText.toLowerCase())
@@ -101,7 +102,7 @@ const JoinGroup = () => {
   };
 
   const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
+    setRowsPerPage(Number.parseInt(event.target.value, 10));
     setCurrentPage(0); 
   };
 
@@ -139,7 +140,7 @@ const JoinGroup = () => {
                     <TableCell className='dark:text-[--color-font]'>{t('joinGroup.groupName')}</TableCell>
                     {width > 600 && (<TableCell align="center" className='dark:text-[--color-font]'>{t('joinGroup.availability')}</TableCell>) }
                     <TableCell align="center" className='dark:text-[--color-font]'>{t('joinGroup.numberOfMembers')}</TableCell>
-                    <TableCell align="right"></TableCell>
+                    <TableCell align="right"/>
                   </TableRow>
                 </TableHead>
                 <TableBody>

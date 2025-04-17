@@ -46,7 +46,7 @@ const GroupDetails = () => {
     };
 
     getGroupMembers();
-  }, []);
+  }, [group?.id, location.pathname, t]);
 
   if (loading) {
     return <Loading isLoading={loading} />;

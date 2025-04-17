@@ -1,5 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { NewsDTO } from '../../dto/news.dto';
+import type React from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import type { NewsDTO } from '../../dto/news.dto';
 import { getAllNews } from '../../services/news.service';
 import News from '../../layout/news/News';
 import _ from 'lodash'; // lodash importálása
@@ -63,7 +64,7 @@ const Home: React.FC = () => {
                 <div className="w-2/3 grid gap-4 sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 mb-4">
                     {news.map((article, index) => (
                         <News
-                            key={index}
+                            key={article.newsId}
                             news = {article}
                         />
                     ))}

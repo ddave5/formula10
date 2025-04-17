@@ -28,9 +28,8 @@ const RenameComponent = ({ open, onClose }: { open: boolean; onClose: () => void
         if (name.trim()) {
         const isAvailable = await checkGroupName(name);
         return isAvailable;
-        } else {
-        return true;
         }
+        return true;
     };
 
     const validateNameForm = async () => {
@@ -48,19 +47,15 @@ const RenameComponent = ({ open, onClose }: { open: boolean; onClose: () => void
         const isValid = await validateNameForm();
 
         if (isValid) {
-            try {
-                const newGroup = await renameGroupDB(group?.id || 0, newName);
-                if (newGroup) {
-                    eventBus.emit('success', { message: t('manageGroup.successRename') });
-                    setGroup({
-                        ...(group || { id: 0, name: '', members: [], availability: 'PUBLIC' }),
-                        name: newGroup.name
-                    });
-                    dispatch(renameGroup({ groupId: group?.id || 0, newName: newName } ));
-                    onClose();
-                }
-            } catch (err) {
-                throw err;
+            const newGroup = await renameGroupDB(group?.id || 0, newName);
+            if (newGroup) {
+                eventBus.emit('success', { message: t('manageGroup.successRename') });
+                setGroup({
+                    ...(group || { id: 0, name: '', members: [], availability: 'PUBLIC' }),
+                    name: newGroup.name
+                });
+                dispatch(renameGroup({ groupId: group?.id || 0, newName: newName } ));
+                onClose();
             }
         }
     };
