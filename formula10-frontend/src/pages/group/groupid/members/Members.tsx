@@ -36,7 +36,7 @@ const Members = () => {
         setGroupMembersBody(groupMembersStructuredData || []);
         
       } catch (error) {
-        eventBus.emit('error', {message: tRef.current('messages.errorFetching')})
+        eventBus.emit('error', {message: tRef.current('messages.errorFetching'), isDialog: true});
         setError(
           error instanceof Error ? error.message : 'Failed to fetch data'
         );

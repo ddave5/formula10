@@ -39,7 +39,7 @@ const GroupDetailsMenu = () => {
 
     if (response) {
       dispatch(removeGroup(+groupId));
-      eventBus.emit('success', {message: t('groupDetailsMenu.leaveSuccess'), isDialog: false });
+      eventBus.emit('success', {message: t('groupDetailsMenu.leaveSuccess')});
       navigate('/groups');
     }
   }
@@ -50,7 +50,7 @@ const GroupDetailsMenu = () => {
 
     if (response) {
       dispatch(removeGroup(+groupId));
-      eventBus.emit('success', {message: t('groupDetailsMenu.deleteSuccess'), isDialog: false });
+      eventBus.emit('success', {message: t('groupDetailsMenu.deleteSuccess')});
       navigate('/groups');
     }
   }
@@ -73,7 +73,7 @@ const GroupDetailsMenu = () => {
         setLoading(true);
         setAuthority( group?.members.find(member => member.username === user?.username)?.role || '');
       } catch (err) {
-        eventBus.emit('error', {message: t('messages.errorFetching')});
+        eventBus.emit('error', {message: t('messages.errorFetching'), isDialog: true});
         setError('Failed to load group');
       } finally {
         setLoading(false);

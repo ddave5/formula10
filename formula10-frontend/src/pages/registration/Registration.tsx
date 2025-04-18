@@ -89,8 +89,7 @@ const Registration = () => {
         email: email,
         password: password
       }).then((response) => {
-        const data = response.success;
-        if (data) {
+        if (response) {
           setRegistrationDone(true);
         }
       }).catch( (err) => {

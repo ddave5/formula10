@@ -1,25 +1,21 @@
-type EventMap = {
-  success: { message: string; isDialog: boolean };
-  error: { message: string };
-  // ide bármilyen egyedi eseménytípus jöhet
-  [key: string]: unknown;
+export type EventMap = {
+  error: { message: string; isDialog: boolean };
+  success: { message: string };
 };
 
-type EventCallback<K extends keyof EventMap> = (data: EventMap[K]) => void;
+type EventCallback<T> = (data: T) => void;
 
-class EventBus {
-  private events: {
-    [K in keyof EventMap]?: EventCallback<K>[];
-  } = {};
+class EventBus<EM extends Record<string, unknown>> {
+  private events: { [K in keyof EM]?: EventCallback<EM[K]>[] } = {};
 
-  on<K extends keyof EventMap>(event: K, callback: EventCallback<K>) {
+  on<K extends keyof EM>(event: K, callback: EventCallback<EM[K]>) {
     if (!this.events[event]) {
       this.events[event] = [];
     }
-    (this.events[event] as EventCallback<K>[]).push(callback);
+    this.events[event].push(callback);
   }
 
-  emit<K extends keyof EventMap>(event: K, data: EventMap[K]) {
+  emit<K extends keyof EM>(event: K, data: EM[K]) {
     const callbacks = this.events[event];
     if (callbacks) {
       for (const callback of callbacks) {
@@ -28,12 +24,12 @@ class EventBus {
     }
   }
 
-  off<K extends keyof EventMap>(event: K, callback: EventCallback<K>) {
+  off<K extends keyof EM>(event: K, callback: EventCallback<EM[K]>) {
     const callbacks = this.events[event];
     if (!callbacks) return;
     this.events[event] = callbacks.filter(cb => cb !== callback);
   }
 }
 
-const eventBus = new EventBus();
+const eventBus = new EventBus<EventMap>();
 export default eventBus;

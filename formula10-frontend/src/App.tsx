@@ -7,7 +7,7 @@ import Navbar from './layout/navbar/Navbar';
 import Login from './pages/login/Login';
 import Registration from './pages/registration/Registration';
 import { useDispatch } from 'react-redux';
-import { AppDispatch } from './redux/Store';
+import type { AppDispatch } from './redux/Store';
 import { loadUserFromStorage } from './redux/slices/AuthSlice';
 import eventBus from './services/eventBus';
 import { showError } from './redux/slices/ErrorSlice';
@@ -56,8 +56,8 @@ function App() {
 
   useEffect(() => {
     // Előfizetés a hibákra, amelyek az Axios által jönnek
-    eventBus.on('error', (message: string) => {
-      dispatch(showError(message)); 
+    eventBus.on('error', (error: {message: string, isDialog: boolean}) => {
+      dispatch(showError(error.message)); 
     });
 
     return () => {

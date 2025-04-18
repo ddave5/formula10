@@ -26,7 +26,7 @@ const ManageGroup = () => {
 
       const response = await calculatePointsForGroup(group?.id || 0);
       if (response) {
-        eventBus.emit('success', {message: t('manageGroup.calculateSuccess'), isDialog: false });
+        eventBus.emit('success', {message: t('manageGroup.calculateSuccess')});
       }
     } catch (error) {
       console.error('Failed to leave group:', error);

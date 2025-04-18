@@ -1,11 +1,11 @@
-import React, { ReactNode, useEffect, useRef, useState } from 'react'
+import React, { type ReactNode, useEffect, useRef, useState } from 'react'
 import TableComponent from '../../../../../components/table/TableComponent';
 import Loading from '../../../../../components/Loading/Loading';
 import eventBus from '../../../../../services/eventBus';
 import { getGroupMemberListByGroupId, leaveGroup, promoteMember } from '../../../../../services/groupmember.service';
 import { t } from 'i18next';
 import { Button } from '@mui/material';
-import { GroupMemberDTO } from '../../../../../dto/groupMember.dto';
+import type { GroupMemberDTO } from '../../../../../dto/groupMember.dto';
 
 const ModifyMembersComponent = ({groupId} : {groupId: number}) => {
 
@@ -26,7 +26,7 @@ const ModifyMembersComponent = ({groupId} : {groupId: number}) => {
           groupMembers.current = groupMembers.current.map(member =>
             member.id === groupMemberId ? { ...member, role: 'ADMIN' } : member
           );
-          eventBus.emit('success', {message: t('manageGroup.promoteSuccess'), isDialog: false });
+          eventBus.emit('success', {message: t('manageGroup.promoteSuccess')});
           makeGroupMemberBody();
         }
       } catch (error) {
@@ -43,7 +43,7 @@ const ModifyMembersComponent = ({groupId} : {groupId: number}) => {
         const response = await leaveGroup(groupId, groupMemberId);
         if (response) {
           groupMembers.current = groupMembers.current.filter(member => member.id !== groupMemberId);
-          eventBus.emit('success', {message: t('manageGroup.kickSuccess'), isDialog: false });
+          eventBus.emit('success', {message: t('manageGroup.kickSuccess')});
           makeGroupMemberBody();
         }
       } catch (error) {

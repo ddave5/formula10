@@ -36,7 +36,7 @@ const GroupDetails = () => {
         }
         
       } catch (error) {
-        eventBus.emit('error', {message: t('messages.errorFetching')})
+        eventBus.emit('error', {message: t('messages.errorFetching'), isDialog: true});
         setError(
           error instanceof Error ? error.message : 'Failed to fetch data'
         );

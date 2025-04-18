@@ -62,7 +62,7 @@ const JoinGroup = () => {
 
       const data = await joinGroup(user?.id || 0, group.id, password);
       if (data) {
-        eventBus.emit('success', {message: t('joinGroup.successJoining'), isDialog: false })
+        eventBus.emit('success', {message: t('joinGroup.successJoining')})
         setJoinDone(true);
         dispatch(addGroup(data));
       }
@@ -82,7 +82,7 @@ const JoinGroup = () => {
         const data = await getGroupList();
         setAllGroups(data);
       } catch (err) {
-        eventBus.emit('error', {message: t('messages.errorFetching')});
+        eventBus.emit('error', {message: t('messages.errorFetching'), isDialog: true});
       } finally {
         setAllGroupsLoading(false);
       }

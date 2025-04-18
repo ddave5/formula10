@@ -127,7 +127,7 @@ const Profile = () => {
     const isValidOldPassword = await checkOldPassword(deletePassword, user?.id || 0);
 
     if (!isValidOldPassword) {
-      eventBus.emit('error', { message: t('profile.errorDeleteAccount') });
+      eventBus.emit('error', { message: t('profile.errorDeleteAccount'), isDialog: false });
       return;
     }
     

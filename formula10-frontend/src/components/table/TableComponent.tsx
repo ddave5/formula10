@@ -35,21 +35,30 @@ const TableComponent = ({title, header, body } : {
                 <Table>
                     <TableHead>
                         <StyledTableHeaderRow >
-                            {header.map((header) => (
-                                header.hideIfMobileMode && width < 1024 ? null :
-                                <TableCell className={`${header.style}`} key={header.text}>{header ? t(header.text || ""): ""}</TableCell>
-                            ))}
+                            {header.map((header) => {
+                                const id = uuid();
+                                return (
+                                    header.hideIfMobileMode && width < 1024 ? null :
+                                    <TableCell className={`${header.style}`} key={id}>{header ? t(header.text || ""): ""}</TableCell>
+                                )    
+                            })}
                         </StyledTableHeaderRow>
                     </TableHead>
                     <TableBody>
-                        {body.map((row, rowIndex) => (
-                            <StyledTableRow key={row.length}>
-                                {row.map((cell, cellIndex) => (
-                                    cell.hideIfMobileMode && width < 1024 ? null :
-                                    <TableCell className={`${cell.style}`} key={`${uuid()}`}>{cell.value}</TableCell>
-                                ))}
-                            </StyledTableRow>
-                        ))}
+                        {body.map((row) => {
+                            const rowId = uuid();
+                            return (
+                                <StyledTableRow key={rowId}>
+                                    {row.map((cell) => {
+                                        const id = uuid();
+                                        return (
+                                            cell.hideIfMobileMode && width < 1024 ? null :
+                                            <TableCell className={`${cell.style}`} key={id}>{cell.value}</TableCell>
+                                        )
+                                    })}
+                                </StyledTableRow>
+                            )
+                        })}
                     </TableBody>
                 </Table>
             </CardContent>

@@ -33,7 +33,7 @@ export const loginUser = createAsyncThunk(
 
             return { token, user }; 
         } catch (error: any) {
-            eventBus.emit('error', {message: 'Login Failed!'});
+            eventBus.emit('error', {message: 'Login Failed!', isDialog: false});
             if (error.response?.data) {
                 return rejectWithValue(error.response.data);
             }

@@ -29,13 +29,13 @@ apiClient.interceptors.request.use(
 
 // Hibakezelés interceptor
 apiClient.interceptors.response.use(
-  (response) => {
-    return response;
-  },
+  (response) => response,
   (error) => {
     if (error.response && error.response.status > 400) {
-      const message = error.response.data?.message || 'Error :(';
-      eventBus.emit('error', { message, isDialog: error.response.data?.dialog || false });
+      const message: string = error.response.data?.message || 'Error :(';
+      const isDialog: boolean = error.response.data?.dialog ?? false;
+
+      eventBus.emit('error', { message, isDialog });
     }
     return Promise.reject(error);
   }
