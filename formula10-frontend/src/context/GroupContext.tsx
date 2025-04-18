@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { GroupDTO } from "../dto/group.dto";
+import type { GroupDTO } from "../dto/group.dto";
 import { getGroupById } from "../services/group.service";
 
 interface GroupContextType {

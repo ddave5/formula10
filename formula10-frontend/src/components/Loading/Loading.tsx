@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 import { PulseLoader } from 'react-spinners';
 import { useTheme } from '../../layout/navbar/Theme/ThemeContext';
 

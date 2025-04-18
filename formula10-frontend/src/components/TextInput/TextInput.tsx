@@ -1,5 +1,5 @@
 import { TextField } from '@mui/material'
-import { TextInputInterface } from '../../interfaces/TextInputInterface'
+import type { TextInputInterface } from '../../interfaces/TextInputInterface'
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../layout/navbar/Theme/ThemeContext';
 import { darkInputStyle, lightInputStyle } from './InputStyle';
@@ -28,7 +28,7 @@ const TextInput = ({props} : {props: TextInputInterface}) => {
         onChange={(e) => props.setValue(e.target.value)} 
         autoComplete='off'
         sx={mergedsx}/>
-      {props.showError && props.validation?.map((validator, index) => validator.error && <span className='text-red-500 text-sm mb-2' key={index}>{t(validator.errori18n)}</span>)}
+      {props.showError && props.validation?.map((validator, index) => validator.error && <span className='text-red-500 text-sm mb-2' key={validator.errori18n}>{t(validator.errori18n)}</span>)}
     </>
   )
 }

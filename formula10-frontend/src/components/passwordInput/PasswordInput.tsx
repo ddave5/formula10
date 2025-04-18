@@ -1,10 +1,11 @@
 import { IconButton, InputAdornment, TextField } from '@mui/material'
-import React, {useState } from 'react'
+import type React from 'react'
+import {useState } from 'react'
 import { useTheme } from '../../layout/navbar/Theme/ThemeContext';
 import { MdOutlineVisibility, MdOutlineVisibilityOff } from 'react-icons/md';
 import { useTranslation } from 'react-i18next';
 import { darkInputStyle, lightInputStyle } from '../TextInput/InputStyle';
-import { PasswordInputInterface } from '../../interfaces/PasswordInputInterface';
+import type { PasswordInputInterface } from '../../interfaces/PasswordInputInterface';
 
 const PasswordInput = (
     {props} : 
@@ -77,7 +78,7 @@ const PasswordInput = (
             />
             {props.showError && props.validation?.map((item, index) => {
                 return (
-                    item.error && <span className='text-red-500 text-sm mb-2' key={index}>{t(item.errori18n)}</span>
+                    item.error && <span className='text-red-500 text-sm mb-2' key={item.errori18n}>{t(item.errori18n)}</span>
                 )
             })}
         </>

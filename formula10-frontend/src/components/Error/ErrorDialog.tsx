@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@mui/material';
 import { TbFaceIdError } from "react-icons/tb";
 import { useTranslation } from 'react-i18next';

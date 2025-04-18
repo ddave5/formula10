@@ -1,4 +1,4 @@
-import { GroupMemberDTO } from "./groupMember.dto";
+import type { GroupMemberDTO } from "./groupMember.dto";
 
 export interface GroupDTO {
   id: number;

@@ -20,7 +20,7 @@ const JSONText = ({documentName}: {documentName: string}) => {
       };
   
       fetchRulesContent();
-    }, [i18n.language]); // Nyelv változáskor újratöltjük a tartalmat
+    }, [i18n.language, documentName]); // Nyelv változáskor újratöltjük a tartalmat
   
     if (loading) {
       return <Loading isLoading={loading} />;
@@ -38,7 +38,7 @@ const JSONText = ({documentName}: {documentName: string}) => {
                     <Divider sx={theme === "dark" ? darkMode : lightMode}/> 
                     <div className='mb-4'>
                         {rulesContent.listElements?.map((listElement, index) => { return(
-                            <div key={index} className='mb-8'>
+                            <div key={listElement.title} className='mb-8'>
                                 <h2 className='text-xl font-bold mb-4'>{index + 1}. {listElement.title}</h2>
                                 <p className='text-justify'>{listElement.context}</p>
                             </div>

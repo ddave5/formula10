@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import type React from 'react';
+import { useState, useEffect } from 'react';
 import eventBus from '../services/eventBus';
 import ErrorDialog from '../components/Error/ErrorDialog';
 import SnackbarComponent from '../components/Snackbar/SnackbarComponent';

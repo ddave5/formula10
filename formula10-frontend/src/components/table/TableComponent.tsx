@@ -1,8 +1,9 @@
 import { Card, CardContent, styled, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material'
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../layout/navbar/Theme/ThemeContext';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { useWindowWidth } from '@react-hook/window-size';
+import { v4 as uuid} from 'uuid';
 
 const TableComponent = ({title, header, body } : {
     title: string, 
@@ -34,18 +35,18 @@ const TableComponent = ({title, header, body } : {
                 <Table>
                     <TableHead>
                         <StyledTableHeaderRow >
-                            {header.map((header, index) => (
+                            {header.map((header) => (
                                 header.hideIfMobileMode && width < 1024 ? null :
-                                <TableCell className={`${header.style}`} key={index}>{header ? t(header.text || ""): ""}</TableCell>
+                                <TableCell className={`${header.style}`} key={header.text}>{header ? t(header.text || ""): ""}</TableCell>
                             ))}
                         </StyledTableHeaderRow>
                     </TableHead>
                     <TableBody>
                         {body.map((row, rowIndex) => (
-                            <StyledTableRow key={rowIndex}>
+                            <StyledTableRow key={row.length}>
                                 {row.map((cell, cellIndex) => (
                                     cell.hideIfMobileMode && width < 1024 ? null :
-                                    <TableCell className={`${cell.style}`} key={cellIndex}>{cell.value}</TableCell>
+                                    <TableCell className={`${cell.style}`} key={`${uuid()}`}>{cell.value}</TableCell>
                                 ))}
                             </StyledTableRow>
                         ))}
