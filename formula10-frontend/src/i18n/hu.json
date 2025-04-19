@@ -264,5 +264,19 @@
     "position": "Helyezés",
     "username": "Felhasználónév",
     "totalPoints": "Pontok"
+  },
+  "months": {
+    "january": "Január",
+    "february": "Február",
+    "march": "Március",
+    "april": "Április",
+    "may": "Május",
+    "june": "Július",
+    "july": "Július",
+    "august": "Augusztus",
+    "september": "Szepember",
+    "october": "Oktober",
+    "november": "November",
+    "december": "December"
   }
 }

@@ -1,22 +1,19 @@
 import React from 'react';
-import { NewsDTO } from '../../dto/news.dto';
+import type { NewsDTO } from '../../dto/news.dto';
 import { Months } from './Months.enum';
 import { FaArrowRightLong } from "react-icons/fa6";
+import { t } from 'i18next';
 
 const News = ({news } : 
     {
         news: NewsDTO,
     }) => {
 
-    let date = new Date(news.publishedAt).getFullYear().toString() + ". " 
-    + (Months[new Date(news.publishedAt).getMonth() + 1]).toString() + ". "
-    + new Date(news.publishedAt).getDate().toString() + ". "
-    + new Date(news.publishedAt).getHours().toString() + ":"
-    + (new Date(news.publishedAt).getMinutes() < 10 ? "0" + new Date(news.publishedAt).getMinutes().toString() : new Date(news.publishedAt).getMinutes().toString());
+    const date = `${new Date(news.publishedAt).getFullYear().toString()}. ${t(`months.${(Months[new Date(news.publishedAt).getMonth() + 1]).toLowerCase().toString()}`)}. ${new Date(news.publishedAt).getDate().toString()}. ${new Date(news.publishedAt).getHours().toString()}:${new Date(news.publishedAt).getMinutes() < 10 ? `0${new Date(news.publishedAt).getMinutes().toString()}` : new Date(news.publishedAt).getMinutes().toString()}`;
     
     return (
         <div key={news.newsId} className="flex flex-col drop-shadow-lg rounded-md">
-            <div className='w-full overflow-hidden rounded-t-sm'>
+            <div className='w-full overflow-hidden rounded-t-sm' >
                 <img src={news.imageUrl} alt={news.title}/>
             </div>
             <div className='w-full p-8 flex flex-col justify-between bg-white dark:bg-[--color-gray] rounded-b-md relative'>

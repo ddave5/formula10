@@ -1,4 +1,4 @@
-import { GroupDTO } from '../../dto/group.dto'
+import type { GroupDTO } from '../../dto/group.dto'
 import { Link } from 'react-router-dom'
 import { Button } from '@mui/material'
 import { IoMdCreate, IoMdSettings } from 'react-icons/io'
@@ -45,7 +45,7 @@ const Menu = (
                 )}
                 { !groupList && (
                     <>
-                        <Link to={`/groups`} className={`${menuElementStyle} mb-1`} key='back'><IoArrowBackCircleOutline /> {t('groupDetailsMenu.backToGroup')} </Link>
+                        <Link to={'/groups'} className={`${menuElementStyle} mb-1`} key='home'><IoArrowBackCircleOutline /> {t('groupDetailsMenu.backToGroup')} </Link>
                         <Link to={`/groups/${group?.id}`} className={`${menuElementStyle} mb-1`} key='back'><FaHome /> {t('groupDetailsMenu.home')} </Link>
                         <Link to={`/groups/${group?.id}/tip`} className={`${menuElementStyle} mb-1`} key='tip'><TiPencil /> {t('groupDetailsMenu.tip')} </Link>
                         <Link to={`/groups/${group?.id}/standing`} className={`${menuElementStyle} mb-1`} key='standing'><AiOutlineTrophy /> {t('groupDetailsMenu.standing')} </Link>

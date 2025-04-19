@@ -8,13 +8,14 @@ import { logout } from '../../../redux/slices/AuthSlice';
 import { clearGroups } from '../../../redux/slices/GroupSlice';
 import Player from './Player/Player';
 import { MdOutlineLogout, MdOutlineLogin } from "react-icons/md";
+import type { RootState } from '../../../redux/Store';
 
 
 const UserMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
-  const user = useSelector((state: any) => state.auth.user);
+  const user = useSelector((state: RootState) => state.auth.user);
   const {t} = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();

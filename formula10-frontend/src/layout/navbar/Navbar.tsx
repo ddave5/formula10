@@ -5,7 +5,7 @@ import LanguageSelector from './Language/LanguageSelector';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/Store';
+import type { RootState } from '../../redux/Store';
 import UserMenu from './Menu/UserMenu';
 
 const Navbar = () => {
