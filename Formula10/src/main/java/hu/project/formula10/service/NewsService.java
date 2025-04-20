@@ -47,8 +47,23 @@ public class NewsService {
         return newsRepository.save(news).toDTO();
     }
 
-    public void checkForNewNews() throws IOException {
-        List<NewsDTO> newNewsList = newsScraper.scrapeNews();
+    public void checkForHungarianNewNews() throws IOException {
+        List<NewsDTO> newNewsList = newsScraper.scrapHungarianNews();
+        List<News> existingNews = newsRepository.findTop10ByOrderByPublishedAtDesc();
+
+        for (NewsDTO newsDTO : newNewsList) {
+            boolean isDuplicate = existingNews.stream()
+                    .anyMatch(existing -> existing.getSourceUrl().equals(newsDTO.getSourceUrl()));
+            if (!isDuplicate) {
+                createNews(newsDTO);
+            }
+        }
+
+        transactionalService.deleteOldNewsTransactional();
+    }
+
+    public void checkForEnglishNewNews() throws IOException {
+        List<NewsDTO> newNewsList = newsScraper.scrapEnglishNews();
         List<News> existingNews = newsRepository.findTop10ByOrderByPublishedAtDesc();
 
         for (NewsDTO newsDTO : newNewsList) {

@@ -39,8 +39,13 @@ public class ScheduledTask {
     }
 
     @Scheduled(fixedRate = 3600000) // Minden órában fut 
-    public void checkForNewNews() throws IOException {
-        newsService.checkForNewNews();
+    public void checkForHungarianNewNews() throws IOException {
+        newsService.checkForHungarianNewNews();
+    }
+
+    @Scheduled(fixedRate = 3600000) // Minden órában fut 
+    public void checkForEnglishNewNews() throws IOException {
+        newsService.checkForEnglishNewNews();
     }
 
     @Scheduled(cron = "0 0 8 * * 1", zone = "Europe/Budapest")
