@@ -7,7 +7,8 @@
   }, 
   "home": {
     "welcome": "Üdvözlünk!",
-    "moreButton": "Tovább"
+    "moreButton": "Tovább",
+    "readMore": "Tovább a cikkhez"
   },
   "navbar": {
     "login": "Belépés",
@@ -54,15 +55,8 @@
   },
   "registration": {
     "signUp": "Regisztráció",
-    "name": "Teljes név",
-    "nameIsEmpty": "Név megadása kötelező",
     "username": "Felhasználónév",
-    "usernameAlreadyTaken": "A felhasználónév már foglalt!",
     "email": "E-mail cím",
-    "invalidEmail": "Érvénytelen e-mail cím!",
-    "invalidCharacter": "A jelszó nem tartalmazhat nem angol vagy magyar karaktert!",
-    "invalidPassword": "A jelszónak legalább 8 karakter hosszúnak kell lennie, tartalmaznia kell legalább egy nagybetűt, egy kisbetűt, egy számot és egy speciális karaktert!",
-    "passwordsDontMatch": "A jelszavak nem egyeznek!",
     "acceptTerms1": "Elolvastam és elfogadom a",
     "acceptTerms2": "Felhasználási feltételeit",
     "acceptTerms3": "és az",
@@ -73,11 +67,7 @@
     "alreadyHaveAccount": "Már van fiókod?",
     "login": "Jelentkezz be!",
     "successTitle": "Sikeres Regisztráció",
-    "successDetails": "Sikeres regisztráció! Kérlek ellenőrizd az e-mail fiókodat, hogy aktiváld a fiókod!",
-    "usernameEmpty": "A felhasználónév megadása kötelező!",
-    "usernameLength": "A felhasználónév 5 és 50 karakter között kell lennie!",
-    "emailEmpty": "Az e-mail cím megadása kötelező!",
-    "emailLength": "Az e-mail cím maximum 100 karakter hosszú lehet."
+    "successDetails": "Sikeres regisztráció! Kérlek ellenőrizd az e-mail fiókodat, hogy aktiváld a fiókod!"
   },
   "successPanel": {
     "continue": "Tovább"
@@ -103,9 +93,6 @@
   "createGroup": {
     "createGroup": "Csoport készítése",
     "name": "Csoport neve",
-    "nameIsEmpty": "Csoportnév megadása kötelező!",
-    "nameTaken": "A csoportnév már foglalt!",
-    "passwordsDontMatch": "A jelszavak nem egyeznek!",
     "create": "Csoport készítés",
     "successTitle": "Siker!",
     "successDetails": "Sikeresen elkészítetted a csoportot!"
@@ -126,11 +113,7 @@
     "cancel": "Mégse",
     "confirm": "Csatlakozás",
     "rowsPerPage": "Sorok száma:",
-    "of": "össz",
-    "errorJoining": "Hiba a csoporthoz való csatlakozáskor!",
-    "successJoining": "Sikeresen csatlakozás a csoporthoz!",
-    "addPassword": "Kérlek adj meg egy jelszót!",
-    "wrongPassword": "A megadott jelszó helytelen!"
+    "of": "össz"
   },
   "passwordInput": {
     "password": "Jelszó",
@@ -150,9 +133,7 @@
     "home": "Főoldal",
     "manageGroup": "Csoport kezelése",
     "leaveGroup": "Csoport elhagyása",
-    "deleteGroup": "Csoport törlése",
-    "leaveSuccess": "Sikeresen kiléptél a csoportból!",
-    "deleteSuccess": "Sikeresen törölted a csoportot!"
+    "deleteGroup": "Csoport törlése"
   },
   "location": {
     "australia": "Ausztrália / Melburne",
@@ -191,41 +172,25 @@
     "username": "Név",
     "joinedAt": "Csatlakozás ideje",
     "role": "Szerep",
-    "members": "Tagok",
-    "error": "Hiba a tagok betöltésekor!"
+    "members": "Tagok"
   },
   "tip": {
     "chooseType": "Válassz verseny típust!",
     "chooseDriver": "Válassz pilótát!",
     "sprint": "Sprint",
     "race": "Futam",
-    "saveTip": "Tipp leadás",
-    "success": "Tipp sikeresen elmentve!",
-    "error": "Valamilyen hiba történt!"
-  },
-  "messages": {
-    "errorFetching": "Hiba az adatok betöltésekor!",
-    "unknownError": "Valamilyen hiba történt!",
-    "loginFailed": "Sikertelen bejelentkezés!"
+    "saveTip": "Tipp leadás"
   },
   "manageGroup": {
     "manageGroup": "Csoport kezelése",
     "renameGroup": "Csoport átnevezése",
     "newName": "Új név",
-    "nameEmpty": "A csoportnév megadása kötelező!",
-    "nameLength": "A csoportnév 5 és 50 karakter között kell lennie!",
-    "nameAlreadyTaken": "A csoportnév már foglalt!",
     "cancel": "Mégse",
     "save": "Mentés",
-    "successRename": "Sikeresen megváltoztattad a csoport nevét!",
-    "successPasswordChange": "Sikeresen megváltoztattad a csoport jelszavát!",
     "changePassword": "Jelszócsere",
     "calculatePoints": "Pontszámítás",
-    "promoteSuccess": "Felhasználó sikeresen admin lett!",
-    "kickSuccess": "Felhasználó sikeresen eltávolítva!",
     "promote": "Kinevezés adminná",
-    "kick": "Eltávolítás a csoportból",
-    "calculateSuccess": "Pontszámítás sikeresen megtörtént!"
+    "kick": "Eltávolítás a csoportból"
   },
   "groupDetails": {
     "title": "Pilótára leadott tippek",
@@ -246,19 +211,9 @@
     "deleteSubTitle": "Véglegesen törli a fiókját és az összes fiókhoz kapcsolódó adatot!",
     "deleteDescription": "Ez a művelet nem vonható vissza. A fiók törlése után minden adata véglegesen törlődik.",
     "deleteAccount": "Felhasználó törlese",
-    "successEmailChange": "Sikeresen módosítottad az e-mail címet!",
-    "successPasswordChange": "Sikeresen módosítottad a jelszavad!",
-    "emailEmpty": "Az e-mail cím megadása kötelező!",
-    "emailLength": "Az e-mail cím maximum 100 karakter hosszú lehet.",
-    "invalidEmail": "Érvénytelen e-mail cím!",
-    "emailAlreadyTaken": "Az e-mail cím már használatban van!",
-    "invalidCharacter": "A jelszó nem tartalmazhat nem angol vagy magyar karaktert!",
-    "invalidPassword": "A jelszónak legalább 8 karakter hosszúnak kell lennie, tartalmaznia kell legalább egy nagybetűt, egy kisbetűt, egy számot és egy speciális karaktert!",
     "deleteDialogTitle":"Biztosan törli a felhasználót?",
     "deleteDialogDescription":"Ez a művelet nem vonható vissza. A felhasználó törlese után minden adata véglegesen törlődik. Adja meg a jelszavát a folyamat befejezéséhez.",
-    "cancel": "Mégse",
-    "errorDeleteAccount": "A megadott jelszó helytelen!",
-    "successDeleteAccount": "A felhasználó sikeresen törölve!"
+    "cancel": "Mégse"
   },
   "standing": {
     "title": "Tabella",
@@ -279,5 +234,43 @@
     "october": "Oktober",
     "november": "November",
     "december": "December"
+  },
+  "validation": {
+    "emailEmpty": "Az e-mail cím megadása kötelező!",
+    "emailLength": "Az e-mail cím maximum 100 karakter hosszú lehet.",
+    "invalidEmail": "Érvénytelen e-mail cím!",
+    "emailAlreadyTaken": "Az e-mail cím már használatban van!",
+    "passwordEmpty": "Kérlek adj meg egy jelszót!",
+    "invalidPasswordCharacter": "A jelszó nem tartalmazhat nem angol vagy magyar karaktert!",
+    "invalidPassword": "A jelszónak legalább 8 karakter hosszúnak kell lennie, tartalmaznia kell legalább egy nagybetűt, egy kisbetűt, egy számot és egy speciális karaktert!",
+    "passwordsDontMatch": "A jelszavak nem egyeznek!",
+    "groupNameEmpty": "A csoportnév megadása kötelező!",
+    "groupNameLength": "A csoportnév 5 és 50 karakter között kell lennie!",
+    "groupNameAlreadyTaken": "A csoportnév már foglalt!",
+    "usernameEmpty": "A felhasználónév megadása kötelező!",
+    "usernameLength": "A felhasználónév 5 és 50 karakter között kell lennie!",
+    "usernameAlreadyTaken": "A felhasználónév már foglalt!"
+  },
+  "messages": {
+    "successEmailChange": "Sikeresen módosítottad az e-mail címet!",
+    "successGroupCreation": "Sikeresen létrehoztad a csoportot!",
+    "successGroupPasswordChange": "Sikeresen megváltoztattad a csoport jelszavát!",
+    "successTip": "Tipp sikeresen elmentve!",
+    "successCalculate": "Pontszámítás sikeresen megtörtént!",
+    "successRename": "Sikeresen megváltoztattad a csoport nevét!",
+    "successPromote": "Felhasználó sikeresen admin lett!",
+    "successKick": "Felhasználó sikeresen eltávolítva!",
+    "successLeave": "Sikeresen kiléptél a csoportból!",
+    "successDelete": "Sikeresen törölted a csoportot!",
+    "successUserPasswordChange": "Sikeresen módosítottad a jelszavad!",
+    "successDeleteAccount": "A felhasználó sikeresen törölve!",
+    "successJoining": "Sikeresen csatlakozás a csoporthoz!",
+    "errorFetching": "Hiba az adatok betöltésekor!",
+    "errorUnknown": "Valamilyen hiba történt!",
+    "errorLogin": "Sikertelen bejelentkezés!",
+    "errorMembersFetching": "Hiba a tagok betöltésekor!",
+    "wrongPassword": "A megadott jelszó helytelen!",
+    "errorJoining": "Hiba a csoporthoz való csatlakozáskor!",
+    "errorCalculate": "Hiba a pontszámításban!"
   }
 }

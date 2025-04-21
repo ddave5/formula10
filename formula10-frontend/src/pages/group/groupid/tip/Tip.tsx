@@ -57,7 +57,7 @@ const Tip = () => {
 
         if (race?.sprintQualifyingStart === undefined) setSelectedRaceType(RACE);
       } catch (error) {
-        eventBus.emit('error', {message: t('messages.unknownError'), isDialog: true});
+        eventBus.emit('error', {message: t('messages.errorUnknown'), isDialog: true});
         setPageLoading(false);
       }
     };
@@ -99,7 +99,7 @@ const Tip = () => {
       }
 
       setPreviousTips(prevTips);
-      eventBus.emit('success', { message: t('tip.success') });
+      eventBus.emit('success', { message: t('messages.successTip') });
       setSelectedRaceType('');
       setPageLoading(false);
     } catch (error) {

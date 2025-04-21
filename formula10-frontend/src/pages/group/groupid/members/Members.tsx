@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import TableComponent from '../../../../components/table/TableComponent'
 import { getGroupMemberListByGroupId } from '../../../../services/groupmember.service';
 import { useLocation } from 'react-router-dom';
@@ -9,12 +9,9 @@ import { t } from 'i18next';
 const Members = () => {
 
   const [groupMembersBody, setGroupMembersBody] = React.useState<{style: string, value: string}[][]>([]);
-  const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
   const location = useLocation();
-
-  const tRef = useRef(t);
 
   useEffect(() => {
     const getGroupMembers = async (groupId: string) => {
@@ -22,7 +19,7 @@ const Members = () => {
         const groupMembers = await getGroupMemberListByGroupId(+groupId);
 
         if (!groupMembers) {
-          setError('Failed to fetch members');
+          eventBus.emit('error', {message: t('messages.errorMembersFetching'), isDialog: true});
           return;
         }
         
@@ -36,10 +33,7 @@ const Members = () => {
         setGroupMembersBody(groupMembersStructuredData || []);
         
       } catch (error) {
-        eventBus.emit('error', {message: tRef.current('messages.errorFetching'), isDialog: true});
-        setError(
-          error instanceof Error ? error.message : 'Failed to fetch data'
-        );
+        eventBus.emit('error', {message: t('messages.errorFetching'), isDialog: true});
       } finally {
         setLoading(false);
       }
@@ -52,9 +46,6 @@ const Members = () => {
     return <Loading isLoading={loading} />;
   }
 
-  if (error) {
-      return <div>{error}</div>;
-  }
 
   return (
     <div className='flex flex-col items-center mt-4'>

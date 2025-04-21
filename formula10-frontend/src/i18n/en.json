@@ -7,7 +7,8 @@
   }, 
   "home": {
     "welcome": "Welcome!",
-    "moreButton": "More"
+    "moreButton": "More",
+    "readMore": "Read more"
   },
   "navbar": {
     "login": "Sign in",
@@ -44,10 +45,6 @@
   "passwordChange": {
     "email" :"E-mail",
     "passwordChange": "Password change",
-    "emailInvalid": "Invalid e-mail address!",
-    "invalidCharacter": "Password must not contain any not hungarian or english characters!",
-    "invalidPassword": "Password must be at least 8 characters long, must contain at least one uppercase letter, one lowercase letter, one number and one special character!",
-    "passwordsDontMatch": "Passwords don't match!",
     "change": "Change",
     "successTitle": "Success",
     "successDetails": "You have successfully changed your password!"
@@ -55,14 +52,8 @@
   "registration": {
     "signUp": "Sign up",
     "name": "Full name",
-    "nameIsEmpty": "Name has to be filled!",
     "username": "Username",
-    "usernameAlreadyTaken": "Username already taken!",
     "email": "E-mail address",
-    "invalidEmail": "Invalid e-mail address!",
-    "invalidCharacter": "Password must not contain any not hungarian or english characters!",
-    "invalidPassword": "Password must be at least 8 characters long, must contain at least one uppercase letter, one lowercase letter, one number and one special character!",
-    "passwordsDontMatch": "Passwords don't match!",
     "acceptTerms1": "I state that I have read and understood the",
     "acceptTerms2": "Terms of Use",
     "acceptTerms3": "and the",
@@ -73,11 +64,7 @@
     "alreadyHaveAccount": "Already have an account?",
     "login": "Sign in!",
     "successTitle": "Success",
-    "successDetails": "You have successfully registered! Please check your e-mail address to verify your account.",
-    "usernameEmpty": "The username has to be filled!",
-    "usernameLength": "The username must be between 5 and 50 characters long!",
-    "emailEmpty": "The e-mail address has to be filled!",
-    "emailLength": "The e-mail address must be maximum 100 characters long."
+    "successDetails": "You have successfully registered! Please check your e-mail address to verify your account."
   },
   "successPanel": {
     "continue": "Continue"
@@ -126,11 +113,7 @@
     "cancel": "Cancel",
     "confirm": "Join",
     "rowsPerPage": "Rows per page:",
-    "of": "of",
-    "errorJoining": "Error while joining to a group!",
-    "successJoining": "You joined to the group successfully!",
-    "addPassword": "Please add a password!",
-    "wrongPassword": "Wrong password!"
+    "of": "of"
   },
   "passwordInput": {
     "password": "Password",
@@ -150,9 +133,7 @@
     "home": "Home",
     "manageGroup": "Manage group",
     "leaveGroup": "Leave group",
-    "deleteGroup": "Delete group",
-    "leaveSuccess": "You leave from the group successfully!",
-    "deleteSuccess": "You delete the group successfully!"
+    "deleteGroup": "Delete group"
   },
   "location": {
     "australia": "Australia / Melburne",
@@ -191,41 +172,24 @@
     "username": "Username",
     "joinedAt": "Joined at",
     "role": "Role",
-    "members": "Members",
-    "error": "Error while fetching members!"
+    "members": "Members"
   },
   "tip": {
     "chooseType": "Choose a type",
     "chooseDriver": "Choose Driver!",
     "sprint": "Sprint",
     "race": "Race",
-    "saveTip": "Submit tip",
-    "success": "Tip saved successfully!"
-  },
-  "messages": {
-    "errorFetching": "Error while fetching data!",
-    "unknownError": "Something went wrong!",
-    "loginError": "Login failed!"
+    "saveTip": "Submit tip"
   },
   "manageGroup": {
     "manageGroup": "Manage group",
     "renameGroup": "Rename group",
     "newName": "New name",
-    "nameEmpty": "Name has to be filled!",
-    "nameLength": "Name must be between 5 and 50 characters long!",
-    "nameAlreadyTaken": "Name already taken!",
     "cancel": "Cancel",
     "save": "Save",
     "changePassword": "Change password",
-    "calculatePoints": "Calculate points",
-    "renameSuccess": "Group renamed successfully!",
-    "promoteSuccess": "User promoted successfully!",
-    "kickSuccess": "User kicked successfully!",
     "promote": "Promote to admin",
-    "kick": "Kick from group",
-    "successRename": "Name changed successfully!",
-    "successPasswordChange": "Password changed successfully!",
-    "calculateSuccess": "Points calculated successfully!"
+    "kick": "Kick from group"
   },
   "groupDetails": {
     "title": "F1 Driver Selection Status",
@@ -246,14 +210,7 @@
     "deleteSubTitle": "Permanently delete your account and all associated data!",
     "deleteDescription": "This action cannot be undone. Once you delete your account, all of your data will be permanently removed.",
     "deleteAccount": "Delete Account",
-    "successEmailChange": "E-mail address updated successfully!",
-    "successPasswordChange": "Password changed successfully!",
-    "emailEmpty": "The e-mail address has to be filled!",
-    "emailLength": "The e-mail address must be maximum 100 characters long.",
-    "invalidEmail": "Invalid e-mail address!",
-    "emailAlreadyTaken": "The e-mail address is already taken!",
-    "invalidCharacter": "Password must not contain any not hungarian or english characters!",
-    "invalidPassword": "Password must be at least 8 characters long, must contain at least one uppercase letter, one lowercase letter, one number and one special character!"
+    "calculatePoints": "Calculate points"
   },
   "standing": {
     "title": "Player Standings",
@@ -274,5 +231,43 @@
     "october": "October",
     "november": "November",
     "december": "December"
+  },
+  "validation": {
+    "emailEmpty": "The e-mail address has to be filled!",
+    "emailLength": "The e-mail address must be maximum 100 characters long.",
+    "invalidEmail": "Invalid e-mail address!",
+    "emailAlreadyTaken": "The e-mail address is already taken!",
+    "passwordEmpty": "Please add a password!",
+    "invalidPasswordCharacter": "Password must not contain any not hungarian or english characters!",
+    "invalidPassword": "Password must be at least 8 characters long, must contain at least one uppercase letter, one lowercase letter, one number and one special character!",
+    "passwordsDontMatch": "Passwords don't match!",
+    "groupNameEmpty": "Name has to be filled!",
+    "groupNameLength": "Name must be between 5 and 50 characters long!",
+    "groupNameAlreadyTaken": "Name is already taken!",
+    "usernameEmpty": "The username has to be filled!",
+    "usernameLength": "The username must be between 5 and 50 characters long!",
+    "usernameAlreadyTaken": "Username already taken!"
+  },
+  "messages": {
+    "successEmailChange": "E-mail address updated successfully!",
+    "successGroupCreation": "Group created successfully!",
+    "successGroupPasswordChange": "Group password changed successfully!",
+    "successPasswordChange": "Password changed successfully!",
+    "successTip": "Tip saved successfully!",
+    "successCalculate": "Points calculated successfully!",
+    "successNameChange": "Name changed successfully!",
+    "successRename": "Group renamed successfully!",
+    "successPromote": "User promoted successfully!",
+    "successKick": "User kicked successfully!",
+    "successLeave": "You leave from the group successfully!",
+    "successDelete": "You delete the group successfully!",
+    "successJoining": "You joined to the group successfully!",
+    "errorFetching": "Error while fetching data!",
+    "errorUnknown": "Something went wrong!",
+    "errorLogin": "Login failed!",
+    "errorMembersFetching": "Error while fetching members!",
+    "errorPassword": "Wrong password!",
+    "errorJoining": "Error while joining to a group!",
+    "errorCalculate": "Error while calculating points!"
   }
 }

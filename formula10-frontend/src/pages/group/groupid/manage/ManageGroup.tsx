@@ -26,10 +26,13 @@ const ManageGroup = () => {
 
       const response = await calculatePointsForGroup(group?.id || 0);
       if (response) {
-        eventBus.emit('success', {message: t('manageGroup.calculateSuccess')});
+        eventBus.emit('success', {message: t('messages.successCalculate')});
       }
     } catch (error) {
-      console.error('Failed to leave group:', error);
+      eventBus.emit('error', {
+        message: t('messages.errorCalculate'),
+        isDialog: false
+      });
     }
   }
 

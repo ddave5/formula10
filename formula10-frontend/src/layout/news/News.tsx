@@ -23,7 +23,7 @@ const News = ({news } :
                     <span className='text-xs text-[--color-gray-light]'>{date}</span>
                     <a href={news.sourceUrl} target="_blank" rel="noreferrer" 
                     className='text-sm text-nowrap text-[--color-primary] before:bg-[--color-primary] dark:text-[--color-purple-light] dark:before:bg-[--color-purple-light]'>
-                        Read more <FaArrowRightLong /></a>    
+                        {t('home.readMore')} <FaArrowRightLong /></a>    
                 </div>
             </div>
         </div>

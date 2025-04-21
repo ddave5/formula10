@@ -18,7 +18,6 @@ import { useGroup } from '../../../../context/GroupContext';
 const GroupDetailsMenu = () => {
 
   const { group } = useGroup();
-  const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [showMenu, setShowMenu] = useState(false);
   const [authority, setAuthority] = useState('');
@@ -74,7 +73,6 @@ const GroupDetailsMenu = () => {
         setAuthority( group?.members.find(member => member.username === user?.username)?.role || '');
       } catch (err) {
         eventBus.emit('error', {message: t('messages.errorFetching'), isDialog: true});
-        setError('Failed to load group');
       } finally {
         setLoading(false);
       }
@@ -85,10 +83,6 @@ const GroupDetailsMenu = () => {
 
   if (loading || userLoading) {
       return <Loading isLoading={loading || userLoading} />;
-  }
-
-  if (error) {
-      return <div>{error}</div>;
   }
 
   const hideMenu = (e: React.KeyboardEvent<HTMLDivElement>) => {

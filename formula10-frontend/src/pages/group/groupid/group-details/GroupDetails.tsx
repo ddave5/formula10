@@ -15,7 +15,6 @@ const GroupDetails = () => {
   const {t} = useTranslation();
 
   const { group } = useGroup();
-  const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
   const {theme} = useTheme();
@@ -31,15 +30,12 @@ const GroupDetails = () => {
         setDriverSelections(groupTips);
 
         if (!groupTips) {
-          setError('Failed to fetch race data');
+          eventBus.emit('error', {message: t('messages.errorFetching'), isDialog: true});
           return;
         }
         
       } catch (error) {
         eventBus.emit('error', {message: t('messages.errorFetching'), isDialog: true});
-        setError(
-          error instanceof Error ? error.message : 'Failed to fetch data'
-        );
       } finally {
         setLoading(false);
       }
@@ -50,10 +46,6 @@ const GroupDetails = () => {
 
   if (loading) {
     return <Loading isLoading={loading} />;
-  }
-
-  if (error) {
-      return <div>{error}</div>;
   }
 
   // Get the counts for selected and not selected

@@ -34,7 +34,6 @@ const JoinGroup = () => {
   
   const [allGroupsLoading, setAllGroupsLoading] = useState(true);
 
-  // New states for pagination and filtering
   const [currentPage, setCurrentPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [filterText, setFilterText] = useState('');
@@ -56,18 +55,18 @@ const JoinGroup = () => {
     try {
       
       if (password === '' && group?.availability === 'PRIVATE') {
-        eventBus.emit('error', {message: t('joinGroup.addPassword'), isDialog: false });
+        eventBus.emit('error', {message: t('validation.passwordEmpty'), isDialog: false });
         return;
       }
 
       const data = await joinGroup(user?.id || 0, group.id, password);
       if (data) {
-        eventBus.emit('success', {message: t('joinGroup.successJoining')})
+        eventBus.emit('success', {message: t('messages.successJoining')})
         setJoinDone(true);
         dispatch(addGroup(data));
       }
     } catch (err) {
-      eventBus.emit('error', {message: t('joinGroup.wrongPassword') , isDialog: false });
+      eventBus.emit('error', {message: t('messages.errorPassword') , isDialog: false });
     }
   };
 

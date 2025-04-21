@@ -6,13 +6,14 @@ import News from '../../layout/news/News';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@mui/material';
 import { t } from 'i18next';
+import eventBus from '../../services/eventBus';
+import Loading from '../../components/Loading/Loading';
 
 const Home: React.FC = () => {
 
     const [news, setNews] = useState<NewsDTO[]>([]);
     const [allNews, setAllNews] = useState<NewsDTO[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<string | null>(null);
     const [page, setPage] = useState<number>(0); 
     const [hasMoreNews, setHasMoreNews] = useState<boolean>(true); 
     const {i18n} = useTranslation();
@@ -32,7 +33,7 @@ const Home: React.FC = () => {
             setNews(data.slice(0, 9));
             setVisibleCount(9);
         } catch (err) {
-            setError('Failed to fetch news');
+            eventBus.emit('error', {message: t('messages.errorFetching'), isDialog: true});
         } finally {
             setLoading(false);
         }
@@ -45,8 +46,8 @@ const Home: React.FC = () => {
         fetchNews(page);
     }, [page, fetchNews]);
 
-    if (error) {
-        return <div>{error}</div>;
+    if (loading) {
+        return <Loading isLoading={loading} />;
     }
 
     return (
@@ -72,7 +73,6 @@ const Home: React.FC = () => {
                     </Button>
                 </div>
             )}
-            {loading && <div>Loading more news...</div>}
         </>
     );
 };

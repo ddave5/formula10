@@ -22,7 +22,6 @@ const GroupsHome = () => {
   const loading = useSelector((state: RootState) => state.groups.loading);
   const [ergastLoading, setErgastLoading] = useState<boolean>(true);
   const [raceLoading, setRaceLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
 
   const driverStandingsRef = useRef<{style: string, value: string}[][] | null>(null);
   const constructorStandingsRef = useRef<{style: string, value: string}[][] | null>(null);
@@ -33,7 +32,7 @@ const GroupsHome = () => {
         const nextRace = await getNextRace();
 
         if (!nextRace) {
-          setError('Failed to fetch race data');
+          eventBus.emit('error', {message: t('messages.errorFetching'), isDialog: true});
           return;
         }
 
@@ -68,9 +67,6 @@ const GroupsHome = () => {
 
       } catch (error) {
         eventBus.emit('error', {message: t('messages.errorFetching'), isDialog: true});
-        setError(
-          error instanceof Error ? error.message : 'Failed to fetch data'
-        );
       } finally {
         setErgastLoading(false);
         setRaceLoading(false);
@@ -82,10 +78,6 @@ const GroupsHome = () => {
 
   if (ergastLoading || loading || raceLoading) {
     return <Loading isLoading={ergastLoading || loading || raceLoading } />;
-  }
-
-  if (error) {
-      return <div>{error}</div>;
   }
 
   return (

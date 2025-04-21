@@ -58,7 +58,7 @@ const CreateGroup = () => {
     if (isValid) {
         const newGroup = await createGroup(name, groupPassword, (user ? user.id : 0));
         if (newGroup && user) {
-          eventBus.emit('success', { message: 'Group created successfully!' });
+          eventBus.emit('success', { message: t('messages.successGroupCreation') });
           dispatch(addGroup(newGroup));
           navigate('/groups');
         }
@@ -81,9 +81,9 @@ const CreateGroup = () => {
                     variant: 'outlined', 
                     value: name, setValue: setName,
                     validation: [
-                      {error: name.length === 0, errori18n: 'createGroup.nameIsEmpty'}, 
-                      {error: (name.length > 50 || name.length < 3), errori18n: 'createGroup.usernameLength'},
-                      {error: !nameAvailable, errori18n: 'createGroup.nameTaken'}
+                      {error: name.length === 0, errori18n: 'validation.groupNameEmpty'}, 
+                      {error: (name.length > 50 || name.length < 3), errori18n: 'validation.groupNameLength'},
+                      {error: !nameAvailable, errori18n: 'validation.groupNameAlreadyTaken'}
                     ],
                     isValid: setIsNameValid,
                     showError: showErrors
@@ -93,7 +93,7 @@ const CreateGroup = () => {
                   setPassword: setGroupPassword,
                   label:'passwordOptional',
                   validation: [
-                    {error: groupPassword.length > 0 && !CharacterValidator(groupPassword), errori18n: 'createGroup.invalidCharacter'},
+                    {error: groupPassword.length > 0 && !CharacterValidator(groupPassword), errori18n: 'validation.invalidPasswordCharacter'},
                   ],
                   isValid: setIsPasswordValid,
                   showError: showErrors

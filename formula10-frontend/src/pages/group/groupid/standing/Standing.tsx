@@ -19,7 +19,7 @@ const Standing = () => {
         const standings = await getGroupAndSeasonStanding(+groupId);
 
         if (!standings) {
-          setError('Failed to fetch standings');
+          eventBus.emit('error', {message: t('messages.errorMembersFetching'), isDialog: true});
           return;
         }
         
