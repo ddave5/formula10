@@ -2,13 +2,10 @@ package hu.project.formula10.service;
 
 import hu.project.formula10.bot.NewsScraper;
 import hu.project.formula10.dto.NewsDTO;
+import hu.project.formula10.enums.LanguageType;
 import hu.project.formula10.model.News;
 import hu.project.formula10.repository.NewsRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -28,11 +25,15 @@ public class NewsService {
         this.transactionalService = transactionalService;
     }
 
-    public Page<NewsDTO> getAllNews(int page, int size) {
-        log.info("Fetching news for page: {}, size: {}", page, size);
-        Pageable pageable = PageRequest.of(page, size, Sort.by("publishedAt").descending());
-        return newsRepository.findAllByOrderByPublishedAtDesc(pageable)
-                .map(News::toDTO);
+    public List<NewsDTO> getAllHungarianNews() {
+        return newsRepository.findAllByLanguageOrderByPublishedAtDesc(LanguageType.HU)
+                .stream().map(News::toDTO).toList();
+    }
+    
+
+    public List<NewsDTO> getAllEnglishNews() {
+        return newsRepository.findAllByLanguageOrderByPublishedAtDesc(LanguageType.EN)
+                .stream().map(News::toDTO).toList();
     }
 
     public NewsDTO createNews(NewsDTO newsDTO) {
@@ -43,13 +44,14 @@ public class NewsService {
         news.setSourceUrl(newsDTO.getSourceUrl());
         news.setPublishedAt(newsDTO.getPublishedAt());
         news.setDetails(newsDTO.getDetails());
+        news.setLanguage(LanguageType.valueOf(newsDTO.getLanguage()));
 
         return newsRepository.save(news).toDTO();
     }
 
     public void checkForHungarianNewNews() throws IOException {
         List<NewsDTO> newNewsList = newsScraper.scrapHungarianNews();
-        List<News> existingNews = newsRepository.findTop10ByOrderByPublishedAtDesc();
+        List<News> existingNews = newsRepository.findTop10ByLanguageOrderByPublishedAtDesc(LanguageType.HU);
 
         for (NewsDTO newsDTO : newNewsList) {
             boolean isDuplicate = existingNews.stream()
@@ -64,11 +66,11 @@ public class NewsService {
 
     public void checkForEnglishNewNews() throws IOException {
         List<NewsDTO> newNewsList = newsScraper.scrapEnglishNews();
-        List<News> existingNews = newsRepository.findTop10ByOrderByPublishedAtDesc();
+        List<News> existingNews = newsRepository.findTop10ByLanguageOrderByPublishedAtDesc(LanguageType.EN);
 
         for (NewsDTO newsDTO : newNewsList) {
             boolean isDuplicate = existingNews.stream()
-                    .anyMatch(existing -> existing.getSourceUrl().equals(newsDTO.getSourceUrl()));
+                    .anyMatch(existing -> existing.getPublishedAt().equals(newsDTO.getPublishedAt()));
             if (!isDuplicate) {
                 createNews(newsDTO);
             }

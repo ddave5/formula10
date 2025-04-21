@@ -1,5 +1,6 @@
 package hu.project.formula10.repository;
 
+import hu.project.formula10.enums.LanguageType;
 import hu.project.formula10.model.News;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,9 +13,11 @@ import java.util.List;
 @Repository
 public interface NewsRepository extends JpaRepository<News, Long> {
 
-    List<News> findTop10ByOrderByPublishedAtDesc();
+    List<News> findAllByLanguageOrderByPublishedAtDesc(LanguageType language);
+
+    List<News> findTop10ByLanguageOrderByPublishedAtDesc(LanguageType language);
 
     void deleteNewsByPublishedAtBefore(LocalDateTime twoWeeksAgo);
 
-    Page<News> findAllByOrderByPublishedAtDesc(Pageable pageable);
+    Page<News> findAllByLanguageOrderByPublishedAtDesc(LanguageType language, Pageable pageable);
 }

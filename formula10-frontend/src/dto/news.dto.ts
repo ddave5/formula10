@@ -5,4 +5,5 @@ export interface NewsDTO {
     imageUrl: string;
     publishedAt: string;
     details: string;
+    language: string;
 }

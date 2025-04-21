@@ -1,6 +1,7 @@
 package hu.project.formula10.model;
 
 import hu.project.formula10.dto.NewsDTO;
+import hu.project.formula10.enums.LanguageType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -31,8 +32,12 @@ public class News {
     @Column(name = "details", length = 1000)
     private String details;
 
+    @Column(name = "language", length = 10)
+    @Enumerated(EnumType.STRING)
+    private LanguageType language;
+
     public NewsDTO toDTO() {
-        return new NewsDTO(this.getId(), this.getTitle(), this.getSourceUrl(), this.getImageUrl(), this.getPublishedAt(), this.getDetails());
+        return new NewsDTO(this.getId(), this.getTitle(), this.getSourceUrl(), this.getImageUrl(), this.getPublishedAt(), this.getDetails(), this.getLanguage().name());
     }
 
     public News() { }

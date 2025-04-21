@@ -1,6 +1,8 @@
 package hu.project.formula10.bot;
 
 import hu.project.formula10.dto.NewsDTO;
+import hu.project.formula10.enums.LanguageType;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Component;
@@ -19,8 +21,8 @@ public class NewsScraper {
     private static final String BASE_HUNGARIAN_URL = "https://www.nemzetisport.hu/";
     private static final String NEWS_HUNGARIAN_URL = BASE_HUNGARIAN_URL + "rovat/f1";
 
-    private static final String BASE_ENGLISH_URL = "https://www.motorsport.com/f1/";
-    private static final String NEWS_ENGLISH_URL = BASE_ENGLISH_URL + "news/";
+    private static final String BASE_ENGLISH_URL = "https://www.motorsport.com";
+    private static final String NEWS_ENGLISH_URL = BASE_ENGLISH_URL + "/f1/news/";
 
     public List<NewsDTO> scrapHungarianNews() throws IOException {
         List<NewsDTO> newsList = new ArrayList<>();
@@ -44,6 +46,7 @@ public class NewsScraper {
             newsDTO.setSourceUrl(BASE_HUNGARIAN_URL + link);
             newsDTO.setDetails(subdoc.getElementsByClass("lead").getFirst().text());
             newsDTO.setImageUrl(subdoc.getElementsByClass("article-page-thumbnail").getFirst().attr("src"));
+            newsDTO.setLanguage(LanguageType.HU.name());
             newsList.add(newsDTO);
         }
 
@@ -56,7 +59,7 @@ public class NewsScraper {
 
         // A hírek címének és URL-jének keresése
         List<String> newsLinks = doc
-                .select("a")
+                .select("a[data-entity-type=article]")
                 .subList(0,11)
                 .stream()
                 .map( element -> element.select("a").attr("href"))
@@ -69,7 +72,8 @@ public class NewsScraper {
             newsDTO.setPublishedAt(convertDateFormat(subdoc.select("time").attr("datetime")));
             newsDTO.setSourceUrl(BASE_ENGLISH_URL + link);
             newsDTO.setDetails(subdoc.select("h2").getFirst().text());
-            newsDTO.setImageUrl(subdoc.select("img").getFirst().attr("src"));
+            newsDTO.setImageUrl(subdoc.select("picture").getFirst().select("img").getFirst().attr("src"));
+            newsDTO.setLanguage(LanguageType.EN.name());
             newsList.add(newsDTO);
         }
 

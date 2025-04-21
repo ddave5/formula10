@@ -6,7 +6,8 @@
     "backToHome": "Back to home"
   }, 
   "home": {
-    "welcome": "Welcome!"
+    "welcome": "Welcome!",
+    "moreButton": "More"
   },
   "navbar": {
     "login": "Sign in",

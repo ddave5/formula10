@@ -3,9 +3,12 @@ package hu.project.formula10.controller;
 import hu.project.formula10.dto.NewsDTO;
 import hu.project.formula10.service.NewsService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
+
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 
 
 @RestController
@@ -19,17 +22,17 @@ public class NewsController {
         this.newsService = newsService;
     }
 
-    @GetMapping
-    public ResponseEntity<Page<NewsDTO>> getAllNews(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "9") int size
-    ) {
-        log.info("Fetching page {} with size {}", page, size);
-        Page<NewsDTO> newsPage = newsService.getAllNews(page, size);
+    @GetMapping("/hungarian")
+    public ResponseEntity<List<NewsDTO>> getAllHungarianNews() {
+        List<NewsDTO> newsPage = newsService.getAllHungarianNews();
         return ResponseEntity.ok(newsPage);
     }
 
-
+    @GetMapping("/english")
+    public ResponseEntity<List<NewsDTO>> getAllEnglishNews() {
+        List<NewsDTO> newsPage = newsService.getAllEnglishNews();
+        return ResponseEntity.ok(newsPage);
+    }
 
     @PostMapping
     public ResponseEntity<NewsDTO> createNews(@RequestBody NewsDTO newsDTO) {

@@ -6,7 +6,8 @@
     "backToHome": "Vissza a főoldalra"
   }, 
   "home": {
-    "welcome": "Üdvözlünk!"
+    "welcome": "Üdvözlünk!",
+    "moreButton": "Tovább"
   },
   "navbar": {
     "login": "Belépés",

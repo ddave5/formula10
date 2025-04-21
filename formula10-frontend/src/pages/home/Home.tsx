@@ -1,58 +1,49 @@
 import type React from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import type { NewsDTO } from '../../dto/news.dto';
-import { getAllNews } from '../../services/news.service';
+import { getAllEnglishNews, getAllHungarianNews } from '../../services/news.service';
 import News from '../../layout/news/News';
-import _ from 'lodash'; // lodash importálása
+import { useTranslation } from 'react-i18next';
+import { Button } from '@mui/material';
+import { t } from 'i18next';
 
 const Home: React.FC = () => {
 
     const [news, setNews] = useState<NewsDTO[]>([]);
+    const [allNews, setAllNews] = useState<NewsDTO[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [page, setPage] = useState<number>(0); 
     const [hasMoreNews, setHasMoreNews] = useState<boolean>(true); 
+    const {i18n} = useTranslation();
+    const [visibleCount, setVisibleCount] = useState<number>(9);
+
+    const showMoreNews = () => {
+        const newVisibleCount = visibleCount + 9;
+        setNews(allNews.slice(0, newVisibleCount));
+        setVisibleCount(newVisibleCount);
+    };
 
     const fetchNews = useCallback(async (page: number) => {
         setLoading(true);
         try {
-            const data = await getAllNews(page, 9);
-            if (data.length < 9) {
-                setHasMoreNews(false);
-            }
-            setNews((prevNews) => [...prevNews, ...data]); 
+            const data = i18n.language === 'hu' ? await getAllHungarianNews() : await getAllEnglishNews();
+            setAllNews(data);
+            setNews(data.slice(0, 9));
+            setVisibleCount(9);
         } catch (err) {
             setError('Failed to fetch news');
         } finally {
             setLoading(false);
         }
-    }, []);
+    }, [i18n.language]);
 
-    // Fetch news whenever 'page' changes
     useEffect(() => {
+        setNews([]);
+        setPage(0);
+        setHasMoreNews(true);
         fetchNews(page);
     }, [page, fetchNews]);
-
-    // Scroll esemény kezelése
-    const handleScroll = useCallback(
-        _.throttle(() => {
-            if (
-                window.innerHeight + window.scrollY >= document.body.offsetHeight - 300 &&
-                !loading && hasMoreNews
-            ) {
-                setPage((prevPage) => prevPage + 1);
-            }
-        }, 200), [loading, hasMoreNews]);
-
-    useEffect(() => {
-
-        window.addEventListener('scroll', handleScroll);
-    
-        return () => {
-          window.removeEventListener('scroll', handleScroll);
-        };
-      }, [handleScroll]); 
-
 
     if (error) {
         return <div>{error}</div>;
@@ -70,6 +61,17 @@ const Home: React.FC = () => {
                     ))}
                 </div>
             </div>
+            {hasMoreNews && !loading && (
+                <div className="flex justify-center my-4">
+                    <Button
+                        variant='contained'
+                        className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                        onClick={showMoreNews}
+                    >
+                        {t('home.moreButton')}
+                    </Button>
+                </div>
+            )}
             {loading && <div>Loading more news...</div>}
         </>
     );
