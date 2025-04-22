@@ -268,6 +268,7 @@
     "errorMembersFetching": "Error while fetching members!",
     "errorPassword": "Wrong password!",
     "errorJoining": "Error while joining to a group!",
-    "errorCalculate": "Error while calculating points!"
+    "errorCalculate": "Error while calculating points!",
+    "errorDeleteAccount": "Error while deleteing account!"
   }
 }

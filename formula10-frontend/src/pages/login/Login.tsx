@@ -80,7 +80,7 @@ const Login = () => {
                 setPassword: setLoginPassword,
                 label:'password',
                 validation: [
-                  {error: loginPassword.length === 0, errori18n: 'login.passwordEmpty'},
+                  {error: loginPassword.length === 0, errori18n: 'validation.passwordEmpty'},
                 ],
                 isValid: setIsPasswordValid,
                 keyUpEvent: enterEvent

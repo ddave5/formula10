@@ -81,7 +81,7 @@ const Profile = () => {
       const response = await changeEmail(newEmail, user?.id || 0);
 
       if (response) {
-        eventBus.emit('success', { message: t('profile.successEmailChange') });
+        eventBus.emit('success', { message: t('messages.successEmailChange') });
         dispatch(changeEmailInStore(newEmail));
       }
     }
@@ -109,7 +109,7 @@ const Profile = () => {
       const response = await changePasswordForUser(user?.email || '', newPassword);
 
       if (response) {
-        eventBus.emit('success', { message: t('profile.successPasswordChange') });
+        eventBus.emit('success', { message: t('messages.successUserPasswordChange') });
       }
     }
   }
@@ -127,13 +127,13 @@ const Profile = () => {
     const isValidOldPassword = await checkOldPassword(deletePassword, user?.id || 0);
 
     if (!isValidOldPassword) {
-      eventBus.emit('error', { message: t('profile.errorDeleteAccount'), isDialog: false });
+      eventBus.emit('error', { message: t('messages.errorDeleteAccount'), isDialog: false });
       return;
     }
     
     const response = await deleteUserAccount(user?.id || 0);
     if (response) {
-      eventBus.emit('success', { message: t('profile.successDeleteAccount') });
+      eventBus.emit('success', { message: t('messages.successDeleteAccount') });
       setDeletePassword('');
       dispatch(logout());
       navigate('/');
@@ -200,8 +200,9 @@ const Profile = () => {
                 setPassword: setNewPassword,
                 label:'password',
                 validation: [
-                  {error: !CharacterValidator(newPassword), errori18n: 'profile.invalidCharacter'},
-                  {error: !PasswordValidator(newPassword), errori18n: 'profile.invalidPassword'}
+                  {error: newPassword.length === 0, errori18n: 'validation.passwordEmpty'},
+                  {error: !CharacterValidator(newPassword), errori18n: 'validation.invalidPasswordCharacter'},
+                  {error: !PasswordValidator(newPassword), errori18n: 'validation.invalidPassword'}
                 ],
                 showError: showPasswordErrors,
               }}
@@ -211,7 +212,7 @@ const Profile = () => {
                 setPassword: setConfirmPassword, 
                 label: 'passwordAgain',
                 validation: [
-                  {error: (newPassword !== confirmPassword || confirmPassword === ""), errori18n: 'profile.passwordsDontMatch'}
+                  {error: (newPassword !== confirmPassword || confirmPassword === ""), errori18n: 'validation.passwordsDontMatch'}
                 ],
                 showError: showPasswordErrors
               }}

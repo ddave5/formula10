@@ -58,9 +58,9 @@ const PasswordChange = () => {
                       variant: 'outlined', 
                       value: email, setValue: setEmail,
                       validation: [
-                        {error: email.length === 0, errori18n: 'registration.emailEmpty'}, 
-                        {error: email.length > 100 , errori18n: 'registration.emailLength'},
-                        {error: !EmailValidator(email), errori18n: 'registration.invalidEmail'}
+                        {error: email.length === 0, errori18n: 'validation.emailEmpty'}, 
+                        {error: email.length > 100 , errori18n: 'validation.emailLength'},
+                        {error: !EmailValidator(email), errori18n: 'validation.invalidEmail'}
                       ],
                       isValid: setIsEmailValid
                     }}
@@ -70,8 +70,9 @@ const PasswordChange = () => {
                     setPassword: setPassword, 
                     label: 'newPassword',
                     validation: [
-                      {error: !CharacterValidator(password), errori18n: 'passwordChange.invalidCharacter'},
-                      {error: !PasswordValidator(password), errori18n: 'passwordChange.invalidPassword'}
+                      {error: password.length === 0, errori18n: 'validation.passwordEmpty'},
+                      {error: !CharacterValidator(password), errori18n: 'validation.invalidPasswordCharacter'},
+                      {error: !PasswordValidator(password), errori18n: 'validation.invalidPassword'}
                     ],
                     isValid: setIsPasswordValid
                   }}
@@ -81,7 +82,7 @@ const PasswordChange = () => {
                     setPassword: setConfirmPassword, 
                     label: 'newPasswordAgain',
                     validation: [
-                      {error: (password !== confirmPassword || confirmPassword === ""), errori18n: 'registration.passwordsDontMatch'}
+                      {error: (password !== confirmPassword || confirmPassword === ""), errori18n: 'validation.passwordsDontMatch'}
                     ],
                     isValid: setIsConfirmPasswordValid
                   }}

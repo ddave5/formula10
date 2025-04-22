@@ -271,6 +271,7 @@
     "errorMembersFetching": "Hiba a tagok betöltésekor!",
     "wrongPassword": "A megadott jelszó helytelen!",
     "errorJoining": "Hiba a csoporthoz való csatlakozáskor!",
-    "errorCalculate": "Hiba a pontszámításban!"
+    "errorCalculate": "Hiba a pontszámításban!",
+    "errorDeleteAccount": "A felhasználó törlésekor hiba történt!"
   }
 }

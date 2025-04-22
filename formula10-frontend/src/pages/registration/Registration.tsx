@@ -143,9 +143,9 @@ const Registration = () => {
                     variant: 'outlined', 
                     value: username, setValue: setUsername,
                     validation: [
-                      {error: username.length === 0, errori18n: 'registration.usernameEmpty'}, 
-                      {error: (username.length > 50 || username.length < 5), errori18n: 'registration.usernameLength'},
-                      {error: !usernameAvailable, errori18n: 'registration.usernameAlreadyTaken'}
+                      {error: username.length === 0, errori18n: 'validation.usernameEmpty'}, 
+                      {error: (username.length > 50 || username.length < 5), errori18n: 'validation.usernameLength'},
+                      {error: !usernameAvailable, errori18n: 'validation.usernameAlreadyTaken'}
                     ],
                     isValid: setIsUsernameValid,
                     showError: showErrors
@@ -159,10 +159,10 @@ const Registration = () => {
                     variant: 'outlined', 
                     value: email, setValue: setEmail,
                     validation: [
-                      {error: email.length === 0, errori18n: 'registration.emailEmpty'}, 
-                      {error: email.length > 100 , errori18n: 'registration.emailLength'},
-                      {error: !EmailValidator(email), errori18n: 'registration.invalidEmail'},
-                      {error: !emailAvailable, errori18n: 'registration.emailAlreadyTaken'}
+                      {error: email.length === 0, errori18n: 'validation.emailEmpty'}, 
+                      {error: email.length > 100 , errori18n: 'validation.emailLength'},
+                      {error: !EmailValidator(email), errori18n: 'validation.invalidEmail'},
+                      {error: !emailAvailable, errori18n: 'validation.emailAlreadyTaken'}
                     ],
                     isValid: setIsEmailValid,
                     showError: showErrors
@@ -173,8 +173,9 @@ const Registration = () => {
                     setPassword: setPassword,
                     label:'password',
                     validation: [
-                      {error: !CharacterValidator(password), errori18n: 'registration.invalidCharacter'},
-                      {error: !PasswordValidator(password), errori18n: 'registration.invalidPassword'}
+                      {error: password.length === 0, errori18n: 'validation.passwordEmpty'},
+                      {error: !CharacterValidator(password), errori18n: 'validation.invalidPasswordCharacter'},
+                      {error: !PasswordValidator(password), errori18n: 'validation.invalidPassword'}
                     ],
                     isValid: setIsPasswordValid,
                     showError: showErrors
@@ -185,7 +186,7 @@ const Registration = () => {
                     setPassword: setConfirmPassword, 
                     label: 'passwordAgain',
                     validation: [
-                      {error: (password !== confirmPassword || confirmPassword === ""), errori18n: 'registration.passwordsDontMatch'}
+                      {error: (password !== confirmPassword || confirmPassword === ""), errori18n: 'validation.passwordsDontMatch'}
                     ],
                     isValid: setIsConfirmPasswordValid,
                     showError: showErrors
