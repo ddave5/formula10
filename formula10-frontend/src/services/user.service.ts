@@ -69,3 +69,33 @@ export const deleteUserAccount = async (userId: number) => {
     throw error;
   }
 }
+
+export const sendResetEmail = async (email: string) => {
+  try {
+    const response = await apiClient.post("/api/users/request-password-reset", { email });
+    return response.data;
+  } catch (error) {
+    console.error("Error sending reset email", error);
+    throw error;
+  }
+};
+
+export const resetPassword = async (token: string, newPassword: string) => {
+  try {
+    const response = await apiClient.put("/api/users/reset-password", { token, newPassword });
+    return response.data;
+  } catch (error) {
+    console.error("Error resetting password", error);
+    throw error;
+  }
+};
+
+export const validateResetToken = async (token: string) => {
+  try {
+    const response = await apiClient.get(`/api/users/validate-token/${token}`);
+    return response.data; // Akkor is hasznos lehet, ha valamilyen meta adatot is visszaad a backend
+  } catch (error) {
+    console.error("Token validation failed", error);
+    throw error;
+  }
+};

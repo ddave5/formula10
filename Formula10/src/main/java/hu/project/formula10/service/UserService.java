@@ -3,17 +3,25 @@ package hu.project.formula10.service;
 import hu.project.formula10.dto.CreateUserDTO;
 import hu.project.formula10.dto.UserDTO;
 import hu.project.formula10.enums.RoleName;
+import hu.project.formula10.model.PasswordResetToken;
 import hu.project.formula10.model.Role;
 import hu.project.formula10.model.User;
+import hu.project.formula10.repository.PasswordResetTokenRepository;
 import hu.project.formula10.repository.RoleRepository;
 import hu.project.formula10.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.UUID;
+
+import javax.security.auth.login.CredentialException;
 
 @Slf4j
 @Service
@@ -22,13 +30,22 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
+    private final MailService mailService;
+    private final PasswordResetTokenRepository passwordResetTokenRepository;
+
+    @Value("${frontend.url}")
+    private String frontendUrl;
 
     public UserService(UserRepository userRepository,
                        PasswordEncoder passwordEncoder,
-                       RoleRepository roleRepository) {
+                       RoleRepository roleRepository, 
+                       MailService mailService,
+                       PasswordResetTokenRepository passwordResetTokenRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.roleRepository = roleRepository;
+        this.mailService = mailService;
+        this.passwordResetTokenRepository = passwordResetTokenRepository;
     }
 
     public boolean createUser(CreateUserDTO createUserDTO) {
@@ -63,13 +80,25 @@ public class UserService {
         return !userRepository.existsByEmail(email);
     }
 
-    public UserDTO changePassword(String email, String password) throws Exception {
+    public UserDTO changePassword(String token, String password) throws CredentialException, SQLException {
+        PasswordResetToken resetToken = passwordResetTokenRepository.findByToken(token)
+            .orElseThrow(() -> new RuntimeException("Invalid or expired token"));
+
+        if (resetToken.getExpiryDate().isBefore(LocalDateTime.now())) {
+            throw new CredentialException();
+        }
+
+        String email = resetToken.getEmail();
+
         log.info("Fetching user by email: {}", email);
         User user = userRepository
                 .findByEmail(email)
                 .orElseThrow( () -> new SQLException("No user with this email address"));
 
         user.setPassword(passwordEncoder.encode(password));
+
+        log.info("Delete token from database");
+        passwordResetTokenRepository.delete(resetToken);
 
         log.info("Save user with the new password");
         return userRepository.save(user).toDTO();
@@ -96,6 +125,20 @@ public class UserService {
         log.info("Delete user by id: {}", userId);
         User user = userRepository.findById(userId).orElseThrow( () -> new SQLException("No user with this id"));
         userRepository.delete(user);
+    }
+
+    public void requestPasswordReset(String email) throws SQLException {
+        userRepository.findByEmail(email)
+            .orElseThrow(() -> new UsernameNotFoundException("No user with this email"));
+
+        String token = UUID.randomUUID().toString();
+        LocalDateTime expiry = LocalDateTime.now().plusMinutes(10);
+
+        passwordResetTokenRepository.deleteByEmail(email);
+        passwordResetTokenRepository.save(new PasswordResetToken(token, email, expiry));
+
+        String resetUrl = frontendUrl + "/reset-password?token=" + token;
+        mailService.sendResetPasswordEmail(email, resetUrl);
     }
 
 }

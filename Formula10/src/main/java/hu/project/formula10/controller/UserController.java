@@ -20,6 +20,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.security.auth.login.CredentialException;
+
 
 @RestController
 @RequestMapping("/api/users")
@@ -91,16 +93,6 @@ public class UserController {
         return ResponseEntity.ok(userDTO);
     }
 
-    @PutMapping("/changePassword")
-    public ResponseEntity<UserDTO> changePassword(@RequestBody Map<String, String> datas) {
-        try {
-            UserDTO userDTO = userService.changePassword(datas.get("email"), datas.get("newPassword"));
-            return ResponseEntity.ok(userDTO);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-        }
-    }
-
     @PutMapping("/changeEmail")
     public ResponseEntity<UserDTO> changeEmail(@RequestBody Map<String, String> datas) {
         try {
@@ -121,6 +113,18 @@ public class UserController {
     public ResponseEntity<Void> deleteUser(@PathVariable Long userId) throws SQLException {
         userService.deleteUser(userId);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/request-password-reset")
+    public ResponseEntity<String> requestReset(@RequestBody Map<String, String> body) throws SQLException {
+        userService.requestPasswordReset(body.get("email"));
+        return ResponseEntity.ok("Reset link sent");
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<?> resetPassword(@RequestBody Map<String, String> body) throws CredentialException, SQLException {
+        userService.changePassword(body.get("token"), body.get("password"));
+        return ResponseEntity.ok("Password changed");
     }
     
 }

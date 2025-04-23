@@ -17,7 +17,6 @@ import org.springframework.context.annotation.Configuration;
 public class CacheConfig {
     @Bean
     public CacheManager cacheManager() throws URISyntaxException {
-        // Ehcache konfiguráció betöltése az ehcache.xml fájlból
         CachingProvider provider = Caching.getCachingProvider(EhcacheCachingProvider.class.getName());
         javax.cache.CacheManager ehCacheManager = provider.getCacheManager(
                 getClass().getClassLoader().getResource("ehcache.xml").toURI(),

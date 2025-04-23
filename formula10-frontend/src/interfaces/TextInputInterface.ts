@@ -1,6 +1,6 @@
-import { TextFieldVariants } from "@mui/material"
-import { HTMLInputTypeAttribute } from "react"
-import { ValidationInterface } from "../utils/Validator"
+import type { TextFieldVariants } from "@mui/material"
+import type { Dispatch, HTMLInputTypeAttribute, ReactElement, SetStateAction } from "react"
+import type { ValidationInterface } from "../utils/Validator"
 
 export interface TextInputInterface {
     id: string,
@@ -8,10 +8,10 @@ export interface TextInputInterface {
     i18n: string,
     type: HTMLInputTypeAttribute,
     variant: TextFieldVariants,
-    value: any,
-    setValue: Function,
+    value: string | ReactElement,
+    setValue: Dispatch<SetStateAction<string>>,
     validation?: ValidationInterface[],
-    isValid?: Function,
+    isValid?: Dispatch<SetStateAction<any>>,
     showError?: boolean,
     disabled?: boolean,
     sx?: object

@@ -37,6 +37,7 @@ import ProtectedRoute from './ProtectedRoute';
 import ManageGroup from './pages/group/groupid/manage/ManageGroup';
 import Profile from './pages/Profile/Profile';
 import { GroupProvider } from './context/GroupContext';
+import ForgotPassword from './pages/login/PasswordChange/ForgotPassword';
 function App() {
   
   const dispatch = useDispatch<AppDispatch>();
@@ -74,7 +75,7 @@ function App() {
           <Route path='/menu' Component={Menu} />
           <Route path='/login' Component={Login} />
           <Route path='/register' Component={Registration} />
-          <Route path='/passwordChange' Component={PasswordChange} />
+          <Route path='/forgotPassword' Component={ForgotPassword} />
           <Route path='/profile' Component={Profile} />
 
           <Route element={<ProtectedRoute />}>
