@@ -94,7 +94,7 @@ const Login = () => {
                       />} {t('login.login')}</p>
             </Button>
           </FormControl>
-          <Link to="/passwordChange" className='w-fit text-[--color-blue] before:bg-[--color-blue]'> {t('login.forgotPassword')} </Link>
+          <Link to="/forgotPassword" className='w-fit text-[--color-blue] before:bg-[--color-blue]'> {t('login.forgotPassword')} </Link>
           <Divider> {t('login.or')} </Divider>
           <Button disabled startIcon={<FcGoogle />} className='dark:text-[--color-font]'
                   sx={{borderStyle: 'solid', borderColor: 'var(--color-blue)', borderWidth: '2px', color: 'var(--color-blue)'}}>{t('login.google')}</Button>

@@ -134,7 +134,9 @@ public class UserService {
         String token = UUID.randomUUID().toString();
         LocalDateTime expiry = LocalDateTime.now().plusMinutes(10);
 
-        passwordResetTokenRepository.deleteByEmail(email);
+        if (passwordResetTokenRepository.existsByEmail(email)) {
+            passwordResetTokenRepository.deleteByEmail(email);
+        }
         passwordResetTokenRepository.save(new PasswordResetToken(token, email, expiry));
 
         String resetUrl = frontendUrl + "/reset-password?token=" + token;
