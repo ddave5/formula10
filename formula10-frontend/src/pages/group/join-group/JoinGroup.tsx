@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TextField } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TextField, Typography } from '@mui/material';
 import type React from 'react'
 import { useEffect, useState } from 'react'
 import { getGroupList, joinGroup } from '../../../services/group.service';
@@ -38,6 +38,8 @@ const JoinGroup = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [filterText, setFilterText] = useState('');
 
+  const [showError, setShowError] = useState(false);
+
   const { t } = useTranslation();
   const { theme } = useTheme();
   const width = useWindowWidth();
@@ -53,7 +55,6 @@ const JoinGroup = () => {
 
   const join = async (group: GroupDTO) => {
     try {
-      
       if (password === '' && group?.availability === 'PRIVATE') {
         eventBus.emit('error', {message: t('validation.passwordEmpty'), isDialog: false });
         return;
@@ -66,12 +67,13 @@ const JoinGroup = () => {
         dispatch(addGroup(data));
       }
     } catch (err) {
-      eventBus.emit('error', {message: t('messages.errorPassword') , isDialog: false });
+      setShowError(true);
     }
   };
 
   const closeDialog = () => {
     setPasswordCheck(false);
+    setShowError(false);
     setPassword('');
   }
 
@@ -104,6 +106,11 @@ const JoinGroup = () => {
     setRowsPerPage(Number.parseInt(event.target.value, 10));
     setCurrentPage(0); 
   };
+
+  const changePassword = (e: string) => {
+    setShowError(false);
+    setPassword(e);
+  }
 
   if (loading || allGroupsLoading) {
       return <Loading isLoading={loading || allGroupsLoading} />;
@@ -219,11 +226,15 @@ const JoinGroup = () => {
               </DialogContentText>
               <PasswordInput props={{
                     password: password,
-                    setPassword: setPassword,
+                    setPassword: changePassword,
                     label:'password',
                     sx: {width: '100%'}
                   }}
-                />
+              />
+              {showError && (
+                <Typography variant="body2" color="error" sx={{ marginTop: '0.5rem' }}>
+                  {t('messages.errorPassword')}
+                </Typography>)}
             </DialogContent>
             <DialogActions>
               <Button onClick={() => closeDialog()}>{t('joinGroup.cancel')}</Button>
