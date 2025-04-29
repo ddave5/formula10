@@ -1,5 +1,6 @@
 package hu.project.formula10.model;
 
+import hu.project.formula10.config.AuditLogListener;
 import hu.project.formula10.dto.TipDTO;
 import hu.project.formula10.enums.TipType;
 import jakarta.persistence.*;
@@ -16,6 +17,7 @@ import java.time.LocalDateTime;
 @Table(name = "tip")
 @NoArgsConstructor
 @AllArgsConstructor
+@EntityListeners(AuditLogListener.class)
 public class Tip {
     @Id
     @SequenceGenerator(name = "tip_seq", sequenceName = "tip_sequence", allocationSize = 1)

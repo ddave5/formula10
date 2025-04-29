@@ -38,7 +38,7 @@ const GroupDetailsMenu = () => {
 
     if (response) {
       dispatch(removeGroup(+groupId));
-      eventBus.emit('success', {message: t('groupDetailsMenu.leaveSuccess')});
+      eventBus.emit('success', {message: t('messages.successLeave')});
       navigate('/groups');
     }
   }
@@ -49,7 +49,7 @@ const GroupDetailsMenu = () => {
 
     if (response) {
       dispatch(removeGroup(+groupId));
-      eventBus.emit('success', {message: t('groupDetailsMenu.deleteSuccess')});
+      eventBus.emit('success', {message: t('messages.successDelete')});
       navigate('/groups');
     }
   }

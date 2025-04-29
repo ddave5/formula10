@@ -1,5 +1,6 @@
 package hu.project.formula10.model;
 
+import hu.project.formula10.config.AuditLogListener;
 import hu.project.formula10.dto.UserDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -12,6 +13,7 @@ import java.util.List;
 @Table(name = "users")
 @Getter
 @Setter
+@EntityListeners(AuditLogListener.class)
 public class User {
 
     @Id

@@ -21,8 +21,13 @@ const Home: React.FC = () => {
 
     const showMoreNews = () => {
         const newVisibleCount = visibleCount + 9;
-        setNews(allNews.slice(0, newVisibleCount));
+        const updatedNews = allNews.slice(0, newVisibleCount);
+        setNews(updatedNews);
         setVisibleCount(newVisibleCount);
+
+        if (newVisibleCount >= allNews.length) {
+            setHasMoreNews(false);
+        }
     };
 
     const fetchNews = useCallback(async (page: number) => {

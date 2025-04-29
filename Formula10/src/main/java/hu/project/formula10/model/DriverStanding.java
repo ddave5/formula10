@@ -16,6 +16,7 @@ import lombok.Setter;
 @Table( name = "driverstanding")
 @Getter
 @Setter
+
 public class DriverStanding {
 
     @Id

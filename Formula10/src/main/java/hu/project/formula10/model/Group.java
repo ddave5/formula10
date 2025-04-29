@@ -1,5 +1,6 @@
 package hu.project.formula10.model;
 
+import hu.project.formula10.config.AuditLogListener;
 import hu.project.formula10.dto.GroupDTO;
 import hu.project.formula10.enums.GroupAvailability;
 import jakarta.persistence.*;
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
 @Table(name = "groups")
 @Getter
 @Setter
+@EntityListeners(AuditLogListener.class)
 public class Group {
 
     @Id

@@ -1,5 +1,6 @@
 package hu.project.formula10.model;
 
+import hu.project.formula10.config.AuditLogListener;
 import hu.project.formula10.dto.GroupMemberDTO;
 import hu.project.formula10.enums.GroupRole;
 import jakarta.persistence.*;
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 @Table(name = "group_members")
 @Getter
 @Setter
+@EntityListeners(AuditLogListener.class)
 public class GroupMember {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

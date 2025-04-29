@@ -2,7 +2,9 @@ package hu.project.formula10.model;
 
 import java.time.LocalDateTime;
 
+import hu.project.formula10.config.AuditLogListener;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -12,6 +14,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
+@EntityListeners(AuditLogListener.class)
 public class PasswordResetToken {
 
     @Id
