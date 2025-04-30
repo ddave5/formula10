@@ -24,6 +24,7 @@ export default defineConfig({
     rollupOptions: {
       input: path.resolve(__dirname, 'src/index.tsx'), 
     },
+    outDir: 'dist',
   },
   define: {
     'process.env': {},
