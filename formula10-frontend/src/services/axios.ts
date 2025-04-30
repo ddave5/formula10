@@ -5,7 +5,7 @@ import eventBus from './eventBus';
 
 // Axios instance létrehozása
 const apiClient = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:8080', 
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:8080', 
   headers: {
     'Content-Type': 'application/json',
   },
@@ -31,7 +31,7 @@ apiClient.interceptors.request.use(
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response && error.response.status > 400) {
+    if (error.response && error.response.status >= 400) {
       const message: string = error.response.data?.message || 'Error :(';
       const isDialog: boolean = error.response.data?.dialog ?? false;
 

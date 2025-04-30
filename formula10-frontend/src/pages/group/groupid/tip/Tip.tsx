@@ -103,7 +103,7 @@ const Tip = () => {
       setSelectedRaceType('');
       setPageLoading(false);
     } catch (error) {
-      eventBus.emit('error', {message: t('messages.unknownError'), isDialog: true});
+      eventBus.emit('error', {message: t('messages.errorUnknown'), isDialog: true});
     } finally {
       setPageLoading(false);
     }

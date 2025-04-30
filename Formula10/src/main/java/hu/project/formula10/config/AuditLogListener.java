@@ -14,7 +14,7 @@ public class AuditLogListener {
         auditService = service;
     }
 
-    @PostPersist
+    @PrePersist
     public void beforeCreate(Object entity) {
         auditService.logOperation(entity, "CREATE");
     }
@@ -29,3 +29,4 @@ public class AuditLogListener {
         auditService.logOperation(entity, "DELETE");
     }
 }
+

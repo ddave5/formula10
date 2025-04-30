@@ -91,4 +91,15 @@ public class GlobalExceptionHandler {
             "Token expired"));
     }
     
+    @ExceptionHandler(RaceClosedException.class)
+    public ResponseEntity<ErrorResponse> handleRaceClosedException(RaceClosedException e) {
+        log.error("Error: {}", e.getMessage());
+        return ResponseEntity
+        .status(HttpStatus.INTERNAL_SERVER_ERROR)
+        .body(new ErrorResponse(
+            HttpStatus.INTERNAL_SERVER_ERROR.value(), 
+            "Tip is closed during the grand prix.", 
+            true
+            ));
+    }
 }

@@ -28,29 +28,17 @@ public class TipController {
 
     @GetMapping("/{groupId}/{seasonId}/{raceId}/user/{userId}")
     public ResponseEntity<List<TipDTO>> getUserTips(@PathVariable Long userId, @PathVariable Long groupId, @PathVariable Long seasonId, @PathVariable Long raceId) {
-        try {
-            return ResponseEntity.ok(tipService.getUserTips(userId, groupId, seasonId, raceId));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(null);
-        }
+        return ResponseEntity.ok(tipService.getUserTips(userId, groupId, seasonId, raceId));
     }
 
     @PostMapping("")
     public ResponseEntity<TipDTO> createTip(@RequestBody TipDTO tipDTO) {
-        try {
-            return ResponseEntity.ok(tipService.createTip(tipDTO));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(null);
-        }
+        return ResponseEntity.ok(tipService.createTip(tipDTO));
     }
 
     @PutMapping("")
-    public ResponseEntity<Tip> updateTip(@RequestBody TipDTO tipDTO) {
-        try {
-            return ResponseEntity.ok(tipService.updateTip(tipDTO));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(null);
-        }
+    public ResponseEntity<TipDTO> updateTip(@RequestBody TipDTO tipDTO) throws Exception {
+        return ResponseEntity.ok(tipService.updateTip(tipDTO));
     }
 
     @DeleteMapping("/{id}")

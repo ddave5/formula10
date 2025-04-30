@@ -21,7 +21,7 @@ export const loginUser = createAsyncThunk(
     'auth/login',
     async (credentials: { usernameOrEmail: string; password: string, rememberMe: boolean}, { rejectWithValue }) => {
         try {
-            const response = await apiClient.post('/api/users/login', {
+            const response = await apiClient.post('/users/login', {
                 usernameOrEmail: credentials.usernameOrEmail,
                 password: credentials.password,
                 rememberMe: credentials.rememberMe
@@ -48,7 +48,7 @@ export const loadUserFromStorage = createAsyncThunk(
         try {
             const token = getToken();
             if (token) {
-                const response = await apiClient.get('/api/users/me', {
+                const response = await apiClient.get('/users/me', {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },

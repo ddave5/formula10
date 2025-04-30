@@ -2,11 +2,13 @@ package hu.project.formula10.service;
 
 import hu.project.formula10.dto.TipDTO;
 import hu.project.formula10.enums.TipType;
+import hu.project.formula10.exception.RaceClosedException;
 import hu.project.formula10.model.*;
 import hu.project.formula10.repository.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -71,8 +73,6 @@ public class TipService {
         tip.setCreatedAt(LocalDateTime.now());
         tip.setTipType(tipDTO.getTipType().equals("RACE") ? TipType.RACE : TipType.SPRINT);
 
-        tipRepository.save(tip);
-
         return tipRepository.save(tip).toDTO();
     }
 
@@ -88,7 +88,7 @@ public class TipService {
         return tips.stream().map(Tip::toDTO).collect(Collectors.toList());
     }
 
-    public Tip updateTip(TipDTO tipDTO) throws Exception {
+    public TipDTO updateTip(TipDTO tipDTO) throws SQLException{
         validateTipTimeWindow(tipDTO);
 
         Tip existingTip = tipRepository.findById(tipDTO.getId()).orElseThrow(() -> new RuntimeException("Tip not found"));
@@ -98,7 +98,7 @@ public class TipService {
         existingTip.setPredictedDriver(driver);
 
 
-        return tipRepository.save(existingTip);
+        return tipRepository.save(existingTip).toDTO();
     }
 
     public void deleteTip(Long id) {
@@ -117,21 +117,19 @@ public class TipService {
     }
 
 
-    private void validateTipTimeWindow(TipDTO TipDTO) throws Exception {
+    private void validateTipTimeWindow(TipDTO TipDTO) throws SQLException {
         Race race = raceRepository.findById(TipDTO.getRaceId())
-                              .orElseThrow(() -> new Exception("Race not found"));
+                              .orElseThrow(() -> new SQLException("Race not found"));
 
         ZonedDateTime now = ZonedDateTime.now();
 
         if (race.getSprintQualifyingStart() == null && race.getSprintRaceStart() == null) {
-            // Nincs sprint futam
             if (now.isAfter(race.getQualifyingStart()) && now.isBefore(race.getRaceStart().plusHours(4))) {
-                throw new Exception("Tips are closed for this race.");
+                throw new RaceClosedException("Tips are closed for this race.");
             }
         } else {
-            // Sprint futam van
             if (now.isAfter(race.getSprintQualifyingStart()) && now.isBefore(race.getRaceStart().plusHours(4))) {
-                throw new Exception("Tips are closed for this race.");
+                throw new RaceClosedException("Tips are closed for this race.");
             }
         }
     }

@@ -2,7 +2,7 @@ import apiClient from './axios';
 
 export const registerUser = async (userData: { username: string, email: string, password: string }) :Promise< Map<string, boolean>> => {
   try {
-    const response = await apiClient.post('/api/users', userData);
+    const response = await apiClient.post('/users', userData);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -12,7 +12,7 @@ export const registerUser = async (userData: { username: string, email: string, 
 
 export const checkUsernameAvailability = async (username: string) => {
   try {
-    const response = await apiClient.get(`/api/users/check-username?username=${username}`);
+    const response = await apiClient.get(`/users/check-username?username=${username}`);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -22,7 +22,7 @@ export const checkUsernameAvailability = async (username: string) => {
 
 export const checkEmailAvailability = async (email: string) => {
   try {
-    const response = await apiClient.get(`/api/users/check-email?email=${email}`);
+    const response = await apiClient.get(`/users/check-email?email=${email}`);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -32,7 +32,7 @@ export const checkEmailAvailability = async (email: string) => {
 
 export const changePasswordForUser = async (email: string, password: string) => {
   try {
-    const response = await apiClient.put("/api/users/changePassword", { email, newPassword: password });
+    const response = await apiClient.put("/users/changePassword", { email, newPassword: password });
     return response.data;
   } catch (error) {
     console.error(error);
@@ -42,7 +42,7 @@ export const changePasswordForUser = async (email: string, password: string) => 
 
 export const changeEmail = async (email: string, userId: number) => {
   try {
-    const response = await apiClient.put("/api/users/changeEmail", { email, userId: userId });
+    const response = await apiClient.put("/users/changeEmail", { email, userId: userId });
     return response.data;
   } catch (error) {
     console.error(error);
@@ -52,7 +52,7 @@ export const changeEmail = async (email: string, userId: number) => {
 
 export const checkOldPassword = async(oldPassword: string, userId: number) => {
   try {
-    const response = await apiClient.get(`/api/users/${userId}/checkOldPassword?oldPassword=${oldPassword}`);
+    const response = await apiClient.get(`/users/${userId}/checkOldPassword?oldPassword=${oldPassword}`);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -62,7 +62,7 @@ export const checkOldPassword = async(oldPassword: string, userId: number) => {
 
 export const deleteUserAccount = async (userId: number) => {
   try {
-    await apiClient.delete(`/api/users/${userId}`);
+    await apiClient.delete(`/users/${userId}`);
     return true;
   } catch (error) {
     console.error(error);
@@ -72,7 +72,7 @@ export const deleteUserAccount = async (userId: number) => {
 
 export const sendResetEmail = async (email: string) => {
   try {
-    const response = await apiClient.post("/api/users/request-password-reset", { email });
+    const response = await apiClient.post("/users/request-password-reset", { email });
     return response.data;
   } catch (error) {
     console.error("Error sending reset email", error);
@@ -82,7 +82,7 @@ export const sendResetEmail = async (email: string) => {
 
 export const resetPassword = async (token: string, newPassword: string) => {
   try {
-    const response = await apiClient.put("/api/users/reset-password", { token, newPassword });
+    const response = await apiClient.put("/users/reset-password", { token, newPassword });
     return response.data;
   } catch (error) {
     console.error("Error resetting password", error);
@@ -92,7 +92,7 @@ export const resetPassword = async (token: string, newPassword: string) => {
 
 export const validateResetToken = async (token: string) => {
   try {
-    const response = await apiClient.get(`/api/users/validate-token/${token}`);
+    const response = await apiClient.get(`/users/validate-token/${token}`);
     return response.data; // Akkor is hasznos lehet, ha valamilyen meta adatot is visszaad a backend
   } catch (error) {
     console.error("Token validation failed", error);

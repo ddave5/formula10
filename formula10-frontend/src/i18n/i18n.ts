@@ -2,22 +2,25 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
+import enTranslation from './en.json';
+import huTranslation from './hu.json';
+
 i18n
     .use(LanguageDetector)
     .use(initReactI18next)
     .init({
         resources: {
         en: {
-            translation: require('./en.json')
+            translation: enTranslation
         },
         hu: {
-            translation: require('./hu.json')
+            translation: huTranslation
         },
         },
-        lng: 'hu', // alapértelmezett nyelv
+        lng: 'hu', 
         fallbackLng: 'en',
         interpolation: {
-        escapeValue: false, // React már biztonságosan kezeli a kódokat
+        escapeValue: false, 
         },
     });
 

@@ -27,7 +27,7 @@ public class AuditService {
         log.setOperation(operation);
         log.setTimestamp(LocalDateTime.now());
 
-        auditLogRepository.save(log);
+        auditLogRepository.saveAndFlush(log);
     }
 
     private String getEntityId(Object entity) {
