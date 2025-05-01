@@ -65,10 +65,7 @@ const ThemeToggle = () => {
   
 
   return (
-    <FormControlLabel
-        control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked={defaultChecked}  onChange={toggleTheme}/>}
-        label="MUI switch"
-      />
+    <MaterialUISwitch sx={{ m: 1 }} defaultChecked={defaultChecked}  onChange={toggleTheme}/>
   );
 };
 
