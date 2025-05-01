@@ -14,7 +14,7 @@ const apiClient = axios.create({
 // Interceptor hozzáadása az összes kéréshez
 apiClient.interceptors.request.use(
   (config) => {
-    
+    console.log(import.meta.env.VITE_API_URL)
     const token = getToken();
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
