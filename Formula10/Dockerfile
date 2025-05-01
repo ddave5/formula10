@@ -7,7 +7,6 @@ RUN mvn clean package -DskipTests
 
 FROM eclipse-temurin:21-jre
 WORKDIR /app
-
 COPY --from=builder /build/target/Formula10-0.0.1-SNAPSHOT.war app.war
 EXPOSE 8080
 

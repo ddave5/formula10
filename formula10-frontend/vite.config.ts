@@ -23,7 +23,7 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      input: path.resolve(__dirname, 'src/index.tsx'), 
+      input: path.resolve(__dirname, 'src/index.html'), 
     },
     outDir: 'dist',
   },
