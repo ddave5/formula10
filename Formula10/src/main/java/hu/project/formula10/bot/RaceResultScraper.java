@@ -26,8 +26,7 @@ public class RaceResultScraper {
 
         Document doc = Jsoup.connect(url).get();
 
-        List<Element> rows = doc.select("tr");
-        rows.remove(0);
+        List<Element> rows = doc.getElementsByClass("f1-table").select("tbody").select("tr");
 
         int index = 1;
         for (Element row : rows) {

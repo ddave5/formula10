@@ -179,7 +179,9 @@
     "chooseDriver": "Choose Driver!",
     "sprint": "Sprint",
     "race": "Race",
-    "saveTip": "Submit tip"
+    "saveTip": "Submit tip",
+    "bettingClosedTitle": "You can't bet!",
+    "bettingClosedDescription": "The current grand prix has already started, please come back later!"
   },
   "manageGroup": {
     "manageGroup": "Manage group",

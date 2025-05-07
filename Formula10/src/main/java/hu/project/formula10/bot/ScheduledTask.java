@@ -52,7 +52,6 @@ public class ScheduledTask {
     public void updateStandings() throws IOException {
 
         Race prevRace = raceService.getPreviousRace().orElse(null);
-
         if (prevRace != null) {
             int nextDay = prevRace.getRaceStart().plusDays(1).getDayOfYear();
             if (nextDay == ZonedDateTime.now().getDayOfYear()) {

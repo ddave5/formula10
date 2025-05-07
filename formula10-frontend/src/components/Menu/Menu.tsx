@@ -50,7 +50,9 @@ const Menu = (
                         <Link to={`/groups/${group?.id}/tip`} className={`${menuElementStyle} mb-1`} key='tip'><TiPencil /> {t('groupDetailsMenu.tip')} </Link>
                         <Link to={`/groups/${group?.id}/standing`} className={`${menuElementStyle} mb-1`} key='standing'><AiOutlineTrophy /> {t('groupDetailsMenu.standing')} </Link>
                         <Link to={`/groups/${group?.id}/members`} className={`${menuElementStyle} mb-1`} key='members'><GrGroup /> {t('groupDetailsMenu.members')} </Link>
-                        <Link to={`/groups/${group?.id}/archive`} className={`${menuElementStyle} mb-1`} key='archive'><FaBoxArchive /> {t('groupDetailsMenu.archive')} </Link>
+                        {/* TODO: Update it when a season ends
+                        <Link to={`/groups/${group?.id}/archive`} className={`${menuElementStyle} mb-1`} key='archive'><FaBoxArchive /> {t('groupDetailsMenu.archive')} </Link> 
+                        */}
                         { authority && authority === 'ADMIN' && (
                             <Link to={`/groups/${group?.id}/manage`} className={`${menuElementStyle} mb-1`} key='manage'><IoMdSettings /> {t('groupDetailsMenu.manageGroup')} </Link>
                         )}

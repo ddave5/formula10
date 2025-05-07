@@ -179,7 +179,9 @@
     "chooseDriver": "Válassz pilótát!",
     "sprint": "Sprint",
     "race": "Futam",
-    "saveTip": "Tipp leadás"
+    "saveTip": "Tipp leadás",
+    "bettingClosedTitle": "Nem tudsz leadni tippet!",
+    "bettingClosedDescription": "Jelenleg a versenyhétvége tart, kérjük térjen vissza később!"
   },
   "manageGroup": {
     "manageGroup": "Csoport kezelése",

@@ -37,7 +37,6 @@ public class GroupService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @Transactional
     public GroupDTO createGroup(String name, String rawPassword, Long userId) {
         log.info("Create group with name: {}", name);
         if (groupRepository.existsByName(name)) {
@@ -50,16 +49,20 @@ public class GroupService {
         group.setCreatedAt(LocalDate.now());
         group.setAvailability(rawPassword == null || rawPassword.equals("") ? GroupAvailability.PUBLIC : GroupAvailability.PRIVATE);
 
+        Group savedGroup = groupRepository.save(group);
+
         log.info("Create group member with id: {}", userId);
         GroupMember groupMember = new GroupMember();
         groupMember.setUser(userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not found")));
         groupMember.setRole(GroupRole.ADMIN);
         groupMember.setJoinDate(LocalDate.now());
-        groupMember.setGroup(group);
+        groupMember.setGroup(savedGroup);
 
-        group.getMembers().add(groupMember);
+        groupMemberRepository.save(groupMember);
 
-        return groupRepository.save(group).toDTO();
+        savedGroup.getMembers().add(groupMember);
+
+        return groupRepository.save(savedGroup).toDTO();
     }
 
     public GroupDTO getGroupById(Long id) {
