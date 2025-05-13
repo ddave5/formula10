@@ -2,7 +2,7 @@ package hu.project.formula10.model;
 
 import java.time.LocalDateTime;
 
-import hu.project.formula10.config.AuditLogListener;
+import hu.project.formula10.config.audit.AuditLogListener;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;

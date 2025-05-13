@@ -1,7 +1,6 @@
 package hu.project.formula10.controller;
 
 import hu.project.formula10.dto.TipDTO;
-import hu.project.formula10.model.Tip;
 import hu.project.formula10.service.TipService;
 
 import java.util.List;

@@ -5,6 +5,7 @@ import hu.project.formula10.enums.TipType;
 import hu.project.formula10.exception.RaceClosedException;
 import hu.project.formula10.model.*;
 import hu.project.formula10.repository.*;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -88,6 +89,7 @@ public class TipService {
         return tips.stream().map(Tip::toDTO).collect(Collectors.toList());
     }
 
+    @Transactional
     public TipDTO updateTip(TipDTO tipDTO) throws SQLException{
         validateTipTimeWindow(tipDTO);
 

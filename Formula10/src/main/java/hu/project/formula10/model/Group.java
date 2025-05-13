@@ -1,6 +1,6 @@
 package hu.project.formula10.model;
 
-import hu.project.formula10.config.AuditLogListener;
+import hu.project.formula10.config.audit.AuditLogListener;
 import hu.project.formula10.dto.GroupDTO;
 import hu.project.formula10.enums.GroupAvailability;
 import jakarta.persistence.*;

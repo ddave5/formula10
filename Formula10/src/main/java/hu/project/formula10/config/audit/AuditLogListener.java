@@ -1,7 +1,6 @@
-package hu.project.formula10.config;
+package hu.project.formula10.config.audit;
 
 import hu.project.formula10.service.AuditService;
-import jakarta.persistence.PostPersist;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreRemove;
 import jakarta.persistence.PreUpdate;
@@ -16,17 +15,17 @@ public class AuditLogListener {
 
     @PrePersist
     public void beforeCreate(Object entity) {
-        auditService.logOperation(entity, "CREATE");
+        auditService.publishAuditEvent(entity, "CREATE");
     }
 
     @PreUpdate
     public void beforeUpdate(Object entity) {
-        auditService.logOperation(entity, "UPDATE");
+        auditService.publishAuditEvent(entity, "UPDATE");
     }
 
     @PreRemove
     public void beforeDelete(Object entity) {
-        auditService.logOperation(entity, "DELETE");
+        auditService.publishAuditEvent(entity, "DELETE");
     }
 }
 

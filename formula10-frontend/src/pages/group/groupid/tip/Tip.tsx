@@ -44,47 +44,48 @@ const Tip = () => {
         const driverList = await getDriverList();
         const nextRace = await getNextRace();
         const tips = await getUserTips(user?.id || 0, +location.pathname.split('/')[2], nextRace?.seasonId || 0, nextRace?.id || 0);
+
         setDrivers(driverList);
         setRace(nextRace);
         setPreviousTips(tips);
 
-        if (nextRace) {
-          console.log(nextRace?.sprintQualifyingStart)
-          console.log(new Date(nextRace?.qualifyingStart).getTime() < new Date().getTime() && 
-          (new Date(nextRace.raceStart).getTime() + 4*60*60*1000 ) > new Date().getTime())
+        if (nextRace && (!nextRace?.sprintQualifyingStart || !nextRace?.sprintRaceStart)) {
+          setSelectedRaceType(RACE);
+        }
 
-          if (nextRace?.sprintQualifyingStart !== null && nextRace?.sprintQualifyingStart !== undefined) {
-            setIsBettingDisabled(
-              new Date(nextRace.sprintQualifyingStart).getTime() < new Date().getTime() && 
-              (new Date(nextRace.raceStart).getTime() + 4*60*60*1000 ) > new Date().getTime());
-          } else {
-            setIsBettingDisabled(
-              new Date(nextRace?.qualifyingStart).getTime() < new Date().getTime() && 
-              (new Date(nextRace.raceStart).getTime() + 4*60*60*1000 ) > new Date().getTime());
-          }
+        if (nextRace) {
+          const now = new Date().getTime();
+          const raceStart = new Date(nextRace.raceStart).getTime();
+          const sprintStart = nextRace?.sprintQualifyingStart ? new Date(nextRace.sprintQualifyingStart).getTime() : null;
+          const qualifyingStart = new Date(nextRace.qualifyingStart).getTime();
+  
+          const raceWindow = raceStart + 4 * 60 * 60 * 1000;
+  
+          const isSprintWeekend = sprintStart !== null && sprintStart !== undefined;
+          const isClosed = isSprintWeekend
+            ? sprintStart < now && raceWindow > now
+            : qualifyingStart < now && raceWindow > now;
+  
+          setIsBettingDisabled(isClosed);
         }
         
-        if (tips.length > 0) {
-          for (const tip of tips) {
-            const tipDriver = driverList.find((driver: DriverDTO) => driver.id === tip.driverId);
-        
-            if (tip.tipType === SPRINT) {
-              setSelectedDriverForSprint(tipDriver ?? null);
-            } else {
-              setSelectedDriverForRace(tipDriver ?? null);
-            }
+        for (const tip of tips) {
+          const tipDriver = driverList.find( (driver: DriverDTO) => driver.id === tip.driverId);
+          if (tip.tipType === SPRINT) {
+            setSelectedDriverForSprint(tipDriver ?? null);
+          } else {
+            setSelectedDriverForRace(tipDriver ?? null);
           }
         }
         setPageLoading(false);
 
-        if (race?.sprintQualifyingStart === undefined) setSelectedRaceType(RACE);
       } catch (error) {
         eventBus.emit('error', {message: t('messages.errorUnknown'), isDialog: true});
         setPageLoading(false);
       }
     };
     fetchDatas();
-  }, [location.pathname,race?.sprintQualifyingStart, user?.id, t]);
+  }, [location.pathname, user?.id, t]);
 
   
 
@@ -99,68 +100,55 @@ const Tip = () => {
   const saveTip = async () => {
     try {
       setPageLoading(true);
+  
+      const selectedDriverId = selectedRaceType === SPRINT
+        ? selectedDriverForSprint?.id
+        : selectedDriverForRace?.id;
+  
+      if (!selectedDriverId) return;
+  
+      const existingTip = previousTips.find(t =>
+        t.userId === user?.id &&
+        t.seasonId === race?.seasonId &&
+        t.raceId === race?.id &&
+        t.tipType === (selectedRaceType === SPRINT ? 'SPRINT' : 'RACE')
+      );
+  
+      if (existingTip) {
+        const updatedTip: TipDTO = {
+          ...existingTip,
+          driverId: selectedDriverId,
+          createdAt: new Date().toISOString()
+        };
+        const savedTip = await updateTip(existingTip.id, updatedTip);
+  
+        const updatedTips = previousTips.map(t => t.id === savedTip.id ? savedTip : t);
+        setPreviousTips(updatedTips);
 
-      let isSaved = false;
-      const prevTips: TipDTO[] = [];
+      } else {
+        const newTip: TipDTO = {
+          id: 0,
+          userId: user?.id || 0,
+          groupId: +location.pathname.split('/')[2],
+          seasonId: race?.seasonId || 0,
+          raceId: race?.id || 0,
+          driverId: selectedDriverId,
+          tipType: selectedRaceType,
+          createdAt: new Date().toISOString()
+        };
 
-      if (previousTips.length > 0) {
-
-        previousTips.map( async (tip) => {
-          if (tip.tipType === selectedRaceType) {
-            isSaved = true;
-            const savedTip = await modifyTip(tip);
-            prevTips.push(savedTip);
-          } else {
-            prevTips.push(tip);
-          }
-        });
+        const savedTip = await createTip(newTip);
+        setPreviousTips([...previousTips, savedTip]);
       }
-
-      if (!isSaved) {
-        await createNewTip();
-      }
-
-      setPreviousTips(prevTips);
+  
       eventBus.emit('success', { message: t('messages.successTip') });
       setSelectedRaceType('');
-      setPageLoading(false);
     } catch (error) {
-      eventBus.emit('error', {message: t('messages.errorUnknown'), isDialog: true});
+      eventBus.emit('error', { message: t('messages.errorUnknown'), isDialog: true });
     } finally {
       setPageLoading(false);
     }
-    
-  }
-
-  const modifyTip = async (prevTip: TipDTO) => {
-    const tip =  {
-      id: prevTip?.id,
-      userId: prevTip?.userId ,
-      groupId: prevTip?.groupId,
-      seasonId: prevTip?.seasonId ,
-      raceId: prevTip?.raceId,
-      driverId: selectedRaceType === SPRINT ? selectedDriverForSprint?.id || 0 : selectedDriverForRace?.id || 0,
-      createdAt: new Date().toISOString(),
-      tipType: selectedRaceType ? selectedRaceType : RACE
-    }
-    const savedTip = await updateTip(prevTip?.id, tip);
-    return savedTip;
-  }
-
-  const createNewTip = async () => {
-    const tip =  {
-      id: 0,
-      userId: user?.id || 0,
-      groupId: +location.pathname.split('/')[2],
-      seasonId: race?.seasonId || 0,
-      raceId: race?.id || 0,
-      driverId: selectedRaceType === SPRINT ? selectedDriverForSprint?.id || 0 : selectedDriverForRace?.id || 0,
-      createdAt: new Date().toISOString(),
-      tipType: selectedRaceType ? selectedRaceType : RACE
-    }
-    const savedTip = await createTip(tip);
-    return savedTip;
-  }
+  };
 
   if (pageLoading) {
     return <Loading isLoading={pageLoading} />
@@ -186,26 +174,23 @@ const Tip = () => {
       )}
       {!isBettingDisabled && (
         <>
-          {
-            race?.sprintQualifyingStart && (
+          {race?.sprintQualifyingStart && race?.sprintRaceStart && !isBettingDisabled && (
               <div className='w-full flex flex-col justify-center items-center my-4'>
-                <h2 className='text-2xl'> {t('tip.chooseType')} </h2>
+                <h2 className='text-2xl'>{t('tip.chooseType')}</h2>
                 <div className='mt-4 w-full flex justify-center'>
-                  <Button 
-                    variant={selectedRaceType === SPRINT ? 'contained' : 'outlined'} 
+                  <Button
+                    variant={selectedRaceType === SPRINT ? 'contained' : 'outlined'}
                     onClick={() => setSelectedRaceType(SPRINT)}
-                    sx={{
-                      marginRight: '2rem', 
-                      backgroundColor: selectedRaceType === SPRINT ? '#1976d2' : 'transparent', 
-                      color: selectedRaceType === SPRINT ? '#fff' : '#1976d2'
-                    }}> {t('tip.sprint')}</Button>
-                  <Button 
+                    sx={{ marginRight: '2rem' }}
+                  >
+                    {t('tip.sprint')}
+                  </Button>
+                  <Button
                     variant={selectedRaceType === RACE ? 'contained' : 'outlined'}
                     onClick={() => setSelectedRaceType(RACE)}
-                    sx={{ 
-                      backgroundColor: selectedRaceType === RACE ? '#1976d2' : 'transparent', 
-                      color: selectedRaceType === RACE ? '#fff' : '#1976d2'
-                    }}> {t('tip.race')}</Button>
+                  >
+                    {t('tip.race')}
+                  </Button>
                 </div>
               </div>
             )
