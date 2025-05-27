@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getDriverList } from '../../../../services/driver.service';
+import { getActiveDriverList } from '../../../../services/driver.service';
 import { getNextRace } from '../../../../services/race.service';
 import type { RaceDTO } from '../../../../dto/race.dto';
 import DriverCard from './driver-card/DriverCard';
@@ -14,7 +14,6 @@ import { Button, Card, CardContent, CardHeader, LinearProgress } from '@mui/mate
 import { useTranslation } from 'react-i18next';
 import eventBus from '../../../../services/eventBus';
 import { RiTimeLine } from "react-icons/ri";
-import { useTheme } from '../../../../layout/navbar/Theme/ThemeContext';
 
 const Tip = () => {
 
@@ -36,12 +35,11 @@ const Tip = () => {
   const location = useLocation();
 
   const { t } = useTranslation();
-  const {theme} = useTheme();
 
   useEffect(() => {
     const fetchDatas = async () => {
       try {
-        const driverList = await getDriverList();
+        const driverList = await getActiveDriverList();
         const nextRace = await getNextRace();
         const tips = await getUserTips(user?.id || 0, +location.pathname.split('/')[2], nextRace?.seasonId || 0, nextRace?.id || 0);
 

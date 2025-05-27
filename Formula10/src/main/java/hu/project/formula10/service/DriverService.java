@@ -24,6 +24,13 @@ public class DriverService {
                 .map(Driver::toDTO).sorted((o1, o2) -> o1.getName().compareTo(o2.getName())).toList();
     }
 
+    public List<DriverDTO> getAllActiveDrivers() {
+        log.info("Fetching all active drivers");
+        return driverRepository.findAllActive().stream()
+                .map(Driver::toDTO).sorted((o1, o2) -> o1.getName().compareTo(o2.getName())).toList();
+    }
+
+
     public DriverDTO getDriverById(Long id) {
         log.info("Fetching driver by id: {}", id);
         return driverRepository.findById(id).map(Driver::toDTO).orElse(null);

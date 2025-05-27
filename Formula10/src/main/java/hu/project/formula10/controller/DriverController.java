@@ -22,6 +22,11 @@ public class DriverController {
         return ResponseEntity.ok(driverService.getAllDrivers());
     }
 
+    @GetMapping("/active")
+    public ResponseEntity<List<DriverDTO>> getAllActiveDrivers() {
+        return ResponseEntity.ok(driverService.getAllActiveDrivers());
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<DriverDTO> getDriverById(@PathVariable Long id) {
         return ResponseEntity.ok(driverService.getDriverById(id));

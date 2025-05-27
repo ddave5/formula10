@@ -25,7 +25,10 @@ public class Driver {
     @Column(name = "race_number")
     private Integer raceNumber;
 
+    @Column(name = "is_active")
+    private Boolean isActive = true;
+
     public DriverDTO toDTO() {
-        return new DriverDTO(this.getId(), this.getName(), this.getConstructor().getId(), this.getConstructor().getName(), this.getRaceNumber());
+        return new DriverDTO(this.getId(), this.getName(), this.getConstructor().getId(), this.getConstructor().getName(), this.getRaceNumber(), this.isActive);
     }
 }

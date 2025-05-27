@@ -16,4 +16,5 @@ public class DriverDTO {
     private Long constructorId;
     private String constructorName;
     private Integer raceNumber;
+    private boolean isActive;
 }
